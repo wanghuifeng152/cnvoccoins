@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/back"
+        android:layout_margin="10dp"/>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/color_73"
+        android:text="VOC－vocal chain"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_voice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:text="@string/voice_link"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/color_73"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_voice"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/color_73"
+        android:text="@string/info"/>
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_cash_in"
+        android:layout_below="@id/tv_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        />
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_logo"
+        android:textColor="@color/color_73"
+        android:text="@string/info_guide"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/iv_back"
+        android:layout_marginTop="10dp"
+        android:src="@mipmap/img_info"/>
+</RelativeLayout>

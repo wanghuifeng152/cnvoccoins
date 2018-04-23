@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">VocalChain</string>
+    <string name="coin_read">清晰、语速均匀地念出下面的文字</string>
+    <string name="your_rank">你所在的排名是：\n</string>
+    <string name="rank">排行榜</string>
+    <string name="voice_link">语音链</string>
+    <string name="info">&#160;&#160;VOC语音链致力于打造世界领先的语音人工智能训练系统。\n&#160;&#160;打破长久以来语音AI，识别率低，理解力差，缺乏小语种数据库等缺陷。\n&#160;&#160;加入语音链的AI训练师通过自己的声音完善数据库，同时得到语音链的token。\n&#160;&#160;VOC将为步入语音人工智能时代的各大企业，提供全球化语音AI解决方案。随着数据库的丰富，VOC的价值会愈加增长，成为各方接入语音人工智能时代的通信证。</string>
+    <string name="info_guide">请摁下键，跟随屏幕中间出现的蓝色字，开始训练师的旅程吧！</string>
+    <string name="mobile_input">绑定手机号&#160;&#160;&#160;(登录)</string>
+    <string name="email_input">绑定邮箱&#160;&#160;&#160;(登录)</string>
+    <string name="copy">点击复制，邀请好友得100枚voc！</string>
+    <string name="copy_into">点击保存图片到相册</string>
+    <string name="offical_name">公共号：vocalchain</string>
+    <string name="input_true">请保证输入正确</string>
+    <string name="remember">请务必牢记</string>
+    <string name="input_invite_code">邀请码（选填）</string>
+    <string name="info_hint">注意：  请务必牢记账号和密码\n否则将无法找回账户和挖币数据</string>
+    <string name="seven_register">7秒注册，开始挖矿！</string>
+    <string name="login_id">登录地址：%1s</string>
+    <string name="invite_code">邀请码：%1d</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="invite_text">邀请您加入VOC语音链参与共建全球语音库,邀请码:%1d,输入邀请码有100C币可以拿哦,赶快加入吧~https://www.pgyer.com/cCvg</string>
+
+
+    <string-array name="voice_text">
+        <item>这是我加入语音链的第一天。</item>
+        <item>我将帮助VOC建立全球语音数据库</item>
+        <item>我将参与保护小语种计划，贡献自己的乡音</item>
+        <item>我会成为语音链的使者，邀请更多训练师，共创梦想</item>
+        <item>《再别康桥》（徐志摩）</item>
+        <item>轻轻的我走了，</item>
+        <item>正如我轻轻的来；</item>
+        <item>我轻轻的招手，</item>
+        <item>作别西天的云彩。</item>
+        <item>那河畔的金柳，</item>
+        <item>是夕阳中的新娘；</item>
+        <item>波光里的艳影，</item>
+        <item>在我的心头荡漾。</item>
+        <item>软泥上的青荇（xing），</item>
+        <item>油油的在水底招摇；</item>
+        <item>在康河的柔波里，</item>
+        <item>我甘心做一条水草！</item>
+        <item>那榆荫下的一潭，</item>
+        <item>不是清泉，是天上虹</item>
+        <item>揉碎在浮藻间，</item>
+        <item>沉淀着彩虹似的梦。</item>
+        <item>寻梦？撑一支长蒿，</item>
+        <item>向青草更青处漫溯，</item>
+        <item>满载一船星辉，</item>
+        <item>在星辉斑斓里放歌。</item>
+        <item>但我不能放歌，</item>
+        <item>悄悄是别离的笙箫；</item>
+        <item>夏虫也为我沉默，</item>
+        <item>沉默是今晚的康桥！</item>
+        <item>悄悄的我走了，</item>
+        <item>正如我悄悄的来；</item>
+        <item>我挥一挥衣袖，</item>
+        <item>不带走一片云彩。</item>
+    </string-array>
+</resources>

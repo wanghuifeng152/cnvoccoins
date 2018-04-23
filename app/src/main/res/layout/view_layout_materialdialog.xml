@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/material_background"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white"
+    android:paddingBottom="15dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="15dp">
+
+    <TextView
+        android:id="@+id/md_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/md_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/md_title"
+        android:layout_marginTop="15dp"
+        android:lineSpacingExtra="3dp"
+        android:maxEms="14"
+        android:textColor="@color/color_73"
+        android:textSize="18sp"
+        tools:text="上飞机老苏交了积累少就斐林试剂手机铃声铃声积累少解放路上铃声老司机廊坊市附近洛杉矶了" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/md_message"
+        android:layout_marginTop="45dp"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/md_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:alpha="0.54"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/cancel"
+            android:textColor="@color/color_a8"
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/md_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="5dp"
+            android:text="@string/confirm"
+            android:textColor="@color/color_73"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>
+

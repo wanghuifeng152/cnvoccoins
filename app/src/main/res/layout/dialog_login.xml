@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/transparent">
+
+    <LinearLayout
+        android:id="@+id/rl_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_white">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_group"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:src="@mipmap/head" />
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_head"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/tv_mobile_dialog"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_id"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_orange"
+            android:drawableLeft="@mipmap/ic_toast_success"
+            android:drawablePadding="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:hint="@string/mobile_input" />
+
+        <TextView
+            android:id="@+id/tv_email_dialog"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_mobile_dialog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_orange"
+            android:drawableLeft="@mipmap/ic_toast_success"
+            android:drawablePadding="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            android:hint="@string/email_input" />
+
+        <TextView
+            android:id="@+id/tv_userid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/tv_id"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"/>
+
+        <TextView
+            android:id="@+id/tv_seven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_email_dialog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/seven_register"
+            android:textColor="@color/color_green" />
+        <TextView
+            android:id="@+id/tv_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_userid"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:text="@string/invite_code"
+            android:textColor="@color/color_green" />
+
+        <TextView
+            android:id="@+id/tv_copy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_invite"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/copy"
+            android:textColor="@color/color_73"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_group"
+            android:layout_width="140dp"
+            android:layout_height="180dp"
+            android:layout_below="@id/tv_copy"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:src="@mipmap/ic_group" />
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_copy_into"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/copy_into"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_73"
+            android:layout_below="@id/iv_group"/>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_common"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offical_name"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_a8"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:layout_below="@id/tv_copy_into"/>
+    </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/bg_round_white"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/rl_login"
+        android:text="╳"/>
+
+</RelativeLayout>
