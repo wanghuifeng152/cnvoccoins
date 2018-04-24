@@ -21,10 +21,10 @@ import voc.cn.cnvoccoin.util.YHLog
 /**
  * Created by shy on 2018/3/24.
  */
-class RankFragment : Fragment() {
+class HomeFragment : Fragment() {
     var mRvRank: RecyclerView? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater?.inflate(R.layout.fragment_rank, container, false)
+        var view = inflater?.inflate(R.layout.fragment_home, container, false)
         initView(view)
         return view
     }
@@ -44,7 +44,8 @@ class RankFragment : Fragment() {
     }
 
     private fun getRank() {
-        HttpManager.get(RANK_URL).subscribe(object : Subscriber<String> {
+        val hashMap = hashMapOf<String, String>()
+        HttpManager.get(RANK_URL,hashMap).subscribe(object : Subscriber<String> {
             override fun onComplete() {
 
             }

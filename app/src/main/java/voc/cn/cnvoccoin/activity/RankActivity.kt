@@ -20,7 +20,7 @@ import voc.cn.cnvoccoin.view.LoadingDialog
 class RankActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_rank)
+//        setContentView(R.layout.fragment_rank)
         initView()
         getRank()
     }

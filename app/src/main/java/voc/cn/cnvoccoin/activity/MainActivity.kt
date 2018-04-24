@@ -31,7 +31,7 @@ import voc.cn.cnvoccoin.dialog.LoginDialog
 import voc.cn.cnvoccoin.dialog.REGISTER
 import voc.cn.cnvoccoin.entity.MyCoinResponse
 import voc.cn.cnvoccoin.entity.VoiceTextBean
-import voc.cn.cnvoccoin.fragment.RankFragment
+import voc.cn.cnvoccoin.fragment.HomeFragment
 import voc.cn.cnvoccoin.fragment.VoiceFragment
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
@@ -67,14 +67,14 @@ class MainActivity : BaseActivity() {
         EventBus.getDefault().register(this)
 //        requestWindowFeature(Window.FEATURE_NO_TITLE)
 //        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.fragment_voice)
-//        initViewPager()
-//        initRadioButton()
+        setContentView(R.layout.activity_main)
+        initViewPager()
+        initRadioButton()
         requestPermission()
         checkVersion()
-        showRegisterDialog()
-        getVoiceList()
-        initView()
+//        showRegisterDialog()
+//        getVoiceList()
+//        initView()
     }
 
     private fun checkVersion() {
@@ -339,7 +339,7 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        iv_voice.setOnTouchListener { v, event ->
+        iv_voice?.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     oldTime = System.currentTimeMillis()
@@ -456,9 +456,8 @@ class MainActivity : BaseActivity() {
 
     private fun initViewPager() {
         var fragmentLists: ArrayList<Fragment> = arrayListOf()
-        fragmentLists.add(RankFragment())
+        fragmentLists.add(HomeFragment())
         fragmentLists.add(VoiceFragment())
-//        fragmentLists.add(UserFragment())
         val adapter = ViewPagerAdapter(supportFragmentManager, fragmentLists)
         vp_coin.adapter = adapter
 
