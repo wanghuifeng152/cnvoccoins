@@ -26,6 +26,12 @@
     <string name="voice_coin">语音挖币</string>
     <string name="news">最新资讯</string>
     <string name="gift_up">上榜即可获得1000VOC奖励</string>
+    <string name="user_info">个人中心</string>
+    <string name="login_now">立即登录</string>
+    <string name="my_assets">我的资产</string>
+    <string name="login_see">登录后可见</string>
+    <string name="basic_target">基础任务</string>
+    <string name="more">更多</string>
 
     <string-array name="voice_text">
         <item>这是我加入语音链的第一天。</item>

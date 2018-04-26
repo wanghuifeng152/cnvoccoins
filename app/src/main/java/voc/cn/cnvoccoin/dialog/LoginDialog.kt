@@ -86,7 +86,7 @@ class LoginDialog : Dialog {
                 val id = PreferenceUtil.instance?.getInt(USER_ID)
                 if (id != null) {
                     view.tv_id.visibility = View.VISIBLE
-                    view.tv_id.text = "ID:" + id
+                    view.tv_id.text = "ID:$id"
                     view.tv_invite.text = String.format(mContext.resources.getString(R.string.invite_code, id))
                 }
 

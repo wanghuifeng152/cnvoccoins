@@ -32,6 +32,7 @@ import voc.cn.cnvoccoin.dialog.REGISTER
 import voc.cn.cnvoccoin.entity.MyCoinResponse
 import voc.cn.cnvoccoin.entity.VoiceTextBean
 import voc.cn.cnvoccoin.fragment.HomeFragment
+import voc.cn.cnvoccoin.fragment.UserFragment
 import voc.cn.cnvoccoin.fragment.VoiceFragment
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
@@ -457,7 +458,7 @@ class MainActivity : BaseActivity() {
     private fun initViewPager() {
         var fragmentLists: ArrayList<Fragment> = arrayListOf()
         fragmentLists.add(HomeFragment())
-        fragmentLists.add(VoiceFragment())
+        fragmentLists.add(UserFragment())
         val adapter = ViewPagerAdapter(supportFragmentManager, fragmentLists)
         vp_coin.adapter = adapter
 

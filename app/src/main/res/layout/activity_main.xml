@@ -27,16 +27,28 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableBottom="@mipmap/icon_dollar"
+            android:drawableTop="@mipmap/icon_home_shouye"
+            android:text="首页"
+            android:textSize="12sp"
+            android:textColor="@color/color_b9854f"
             android:gravity="center"/>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:background="@color/color_b9854f"/>
         <RadioButton
             android:id="@+id/radioButton_voice"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableBottom="@mipmap/dollar"
+            android:drawableTop="@mipmap/icon_home_my"
+            android:textSize="12sp"
+            android:text="我的"
+            android:textColor="@color/color_b9854f"
             android:gravity="center"/>
 
         <RadioButton
