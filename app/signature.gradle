@@ -1,0 +1,19 @@
+ext {
+    storeFilePath = ""
+    keyStorePasswordValue = ""
+    keyPasswordValue = ""
+    alias="voc"
+}
+
+loadProperites()
+
+def loadProperites(){
+    def proFile = file("../local.properties")
+    Properties p = new Properties()
+    proFile.withDataInputStream {
+        stream -> p.load(stream)
+    }
+    storeFilePath = p.storePath
+    keyStorePasswordValue = p.storePassword
+    keyPasswordValue = p.keyPassword
+}

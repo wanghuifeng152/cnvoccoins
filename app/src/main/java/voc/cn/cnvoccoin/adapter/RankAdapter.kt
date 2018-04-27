@@ -27,16 +27,15 @@ class RankAdapter(var mContext: Context, var data: List<DataBean>) : RecyclerVie
     override fun onBindViewHolder(holder: RankViewHolder?, position: Int) {
         data?.let {
             var dataBean = data[position]
-            holder?.mTvName?.text = (position + 1).toString()+"."+dataBean.user_nickname
-            holder?.mTvVoc?.text = dataBean.voc_coin.toString()
-            holder?.mTvVocToday?.text = dataBean.voc_coin.toString()
+            holder?.mTvName?.text = dataBean.user_nickname
+            holder?.mTvVocToday?.text = dataBean.voc_coin
+
         }
     }
 
     class RankViewHolder(view: View?) : RecyclerView.ViewHolder(view) {
         var mTvName = view?.findViewById<TextView>(R.id.tv_name)
         var mTvVocToday = view?.findViewById<TextView>(R.id.tv_today_voc)
-        var mTvVoc = view?.findViewById<TextView>(R.id.tv_voc)
 
     }
 

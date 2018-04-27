@@ -64,10 +64,7 @@ class HomeFragment : Fragment() {
 
             override fun onError(t: Throwable?) {
             }
-
         })
-
-
     }
 
     private fun setRankModel(data: List<DataBean>) {
