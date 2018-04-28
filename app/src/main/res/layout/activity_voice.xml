@@ -5,121 +5,35 @@
     android:background="@color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical">
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/tv_bar"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:background="@color/color_a8"
-        android:gravity="center"/>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/color_gray"
-        android:layout_gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@mipmap/icon_dollar"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"/>
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@mipmap/bgc_black">
         <TextView
-            android:id="@+id/tv_my_coin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:drawablePadding="10dp"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:textColor="@color/color_green" />
-
-        <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@mipmap/head"
-            android:layout_marginRight="40dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            />
-    </RelativeLayout>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/coin_read"
-        android:textColor="@color/color_a8"
-        android:textSize="18sp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:src="@mipmap/ic_arrow" />
-
-    <TextView
-        android:id="@+id/tv_voice"
-        android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginTop="50dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="你好，我的朋友，欢迎加入语音链"
-        android:textColor="@color/color_green"
-        android:textSize="22sp" />
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp">
-
-        <voc.cn.cnvoccoin.view.RippleSpreadView xmlns:RippleWaveView="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/rsv_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            RippleWaveView:rsv_innerAnimDuration="1000"
-            RippleWaveView:rsv_innerCircleColor="@color/color_green"
-            RippleWaveView:rsv_innerSize="90dp"
-            RippleWaveView:rsv_outAnimDuration="2000"
-            RippleWaveView:rsv_outCircleColor="#ADADAD"
-            RippleWaveView:rsv_outSize="200dp" />
-
-        <ImageView
-            android:id="@+id/iv_voice"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/yuyin" />
-    </FrameLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp">
-
-        <ImageView
-            android:id="@+id/iv_rank"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="30dp"
-            android:src="@mipmap/rank" />
-
-        <ImageView
-            android:id="@+id/iv_info"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:src="@mipmap/info" />
-    </RelativeLayout>
+            android:layout_gravity="right"
+            android:textColor="@color/color_654c34"
+            android:text="@string/coin_rule"/>
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/color_b3642b"
+            android:text="@string/have_coin"/>
+        <TextView
+            android:id="@+id/tv_have_coin"
+            android:layout_below="@id/tv_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/color_c89158"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="1333333"/>
+    </LinearLayout>
 
 </LinearLayout>

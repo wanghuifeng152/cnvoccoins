@@ -40,6 +40,8 @@
     <string name="focus_common_code">关注公众号</string>
     <string name="to_join">去加入</string>
     <string name="to_focus">去关注</string>
+    <string name="coin_rule">挖币规则</string>
+    <string name="have_coin">已挖矿</string>
 
     <string-array name="voice_text">
         <item>这是我加入语音链的第一天。</item>

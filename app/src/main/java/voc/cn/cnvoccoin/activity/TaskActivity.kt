@@ -20,6 +20,7 @@ class TaskActivity:BaseActivity() {
     }
 
     private fun initView() {
+        iv_back.setOnClickListener { finish() }
         rv_basic_task.layoutManager = GridLayoutManager(this,3)
         rv_super_task.layoutManager = GridLayoutManager(this,3)
 
