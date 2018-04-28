@@ -19,7 +19,6 @@ import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_voice.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -33,7 +32,6 @@ import voc.cn.cnvoccoin.entity.MyCoinResponse
 import voc.cn.cnvoccoin.entity.VoiceTextBean
 import voc.cn.cnvoccoin.fragment.HomeFragment
 import voc.cn.cnvoccoin.fragment.UserFragment
-import voc.cn.cnvoccoin.fragment.VoiceFragment
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
@@ -271,7 +269,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun initView() {
+/*    private fun initView() {
 
         iv_rank.setOnClickListener {
             startActivity(Intent(this@MainActivity, RankActivity::class.java))
@@ -293,7 +291,7 @@ class MainActivity : BaseActivity() {
         val position = PreferenceUtil.instance?.getInt(VOICE_TEXT_POPSITION, 0)?:0
         if(voiceLists.isEmpty())return
         tv_voice.text = voiceLists[position].content
-    }
+    }*/
 
     private fun getLogin(showLoginDialog: Boolean) {
         val username = PreferenceUtil.instance?.getString(USER_NAME) ?: ""
@@ -322,7 +320,7 @@ class MainActivity : BaseActivity() {
                     loginDialog.show()
                 }
 
-                getCoin()
+//                getCoin()
 
             }
 
@@ -340,7 +338,7 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        iv_voice?.setOnTouchListener { v, event ->
+    /*    iv_voice?.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     oldTime = System.currentTimeMillis()
@@ -361,10 +359,10 @@ class MainActivity : BaseActivity() {
             }
             true
 
-        }
+        }*/
     }
 
-    private fun setCoin(length: Int) {
+  /*  private fun setCoin(length: Int) {
         val userId = PreferenceUtil.instance?.getInt(USER_ID)
         voiceLists = PreferenceUtil.instance?.get<List<VoiceTextBean.DataBean>>(VOICE_TEXT, object : TypeToken<List<VoiceTextBean.DataBean>>() {}.type) ?: arrayListOf()
         position = PreferenceUtil.instance?.getInt(VOICE_TEXT_POPSITION) ?: 0
@@ -407,7 +405,7 @@ class MainActivity : BaseActivity() {
             }
 
         })
-    }
+    }*/
 
     private fun touchTime(longTime: Int): Boolean {
         var lastClickTime: Long = 0
@@ -421,7 +419,7 @@ class MainActivity : BaseActivity() {
         return true
     }
 
-    private fun getCoin() {
+/*    private fun getCoin() {
         val token = PreferenceUtil.instance?.getString(TOKEN)
         if (token == null || token?.isEmpty()) return
         val map = hashMapOf<String, String>()
@@ -441,7 +439,7 @@ class MainActivity : BaseActivity() {
             }
 
         }, MyCoinResponse::class.java, ResBaseModel::class.java)
-    }
+    }*/
 
 
     private fun initRadioButton() {

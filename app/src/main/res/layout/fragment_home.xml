@@ -51,6 +51,7 @@
                 android:layout_marginBottom="60dp"
                 android:orientation="horizontal">
                 <Button
+                    android:id="@+id/btn_voice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_orange"
@@ -60,6 +61,7 @@
                     android:text="@string/voice_coin"
                     android:textColor="@color/white" />
                 <Button
+                    android:id="@+id/btn_task"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_task_button"
