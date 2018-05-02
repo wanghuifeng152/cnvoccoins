@@ -57,8 +57,6 @@ class MainActivity : BaseActivity() {
     var voiceLists: List<VoiceTextBean.DataBean> = arrayListOf()
     var position: Int = 0
     var permissinTag = true
-    var oldTime:Long = 0
-    var newTime:Long = 0
     lateinit var registerDialog: LoginDialog
     var random = arrayOf(0.13,0.23,0.33)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -320,7 +318,6 @@ class MainActivity : BaseActivity() {
                     loginDialog.show()
                 }
 
-//                getCoin()
 
             }
 
@@ -333,33 +330,6 @@ class MainActivity : BaseActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     open fun onNumberEvent(event: LoginEvent) {
         getLogin(true)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-    /*    iv_voice?.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    oldTime = System.currentTimeMillis()
-                    rsv_voice.setAnimation(true)
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    newTime = System.currentTimeMillis()
-                    if(newTime -oldTime > 1000){
-                        rsv_voice.setAnimation(false)
-                        setCoin(tv_voice.text.length)
-                    }else{
-                        ToastUtil.showToast("录音时间过短")
-                    }
-
-                    true
-                }
-            }
-            true
-
-        }*/
     }
 
   /*  private fun setCoin(length: Int) {
@@ -418,29 +388,6 @@ class MainActivity : BaseActivity() {
         lastClickTime = time
         return true
     }
-
-/*    private fun getCoin() {
-        val token = PreferenceUtil.instance?.getString(TOKEN)
-        if (token == null || token?.isEmpty()) return
-        val map = hashMapOf<String, String>()
-//        map["token"] = token!!
-        HttpManager.get(MY_RANK_URL, map).subscribe(object : Subscriber<ResBaseModel<MyCoinResponse>> {
-            override fun onNext(model: ResBaseModel<MyCoinResponse>?) {
-                if (model?.data == null) return
-                if (model.code == 1) {
-                    tv_my_coin.text = model.data.voc_coin
-                }
-            }
-
-            override fun onError(t: Throwable?) {
-            }
-
-            override fun onComplete() {
-            }
-
-        }, MyCoinResponse::class.java, ResBaseModel::class.java)
-    }*/
-
 
     private fun initRadioButton() {
         rg.setOnCheckedChangeListener { group, checkedId ->

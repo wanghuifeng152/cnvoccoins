@@ -11,8 +11,7 @@
         android:id="@+id/vp_coin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_below="@id/tv_bar"/>
+        android:layout_marginBottom="50dp" />
 
     <RadioGroup
         android:id="@+id/rg"

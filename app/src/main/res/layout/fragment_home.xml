@@ -33,11 +33,11 @@
                 android:textColor="@color/color_654c34" />
 
             <TextView
+                android:id="@+id/tv_my_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_my"
                 android:layout_centerHorizontal="true"
-                android:text="2779440"
                 android:textColor="@color/color_c89158"
                 android:textSize="24sp"
                 android:textStyle="bold" />

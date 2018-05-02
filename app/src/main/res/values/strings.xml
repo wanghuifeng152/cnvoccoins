@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">VocalChain</string>
-    <string name="coin_read">清晰、语速均匀地念出下面的文字</string>
+    <string name="coin_read">清晰、语速均匀地念出以上口令获取VOC币</string>
     <string name="your_rank">你所在的排名是：\n</string>
     <string name="rank">排行榜TOP</string>
     <string name="voice_link">语音链</string>
@@ -30,7 +30,7 @@
     <string name="user_info">个人中心</string>
     <string name="login_now">立即登录</string>
     <string name="my_assets">我的资产</string>
-    <string name="login_see">登录后可见 ></string>
+    <string name="login_see">登录后可见</string>
     <string name="basic_target">基础任务</string>
     <string name="super_target">超级任务</string>
     <string name="more">更多 ></string>
