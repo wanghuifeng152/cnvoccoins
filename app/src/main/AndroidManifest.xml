@@ -42,6 +42,10 @@
         <activity
             android:name=".activity.TaskActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.LoginActivityNew"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+             />
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="voc.cn.cnvoccoin.fileprovider"

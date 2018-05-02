@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_user.*
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.activity.LoginActivity
+import voc.cn.cnvoccoin.activity.LoginActivityNew
 import voc.cn.cnvoccoin.activity.TaskActivity
 
 /**
@@ -23,6 +24,6 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tv_more.setOnClickListener { startActivity(Intent(activity,TaskActivity::class.java)) }
-        iv_header.setOnClickListener { startActivity(Intent(activity,LoginActivity::class.java)) }
+        iv_header.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
     }
 }
