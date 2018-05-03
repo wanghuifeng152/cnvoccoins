@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 import voc.cn.cnvoccoin.R
+import voc.cn.cnvoccoin.activity.Constant.IS_GRANTED_PERMISSION
 import voc.cn.cnvoccoin.adapter.ViewPagerAdapter
 import voc.cn.cnvoccoin.dialog.LOGIN
 import voc.cn.cnvoccoin.dialog.LoginDialog
@@ -49,7 +50,7 @@ import java.util.*
 
 const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
 
-class MainActivity : BaseActivity() {
+ class MainActivity : BaseActivity() {
     var voiceLists: List<VoiceTextBean.DataBean> = arrayListOf()
     var position: Int = 0
     var permissinTag = true
@@ -428,10 +429,10 @@ class MainActivity : BaseActivity() {
         if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ToastUtil.showToast("权限已申请")
-                permissinTag = true
+                PreferenceUtil.instance?.set(IS_GRANTED_PERMISSION, true)
             } else {
                 ToastUtil.showToast("权限已拒绝")
-                permissinTag = false
+                PreferenceUtil.instance?.set(IS_GRANTED_PERMISSION, false)
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
