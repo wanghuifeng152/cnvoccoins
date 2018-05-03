@@ -70,7 +70,6 @@ class MainActivity : BaseActivity() {
         requestPermission()
         checkVersion()
 //        showRegisterDialog()
-//        getVoiceList()
 //        initView()
     }
 

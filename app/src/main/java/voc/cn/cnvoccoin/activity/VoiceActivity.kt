@@ -10,8 +10,8 @@ import voc.cn.cnvoccoin.util.ToastUtil
  * Created by shy on 2018/4/28.
  */
 class VoiceActivity : BaseActivity() {
-    var oldTime:Long = 0
-    var newTime:Long = 0
+    var oldTime: Long = 0
+    var newTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_voice)
