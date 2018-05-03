@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -103,15 +104,18 @@ public class InvitationActivity extends AppCompatActivity {
                 os.close();
 
                 //将截图保存至相册并广播通知系统刷新
-                if(PreferenceUtil.Companion.getInstance().getBoolean(IS_GRANTED_PERMISSION,true)){
-                    MediaStore.Images.Media.insertImage(getContentResolver(), file.getAbsolutePath(), imageName, null);
-                    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file));
-                    sendBroadcast(intent);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if(PreferenceUtil.Companion.getInstance().getBoolean(IS_GRANTED_PERMISSION,false)){
+                        MediaStore.Images.Media.insertImage(getContentResolver(), file.getAbsolutePath(), imageName, null);
+                        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file));
+                        sendBroadcast(intent);
 
-                    ToastUtil.showToast("保存成功");
-                }else{
-                    ToastUtil.showToast("没有权限，请去设置中开启");
+                        ToastUtil.showToast("保存成功");
+                    }else{
+                        ToastUtil.showToast("没有权限，请去设置中开启");
+                    }
                 }
+
 
 
             } catch (Exception e) {
