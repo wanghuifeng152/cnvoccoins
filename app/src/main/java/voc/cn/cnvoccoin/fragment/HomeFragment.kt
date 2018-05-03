@@ -22,11 +22,7 @@ import voc.cn.cnvoccoin.entity.RankResModel
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
-import voc.cn.cnvoccoin.util.PreferenceUtil
-import voc.cn.cnvoccoin.util.TOKEN
-import voc.cn.cnvoccoin.util.UrlConstants.MY_RANK_URL
-import voc.cn.cnvoccoin.util.UrlConstants.RANK_URL
-import voc.cn.cnvoccoin.util.YHLog
+import voc.cn.cnvoccoin.util.*
 
 /**
  * Created by shy on 2018/3/24.

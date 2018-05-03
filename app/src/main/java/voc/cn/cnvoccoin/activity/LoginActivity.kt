@@ -83,7 +83,7 @@ class LoginActivity : BaseActivity() {
     private fun setRegister() {
         val request = RegisterRequest(et_input.text.toString(), et_password.text.toString(), et_invite.text.toString())
         var wrapper: RequestBodyWrapper = RequestBodyWrapper(request)
-        HttpManager.post(UrlConstants.REGISTER, wrapper).subscribe(object : Subscriber<String> {
+        HttpManager.post(URL_REGISTER, wrapper).subscribe(object : Subscriber<String> {
             override fun onNext(s: String?) {
                 if (s == null || s.isEmpty()) return
                 val jsonObject = JSONObject(s)

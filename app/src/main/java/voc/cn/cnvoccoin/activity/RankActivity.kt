@@ -10,7 +10,7 @@ import voc.cn.cnvoccoin.entity.DataBean
 import voc.cn.cnvoccoin.entity.RankResModel
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.Subscriber
-import voc.cn.cnvoccoin.util.UrlConstants
+import voc.cn.cnvoccoin.util.RANK_URL
 import voc.cn.cnvoccoin.util.YHLog
 import voc.cn.cnvoccoin.view.LoadingDialog
 
@@ -38,7 +38,7 @@ class RankActivity : BaseActivity() {
     private fun getRank() {
         val loadingDialog = LoadingDialog(this, "")
         loadingDialog.show()
-        HttpManager.get(UrlConstants.RANK_URL).subscribe(object : Subscriber<String> {
+        HttpManager.get(RANK_URL).subscribe(object : Subscriber<String> {
             override fun onNext(s: String?) {
                 YHLog.d("rank_url", s)
                 if (s == null) return

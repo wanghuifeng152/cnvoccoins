@@ -44,6 +44,7 @@
                 />
 
             <EditText
+                android:id="@+id/et_login_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -70,7 +71,7 @@
         android:background="@color/color_58422d" />
 
     <EditText
-        android:id="@+id/pwd"
+        android:id="@+id/et_login_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/line1"
@@ -89,7 +90,7 @@
         android:id="@+id/line2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/pwd"
+        android:layout_below="@+id/et_login_pwd"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:background="@color/color_58422d" />

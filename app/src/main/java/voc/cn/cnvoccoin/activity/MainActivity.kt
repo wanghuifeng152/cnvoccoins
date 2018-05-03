@@ -37,10 +37,6 @@ import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
-import voc.cn.cnvoccoin.util.UrlConstants.GET_VOICE_TEXT
-import voc.cn.cnvoccoin.util.UrlConstants.MY_RANK_URL
-import voc.cn.cnvoccoin.util.UrlConstants.UPLOAD_COIN
-import voc.cn.cnvoccoin.util.UrlConstants.VERSION_CHECK
 import voc.cn.cnvoccoin.view.LoadingDialog
 import voc.cn.cnvoccoin.view.YHShopDialog
 import java.io.BufferedInputStream
@@ -300,7 +296,7 @@ class MainActivity : BaseActivity() {
 
         val request = LoginRequest(username, password, "android")
         var wrapper: RequestBodyWrapper = RequestBodyWrapper(request)
-        HttpManager.post(UrlConstants.LOGIN, wrapper).subscribe(object : Subscriber<ResBaseModel<LoginResponse>> {
+        HttpManager.post(URL_LOGIN, wrapper).subscribe(object : Subscriber<ResBaseModel<LoginResponse>> {
             override fun onComplete() {
                 loadingDialog.dismiss()
             }
