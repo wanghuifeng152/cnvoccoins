@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_home.*
 import voc.cn.cnvoccoin.R
+import voc.cn.cnvoccoin.activity.InfoActivity
 import voc.cn.cnvoccoin.activity.TaskActivity
 import voc.cn.cnvoccoin.activity.VoiceActivity
 import voc.cn.cnvoccoin.adapter.RankAdapter
@@ -45,7 +46,7 @@ class HomeFragment : Fragment() {
         mMyCoin = view?.findViewById<TextView>(R.id.tv_my_coin)
         mBtnVoice?.setOnClickListener { startActivity(Intent(activity, VoiceActivity::class.java)) }
         mBtnTask?.setOnClickListener { startActivity(Intent(activity, TaskActivity::class.java)) }
-
+        view?.findViewById<TextView>(R.id.tv_info)?.setOnClickListener { startActivity(Intent(activity,InfoActivity::class.java)) }
     }
 
     override fun onResume() {

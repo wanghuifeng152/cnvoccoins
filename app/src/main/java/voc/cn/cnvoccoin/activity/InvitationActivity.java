@@ -103,7 +103,7 @@ public class InvitationActivity extends AppCompatActivity {
                 os.close();
 
                 //将截图保存至相册并广播通知系统刷新
-                if(PreferenceUtil.Companion.getInstance().getBoolean(IS_GRANTED_PERMISSION,false)){
+                if(PreferenceUtil.Companion.getInstance().getBoolean(IS_GRANTED_PERMISSION,true)){
                     MediaStore.Images.Media.insertImage(getContentResolver(), file.getAbsolutePath(), imageName, null);
                     Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file));
                     sendBroadcast(intent);

@@ -290,7 +290,7 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
     private fun getLogin(showLoginDialog: Boolean) {
         val username = PreferenceUtil.instance?.getString(USER_NAME) ?: ""
         val password = PreferenceUtil.instance?.getString(PASSWORD) ?: ""
-        if(username.isEmpty())return
+        if(username.isEmpty() || password.isEmpty())return
 
         val loadingDialog = LoadingDialog(this, null)
         loadingDialog.show()
