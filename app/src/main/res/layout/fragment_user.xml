@@ -159,6 +159,7 @@
                                 android:textColor="@color/color_b9854f"
                                 android:text="1 0 0 VOC"/>
                             <Button
+                                android:id="@+id/invitation"
                                 android:layout_width="86dp"
                                 android:layout_height="28dp"
                                 android:text="@string/to_invite"
