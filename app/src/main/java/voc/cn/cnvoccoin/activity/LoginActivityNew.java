@@ -1,11 +1,14 @@
 package voc.cn.cnvoccoin.activity;
 
+import android.content.Intent;
+import android.content.pm.FeatureGroupInfo;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -19,6 +22,8 @@ public class LoginActivityNew extends AppCompatActivity{
 
     @BindView(R.id.iv_back)
     ImageView mIvBack;
+    @BindView(R.id.tv_regist)
+    TextView mTvRegist;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +34,22 @@ public class LoginActivityNew extends AppCompatActivity{
                 finish();
             }
         });
+        findViewById(R.id.tv_regist).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), RegistActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-    @OnClick({R.id.iv_back})
+    @OnClick({R.id.iv_back,R.id.tv_regist})
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
             case R.id.iv_back:
+                finish();
+                break;
+            case R.id.tv_regist:
                 finish();
                 break;
         }
