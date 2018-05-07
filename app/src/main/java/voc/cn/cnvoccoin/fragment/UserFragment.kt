@@ -32,6 +32,7 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tv_more.setOnClickListener { startActivity(Intent(activity,TaskActivity::class.java)) }
+        tv_notlogin.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
         iv_header.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
         invitation.setOnClickListener { startActivity(Intent(activity, InvitationActivity::class.java)) }
     }

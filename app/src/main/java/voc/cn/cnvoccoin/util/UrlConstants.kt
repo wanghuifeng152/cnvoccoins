@@ -9,4 +9,4 @@ const val URL_REGISTER: String = "/api/user/public/register"//注册
 const val URL_LOGIN: String = "/api/user/public/login"//登录
 const val GET_VOICE_TEXT = "/api/portal/corpus/getList"//获取语料文本
 const val VERSION_CHECK = "/api/portal/app/check"//版本升级
-const val UPLOAD_COIN = "/api/portal/voc/uploadVocCoin"//上传币
+const val UPLOAD_COIN = "/api/portal/voc/uploadVocCoinV2"//上传币

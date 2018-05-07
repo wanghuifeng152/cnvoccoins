@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_info"
             android:layout_gravity="center"
-            android:text="1333333"
+            android:text="0.00"
             android:textColor="@color/color_c89158"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -50,11 +50,10 @@
         android:background="@color/white"
         android:layout_marginTop="30dp"
         android:lines="2"
-        android:text="sssaiqwdhashashsakjasojwo"
         android:textColor="@color/color_8c"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        android:textSize="40sp" />
+        android:textSize="28sp" />
 
     <voc.cn.cnvoccoin.view.WaveLineView
         android:id="@+id/view_wave"

@@ -12,9 +12,12 @@ const val USER_NAME = "USER_MOBILE"
 const val PASSWORD = "USER_EMAIL"
 const val TOKEN = "TOKEN"
 const val VOICE_TEXT = "VOICE_TEXT"
-const val VOICE_TEXT_POPSITION = "VOICE_TEXT_POPSITION"
+const val VOICE_ID = "voice_id"
 //------------------eventbus-----------------------------//
 class LoginEvent(var flag:Int,var number:String)
+//-------------------------------------------------------//
+
+//-------------------------url request response------------------------------//
 @Keep
 data class RegisterRequest(var username:String,var password:String,var invite_code:String):Serializable
 @Keep
@@ -53,4 +56,4 @@ data class UserBean(var id:Int,var user_type:Int,var sex:Int,var birthday:Int,va
 data class VersionResponse(var isUpdate:Int,var platform:String,var version:String,var url:String,var content:String):Serializable
 
 @Keep
-data class UploadCoinRequest(var userID:Int,var voc_coin:String)
+data class UploadCoinRequest(var id:String)

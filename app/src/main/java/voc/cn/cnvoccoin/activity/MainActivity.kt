@@ -178,7 +178,7 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
 
     private fun getVoiceList() {
         voiceLists = PreferenceUtil.instance?.get<List<VoiceTextBean.DataBean>>(VOICE_TEXT, object : TypeToken<List<VoiceTextBean.DataBean>>() {}.type) ?: arrayListOf()
-        position = PreferenceUtil.instance?.getInt(VOICE_TEXT_POPSITION) ?: 0
+//        position = PreferenceUtil.instance?.getInt(VOICE_TEXT_POPSITION) ?: 0
         if (voiceLists.isNotEmpty()) return
         HttpManager.get(GET_VOICE_TEXT).subscribe(object : Subscriber<String> {
             override fun onNext(s: String?) {

@@ -4,7 +4,14 @@ import android.os.Bundle
 import android.view.MotionEvent
 import kotlinx.android.synthetic.main.activity_voice.*
 import voc.cn.cnvoccoin.R
+import voc.cn.cnvoccoin.entity.UploadVoiceBean
+import voc.cn.cnvoccoin.network.HttpManager
+import voc.cn.cnvoccoin.network.RequestBodyWrapper
+import voc.cn.cnvoccoin.network.ResBaseModel
+import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.ToastUtil
+import voc.cn.cnvoccoin.util.UPLOAD_COIN
+import voc.cn.cnvoccoin.util.UploadCoinRequest
 
 /**
  * Created by shy on 2018/4/28.
@@ -12,10 +19,13 @@ import voc.cn.cnvoccoin.util.ToastUtil
 class VoiceActivity : BaseActivity() {
     var oldTime: Long = 0
     var newTime: Long = 0
+    var voice_id: Int = 0
+    var voice_coin: Double = 0.00
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_voice)
         initView()
+        getReadCoin()
     }
 
     private fun initView() {
@@ -30,7 +40,7 @@ class VoiceActivity : BaseActivity() {
                     view_wave.stopAnim()
                     newTime = System.currentTimeMillis()
                     if (newTime - oldTime > 1000) {
-//                        setCoin(tv_have_coin.text.length)
+                        getReadCoin()
                     } else {
                         ToastUtil.showToast("录音时间过短")
                     }
@@ -41,5 +51,29 @@ class VoiceActivity : BaseActivity() {
             true
 
         }
+    }
+
+    private fun getReadCoin() {
+        val request = UploadCoinRequest(voice_id.toString())
+        val wrapper = RequestBodyWrapper(request)
+        HttpManager.post(UPLOAD_COIN, wrapper).subscribe(object : Subscriber<ResBaseModel<UploadVoiceBean>> {
+            override fun onNext(model: ResBaseModel<UploadVoiceBean>?) {
+                if (model?.data == null || model?.data.next == null) return
+                if (model.code != 1) return
+                tv_voice_text.text = model.data.next.content
+                if (voice_id != 0) {
+                    voice_coin += model.data.next.voc_coin.toDouble()
+                }
+                voice_id = model.data.next.id
+                tv_have_coin.text = voice_coin.toString()
+            }
+
+            override fun onError(t: Throwable?) {
+            }
+
+            override fun onComplete() {
+            }
+
+        }, UploadVoiceBean::class.java, ResBaseModel::class.java)
     }
 }
