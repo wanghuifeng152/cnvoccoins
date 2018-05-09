@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_rank.*
-import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.adapter.RankAdapter
 import voc.cn.cnvoccoin.entity.DataBean
 import voc.cn.cnvoccoin.entity.RankResModel
@@ -64,8 +63,8 @@ class RankActivity : BaseActivity() {
 
     private fun setRankModel(data: List<DataBean>) {
         rv_rank?.layoutManager = LinearLayoutManager(this)
-        var adapter = RankAdapter(this, data)
-        rv_rank?.adapter = adapter
+//        var adapter = RankAdapter(this, data)
+//        rv_rank?.adapter = adapter
 
     }
 

@@ -58,6 +58,14 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".activity.CommnutityActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.FocusOfficalActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"
+            />
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="voc.cn.cnvoccoin.fileprovider"

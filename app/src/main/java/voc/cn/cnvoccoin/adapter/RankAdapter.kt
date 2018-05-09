@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import voc.cn.cnvoccoin.R
-import voc.cn.cnvoccoin.entity.DataBean
+import voc.cn.cnvoccoin.entity.RankBean
 
 
 /**
  * Created by shy on 2018/3/25.
  */
-class RankAdapter(var mContext: Context, var data: List<DataBean>) : RecyclerView.Adapter<RankAdapter.RankViewHolder>() {
+class RankAdapter(var mContext: Context, var data: List<RankBean.DataBean.ListBean>) : RecyclerView.Adapter<RankAdapter.RankViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RankViewHolder {
         val view = LayoutInflater.from(mContext).inflate(R.layout.rank_item, parent, false)
@@ -28,8 +28,8 @@ class RankAdapter(var mContext: Context, var data: List<DataBean>) : RecyclerVie
     override fun onBindViewHolder(holder: RankViewHolder?, position: Int) {
         data?.let {
             var dataBean = data[position]
-            holder?.mTvName?.text = dataBean.user_nickname
-            holder?.mTvVocToday?.text = dataBean.voc_coin
+            holder?.mTvName?.text = dataBean.userAccount
+            holder?.mTvVocToday?.text = dataBean.coinSum.toString()
             if (position in 0..2) {
                 setRankImage(position,holder)
             }else{

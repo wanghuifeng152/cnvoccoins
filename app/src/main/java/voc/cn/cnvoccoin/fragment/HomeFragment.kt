@@ -11,15 +11,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_home.*
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.activity.InfoActivity
 import voc.cn.cnvoccoin.activity.TaskActivity
 import voc.cn.cnvoccoin.activity.VoiceActivity
 import voc.cn.cnvoccoin.adapter.RankAdapter
-import voc.cn.cnvoccoin.entity.DataBean
 import voc.cn.cnvoccoin.entity.MyCoinResponse
-import voc.cn.cnvoccoin.entity.RankResModel
+import voc.cn.cnvoccoin.entity.RankBean
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
@@ -77,8 +75,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun getRank() {
-        val hashMap = hashMapOf<String, String>()
-        HttpManager.get(RANK_URL, hashMap).subscribe(object : Subscriber<String> {
+//        val hashMap = hashMapOf<String, String>()
+//        hashMap.put("limit",10)
+        HttpManager.get(TODAY_RANK).subscribe(object : Subscriber<String> {
             override fun onComplete() {
 
             }
@@ -87,10 +86,10 @@ class HomeFragment : Fragment() {
                 YHLog.d("rank_url", s)
                 if (s == null) return
                 val gson = Gson()
-                var model: RankResModel = gson.fromJson(s, RankResModel::class.java) ?: return
+                var model: RankBean = gson.fromJson(s, RankBean::class.java) ?: return
                 if (model.code == 1) {
-                    if (model.data.isEmpty()) return
-                    setRankModel(model.data)
+                    if (model.data?.list == null || model.data?.list?.size == 0) return
+                    setRankModel(model.data.list)
                 }
 
             }
@@ -100,7 +99,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun setRankModel(data: List<DataBean>) {
+    private fun setRankModel(data: List<RankBean.DataBean.ListBean>) {
         mRvRank?.layoutManager = LinearLayoutManager(activity)
         var adapter = RankAdapter(activity, data)
         mRvRank?.adapter = adapter

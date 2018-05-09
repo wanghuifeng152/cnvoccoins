@@ -13,6 +13,9 @@ const val PASSWORD = "USER_EMAIL"
 const val TOKEN = "TOKEN"
 const val VOICE_TEXT = "VOICE_TEXT"
 const val VOICE_ID = "voice_id"
+const val FOCUS_COMMON = "1"
+const val JOIN_COMMUNTITY = "2"
+
 //------------------eventbus-----------------------------//
 class LoginEvent(var flag:Int,var number:String)
 //-------------------------------------------------------//
@@ -25,7 +28,7 @@ data class LoginRequest(var username:String,var password:String,var device_type:
 @Keep
 data class LoginResponse(var token:String,var user:UserBean):Serializable
 /**
- * 			"id": 21,
+ *"id": 21,
 "user_type": 2,
 "sex": 0,
 "birthday": 0,
@@ -57,3 +60,6 @@ data class VersionResponse(var isUpdate:Int,var platform:String,var version:Stri
 
 @Keep
 data class UploadCoinRequest(var id:String)
+
+@Keep
+data class TaskRequest(var code:String,var type:String)

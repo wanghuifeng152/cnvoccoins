@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_user.*
 import voc.cn.cnvoccoin.R
-import voc.cn.cnvoccoin.activity.InvitationActivity
-import voc.cn.cnvoccoin.activity.LoginActivityNew
-import voc.cn.cnvoccoin.activity.TaskActivity
+import voc.cn.cnvoccoin.activity.*
 import voc.cn.cnvoccoin.entity.MyCoinResponse
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.ResBaseModel
@@ -35,6 +33,8 @@ class UserFragment : Fragment() {
         tv_notlogin.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
         iv_header.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
         invitation.setOnClickListener { startActivity(Intent(activity, InvitationActivity::class.java)) }
+        btn_join.setOnClickListener{startActivity(Intent(activity, CommnutityActivity::class.java)) }
+        btn_focus.setOnClickListener{startActivity(Intent(activity, FocusOfficalActivity::class.java))}
     }
 
     override fun onResume() {

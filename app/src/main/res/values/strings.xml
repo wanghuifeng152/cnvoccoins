@@ -42,6 +42,14 @@
     <string name="to_focus">去关注</string>
     <string name="coin_rule">挖币规则</string>
     <string name="have_coin">已挖矿</string>
+    <string name="join_community">加入社区</string>
+    <string name="community_text">按照如下步骤加入VOC社区\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;即可领取1000VOC</string>
+    <string name="focus_text">按照如下步骤关注微信公众号\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;即可领取1000VOC</string>
+
+    <string name="join_step">1.在微信中扫描下面二维码，进入VOC社群\n\n2.进入微信群-点击右上角-群公告，获得验证码\n\n3.在下方输入验证码，验证成功后即可领取VOC金币\n\n说明：每人仅有一次领取机会</string>
+    <string name="focus_step">1. 在微信中扫描下方二维码，关注Vocal chain 公众号\n\n2.在公众号中选择“领取”－ “app任务” 获得验证码\n\n3. 在下方输入验证码，验证成功后即可领取VOC 金币\n\n说明：每人仅有一次领取机会</string>
+    <string name="please_input">请输入6位验证码</string>
+    <string name="sure">确认</string>
 
     <string-array name="voice_text">
         <item>这是我加入语音链的第一天。</item>

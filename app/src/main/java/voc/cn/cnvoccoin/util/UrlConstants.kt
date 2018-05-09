@@ -10,3 +10,5 @@ const val URL_LOGIN: String = "/api/user/public/login"//登录
 const val GET_VOICE_TEXT = "/api/portal/corpus/getList"//获取语料文本
 const val VERSION_CHECK = "/api/portal/app/check"//版本升级
 const val UPLOAD_COIN = "/api/portal/voc/uploadVocCoinV2"//上传币
+const val MAKE_TASK = "/api/portal/voc/confirmCode"//确认任务
+const val TODAY_RANK = "/api/portal/voc/getTop"

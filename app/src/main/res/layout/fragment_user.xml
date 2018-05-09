@@ -206,6 +206,7 @@
                                 android:textColor="@color/color_b9854f"
                                 android:text="5 0 0 VOC"/>
                             <Button
+                                android:id="@+id/btn_join"
                                 android:layout_width="86dp"
                                 android:layout_height="28dp"
                                 android:text="@string/to_join"
@@ -248,6 +249,7 @@
                                 android:textColor="@color/color_b9854f"
                                 android:text="5 0 0 VOC"/>
                             <Button
+                                android:id="@+id/btn_focus"
                                 android:layout_width="86dp"
                                 android:layout_height="28dp"
                                 android:text="@string/to_focus"

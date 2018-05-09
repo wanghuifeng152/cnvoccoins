@@ -9,6 +9,8 @@ import voc.cn.cnvoccoin.adapter.BasicAdapter
 /**
  * Created by shy on 2018/4/28.
  */
+const val BASIC_TASK = 0
+const val SUPER_TASK = 1
 class TaskActivity:BaseActivity() {
     var basicImagmgList = arrayListOf<Int>(R.mipmap.task_uninvite,R.mipmap.task_unjoin,R.mipmap.task_unfocus,R.mipmap.task_unlogin,R.mipmap.task_unreload)
     var superImagmgList = arrayListOf<Int>(R.mipmap.task_unrank,R.mipmap.task_unvoice)
@@ -24,9 +26,11 @@ class TaskActivity:BaseActivity() {
         rv_basic_task.layoutManager = GridLayoutManager(this,3)
         rv_super_task.layoutManager = GridLayoutManager(this,3)
 
-        val basicAdapter = BasicAdapter(this,basicImagmgList)
-        val superAdapter = BasicAdapter(this,superImagmgList)
+        val basicAdapter = BasicAdapter(this,basicImagmgList, BASIC_TASK)
+        val superAdapter = BasicAdapter(this, superImagmgList, SUPER_TASK)
         rv_basic_task.adapter = basicAdapter
         rv_super_task.adapter = superAdapter
+
+
     }
 }
