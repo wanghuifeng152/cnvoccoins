@@ -30,16 +30,21 @@ class VoiceActivity : BaseActivity() {
 
     private fun initView() {
         iv_voice?.setOnTouchListener { v, event ->
+            var startY:Float = 0f
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
+                    startY = event.y
                     oldTime = System.currentTimeMillis()
                     view_wave.startAnim()
                     true
                 }
                 MotionEvent.ACTION_UP -> {
+                    val endY = event.y
                     view_wave.stopAnim()
                     newTime = System.currentTimeMillis()
-                    if (newTime - oldTime > 1000) {
+                    if(endY -startY < -10){
+                        ToastUtil.showToast("已取消")
+                    }else if (newTime - oldTime > 1000) {
                         getReadCoin()
                     } else {
                         ToastUtil.showToast("录音时间过短")

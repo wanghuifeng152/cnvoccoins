@@ -35,14 +35,28 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
                             3 -> {
                                 val token = PreferenceUtil.instance?.getString(TOKEN)
                                 if(token == null || token.isEmpty()){
-                                    mContext.startActivity(Intent(mContext, LoginActivity::class.java))
+                                    mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
                                 }else{
                                     ToastUtil.showToast("您已登录~")
                                 }
                             }
                         }
                     }
-                    SUPER_TASK -> {}
+                    SUPER_TASK -> {
+                        when(position){
+                            0 -> {mContext.startActivity(Intent(mContext, MainActivity::class.java))}
+                            1 -> {
+                                val token = PreferenceUtil.instance?.getString(TOKEN)
+                                if(token == null || token.isEmpty()){
+                                    mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
+                                }else{
+                                    mContext.startActivity(Intent(mContext, VoiceActivity::class.java))
+                                }
+
+                            }
+                        }
+
+                    }
                 }
             }
         }

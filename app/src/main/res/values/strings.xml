@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">VocalChain</string>
-    <string name="coin_read">清晰、语速均匀地念出以上口令获取VOC币</string>
+    <string name="coin_read">清晰、语速均匀地念出以上口令获取VOC币\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;上滑可以取消</string>
     <string name="your_rank">你所在的排名是：\n</string>
     <string name="rank">排行榜TOP</string>
     <string name="voice_link">语音链</string>
@@ -50,40 +50,4 @@
     <string name="focus_step">1. 在微信中扫描下方二维码，关注Vocal chain 公众号\n\n2.在公众号中选择“领取”－ “app任务” 获得验证码\n\n3. 在下方输入验证码，验证成功后即可领取VOC 金币\n\n说明：每人仅有一次领取机会</string>
     <string name="please_input">请输入6位验证码</string>
     <string name="sure">确认</string>
-
-    <string-array name="voice_text">
-        <item>这是我加入语音链的第一天。</item>
-        <item>我将帮助VOC建立全球语音数据库</item>
-        <item>我将参与保护小语种计划，贡献自己的乡音</item>
-        <item>我会成为语音链的使者，邀请更多训练师，共创梦想</item>
-        <item>《再别康桥》（徐志摩）</item>
-        <item>轻轻的我走了，</item>
-        <item>正如我轻轻的来；</item>
-        <item>我轻轻的招手，</item>
-        <item>作别西天的云彩。</item>
-        <item>那河畔的金柳，</item>
-        <item>是夕阳中的新娘；</item>
-        <item>波光里的艳影，</item>
-        <item>在我的心头荡漾。</item>
-        <item>软泥上的青荇（xing），</item>
-        <item>油油的在水底招摇；</item>
-        <item>在康河的柔波里，</item>
-        <item>我甘心做一条水草！</item>
-        <item>那榆荫下的一潭，</item>
-        <item>不是清泉，是天上虹</item>
-        <item>揉碎在浮藻间，</item>
-        <item>沉淀着彩虹似的梦。</item>
-        <item>寻梦？撑一支长蒿，</item>
-        <item>向青草更青处漫溯，</item>
-        <item>满载一船星辉，</item>
-        <item>在星辉斑斓里放歌。</item>
-        <item>但我不能放歌，</item>
-        <item>悄悄是别离的笙箫；</item>
-        <item>夏虫也为我沉默，</item>
-        <item>沉默是今晚的康桥！</item>
-        <item>悄悄的我走了，</item>
-        <item>正如我悄悄的来；</item>
-        <item>我挥一挥衣袖，</item>
-        <item>不带走一片云彩。</item>
-    </string-array>
 </resources>

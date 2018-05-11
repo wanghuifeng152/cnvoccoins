@@ -29,21 +29,26 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tv_more.setOnClickListener { startActivity(Intent(activity,TaskActivity::class.java)) }
+        tv_more.setOnClickListener { startActivity(Intent(activity, TaskActivity::class.java)) }
         tv_notlogin.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
-        iv_header.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
+        iv_header.setOnClickListener {
+            val token = PreferenceUtil.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()){
+                startActivity(Intent(activity, LoginActivityNew::class.java))
+            }
+        }
         invitation.setOnClickListener { startActivity(Intent(activity, InvitationActivity::class.java)) }
-        btn_join.setOnClickListener{startActivity(Intent(activity, CommnutityActivity::class.java)) }
-        btn_focus.setOnClickListener{startActivity(Intent(activity, FocusOfficalActivity::class.java))}
+        btn_join.setOnClickListener { startActivity(Intent(activity, CommnutityActivity::class.java)) }
+        btn_focus.setOnClickListener { startActivity(Intent(activity, FocusOfficalActivity::class.java)) }
     }
 
     override fun onResume() {
         super.onResume()
         getCoin()
         val token = PreferenceUtil.instance?.getString(TOKEN)
-        if(token != null){
+        if (token != null) {
             tv_notlogin.visibility = View.GONE
-        }else{
+        } else {
             tv_notlogin.visibility = View.VISIBLE
         }
     }
