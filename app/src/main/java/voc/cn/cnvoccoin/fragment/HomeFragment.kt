@@ -11,10 +11,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_home.*
 import voc.cn.cnvoccoin.R
-import voc.cn.cnvoccoin.activity.InfoActivity
-import voc.cn.cnvoccoin.activity.TaskActivity
-import voc.cn.cnvoccoin.activity.VoiceActivity
+import voc.cn.cnvoccoin.activity.*
 import voc.cn.cnvoccoin.adapter.RankAdapter
 import voc.cn.cnvoccoin.entity.MyCoinResponse
 import voc.cn.cnvoccoin.entity.RankBean
@@ -45,6 +44,19 @@ class HomeFragment : Fragment() {
         mBtnVoice?.setOnClickListener { startActivity(Intent(activity, VoiceActivity::class.java)) }
         mBtnTask?.setOnClickListener { startActivity(Intent(activity, TaskActivity::class.java)) }
         view?.findViewById<TextView>(R.id.tv_info)?.setOnClickListener { startActivity(Intent(activity,InfoActivity::class.java)) }
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        rl_news1.setOnClickListener {
+            val intent = Intent(activity, NewsActivity::class.java)
+            intent.putExtra(TAG,1)
+            startActivity(intent) }
+
+        rl_news2.setOnClickListener {
+            val intent = Intent(activity, NewsActivity::class.java)
+            intent.putExtra(TAG,2)
+            startActivity(intent) }
     }
 
     override fun onResume() {
