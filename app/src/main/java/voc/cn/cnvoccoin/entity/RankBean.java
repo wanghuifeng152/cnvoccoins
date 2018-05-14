@@ -1,13 +1,15 @@
 package voc.cn.cnvoccoin.entity;
 
+import android.support.annotation.Keep;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by shy on 2018/5/8.
  */
-
-public class RankBean implements Serializable {
+@Keep
+public class RankBean implements Serializable,KeepAttr {
 
     /**
      * code : 1
@@ -54,7 +56,7 @@ public class RankBean implements Serializable {
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBean{
             /**
              * userId : 5
              * coinSum : 1009

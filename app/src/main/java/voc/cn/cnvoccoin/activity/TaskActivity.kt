@@ -12,7 +12,7 @@ import voc.cn.cnvoccoin.adapter.BasicAdapter
 const val BASIC_TASK = 0
 const val SUPER_TASK = 1
 class TaskActivity:BaseActivity() {
-    var basicImagmgList = arrayListOf<Int>(R.mipmap.task_uninvite,R.mipmap.task_unjoin,R.mipmap.task_unfocus,R.mipmap.task_unlogin,R.mipmap.task_unreload)
+    var basicImagmgList = arrayListOf<Int>(R.mipmap.task_uninvite,R.mipmap.task_unjoin,R.mipmap.task_unfocus,R.mipmap.task_unlogin)
     var superImagmgList = arrayListOf<Int>(R.mipmap.task_unrank,R.mipmap.task_unvoice)
 
     override fun onCreate(savedInstanceState: Bundle?) {

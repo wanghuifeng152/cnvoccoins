@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by shy on 2018/5/7.
  */
 
-public class UploadVoiceBean implements Serializable {
+public class UploadVoiceBean implements Serializable,KeepAttr {
 
     /**
      * user : {"id":2,"user_type":2,"sex":0,"birthday":0,"last_login_time":0,"score":0,"coin":0,"balance":"0.00","create_time":0,"user_status":1,"user_login":"star","user_pass":"","user_nickname":"","user_email":"","user_url":"","avatar":"","signature":"","last_login_ip":"","user_activation_key":"","mobile":"","more":{},"voc_coin":"25398.21"}

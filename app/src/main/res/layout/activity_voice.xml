@@ -19,6 +19,7 @@
             android:padding="10dp"
             android:layout_gravity="right"
             android:text="@string/coin_rule"
+            android:visibility="invisible"
             android:textColor="@color/color_654c34" />
 
         <TextView

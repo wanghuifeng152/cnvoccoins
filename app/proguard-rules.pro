@@ -36,9 +36,9 @@
 -keep class android.os.**{*;} #for sunmi
 -keep class android.support.** {*;}
 
--keep class cn.yonghui.shop.framework.base.KeepAttr
--keepclassmembers class * extends cn.yonghui.shop.framework.base.KeepAttr{*;}
--keepclassmembers interface * extends cn.yonghui.shop.framework.base.KeepAttr{*;}
+-keep class voc.cn.cnvoccoin.entity.KeepAttr
+-keepclassmembers class * extends voc.cn.cnvoccoin.entity.KeepAttr{*;}
+-keepclassmembers interface * extends voc.cn.cnvoccoin.entity.KeepAttr{*;}
 
 -keepclasseswithmembers public class * extends android.content.Context {
    public void *(android.view.View);
@@ -57,6 +57,10 @@
 #Gson
 -dontwarn com.google.**
 -keep class com.google.gson.** {*;}
+-keep class com.google.gson.stream.**{*;}
+-keep class voc.cn.cnvoccoin.entity.**{*;}
+-keep class org.json.**{*;}
+-keep class sun.misc.Unsafe{*;}
 
 # OkHttp3
 -dontwarn okhttp3.**
@@ -105,7 +109,7 @@
 -dontwarn com.networkbench.**
 -keep class com.networkbench.** { *; }
 
-
+-keepnames class * implements java.io.Serializable
 -keepclassmembers class * implements java.io.Serializable {
     static final long serialVersionUID;
     private static final java.io.ObjectStreamField[] serialPersistentFields;
@@ -151,20 +155,10 @@
 }
 # growingio end
 
-# bugly start
--dontwarn com.tencent.bugly.**
--keep public class com.tencent.bugly.**{*;}
-# bugly end
-
 ####################XStream操作xml与Bean之间转换jar（开始）#####################
 -dontwarn com.thoughtworks.xstream.**
 -keep class com.thoughtworks.xstream.** {*;}
 ####################XStream操作xml与Bean之间转换jar（结束）#####################
-
-#alipay start
--dontwarn cn.yonghui.paycenter.alipay.model.builder.**
--keep class cn.yonghui.paycenter.alipay.model.builder.** {*;}
-#alipay end
 
 
 
@@ -181,16 +175,6 @@
 # End NetworkBench Lens
 
 
-# mars xlog start
--keep class com.tencent.mars.** {
-  public protected private *;
-}
-# mars xlog end
-
-# ftp start
--dontwarn org.apache.commons.net.**
--keep class org.apache.commons.net.** { *; }
-# ftp end
 
 # jpush start
 -dontoptimize
@@ -202,14 +186,10 @@
 
 -dontwarn cn.jiguang.**
 -keep class cn.jiguang.** { *; }
-#==================gson && protobuf==========================
+#==================gson==========================
 -dontwarn com.google.**
 -keep class com.google.gson.** {*;}
--keep class com.google.protobuf.** {*;}
 # jpush end
-
--keep class * extends cn.yonghui.shop.framework.bus.IBizBusObject {*;}
--keep class cn.yonghui.shop.framework.util.NetworkWatchUtil{*;}
 
 -keep class com.tencent.ytcommon.**{*;}
 -keep class com.tencent.youtufacetrack.**{*;}
