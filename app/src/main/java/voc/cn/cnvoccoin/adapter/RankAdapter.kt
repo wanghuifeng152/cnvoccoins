@@ -28,7 +28,11 @@ class RankAdapter(var mContext: Context, var data: List<RankBean.DataBean.ListBe
     override fun onBindViewHolder(holder: RankViewHolder?, position: Int) {
         data?.let {
             var dataBean = data[position]
-            holder?.mTvName?.text = dataBean.userAccount
+            var userAccount = dataBean.userAccount
+            if(userAccount != null && userAccount.length == 11){
+                userAccount = userAccount.replace(userAccount.substring(3, 7), "****")
+            }
+            holder?.mTvName?.text = userAccount
             holder?.mTvVocToday?.text = dataBean.coinSum.toString()
             if (position in 0..2) {
                 setRankImage(position,holder)

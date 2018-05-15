@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VocalChain</string>
+    <string name="app_name">VOC</string>
     <string name="coin_read">清晰、语速均匀地念出以上口令获取VOC币\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;上滑可以取消</string>
     <string name="your_rank">你所在的排名是：\n</string>
     <string name="rank">排行榜TOP</string>

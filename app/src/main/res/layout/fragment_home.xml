@@ -146,6 +146,7 @@
                         android:id="@+id/iv_news1"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginRight="20dp"
                         android:src="@mipmap/zixun_two" />
 
@@ -154,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@id/iv_news1"
-                        android:text="两种挖矿方式怎么选？"
+                        android:text="VOC语音链全球首发，抢占时代技红利"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -163,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tv_info_title1"
                         android:layout_toRightOf="@id/iv_news1"
-                        android:text="不同场景使用对应的挖矿模式，成倍增长" />
+                        android:text="我们相信，技术应当惠及多数人，但也绝不应当忘记少数人。他们是我们的同胞，同样有权利用技术让生活变得更加美好" />
                 </RelativeLayout>
             </LinearLayout>
 

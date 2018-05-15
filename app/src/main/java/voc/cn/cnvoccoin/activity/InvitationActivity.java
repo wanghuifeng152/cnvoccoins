@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,6 +29,7 @@ import voc.cn.cnvoccoin.util.PreferenceUtil;
 import voc.cn.cnvoccoin.util.ToastUtil;
 
 import static voc.cn.cnvoccoin.activity.Constant.IS_GRANTED_PERMISSION;
+import static voc.cn.cnvoccoin.util.ConstantsKt.USER_ID;
 
 /**
  * Created by Administrator on 2018/5/3.
@@ -39,7 +41,10 @@ public class InvitationActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
-        final EditText input=findViewById(R.id.et_input);
+        final TextView tvCode=findViewById(R.id.tv_code);
+        if(PreferenceUtil.Companion.getInstance().getInt(USER_ID,0) > 0){
+            tvCode.setText(PreferenceUtil.Companion.getInstance().getInt(USER_ID,0)+"");
+        }
         rl=findViewById(R.id.rl);
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,12 +55,8 @@ public class InvitationActivity extends AppCompatActivity {
         findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(input.getText().toString())){
-                    ToastUtil.showToast("请输入邀请码");
-                }else{
                     //截屏并保存到相册
                     screenshot();
-                }
             }
         });
     }

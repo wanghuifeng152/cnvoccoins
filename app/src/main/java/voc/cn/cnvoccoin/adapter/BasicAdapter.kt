@@ -25,47 +25,61 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder?.mImg?.setImageResource(data[position])
-            holder?.mImg?.setOnClickListener {
-                when(tag){
-                    BASIC_TASK -> {
-                        when(position){
-                            0 -> {mContext.startActivity(Intent(mContext, InvitationActivity::class.java))}
-                            1 -> { mContext.startActivity(Intent(mContext, CommnutityActivity::class.java)) }
-                            2 -> {mContext.startActivity(Intent(mContext, FocusOfficalActivity::class.java))}
-                            3 -> {
-                                val token = PreferenceUtil.instance?.getString(TOKEN)
-                                if(token == null || token.isEmpty()){
-                                    mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
-                                }else{
-                                    ToastUtil.showToast("您已登录~")
-                                }
+        holder?.mImg?.setOnClickListener {
+            when (tag) {
+                BASIC_TASK -> {
+                    when (position) {
+                        0 -> {
+                            mContext.startActivity(Intent(mContext, InvitationActivity::class.java))
+                        }
+                        1 -> {
+                            mContext.startActivity(Intent(mContext, CommnutityActivity::class.java))
+                        }
+                        2 -> {
+                            mContext.startActivity(Intent(mContext, FocusOfficalActivity::class.java))
+                        }
+                        3 -> {
+                            val token = PreferenceUtil.instance?.getString(TOKEN)
+                            if (token == null || token.isEmpty()) {
+                                mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
+                            } else {
+                                ToastUtil.showToast("您已登录~")
                             }
                         }
                     }
-                    SUPER_TASK -> {
-                        when(position){
-                            0 -> {mContext.startActivity(Intent(mContext, MainActivity::class.java))}
-                            1 -> {
-                                val token = PreferenceUtil.instance?.getString(TOKEN)
-                                if(token == null || token.isEmpty()){
-                                    mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
-                                }else{
-                                    mContext.startActivity(Intent(mContext, VoiceActivity::class.java))
-                                }
-
+                }
+                SUPER_TASK -> {
+                    when (position) {
+                        0 -> {
+                            val token = PreferenceUtil.instance?.getString(TOKEN)
+                            if (token == null || token.isEmpty()) {
+                                mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
+                            } else {
+                                mContext.startActivity(Intent(mContext, VoiceActivity::class.java))
                             }
                         }
+                        1 -> {
+                            val token = PreferenceUtil.instance?.getString(TOKEN)
+                            if (token == null || token.isEmpty()) {
+                                mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
+                            } else {
+                                mContext.startActivity(Intent(mContext, VoiceActivity::class.java))
+                            }
 
+                        }
                     }
+
                 }
             }
         }
+    }
 
 
-    class ViewHolder :RecyclerView.ViewHolder{
-        var mImg:ImageView?
+    class ViewHolder : RecyclerView.ViewHolder {
+        var mImg: ImageView?
+
         constructor(itemView: View?) : super(itemView) {
-             mImg = itemView?.findViewById<ImageView>(R.id.iv_img)
+            mImg = itemView?.findViewById<ImageView>(R.id.iv_img)
         }
     }
 

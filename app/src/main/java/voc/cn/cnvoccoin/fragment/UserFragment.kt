@@ -29,7 +29,13 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tv_more.setOnClickListener { startActivity(Intent(activity, TaskActivity::class.java)) }
+        tv_more.setOnClickListener {
+            val token = PreferenceUtil.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()){
+                startActivity(Intent(activity, LoginActivityNew::class.java))
+            }else{
+                startActivity(Intent(activity, TaskActivity::class.java)) }
+        }
         tv_notlogin.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
         iv_header.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)

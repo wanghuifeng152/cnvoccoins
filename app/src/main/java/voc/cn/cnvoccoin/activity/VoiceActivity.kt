@@ -12,6 +12,9 @@ import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.ToastUtil
 import voc.cn.cnvoccoin.util.UPLOAD_COIN
 import voc.cn.cnvoccoin.util.UploadCoinRequest
+import java.math.BigDecimal
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 /**
  * Created by shy on 2018/4/28.
@@ -20,7 +23,7 @@ class VoiceActivity : BaseActivity() {
     var oldTime: Long = 0
     var newTime: Long = 0
     var voice_id: Int = 0
-    var voice_coin: Double = 0.00
+    var voice_coin: String = "0.00"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_voice)
@@ -67,10 +70,13 @@ class VoiceActivity : BaseActivity() {
                 if (model.code != 1) return
                 tv_voice_text.text = model.data.next.content
                 if (voice_id != 0) {
-                    voice_coin += model.data.next.voc_coin.toDouble()
+                    val bigDecimal = BigDecimal(voice_coin)
+                    val plus = BigDecimal(model.data.next.voc_coin).plus(bigDecimal)
+                    val format = DecimalFormat("#######.##")
+                    voice_coin = format.format(plus)
                 }
                 voice_id = model.data.next.id
-                tv_have_coin.text = voice_coin.toString()
+                tv_have_coin.text = voice_coin
             }
 
             override fun onError(t: Throwable?) {

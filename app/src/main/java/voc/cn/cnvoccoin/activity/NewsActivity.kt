@@ -38,6 +38,7 @@ class NewsActivity :BaseActivity(){
                 super.onProgressChanged(view, newProgress)
             }
         }
+        iv_back.setOnClickListener { finish()}
     }
 
     private fun setWebView() {

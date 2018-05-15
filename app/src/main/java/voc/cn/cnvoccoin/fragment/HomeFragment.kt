@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
     var mRvRank: RecyclerView? = null
     var mBtnVoice: Button? = null
     var mBtnTask: Button? = null
-    var mMyCoin:TextView? = null
+    var mMyCoin: TextView? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.fragment_home, container, false)
         initView(view)
@@ -41,22 +41,38 @@ class HomeFragment : Fragment() {
         mBtnVoice = view?.findViewById<Button>(R.id.btn_voice)
         mBtnTask = view?.findViewById<Button>(R.id.btn_task)
         mMyCoin = view?.findViewById<TextView>(R.id.tv_my_coin)
-        mBtnVoice?.setOnClickListener { startActivity(Intent(activity, VoiceActivity::class.java)) }
-        mBtnTask?.setOnClickListener { startActivity(Intent(activity, TaskActivity::class.java)) }
-        view?.findViewById<TextView>(R.id.tv_info)?.setOnClickListener { startActivity(Intent(activity,InfoActivity::class.java)) }
+        mBtnVoice?.setOnClickListener {
+            val token = PreferenceUtil.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()) {
+                startActivity(Intent(activity, LoginActivityNew::class.java))
+            } else {
+                startActivity(Intent(activity, VoiceActivity::class.java))
+            }
+        }
+        mBtnTask?.setOnClickListener {
+            val token = PreferenceUtil.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()) {
+                startActivity(Intent(activity, LoginActivityNew::class.java))
+            } else {
+                startActivity(Intent(activity, TaskActivity::class.java))
+            }
+        }
+        view?.findViewById<TextView>(R.id.tv_info)?.setOnClickListener { startActivity(Intent(activity, InfoActivity::class.java)) }
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rl_news1.setOnClickListener {
             val intent = Intent(activity, NewsActivity::class.java)
-            intent.putExtra(TAG,1)
-            startActivity(intent) }
+            intent.putExtra(TAG, 1)
+            startActivity(intent)
+        }
 
         rl_news2.setOnClickListener {
             val intent = Intent(activity, NewsActivity::class.java)
-            intent.putExtra(TAG,2)
-            startActivity(intent) }
+            intent.putExtra(TAG, 2)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
