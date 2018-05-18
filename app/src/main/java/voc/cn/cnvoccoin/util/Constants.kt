@@ -13,7 +13,7 @@ const val PASSWORD = "USER_EMAIL"
 const val TOKEN = "TOKEN"
 const val VOICE_TEXT = "VOICE_TEXT"
 const val VOICE_ID = "voice_id"
-const val FOCUS_COMMON = "1"
+const val FOCUS_COMMON = "3"
 const val JOIN_COMMUNTITY = "2"
 
 //------------------eventbus-----------------------------//

@@ -116,7 +116,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center_vertical"
-            android:src="@mipmap/headicon" />
+            android:src="@mipmap/head" />
 
         <EditText
             android:id="@+id/et_invite"

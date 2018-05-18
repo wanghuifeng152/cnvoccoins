@@ -50,11 +50,12 @@
         android:layout_below="@id/ll_voice_top"
         android:background="@color/white"
         android:layout_marginTop="30dp"
-        android:lines="2"
+        android:layout_centerHorizontal="true"
+        android:lines="3"
         android:textColor="@color/color_8c"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:textSize="28sp" />
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:textSize="24sp" />
 
     <voc.cn.cnvoccoin.view.WaveLineView
         android:id="@+id/view_wave"

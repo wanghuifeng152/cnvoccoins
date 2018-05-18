@@ -51,23 +51,15 @@ import java.util.*
 const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
 
  class MainActivity : BaseActivity() {
-    var voiceLists: List<VoiceTextBean.DataBean> = arrayListOf()
-    var position: Int = 0
     var permissinTag = true
-    lateinit var registerDialog: LoginDialog
-    var random = arrayOf(0.13,0.23,0.33)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
-//        requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
         initViewPager()
         initRadioButton()
         requestPermission()
         checkVersion()
-//        showRegisterDialog()
-//        initView()
     }
 
     private fun checkVersion() {
@@ -176,33 +168,6 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
         startActivity(intent)
     }
 
-    private fun getVoiceList() {
-        voiceLists = PreferenceUtil.instance?.get<List<VoiceTextBean.DataBean>>(VOICE_TEXT, object : TypeToken<List<VoiceTextBean.DataBean>>() {}.type) ?: arrayListOf()
-//        position = PreferenceUtil.instance?.getInt(VOICE_TEXT_POPSITION) ?: 0
-        if (voiceLists.isNotEmpty()) return
-        HttpManager.get(GET_VOICE_TEXT).subscribe(object : Subscriber<String> {
-            override fun onNext(s: String?) {
-                if (s == null || s.isEmpty()) return
-                val gson = Gson()
-                val bean = gson.fromJson(s, VoiceTextBean::class.java) ?: return
-                if (bean.code == 1 && bean.data != null) {
-                    val dataList = bean.data
-                    PreferenceUtil.instance?.set(VOICE_TEXT, dataList)
-                    voiceLists = dataList
-                }
-
-
-            }
-
-            override fun onError(t: Throwable?) {
-            }
-
-            override fun onComplete() {
-            }
-
-        })
-    }
-
     fun getFileFromServer(path: String, pd: ProgressDialog): File? {
         // 如果相等的话表示当前的sdcard挂载在手机上并且是可用的
         if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
@@ -239,20 +204,6 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
         }
     }
 
-    private fun showRegisterDialog() {
-        val mobile = PreferenceUtil.instance?.getString(USER_NAME)
-        val password = PreferenceUtil.instance?.getString(PASSWORD)
-        val token = PreferenceUtil.instance?.getString(TOKEN)
-
-
-        if (mobile == null || mobile.isEmpty() || password == null || password.isEmpty() || token == null || token.isEmpty()) {
-            registerDialog = LoginDialog(this, REGISTER)
-            registerDialog.show()
-        }else{
-            getLogin(false)
-        }
-    }
-
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -262,30 +213,6 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
             }
         }
     }
-
-/*    private fun initView() {
-
-        iv_rank.setOnClickListener {
-            startActivity(Intent(this@MainActivity, RankActivity::class.java))
-
-        }
-
-        iv_info.setOnClickListener {
-            startActivity(Intent(this@MainActivity, InfoActivity::class.java))
-        }
-
-        iv_head.setOnClickListener {
-            val username = PreferenceUtil.instance?.getString(USER_NAME)
-            val password = PreferenceUtil.instance?.getString(PASSWORD)
-            if (username != null && username.isNotEmpty() && password != null && password.isNotEmpty()) {
-                getLogin(true)
-            }
-        }
-
-        val position = PreferenceUtil.instance?.getInt(VOICE_TEXT_POPSITION, 0)?:0
-        if(voiceLists.isEmpty())return
-        tv_voice.text = voiceLists[position].content
-    }*/
 
     private fun getLogin(showLoginDialog: Boolean) {
         val username = PreferenceUtil.instance?.getString(USER_NAME) ?: ""
@@ -328,63 +255,6 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
         getLogin(true)
     }
 
-  /*  private fun setCoin(length: Int) {
-        val userId = PreferenceUtil.instance?.getInt(USER_ID)
-        voiceLists = PreferenceUtil.instance?.get<List<VoiceTextBean.DataBean>>(VOICE_TEXT, object : TypeToken<List<VoiceTextBean.DataBean>>() {}.type) ?: arrayListOf()
-        position = PreferenceUtil.instance?.getInt(VOICE_TEXT_POPSITION) ?: 0
-        if (userId == 0) return
-        val random1 = Random()
-        var s = random1.nextInt(3)
-        val coin = BigDecimal(random[s]).multiply(BigDecimal(length)).setScale(2, BigDecimal.ROUND_HALF_UP)//保留两位小数
-        val request = UploadCoinRequest(userId!!, coin.toString())
-        var wrapper: RequestBodyWrapper = RequestBodyWrapper(request)
-        HttpManager.post(UPLOAD_COIN, wrapper).subscribe(object : Subscriber<String> {
-            override fun onNext(s: String?) {
-                if (s == null) return
-                val jsonObject = JSONObject(s)
-                val code = jsonObject.getInt("code")
-                if (code == 1) {
-//                    tv_my_coin.text = BigDecimal( tv_my_coin.text.toString()).add(coin).toString()
-                    val data = jsonObject.getJSONObject("data")
-                    tv_my_coin.text = data.getString("voc_coin")
-
-                    if(voiceLists.isEmpty())return
-                    val size = voiceLists?.size ?: 0
-                    position++
-                    if (position < size) {
-                        tv_voice.text = voiceLists?.get(position)?.content
-//                        position++
-                    } else {
-                        tv_voice.text = voiceLists?.get(position - size)?.content
-                        position -= size
-                    }
-                    PreferenceUtil.instance?.set(VOICE_TEXT_POPSITION, position)
-                }
-
-
-            }
-
-            override fun onError(t: Throwable?) {
-            }
-
-            override fun onComplete() {
-            }
-
-        })
-    }*/
-
-    private fun touchTime(longTime: Int): Boolean {
-        var lastClickTime: Long = 0
-
-        val time = System.currentTimeMillis()
-        val endTime = time - lastClickTime
-        if (endTime in 1..(longTime - 1)) {
-            return false
-        }
-        lastClickTime = time
-        return true
-    }
-
     private fun initRadioButton() {
         rg.setOnCheckedChangeListener { group, checkedId ->
             when (checkedId) {
@@ -420,15 +290,12 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
             }
 
         })
-
-
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
 
         if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                ToastUtil.showToast("权限已申请")
                 PreferenceUtil.instance?.set(IS_GRANTED_PERMISSION, true)
             } else {
                 ToastUtil.showToast("权限已拒绝")

@@ -45,6 +45,7 @@ class VoiceActivity : BaseActivity() {
                     val endY = event.y
                     view_wave.stopAnim()
                     newTime = System.currentTimeMillis()
+
                     if(endY -startY < -10){
                         ToastUtil.showToast("已取消")
                     }else if (newTime - oldTime > 1000) {
@@ -52,7 +53,6 @@ class VoiceActivity : BaseActivity() {
                     } else {
                         ToastUtil.showToast("录音时间过短")
                     }
-
                     true
                 }
             }

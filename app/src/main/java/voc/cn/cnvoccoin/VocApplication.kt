@@ -26,8 +26,7 @@ class VocApplication : Application {
         super.onCreate()
         UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"")
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL)
-        //todo
-//        MobclickAgent.setSecret(this, "s10bacedtyz")
+        MobclickAgent.setDebugMode( true )
     }
 
 }

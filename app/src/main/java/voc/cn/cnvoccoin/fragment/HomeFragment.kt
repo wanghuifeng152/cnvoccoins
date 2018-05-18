@@ -105,6 +105,8 @@ class HomeFragment : Fragment() {
     private fun getRank() {
 //        val hashMap = hashMapOf<String, String>()
 //        hashMap.put("limit",10)
+        val token = PreferenceUtil.instance?.getString(TOKEN)
+        if (token == null || token?.isEmpty()) return
         HttpManager.get(TODAY_RANK).subscribe(object : Subscriber<String> {
             override fun onComplete() {
 

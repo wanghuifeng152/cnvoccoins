@@ -65,7 +65,7 @@ public class RankBean implements Serializable,KeepAttr {
              */
 
             private int userId;
-            private int coinSum;
+            private double coinSum;
             private int rankNum;
             private String userAccount;
 
@@ -77,11 +77,11 @@ public class RankBean implements Serializable,KeepAttr {
                 this.userId = userId;
             }
 
-            public int getCoinSum() {
+            public double getCoinSum() {
                 return coinSum;
             }
 
-            public void setCoinSum(int coinSum) {
+            public void setCoinSum(double coinSum) {
                 this.coinSum = coinSum;
             }
 

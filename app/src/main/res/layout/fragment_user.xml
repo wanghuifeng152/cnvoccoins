@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="20dp"
                 android:textSize="24sp"
                 android:text="@string/user_info"
                 android:textColor="@color/white" />
@@ -33,6 +33,7 @@
                 android:background="@drawable/circle_header_border"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_info"
+                android:src="@mipmap/head"
                 />
             <TextView
                 android:id="@+id/tv_notlogin"
@@ -42,7 +43,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@color/color_654c34"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="20dp"
                 android:textSize="20sp"
                 android:text="@string/login_now"/>
         </RelativeLayout>
@@ -244,7 +245,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:src="@mipmap/task_unreload" />
+                        android:src="@mipmap/task_unfocus" />
 
                     <android.support.v7.widget.CardView
                         android:layout_width="0dp"
