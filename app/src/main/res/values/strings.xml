@@ -50,4 +50,5 @@
     <string name="focus_step">1. 在微信中扫描下方二维码，关注Vocal chain 公众号\n\n2.在公众号中选择“领取”－ “app任务” 获得验证码\n\n3. 在下方输入验证码，验证成功后即可领取VOC 金币\n\n说明：每人仅有一次领取机会</string>
     <string name="please_input">请输入6位验证码</string>
     <string name="sure">确认</string>
+    <string name="get_cofirm_code">获取验证码</string>
 </resources>
