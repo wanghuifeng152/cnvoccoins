@@ -37,6 +37,7 @@ public class RegistActivity extends BaseActivity {
     EditText et_phone;
     TextView mTvConfirm;
     EditText mEtConfirm;
+    Timer timer;
     private boolean isshow = true;
     private boolean isshow2 = true;
     int time = 60;
@@ -154,7 +155,7 @@ public class RegistActivity extends BaseActivity {
     }
 
     private void getConfirmTimer() {
-        final Timer timer = new Timer();
+        timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -210,6 +211,14 @@ public class RegistActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(timer != null){
+            timer.cancel();
+        }
     }
 }
 
