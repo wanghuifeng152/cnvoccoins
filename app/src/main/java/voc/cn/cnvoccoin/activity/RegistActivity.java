@@ -30,6 +30,8 @@ import static voc.cn.cnvoccoin.util.ConstantsKt.USER_NAME;
  */
 
 public class RegistActivity extends BaseActivity {
+
+    EditText smsCode;
     EditText pwd;
     EditText pwd_again;
     EditText yaoqingma;
@@ -41,6 +43,7 @@ public class RegistActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
+        smsCode = findViewById(R.id.smsCode);
         pwd = findViewById(R.id.pwd);
         pwd_again = findViewById(R.id.pwd_again);
         yaoqingma = findViewById(R.id.yaoqingma);
