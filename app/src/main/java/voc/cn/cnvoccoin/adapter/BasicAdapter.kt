@@ -4,6 +4,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,6 +29,7 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
         return data.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder?.mImg?.setImageResource(data[position])
         holder?.mImg?.setOnClickListener {

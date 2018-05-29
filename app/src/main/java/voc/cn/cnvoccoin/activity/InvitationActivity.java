@@ -48,12 +48,12 @@ public class InvitationActivity extends AppCompatActivity {
 //            tvCode.setText(PreferenceUtil.Companion.getInstance().getInt(USER_ID,0)+"");
 //        }
 //        rl=findViewById(R.id.rl);
-//        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
+        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         findViewById(R.id.copyButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
