@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.text.ClipboardManager;// lina
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -31,6 +32,7 @@ import voc.cn.cnvoccoin.util.ToastUtil;
 import static voc.cn.cnvoccoin.activity.Constant.IS_GRANTED_PERMISSION;
 import static voc.cn.cnvoccoin.util.ConstantsKt.USER_ID;
 
+
 /**
  * Created by Administrator on 2018/5/3.
  */
@@ -40,26 +42,36 @@ public class InvitationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_invitation);
-        final TextView tvCode=findViewById(R.id.tv_code);
-        if(PreferenceUtil.Companion.getInstance().getInt(USER_ID,0) > 0){
-            tvCode.setText(PreferenceUtil.Companion.getInstance().getInt(USER_ID,0)+"");
-        }
-        rl=findViewById(R.id.rl);
-        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_invite);
+//        final TextView tvCode=findViewById(R.id.tv_code);
+//        if(PreferenceUtil.Companion.getInstance().getInt(USER_ID,0) > 0){
+//            tvCode.setText(PreferenceUtil.Companion.getInstance().getInt(USER_ID,0)+"");
+//        }
+//        rl=findViewById(R.id.rl);
+//        findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
+        findViewById(R.id.copyButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     //截屏并保存到相册
-                    screenshot();
+                pastInvteLink();
             }
         });
     }
+
+    private void pastInvteLink(){
+
+//        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//
+//        cm.setText("hahahhahahah要复制的内容");
+//        ToastUtil.showToast("复制成功，去粘贴吧~");
+
+    }
+
     private Bitmap saveBitmap;
     /**
      * 顶部裁剪坐标
@@ -132,15 +144,15 @@ public class InvitationActivity extends AppCompatActivity {
         }
 
     }
-    private int[] mSavePositions = new int[2];
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus) {
-            rl.getLocationOnScreen(mSavePositions);
-            mCutLeft = mSavePositions[0];
-            mCutTop = mSavePositions[1];
-
-        }
-    }
+//    private int[] mSavePositions = new int[2];
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        if (hasFocus) {
+//            rl.getLocationOnScreen(mSavePositions);
+//            mCutLeft = mSavePositions[0];
+//            mCutTop = mSavePositions[1];
+//
+//        }
+//    }
 
 }

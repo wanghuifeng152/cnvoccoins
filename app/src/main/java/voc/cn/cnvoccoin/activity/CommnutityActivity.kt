@@ -4,7 +4,6 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import com.google.gson.Gson
-import io.reactivex.subscribers.ResourceSubscriber
 import kotlinx.android.synthetic.main.activity_join_community.*
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.activity.Constant.IS_GRANTED_PERMISSION
@@ -25,6 +24,7 @@ open class CommnutityActivity:BaseActivity() {
         setContentView(getLayoutResId())
         setParams()
         initView()
+        getPicUrls()
     }
 
     open fun setParams() {
@@ -48,12 +48,12 @@ open class CommnutityActivity:BaseActivity() {
         if(yanzhengma.isEmpty())return
         val request = TaskRequest(yanzhengma, tag)
         val wrapper = RequestBodyWrapper(request)
-        HttpManager.post(MAKE_TASK,wrapper).subscribe(object :Subscriber<String>{
-            override fun onNext(t: String?) {
-                if(t == null || t.isEmpty())return
-                val gson = Gson()
-                val model = gson.fromJson(t, ResBaseModel::class.java) ?: return
-                if(model.code == 1){
+                        HttpManager.post(MAKE_TASK,wrapper).subscribe(object :Subscriber<String>{
+                    override fun onNext(t: String?) {
+                        if(t == null || t.isEmpty())return
+                        val gson = Gson()
+                        val model = gson.fromJson(t, ResBaseModel::class.java) ?: return
+                        if(model.code == 1){
                     ToastUtil.showToast(model.msg)
                 }
 
@@ -82,5 +82,31 @@ open class CommnutityActivity:BaseActivity() {
             val bmp = BitmapFactory.decodeResource(res, imgId)
             Utils.saveImageToGallery(this, bmp)
         }
+    }
+    private fun getPicUrls() {
+        // 请求公众号图片地址
+        // SHEQU_PICS  /api/user/public/getCodeArr
+        HttpManager.get(SHEQU_PICS).subscribe(object :Subscriber<String>{
+            override fun onComplete() {
+                ToastUtil.showToast("cuowu1")
+
+            }
+            override fun onError(t: Throwable?) {
+                ToastUtil.showToast("cuowu2")
+
+            }
+
+            override fun onNext(t: String?) {
+                if(t == null || t.isEmpty())return
+                val gson = Gson()
+                val model = gson.fromJson(t, ResBaseModel::class.java) ?: return
+                if(model.code == 1){
+                    ToastUtil.showToast("hahahahah")
+                }
+                ToastUtil.showToast(model.msg)
+            }
+
+
+        })
     }
 }
