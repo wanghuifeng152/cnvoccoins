@@ -12,6 +12,9 @@ import voc.cn.cnvoccoin.activity.*
 import voc.cn.cnvoccoin.util.PreferenceUtil
 import voc.cn.cnvoccoin.util.TOKEN
 import voc.cn.cnvoccoin.util.ToastUtil
+import android.content.ClipboardManager;
+import android.content.ClipData
+import voc.cn.cnvoccoin.util.USER_ID
 
 class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int) : RecyclerView.Adapter<BasicAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -30,7 +33,21 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
                 BASIC_TASK -> {
                     when (position) {
                         0 -> {
-                            mContext.startActivity(Intent(mContext, InvitationActivity::class.java))
+//                            mContext.startActivity(Intent(mContext, InvitationActivity::class.java))
+
+
+                            val clipboardManager = mContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            if (clipboardManager.hasPrimaryClip()) {
+
+                                val uid = PreferenceUtil.instance?.getString(USER_ID)
+                                if (uid != null ) {
+                                    clipboardManager.primaryClip = ClipData.newPlainText(null, "@string/copy_inviteText"+uid)
+                                }
+                            }
+                                clipboardManager.primaryClip!!.getItemAt(0).text
+                            }
+                            ToastUtil.showToast("邀请链接已复制到剪贴板\n快去分享给你的朋友吧~")
+
                         }
                         1 -> {
                             mContext.startActivity(Intent(mContext, CommnutityActivity::class.java))
