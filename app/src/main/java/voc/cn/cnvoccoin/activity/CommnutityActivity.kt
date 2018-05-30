@@ -24,7 +24,7 @@ open class CommnutityActivity:BaseActivity() {
         setContentView(getLayoutResId())
         setParams()
         initView()
-        getPicUrls()
+//        getPicUrls()
     }
 
     open fun setParams() {
