@@ -15,6 +15,12 @@ import voc.cn.cnvoccoin.util.UploadCoinRequest
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import android.media.MediaRecorder
+import java.nio.file.Files.exists
+
+
+
+
 
 /**
  * Created by shy on 2018/4/28.
@@ -24,6 +30,11 @@ class VoiceActivity : BaseActivity() {
     var newTime: Long = 0
     var voice_id: Int = 0
     var voice_coin: String = "0.00"
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_voice)
@@ -32,6 +43,8 @@ class VoiceActivity : BaseActivity() {
     }
 
     private fun initView() {
+
+
         iv_voice?.setOnTouchListener { v, event ->
             var startY:Float = 0f
             when (event.action) {
@@ -39,9 +52,16 @@ class VoiceActivity : BaseActivity() {
                     startY = event.y
                     oldTime = System.currentTimeMillis()
                     view_wave.startAnim()
+
+                    // 开始录音
+
+
                     true
                 }
                 MotionEvent.ACTION_UP -> {
+
+                    // 结束录音
+
                     val endY = event.y
                     view_wave.stopAnim()
                     newTime = System.currentTimeMillis()
@@ -87,4 +107,14 @@ class VoiceActivity : BaseActivity() {
 
         }, UploadVoiceBean::class.java, ResBaseModel::class.java)
     }
+
+
+    private fun startRecoder() {
+
+
+
+    }
+
+
+
 }
