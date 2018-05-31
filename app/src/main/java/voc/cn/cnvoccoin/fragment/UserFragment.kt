@@ -54,6 +54,7 @@ class UserFragment : Fragment() {
             if (token == null || token.isEmpty()){
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
+
                 startActivity(Intent(activity, TaskActivity::class.java))
             }
         }
