@@ -1,5 +1,6 @@
 package voc.cn.cnvoccoin.activity
 
+import android.content.res.TypedArray
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,12 @@ import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
+import android.R.array
+import android.app.Activity
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import voc.cn.cnvoccoin.entity.communityModel
+
 
 /**
  * Created by shy on 2018/5/8.
@@ -88,22 +95,25 @@ open class CommnutityActivity:BaseActivity() {
         // SHEQU_PICS  /api/user/public/getCodeArr
         HttpManager.get(SHEQU_PICS).subscribe(object :Subscriber<String>{
             override fun onComplete() {
-                ToastUtil.showToast("cuowu1")
 
             }
             override fun onError(t: Throwable?) {
-                ToastUtil.showToast("cuowu2")
+                ToastUtil.showToast("")
 
             }
 
             override fun onNext(t: String?) {
                 if(t == null || t.isEmpty())return
                 val gson = Gson()
-                val model = gson.fromJson(t, ResBaseModel::class.java) ?: return
+                val model = gson.fromJson(t, communityModel::class.java) ?: return
                 if(model.code == 1){
-                    ToastUtil.showToast("hahahahah")
+
+                    val picUrl = model.data[0]
+                    ToastUtil.showToast(picUrl)
+                    Glide.with(Activity())
+                            .load(picUrl)
+                            .into(findViewById(R.id.iv_img))
                 }
-                ToastUtil.showToast(model.msg)
             }
 
 

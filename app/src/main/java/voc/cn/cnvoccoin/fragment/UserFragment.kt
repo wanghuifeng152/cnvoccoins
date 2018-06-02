@@ -3,6 +3,7 @@ package voc.cn.cnvoccoin.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,11 @@ import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.MY_RANK_URL
 import voc.cn.cnvoccoin.util.PreferenceUtil
 import voc.cn.cnvoccoin.util.TOKEN
+import android.content.ClipData
+import android.content.ClipboardManager
+import voc.cn.cnvoccoin.util.ToastUtil
+import voc.cn.cnvoccoin.util.USER_ID
+import android.content.Context
 
 /**
  * Created by shy on 2018/3/24.
@@ -43,7 +49,15 @@ class UserFragment : Fragment() {
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             }
         }
-        invitation.setOnClickListener { startActivity(Intent(activity, InvitationActivity::class.java)) }
+        invitation.setOnClickListener {
+            val token = PreferenceUtil.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()){
+                startActivity(Intent(activity, LoginActivityNew::class.java))
+            }else{
+
+                startActivity(Intent(activity, TaskActivity::class.java))
+            }
+        }
         btn_join.setOnClickListener { startActivity(Intent(activity, CommnutityActivity::class.java)) }
         btn_focus.setOnClickListener { startActivity(Intent(activity, FocusOfficalActivity::class.java)) }
     }
