@@ -42,11 +42,17 @@ class VoiceActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
         setContentView(R.layout.activity_voice)
         initView()
         getReadCoin()
         val mRecorders = MediaRecorder()
         mRecorders.setAudioSource(MediaRecorder.AudioSource.MIC)
+
+
+
     }
 
     private fun initView() {
@@ -68,15 +74,15 @@ class VoiceActivity : BaseActivity() {
                 }
                 MotionEvent.ACTION_UP -> {
 
+                    //这是检测分贝的，不用就可以删除
+                    mediarecorder = MediaRecorder()
+                    val ratio = mediarecorder!!. getMaxAmplitude () / BASE;
+                    db = 0.0;// 分贝
+                    if (db < 1)
+                        db = 20 * Math.log10(ratio.toDouble());
+
                     // 结束录音
                     if (mediarecorder != null) {
-
-                        //这是检测分贝的，不用就可以删除
-                        mediarecorder = MediaRecorder()
-                        val ratio = mediarecorder!!. getMaxAmplitude () / BASE;
-                        db = 0.0;// 分贝
-                        if (db < 1)
-                            db = 20 * Math.log10(ratio.toDouble());
 
                         //停止录音的
                         mediarecorder.run {
@@ -90,15 +96,22 @@ class VoiceActivity : BaseActivity() {
                     view_wave.stopAnim()
                     newTime = System.currentTimeMillis()
 
-                    if(endY -startY < -10){
+                    if(endY -startY < -1000){
                         ToastUtil.showToast("已取消")
-                    }else if (newTime - oldTime > 1000) {
-                       //这里可以做人声判断
-                        getReadCoin()
-                    } else {
+                    }else if (newTime - oldTime < 1000) {
+                        //这里可以做人声判断
                         ToastUtil.showToast("录音时间过短")
                     }
+                    else if(db<-20){ // 检测音量
+                        ToastUtil.showToast("再大声一些哦~"+db)
+                    }
+                    else{
+                        getReadCoin()
+                    }
                     true
+//                    else {
+//                    }
+
                 }
             }
             true

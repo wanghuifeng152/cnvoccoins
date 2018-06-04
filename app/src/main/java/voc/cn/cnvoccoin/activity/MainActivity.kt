@@ -211,8 +211,17 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
                         arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE),
                         MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_)
             }
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.RECORD_AUDIO),
+                        MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_)
+            }
         }
     }
+
+
+
 
     private fun getLogin(showLoginDialog: Boolean) {
         val username = PreferenceUtil.instance?.getString(USER_NAME) ?: ""
