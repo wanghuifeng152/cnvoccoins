@@ -111,11 +111,11 @@ open class CommnutityActivity:BaseActivity() {
                 if(t == null || t.isEmpty())return
                 val gson = Gson()
                 val model = gson.fromJson(t, CommunityShequModel::class.java) ?: return
-                if(model.data == null || model.data.isEmpty())return
                 if(model.code == 1){
+                    if(model.data == null || model.data.isEmpty())return
                     val picUrl = model.data[0]
 
-                    Glide.with(Activity())
+                    Glide.with(this@CommnutityActivity)
                             .load(picUrl)
                             .into(findViewById(R.id.iv_img))
                 }
