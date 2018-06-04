@@ -17,6 +17,7 @@ import android.R.array
 import android.app.Activity
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import voc.cn.cnvoccoin.entity.CommunityShequModel
 import voc.cn.cnvoccoin.entity.communityModel
 
 
@@ -31,7 +32,10 @@ open class CommnutityActivity:BaseActivity() {
         setContentView(getLayoutResId())
         setParams()
         initView()
-        getPicUrls()
+
+        if (tag == JOIN_COMMUNTITY){
+            getPicUrls()
+        }
     }
 
     open fun setParams() {
@@ -67,6 +71,7 @@ open class CommnutityActivity:BaseActivity() {
             }
 
             override fun onError(t: Throwable?) {
+
             }
 
             override fun onComplete() {
@@ -98,18 +103,18 @@ open class CommnutityActivity:BaseActivity() {
 
             }
             override fun onError(t: Throwable?) {
-                ToastUtil.showToast("")
+//                ToastUtil.showToast("")
 
             }
 
             override fun onNext(t: String?) {
                 if(t == null || t.isEmpty())return
                 val gson = Gson()
-                val model = gson.fromJson(t, communityModel::class.java) ?: return
+                val model = gson.fromJson(t, CommunityShequModel::class.java) ?: return
+                if(model.data == null || model.data.isEmpty())return
                 if(model.code == 1){
-
                     val picUrl = model.data[0]
-                    ToastUtil.showToast(picUrl)
+
                     Glide.with(Activity())
                             .load(picUrl)
                             .into(findViewById(R.id.iv_img))
