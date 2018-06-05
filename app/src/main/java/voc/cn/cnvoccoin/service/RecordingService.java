@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.MediaRecorder;
+import android.os.Binder;
 import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -22,9 +23,11 @@ public class RecordingService extends Service {
     public String mFileName;
     public String mFilePath;
     MediaRecorder mediaRecorder;
-    Long mStartingTimeMillis;
+    long mStartingTimeMillis;
     long mElapsedMillis;
     File f;
+    //通过binder实现了 调用者（client）与 service之间的通信
+    private MyBinder binder = new MyBinder();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -34,7 +37,9 @@ public class RecordingService extends Service {
 
     private void startRecording() {
         setFileNameAndPath();
-        mediaRecorder = new MediaRecorder();
+        if(mediaRecorder == null){
+            mediaRecorder = new MediaRecorder();
+        }
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);//mp4
         mediaRecorder.setOutputFile(mFilePath);
@@ -59,7 +64,7 @@ public class RecordingService extends Service {
     // 停止录音
     public void stopRecording() {
         mediaRecorder.stop();
-        mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis);
+        mElapsedMillis = System.currentTimeMillis() - mStartingTimeMillis;
         mediaRecorder.release();
       /*  getSharedPreferences("sp_name_audio", MODE_PRIVATE)
                 .edit()
@@ -95,9 +100,11 @@ public class RecordingService extends Service {
             if (!folder.exists()) {
                 folder.mkdir();
             }
+            context.startService(intent);
             context.bindService(intent, connection, BIND_AUTO_CREATE);
 
         } else {
+            context.stopService(intent);
             context.unbindService(connection);
         }
     }
@@ -106,6 +113,15 @@ public class RecordingService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return binder;
+    }
+
+    public class MyBinder extends Binder{
+        public RecordingService getService(){
+            return RecordingService.this;
+        }
     }
 }
+
+
+
