@@ -53,9 +53,9 @@ class VoiceActivity : BaseActivity() {
                     view_wave.startAnim()
                     onRecord(this, true)
 
-                    // 这里拿不到 severce 里的 mediaRecorder吗？
-                    mediarecorder = RecordingService().mediaRecorder
-                    updateMicStatus()
+//                    // 这里拿不到 severce 里的 mediaRecorder吗？
+//                    mediarecorder = RecordingService().mediaRecorder
+//                    updateMicStatus()
                     true
                 }
                 MotionEvent.ACTION_UP -> {
@@ -78,9 +78,13 @@ class VoiceActivity : BaseActivity() {
                     newTime = System.currentTimeMillis()
                     if (endY - startY < -1000) {
                         ToastUtil.showToast("已取消")
+                        onRecord(this, false) //  lina这里加了个停止录音
+
                     } else if (newTime - oldTime < 1000) {
                         //这里可以做人声判断
                         ToastUtil.showToast("录音时间过短")
+                        onRecord(this, false) //  lina这里加了个停止录音
+
                     }
                     /*    else if(db<-20){ // 检测音量
                             ToastUtil.showToast("再大声一些哦~"+db)
