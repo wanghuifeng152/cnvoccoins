@@ -3,6 +3,7 @@ package voc.cn.cnvoccoin.activity
 import android.media.MediaRecorder
 import android.os.Build.VERSION_CODES.BASE
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import kotlinx.android.synthetic.main.activity_voice.*
 import voc.cn.cnvoccoin.R
@@ -17,6 +18,8 @@ import voc.cn.cnvoccoin.util.UPLOAD_COIN
 import voc.cn.cnvoccoin.util.UploadCoinRequest
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import android.os.Handler;
+import voc.cn.cnvoccoin.service.RecordingService
 
 
 /**
@@ -49,16 +52,26 @@ class VoiceActivity : BaseActivity() {
                     oldTime = System.currentTimeMillis()
                     view_wave.startAnim()
                     onRecord(this, true)
+
+                    // 这里拿不到 severce 里的 mediaRecorder吗？
+                    mediarecorder = RecordingService().mediaRecorder
+                    updateMicStatus()
                     true
                 }
                 MotionEvent.ACTION_UP -> {
 
-                    //这是检测分贝的，不用就可以删除
-                    mediarecorder = MediaRecorder()
-                    val ratio = mediarecorder!!.getMaxAmplitude() / BASE;
-                    db = 0.0;// 分贝
-                    if (db < 1)
-                        db = 20 * Math.log10(ratio.toDouble());
+//                    //这是检测分贝的，不用就可以删除
+//                    mediarecorder = MediaRecorder()
+//                    val ratio = mediarecorder!!.getMaxAmplitude() / BASE;
+//                    db = 0.0;// 分贝
+////                    db = 20 * Math.log10(ratio.toDouble());
+//                    db = ratio.toDouble();
+//                    ToastUtil.showToast("最大的音量---"+db)
+
+//                    if (db < 1)
+//                        db = 20 * Math.log10(ratio.toDouble());
+//                    ToastUtil.showToast("最大的音量---"+db)
+
 
                     val endY = event.y
                     view_wave.stopAnim()
@@ -114,5 +127,32 @@ class VoiceActivity : BaseActivity() {
 
         }, UploadVoiceBean::class.java, ResBaseModel::class.java)
     }
+
+    private val mHandler = Handler()
+    private val mUpdateMicStatusTimer = Runnable { updateMicStatus() }
+
+
+    /**
+     * 更新话筒状态
+     *
+     */
+    private val BASE = 1
+    private val SPACE = 100// 间隔取样时间
+
+    private fun updateMicStatus() {
+        Log.d("", "分贝值：$db")
+
+        if (mediarecorder != null) {
+            val ratio = mediarecorder!!.getMaxAmplitude() as Double / BASE
+
+            Log.d("","ratio"+ratio)
+            var db = 0.0// 分贝
+            if (ratio > 1)
+                db = 20 * Math.log10(ratio)
+            Log.d("", "分贝值：$db")
+            mHandler.postDelayed(mUpdateMicStatusTimer, SPACE.toLong())
+        }
+    }
+
 
 }
