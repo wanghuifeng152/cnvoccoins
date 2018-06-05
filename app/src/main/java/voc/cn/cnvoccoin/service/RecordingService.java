@@ -3,6 +3,7 @@ package voc.cn.cnvoccoin.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.IBinder;
@@ -51,6 +52,10 @@ public class RecordingService extends Service {
 
     }
 
+    public MediaRecorder getMideaRecoder(){
+        return mediaRecorder;
+    }
+
     // 停止录音
     public void stopRecording() {
         mediaRecorder.stop();
@@ -83,17 +88,17 @@ public class RecordingService extends Service {
         super.onDestroy();
     }
 
-    public static void onRecord(Context context, boolean start) {
+    public static void onRecord(Context context, boolean start, ServiceConnection connection) {
         Intent intent = new Intent(context, RecordingService.class);
         if (start) {
             File folder = new File(Environment.getExternalStorageDirectory() + "/SoundRecorder");
             if (!folder.exists()) {
                 folder.mkdir();
             }
-            context.startService(intent);
+            context.bindService(intent, connection, BIND_AUTO_CREATE);
 
         } else {
-            context.stopService(intent);
+            context.unbindService(connection);
         }
     }
 

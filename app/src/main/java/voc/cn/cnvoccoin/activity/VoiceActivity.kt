@@ -1,5 +1,6 @@
 package voc.cn.cnvoccoin.activity
 
+import android.content.ServiceConnection
 import android.media.MediaRecorder
 import android.os.Build.VERSION_CODES.BASE
 import android.os.Bundle
@@ -17,6 +18,10 @@ import voc.cn.cnvoccoin.util.UPLOAD_COIN
 import voc.cn.cnvoccoin.util.UploadCoinRequest
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import android.os.IBinder
+import android.content.ComponentName
+import android.media.midi.MidiReceiver
+import voc.cn.cnvoccoin.service.RecordingService
 
 
 /**
@@ -30,13 +35,24 @@ class VoiceActivity : BaseActivity() {
 
     private var mediarecorder: MediaRecorder? = null
     private var db: Double = 0.0  // 分贝
-
-
+    lateinit var connection:ServiceConnection
+    lateinit var recordingService:RecordingService
+    private var mideaRecoder:MediaRecorder? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_voice)
         initView()
         getReadCoin()
+
+        connection = object : ServiceConnection {
+            override fun onServiceDisconnected(name: ComponentName) {}
+
+            override fun onServiceConnected(name: ComponentName, service: IBinder) {
+                recordingService = service as RecordingService
+                mideaRecoder = recordingService.mideaRecoder
+
+            }
+        }
     }
 
     private fun initView() {
@@ -48,13 +64,10 @@ class VoiceActivity : BaseActivity() {
                     startY = event.y
                     oldTime = System.currentTimeMillis()
                     view_wave.startAnim()
-                    onRecord(this, true)
+                    onRecord(this, true,connection)
                     true
                 }
                 MotionEvent.ACTION_UP -> {
-
-                    //这是检测分贝的，不用就可以删除
-                    mediarecorder = MediaRecorder()
                     val ratio = mediarecorder!!.getMaxAmplitude() / BASE;
                     db = 0.0;// 分贝
                     if (db < 1)
@@ -73,7 +86,7 @@ class VoiceActivity : BaseActivity() {
                             ToastUtil.showToast("再大声一些哦~"+db)
                         }*/
                     else {
-                        onRecord(this, false)
+                        onRecord(this, false,connection)
                         getReadCoin()
                     }
                     true
@@ -114,5 +127,6 @@ class VoiceActivity : BaseActivity() {
 
         }, UploadVoiceBean::class.java, ResBaseModel::class.java)
     }
+
 
 }
