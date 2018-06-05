@@ -23,6 +23,8 @@ public class RecordingService extends Service {
     MediaRecorder mediaRecorder;
     Long mStartingTimeMillis;
     long mElapsedMillis;
+    File f;
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startRecording();
@@ -54,28 +56,23 @@ public class RecordingService extends Service {
         mediaRecorder.stop();
         mElapsedMillis = (System.currentTimeMillis() - mStartingTimeMillis);
         mediaRecorder.release();
-        getSharedPreferences("sp_name_audio", MODE_PRIVATE)
+      /*  getSharedPreferences("sp_name_audio", MODE_PRIVATE)
                 .edit()
                 .putString("audio_path", mFilePath)
                 .putLong("elpased", mElapsedMillis)
-                .apply();
-  /*      if (mIncrementTimerTask != null) {
-            mIncrementTimerTask.cancel();
-            mIncrementTimerTask = null;
-        }*/
+                .apply();*/
     }
 
     // 设置录音文件的名字和保存路径
     public void setFileNameAndPath() {
-        File f;
-        do {
-//            count++;
-            mFileName = getString(R.string.default_file_name)
-                    + "_" + (System.currentTimeMillis()) + ".mp4";
-            mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            mFilePath += "/SoundRecorder/" + mFileName;
-            f = new File(mFilePath);
-        } while (f.exists() && !f.isDirectory());
+        mFileName = getString(R.string.default_file_name)
+                + "_" + ".mp4";
+        mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        mFilePath += "/SoundRecorder/" + mFileName;
+        f = new File(mFilePath);
+        if (f.exists()) {
+            f.delete();
+        }
     }
 
     @Override
@@ -86,7 +83,7 @@ public class RecordingService extends Service {
         super.onDestroy();
     }
 
-    public static void onRecord(Context context,boolean start){
+    public static void onRecord(Context context, boolean start) {
         Intent intent = new Intent(context, RecordingService.class);
         if (start) {
             File folder = new File(Environment.getExternalStorageDirectory() + "/SoundRecorder");
