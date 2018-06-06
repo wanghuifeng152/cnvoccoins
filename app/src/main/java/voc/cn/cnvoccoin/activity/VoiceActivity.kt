@@ -1,10 +1,11 @@
 package voc.cn.cnvoccoin.activity
 
+import android.content.ComponentName
 import android.content.ServiceConnection
 import android.media.MediaRecorder
-import android.os.Build.VERSION_CODES.BASE
 import android.os.Bundle
 import android.os.Handler
+import android.os.IBinder
 import android.util.Log
 import android.view.MotionEvent
 import kotlinx.android.synthetic.main.activity_voice.*
@@ -14,15 +15,13 @@ import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
+import voc.cn.cnvoccoin.service.RecordingService
 import voc.cn.cnvoccoin.service.RecordingService.onRecord
 import voc.cn.cnvoccoin.util.ToastUtil
 import voc.cn.cnvoccoin.util.UPLOAD_COIN
 import voc.cn.cnvoccoin.util.UploadCoinRequest
 import java.math.BigDecimal
 import java.text.DecimalFormat
-import android.os.IBinder
-import android.content.ComponentName
-import voc.cn.cnvoccoin.service.RecordingService
 
 
 /**
@@ -54,8 +53,8 @@ class VoiceActivity : BaseActivity() {
                     startY = event.y
                     oldTime = System.currentTimeMillis()
                     view_wave.startAnim()
-                    onRecord(this, true,connection)
-//                    Thread(mUpdateMicStatusTimer).start()
+                    onRecord(this, true, connection)
+                    Thread(mUpdateMicStatusTimer).start()
                     true
                 }
                 MotionEvent.ACTION_UP -> {
@@ -64,14 +63,14 @@ class VoiceActivity : BaseActivity() {
                     newTime = System.currentTimeMillis()
                     if (endY - startY < -1000) {
                         ToastUtil.showToast("已取消")
-                        onRecord(this, false,connection)
+                        onRecord(this, false, connection)
 
                     } else if (newTime - oldTime < 1000) {
                         //这里可以做人声判断
                         ToastUtil.showToast("录音时间过短")
-                        onRecord(this, false,connection)
+                        onRecord(this, false, connection)
                     } else {
-                        onRecord(this, false,connection)
+                        onRecord(this, false, connection)
                         getReadCoin()
                     }
                     true
@@ -113,7 +112,7 @@ class VoiceActivity : BaseActivity() {
         }, UploadVoiceBean::class.java, ResBaseModel::class.java)
     }
 
-    private var connection:ServiceConnection = object : ServiceConnection {
+    private var connection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
             ToastUtil.showToast("fail")
         }
@@ -134,19 +133,19 @@ class VoiceActivity : BaseActivity() {
      * 更新话筒状态
      *
      */
-    private val SPACE:Long = 100// 间隔取样时间
+    private val SPACE: Long = 100// 间隔取样时间
 
     private fun updateMicStatus() {
-            if (mideaRecoder != null) {
-                val ratio = mideaRecoder!!.maxAmplitude as Double
+        if (mideaRecoder != null) {
+            val ratio = mideaRecoder!!.maxAmplitude as Double
 
-                Log.d("","音量:ratio"+ratio)
-                var db = 0.0// 分贝
-                if (ratio > 1)
-                    db = 20 * Math.log10(ratio)
-                Log.d("", "音量：$db")
-                mHandler.postDelayed(mUpdateMicStatusTimer, SPACE)
-            }
+            Log.d("", "音量:ratio" + ratio)
+            var db = 0.0// 分贝
+            if (ratio > 1)
+                db = 20 * Math.log10(ratio)
+            Log.d("", "音量：$db")
+            mHandler.postDelayed(mUpdateMicStatusTimer, SPACE)
         }
+    }
 
 }
