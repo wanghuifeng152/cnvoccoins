@@ -18,7 +18,6 @@ import com.lqr.audio.IAudioRecordListener;
 
 import com.orhanobut.logger.Logger;
 import java.io.File;
-import javax.xml.datatype.Duration;
 import org.jetbrains.annotations.Nullable;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.UploadVoiceBean;
@@ -107,9 +106,8 @@ public class VoiceActivityNew extends BaseActivity {
             viewWave.stopAnim();
             viewWave.clearDraw();
 
-            if (AudioRecordManager.getInstance(VoiceActivityNew.this).handleMessage(Duration)){
 
-            }else if (hasVoice == false){
+            if (hasVoice == false){
               ToastUtil.showToast("声音再大一些");
             }else {
               getReadCoin();
