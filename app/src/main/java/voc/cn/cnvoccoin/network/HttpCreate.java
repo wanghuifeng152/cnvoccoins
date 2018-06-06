@@ -97,6 +97,8 @@ public abstract class HttpCreate<T> implements Publisher {
                 if (s == null) {
                     sub.onError(new ErrorCodeThrowable(-1,"response is null"));
                     return;
+
+
                 }
 
                 if (NO_NEED_PRE_HANDLE == optionCode) {

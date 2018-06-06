@@ -1,7 +1,6 @@
 package voc.cn.cnvoccoin.network;
 
 
-import com.orhanobut.logger.Logger;
 import java.util.Map;
 
 public class HttpManager {

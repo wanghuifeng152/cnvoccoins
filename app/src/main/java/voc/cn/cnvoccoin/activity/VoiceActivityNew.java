@@ -1,12 +1,7 @@
 package voc.cn.cnvoccoin.activity;
 
 
-import static voc.cn.cnvoccoin.util.ConstantsKt.PASSWORD;
-import static voc.cn.cnvoccoin.util.ConstantsKt.TOKEN;
-import static voc.cn.cnvoccoin.util.ConstantsKt.USER_ID;
-import static voc.cn.cnvoccoin.util.ConstantsKt.USER_NAME;
-
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.MotionEvent;
@@ -18,8 +13,12 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.lqr.audio.AudioRecordManager;
+import com.lqr.audio.IAudioRecordListener;
+
+
 import com.orhanobut.logger.Logger;
 import java.io.File;
+import javax.xml.datatype.Duration;
 import org.jetbrains.annotations.Nullable;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.UploadVoiceBean;
@@ -27,10 +26,9 @@ import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.ResBaseModel;
 import voc.cn.cnvoccoin.network.Subscriber;
-import voc.cn.cnvoccoin.util.GetConfirmCodeRequest;
-import voc.cn.cnvoccoin.util.LoginResponse;
-import voc.cn.cnvoccoin.util.PreferenceUtil;
 import voc.cn.cnvoccoin.util.ToastUtil;
+import voc.cn.cnvoccoin.util.UploadCoinRequest;
+
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.view.WaveLineView;
 
@@ -58,6 +56,10 @@ public class VoiceActivityNew extends BaseActivity {
   private File mAudioDir;
   private int voice_id = 0;
 
+  private IAudioRecordListener listener;
+  private Boolean isreodering;
+  public boolean hasVoice;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -73,6 +75,7 @@ public class VoiceActivityNew extends BaseActivity {
 
   private void initListener() {
 
+
     ivVoice.setOnTouchListener(new OnTouchListener() {
       @Override
       public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -82,12 +85,17 @@ public class VoiceActivityNew extends BaseActivity {
             AudioRecordManager.getInstance(VoiceActivityNew.this).startRecord();
             viewWave.stopAnim();
             viewWave.startAnim();
+            isreodering = true;
+
             break;
           //移动按钮时
           case MotionEvent.ACTION_MOVE:
             if (isCancelled(view, motionEvent)) {
               AudioRecordManager.getInstance(VoiceActivityNew.this).willCancelRecord();
               viewWave.stopAnim();
+              isreodering = false;
+              hasVoice = false;
+
             } else {
               AudioRecordManager.getInstance(VoiceActivityNew.this).continueRecord();
             }
@@ -98,6 +106,16 @@ public class VoiceActivityNew extends BaseActivity {
             AudioRecordManager.getInstance(VoiceActivityNew.this).destroyRecord();
             viewWave.stopAnim();
             viewWave.clearDraw();
+
+            if (AudioRecordManager.getInstance(VoiceActivityNew.this).handleMessage(Duration)){
+
+            }else if (hasVoice == false){
+              ToastUtil.showToast("声音再大一些");
+            }else {
+              getReadCoin();
+              hasVoice = false;
+
+            }
             break;
         }
         return true;
@@ -105,7 +123,81 @@ public class VoiceActivityNew extends BaseActivity {
     });
 
 
-  }
+
+
+    AudioRecordManager.getInstance(this).setAudioRecordListener(new IAudioRecordListener() {
+      @Override
+      public void initTipView() {
+
+      }
+
+      @Override
+      public void setTimeoutTipView(int counter) {
+
+      }
+
+      @Override
+      public void setRecordingTipView() {
+
+      }
+
+      @Override
+      public void setAudioShortTipView() {
+
+      }
+
+      @Override
+      public void setCancelTipView() {
+
+      }
+
+      @Override
+      public void destroyTipView() {
+
+      }
+
+      @Override
+      public void onStartRecord() {
+
+      }
+
+      @Override
+      public void onFinish(Uri audioPath, int duration) {
+
+      }
+
+      @Override
+      public void onAudioDBChanged(int db) {
+        Logger.t("db").e("db"+db);
+
+        switch (db / 5) {
+
+          case 0:
+            break;
+          case 1:
+            break;
+          case 2:
+            hasVoice = true;
+            break;
+          case 3:
+            break;
+          case 4:
+            break;
+          case 5:
+            break;
+          case 6:
+            break;
+          default:
+        }
+      }
+    });
+
+
+
+
+
+
+                                                                }
   //初始化录音机
 
   private void initRecord() {
@@ -134,31 +226,44 @@ public class VoiceActivityNew extends BaseActivity {
   //网络请求
   private void getReadCoin() {
     //参数转换
-    GetConfirmCodeRequest request = new GetConfirmCodeRequest(String.valueOf(voice_id));
+    UploadCoinRequest request = new UploadCoinRequest(String.valueOf(voice_id));
     RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
     HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
         .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {
 
-
           @Override
           public void onNext(ResBaseModel<UploadVoiceBean> uploadVoiceBeanResBaseModel) {
             //成功
-            //Logger.e("hello");
+            Logger.t("success").e("hello");
+            if (uploadVoiceBeanResBaseModel == null || uploadVoiceBeanResBaseModel.data == null) return;
+            if(uploadVoiceBeanResBaseModel.code != 1)return;
+            tvVoiceText.setText(uploadVoiceBeanResBaseModel.data.getNext().getContent());
+            if (voice_id != 0) {
 
+              // lina 转为 java
+//              val bigDecimal = BigDecimal(voice_coin)
+//              val plus = BigDecimal(model.data.next.voc_coin).plus(bigDecimal)
+//              val format = DecimalFormat("#######.##")
+//              voice_coin = format.format(plus)
+            }
+            voice_id = uploadVoiceBeanResBaseModel.data.getNext().getId();
+            tvHaveCoin.setText(uploadVoiceBeanResBaseModel.data.getNext().getVoc_coin());
+//            tv_have_coin.text = voice_coin
           }
 
           @Override
           public void onError(Throwable t) {
             //失败
-            Logger.t("异常").e(t.getMessage().toString());
           }
 
           @Override
           public void onComplete() {
-            //完成
           }
         }, UploadVoiceBean.class, ResBaseModel.class);
   }
+
+
+
 
   @Override
   protected void onStart() {
@@ -166,6 +271,8 @@ public class VoiceActivityNew extends BaseActivity {
     //获取语句
     getReadCoin();
   }
+
+
 }
 
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import io.reactivex.subscribers.ResourceSubscriber;
 import okhttp3.ResponseBody;
+import org.json.JSONException;
 
 public abstract class HttpSubscriber<T> extends ResourceSubscriber<ResponseBody> {
 
@@ -16,6 +17,8 @@ public abstract class HttpSubscriber<T> extends ResourceSubscriber<ResponseBody>
 
         } catch (IOException e) {
             _onError(e);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
     }
@@ -30,7 +33,7 @@ public abstract class HttpSubscriber<T> extends ResourceSubscriber<ResponseBody>
         _onComplete();
     }
 
-    public abstract void _onNext(String t);
+    public abstract void _onNext(String t) throws JSONException;
 
     public abstract void _onError(Throwable t);
 
