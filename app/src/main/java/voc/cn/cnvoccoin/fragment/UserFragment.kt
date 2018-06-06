@@ -3,13 +3,16 @@ package voc.cn.cnvoccoin.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_user.*
 import voc.cn.cnvoccoin.R
-import voc.cn.cnvoccoin.activity.*
+import voc.cn.cnvoccoin.activity.CommnutityActivity
+import voc.cn.cnvoccoin.activity.FocusOfficalActivity
+import voc.cn.cnvoccoin.activity.LoginActivityNew
+import voc.cn.cnvoccoin.activity.TaskActivity
 import voc.cn.cnvoccoin.entity.MyCoinResponse
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.ResBaseModel
@@ -17,11 +20,6 @@ import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.MY_RANK_URL
 import voc.cn.cnvoccoin.util.PreferenceUtil
 import voc.cn.cnvoccoin.util.TOKEN
-import android.content.ClipData
-import android.content.ClipboardManager
-import voc.cn.cnvoccoin.util.ToastUtil
-import voc.cn.cnvoccoin.util.USER_ID
-import android.content.Context
 
 /**
  * Created by shy on 2018/3/24.
@@ -38,6 +36,7 @@ class UserFragment : Fragment() {
         tv_more.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()){
+                Logger.t("token").e(token+"")
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
                 startActivity(Intent(activity, TaskActivity::class.java)) }

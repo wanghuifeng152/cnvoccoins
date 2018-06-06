@@ -5,6 +5,8 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
+import com.orhanobut.logger.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.ParameterizedType;
@@ -90,7 +92,7 @@ public abstract class HttpCreate<T> implements Publisher {
         final HttpSubscriber httpSubscriber = new HttpSubscriber() {
 
             @Override
-            public void _onNext(String s) {
+            public void _onNext(String s) throws JSONException {
                 YHLog.i("---response---> " + s);
                 if (s == null) {
                     sub.onError(new ErrorCodeThrowable(-1,"response is null"));
@@ -101,6 +103,7 @@ public abstract class HttpCreate<T> implements Publisher {
                     sub.onNext(s);
                     return;
                 }
+
 
                 if (baseOfType == null || ((Class) baseOfType).getSimpleName().equals(ResBaseModel.class.getSimpleName()) ) { //default response type（code，message，data）
                     if (!preHandleResponse(s, sub, isShowToast)) { //failed for pre handle

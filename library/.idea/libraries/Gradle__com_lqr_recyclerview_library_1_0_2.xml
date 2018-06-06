@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.lqr.recyclerview:library-1.0.2">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.android/build-cache/50d51dd01caa4c1404e4003a55fe1c6f1d30ffbe/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/50d51dd01caa4c1404e4003a55fe1c6f1d30ffbe/output/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.lqr.recyclerview/library/1.0.2/68f1d85fd8432f2474b1fc7d734327d2565391d5/library-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
