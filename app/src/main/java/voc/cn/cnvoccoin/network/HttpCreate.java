@@ -17,6 +17,8 @@ import java.util.Map;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import voc.cn.cnvoccoin.util.ConstantsKt;
+import voc.cn.cnvoccoin.util.PreferenceUtil;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.YHLog;
 
@@ -97,9 +99,28 @@ public abstract class HttpCreate<T> implements Publisher {
                 if (s == null) {
                     sub.onError(new ErrorCodeThrowable(-1,"response is null"));
                     return;
-
-
                 }
+
+                try {
+                    JSONObject jsonObject = new JSONObject(s);
+                    if (jsonObject != null) {
+                        String tip = jsonObject.has("msg") ? jsonObject.getString("msg") : "";
+                        int code = jsonObject.has("code") ? jsonObject.getInt("code") : -1;
+                        if(code == 10001){
+                            ToastUtil.showToast(tip);
+                            PreferenceUtil.Companion.getInstance().set(ConstantsKt.TOKEN,"");
+                            return;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    sub.onError(new ErrorCodeThrowable(-1, DEFAULT_ERR_MSG));
+                    sub.onComplete();
+                    if (isShowToast) {
+                        ToastUtil.showToast(DEFAULT_ERR_MSG);
+                    }
+                }
+
 
                 if (NO_NEED_PRE_HANDLE == optionCode) {
                     sub.onNext(s);
