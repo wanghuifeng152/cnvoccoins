@@ -231,7 +231,7 @@ public class AudioRecordManager implements Handler.Callback {
             this.mMediaRecorder.setAudioSource(1);
             this.mMediaRecorder.setOutputFormat(3);
             this.mMediaRecorder.setAudioEncoder(1);
-            this.mAudioPath = Uri.fromFile(new File(SAVE_PATH, System.currentTimeMillis() + ".aac"));
+            this.mAudioPath = Uri.fromFile(new File(SAVE_PATH,  "voc_record.aac"));
             this.mMediaRecorder.setOutputFile(this.mAudioPath.getPath());
             this.mMediaRecorder.prepare();
             this.mMediaRecorder.start();

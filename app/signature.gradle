@@ -1,7 +1,7 @@
 ext {
-    storeFilePath = ""
-    keyStorePasswordValue = ""
-    keyPasswordValue = ""
+    storeFilePath = 'D:/Develop/voc.jks'
+    keyStorePasswordValue = "123456"
+    keyPasswordValue = "123456"
     alias="voc"
 }
 

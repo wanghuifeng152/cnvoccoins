@@ -4,20 +4,31 @@ package voc.cn.cnvoccoin.activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.lqr.audio.AudioRecordManager;
 import com.lqr.audio.IAudioRecordListener;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.adapter.Call;
+import com.lzy.okgo.cache.CacheEntity;
+import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 import java.io.File;
 import java.math.BigDecimal;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
 import org.jetbrains.annotations.Nullable;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.UploadVoiceBean;
@@ -166,43 +177,34 @@ public class VoiceActivityNew extends BaseActivity {
 
       @Override
       public void onFinish(Uri audioPath, int duration) {
+        try {
+          if (!TextUtils.isEmpty(audioPath.toString()))
+
+          {
+            File file = new File(new URI(audioPath.toString()));
+            loadFile(file);
+          }
+
+        } catch (URISyntaxException e) {
+          e.printStackTrace();
+        }
+
 
       }
 
       @Override
       public void onAudioDBChanged(int db) {
-        Logger.t("db").e("db" + db);
 
-        switch (db / 5) {
+        Logger.t("db").e("db-------->" + db);
 
-          case 0:
-            break;
-          case 1:
-            hasVoice = true;
-            break;
-          case 2:
-            hasVoice = true;
-            break;
-          case 3:
-            hasVoice = true;
+        if (db > 4) {
+          hasVoice = true;
 
-            break;
-          case 4:
-            hasVoice = true;
-
-            break;
-          case 5:
-            hasVoice = true;
-
-            break;
-          case 6:
-            hasVoice = true;
-
-            break;
-          default:
-            break;
         }
+
       }
+
+
     });
 
 
@@ -284,6 +286,26 @@ public class VoiceActivityNew extends BaseActivity {
     super.onStart();
     //获取语句
     getReadCoin();
+  }
+
+  //上传音频
+  private void loadFile(final File file) {
+
+    OkGo.<String>post("http://www.vochain.world/api/user/public/saveVoice")//
+        .tag(this)//
+
+        .params(null, file)//
+
+        .execute(new StringCallback() {
+          @Override
+          public void onSuccess(Response<String> response) {
+
+            Logger.t("file").e(file.getAbsolutePath());
+
+            Logger.t("su").e(response.body().toString());
+
+          }
+        });
   }
 }
 
