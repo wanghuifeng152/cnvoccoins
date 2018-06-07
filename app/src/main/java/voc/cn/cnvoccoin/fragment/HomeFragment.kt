@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.google.gson.Gson
+import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_home.*
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.activity.*
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
             if (token == null || token.isEmpty()) {
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             } else {
-                startActivity(Intent(activity, VoiceActivity::class.java))
+                startActivity(Intent(activity, VoiceActivityNew::class.java))
             }
         }
         mBtnTask?.setOnClickListener {
@@ -94,6 +95,10 @@ class HomeFragment : Fragment() {
             }
 
             override fun onError(t: Throwable?) {
+
+                // 未登录的话会走这个方法的
+                Logger.t("error").e(""+t!!.message.toString())
+
             }
 
             override fun onComplete() {

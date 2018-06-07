@@ -1,93 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="voc.cn.cnvoccoin">
+  package="voc.cn.cnvoccoin"
+  >
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 
-    <application
-        android:name=".VocApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/icon_dollar"
-        android:supportsRtl="true"
-        android:theme="@android:style/Theme.NoTitleBar">
-        <activity
-            android:name=".activity.StartActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+  <application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:name=".VocApplication"
+    android:roundIcon="@mipmap/icon_dollar"
+    android:supportsRtl="true"
+    android:theme="@android:style/Theme.NoTitleBar"
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.MainActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.InfoActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.RankActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.VoiceActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.LoginActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.TaskActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".activity.LoginActivityNew"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"
-             />
-        <activity
-            android:name=".activity.RegistActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.InvitationActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.CommnutityActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.FocusOfficalActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.NewsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"
-            />
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="voc.cn.cnvoccoin.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
-        </provider>
-        <service android:name=".service.RecordingService"/>
-        <meta-data android:value="5aeb164cf29d986a430002ef" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="offical" android:name="UMENG_CHANNEL"/>
-    </application>
+    >
+    <activity
+      android:name=".activity.StartActivity"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+    <activity
+      android:launchMode="singleTask"
+      android:name=".activity.MainActivity"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+    <activity
+      android:name=".activity.InfoActivity"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+    <activity
+      android:name=".activity.RankActivity"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+    <activity
+      android:name=".activity.VoiceActivity"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+    <activity
+      android:name=".activity.LoginActivity"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+    <activity
+      android:name=".activity.TaskActivity"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+    <activity
+      android:name=".activity.LoginActivityNew"
+      android:screenOrientation="portrait"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+      />
+    <activity
+      android:name=".activity.RegistActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+      />
+    <activity
+      android:name=".activity.InvitationActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+      />
+    <activity
+      android:name=".activity.CommnutityActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+      />
+    <activity
+      android:name=".activity.FocusOfficalActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+      />
+    <activity
+      android:name=".activity.NewsActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+      />
+
+    <provider
+      android:authorities="voc.cn.cnvoccoin.fileprovider"
+      android:exported="false"
+      android:grantUriPermissions="true"
+      android:name="android.support.v4.content.FileProvider">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/filepaths"/>
+    </provider>
+    <service android:name=".service.RecordingService"/>
+
+    <meta-data
+      android:name="UMENG_APPKEY"
+      android:value="5aeb164cf29d986a430002ef"/>
+    <meta-data
+      android:name="UMENG_CHANNEL"
+      android:value="offical"/>
+
+
+    //录音界面
+    <activity
+      android:launchMode="singleTask"
+      android:name=".activity.VoiceActivityNew"
+      android:screenOrientation="portrait"
+      android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+  </application>
 
 </manifest>
