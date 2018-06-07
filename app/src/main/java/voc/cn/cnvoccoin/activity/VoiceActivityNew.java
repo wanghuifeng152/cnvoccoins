@@ -56,9 +56,8 @@ public class VoiceActivityNew extends BaseActivity {
   private File mAudioDir;
   private int voice_id = 0;
 
-  public long oldTime ;
+  public long oldTime;
   public long newTime;
-
 
 
   private IAudioRecordListener listener;
@@ -79,7 +78,6 @@ public class VoiceActivityNew extends BaseActivity {
   //处理触摸事件
 
   private void initListener() {
-
 
     ivVoice.setOnTouchListener(new OnTouchListener() {
       @Override
@@ -114,11 +112,11 @@ public class VoiceActivityNew extends BaseActivity {
             viewWave.clearDraw();
             newTime = java.lang.System.currentTimeMillis();
 
-            if (newTime-oldTime < 1000){
+            if (newTime - oldTime < 1000) {
               ToastUtil.showToast("录音时间太短了哦");
-            }else if (hasVoice == false){
+            } else if (hasVoice == false) {
               ToastUtil.showToast("声音再大一些");
-            }else {
+            } else {
               getReadCoin();
               hasVoice = false;
             }
@@ -127,9 +125,6 @@ public class VoiceActivityNew extends BaseActivity {
         return true;
       }
     });
-
-
-
 
     AudioRecordManager.getInstance(this).setAudioRecordListener(new IAudioRecordListener() {
       @Override
@@ -174,7 +169,7 @@ public class VoiceActivityNew extends BaseActivity {
 
       @Override
       public void onAudioDBChanged(int db) {
-        Logger.t("db").e("db"+db);
+        Logger.t("db").e("db" + db);
 
         switch (db / 5) {
 
@@ -186,24 +181,29 @@ public class VoiceActivityNew extends BaseActivity {
             hasVoice = true;
             break;
           case 3:
+            hasVoice = true;
+
             break;
           case 4:
+            hasVoice = true;
+
             break;
           case 5:
+            hasVoice = true;
+
             break;
           case 6:
+            hasVoice = true;
+
             break;
           default:
+            break;
         }
       }
     });
 
 
-
-
-
-
-                                                                }
+  }
   //初始化录音机
 
   private void initRecord() {
@@ -240,9 +240,12 @@ public class VoiceActivityNew extends BaseActivity {
           @Override
           public void onNext(ResBaseModel<UploadVoiceBean> uploadVoiceBeanResBaseModel) {
             //成功
-            Logger.t("success").e("hello");
-            if (uploadVoiceBeanResBaseModel == null || uploadVoiceBeanResBaseModel.data == null) return;
-            if(uploadVoiceBeanResBaseModel.code != 1)return;
+            if (uploadVoiceBeanResBaseModel == null || uploadVoiceBeanResBaseModel.data == null) {
+              return;
+            }
+            if (uploadVoiceBeanResBaseModel.code != 1) {
+              return;
+            }
             tvVoiceText.setText(uploadVoiceBeanResBaseModel.data.getNext().getContent());
             if (voice_id != 0) {
 
@@ -269,16 +272,12 @@ public class VoiceActivityNew extends BaseActivity {
   }
 
 
-
-
   @Override
   protected void onStart() {
     super.onStart();
     //获取语句
     getReadCoin();
   }
-
-
 }
 
 
