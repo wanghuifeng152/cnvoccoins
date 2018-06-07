@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.entity.RankBean
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 
 /**
@@ -29,14 +31,23 @@ class RankAdapter(var mContext: Context, var data: List<RankBean.DataBean.ListBe
         data?.let {
             var dataBean = data[position]
             var userAccount = dataBean.userAccount
-            if(userAccount != null && userAccount.length == 11){
+            if (userAccount != null && userAccount.length == 11) {
                 userAccount = userAccount.replace(userAccount.substring(3, 7), "****")
             }
             holder?.mTvName?.text = userAccount
-            holder?.mTvVocToday?.text = dataBean.coinSum.toString()
+
+            //精度计算
+            val bigDecimal = BigDecimal(dataBean.coinSum)
+            //保留两位小数
+            val money = BigDecimal(0.00).add(bigDecimal).setScale(2, RoundingMode.DOWN)
+
+
+            holder?.mTvVocToday?.text = money.toString()
+
+//            holder?.mTvVocToday?.text = dataBean.coinSum.toString()
             if (position in 0..2) {
-                setRankImage(position,holder)
-            }else{
+                setRankImage(position, holder)
+            } else {
                 holder?.mTvRank?.text = (position + 1).toString()
             }
         }
@@ -44,10 +55,10 @@ class RankAdapter(var mContext: Context, var data: List<RankBean.DataBean.ListBe
 
     private fun setRankImage(position: Int, holder: RankViewHolder?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            when(position){
-                0-> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_one)
-                1-> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_two)
-                2-> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_three)
+            when (position) {
+                0 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_one)
+                1 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_two)
+                2 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_three)
 
             }
         }

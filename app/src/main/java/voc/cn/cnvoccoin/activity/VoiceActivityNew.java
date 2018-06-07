@@ -4,7 +4,6 @@ package voc.cn.cnvoccoin.activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings.System;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -15,12 +14,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.lqr.audio.AudioRecordManager;
 import com.lqr.audio.IAudioRecordListener;
-
-
 import com.orhanobut.logger.Logger;
 import java.io.File;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import org.jetbrains.annotations.Nullable;
 import voc.cn.cnvoccoin.R;
@@ -31,7 +27,6 @@ import voc.cn.cnvoccoin.network.ResBaseModel;
 import voc.cn.cnvoccoin.network.Subscriber;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UploadCoinRequest;
-
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.view.WaveLineView;
 
