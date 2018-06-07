@@ -4,6 +4,7 @@ package voc.cn.cnvoccoin.activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings.System;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -55,6 +56,11 @@ public class VoiceActivityNew extends BaseActivity {
   private File mAudioDir;
   private int voice_id = 0;
 
+  public long oldTime ;
+  public long newTime;
+
+
+
   private IAudioRecordListener listener;
   private Boolean isreodering;
   public boolean hasVoice;
@@ -85,6 +91,7 @@ public class VoiceActivityNew extends BaseActivity {
             viewWave.stopAnim();
             viewWave.startAnim();
             isreodering = true;
+            oldTime = java.lang.System.currentTimeMillis();
 
             break;
           //移动按钮时
@@ -105,14 +112,15 @@ public class VoiceActivityNew extends BaseActivity {
             AudioRecordManager.getInstance(VoiceActivityNew.this).destroyRecord();
             viewWave.stopAnim();
             viewWave.clearDraw();
+            newTime = java.lang.System.currentTimeMillis();
 
-
-            if (hasVoice == false){
+            if (newTime-oldTime < 1000){
+              ToastUtil.showToast("录音时间太短了哦");
+            }else if (hasVoice == false){
               ToastUtil.showToast("声音再大一些");
             }else {
               getReadCoin();
               hasVoice = false;
-
             }
             break;
         }
