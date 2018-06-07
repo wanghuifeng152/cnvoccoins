@@ -42,9 +42,15 @@ class HomeFragment : Fragment() {
         mBtnVoice = view?.findViewById<Button>(R.id.btn_voice)
         mBtnTask = view?.findViewById<Button>(R.id.btn_task)
         mMyCoin = view?.findViewById<TextView>(R.id.tv_my_coin)
+        val token = PreferenceUtil.instance?.getString(TOKEN)
+        if (token == null || token.isEmpty()) {
+            mMyCoin?.text = "点击登录"
+        }
+
         mBtnVoice?.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
+
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             } else {
                 startActivity(Intent(activity, VoiceActivityNew::class.java))
@@ -58,6 +64,14 @@ class HomeFragment : Fragment() {
                 startActivity(Intent(activity, TaskActivity::class.java))
             }
         }
+        mMyCoin?.setOnClickListener {
+            val token = PreferenceUtil.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()) {
+                startActivity(Intent(activity, LoginActivityNew::class.java))
+            }
+        }
+
+
         view?.findViewById<TextView>(R.id.tv_info)?.setOnClickListener { startActivity(Intent(activity, InfoActivity::class.java)) }
     }
 
@@ -97,7 +111,7 @@ class HomeFragment : Fragment() {
             override fun onError(t: Throwable?) {
 
                 // 未登录的话会走这个方法的
-                Logger.t("error").e(""+t!!.message.toString())
+                Logger.t("error").e("" + t!!.message.toString())
 
             }
 

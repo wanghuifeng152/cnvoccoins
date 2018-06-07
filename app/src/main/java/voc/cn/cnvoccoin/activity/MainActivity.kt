@@ -50,7 +50,7 @@ import java.util.*
 
 const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
 
- class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity() {
     var permissinTag = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -221,12 +221,10 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
     }
 
 
-
-
     private fun getLogin(showLoginDialog: Boolean) {
         val username = PreferenceUtil.instance?.getString(USER_NAME) ?: ""
         val password = PreferenceUtil.instance?.getString(PASSWORD) ?: ""
-        if(username.isEmpty() || password.isEmpty())return
+        if (username.isEmpty() || password.isEmpty()) return
 
         val loadingDialog = LoadingDialog(this, null)
         loadingDialog.show()
@@ -239,13 +237,20 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
             }
 
             override fun onNext(model: ResBaseModel<LoginResponse>?) {
-                if (model?.data == null) return
+                if (model?.data == null) {
+                    PreferenceUtil.instance?.set(TOKEN, null)
+                    return
+                }
+
+
                 PreferenceUtil.instance?.set(TOKEN, model.data.token)
+
                 if (model?.data.user != null) {
+
                     PreferenceUtil.instance?.set(USER_ID, model.data.user.id)
                 }
 
-                if(showLoginDialog){
+                if (showLoginDialog) {
                     val loginDialog = LoginDialog(this@MainActivity, LOGIN)
                     loginDialog.show()
                 }
@@ -313,7 +318,6 @@ const val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE_ = 1
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-
 
 
     override fun onDestroy() {

@@ -182,7 +182,7 @@ public class VoiceActivityNew extends BaseActivity {
 
           {
             File file = new File(new URI(audioPath.toString()));
-            loadFile(file);
+            //loadFile(file);
           }
 
         } catch (URISyntaxException e) {
@@ -199,11 +199,8 @@ public class VoiceActivityNew extends BaseActivity {
 
         if (db > 4) {
           hasVoice = true;
-
         }
-
       }
-
 
     });
 
