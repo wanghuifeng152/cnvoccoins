@@ -19,6 +19,9 @@ import com.lqr.audio.IAudioRecordListener;
 
 import com.orhanobut.logger.Logger;
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import org.jetbrains.annotations.Nullable;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.UploadVoiceBean;
@@ -55,6 +58,8 @@ public class VoiceActivityNew extends BaseActivity {
   ImageView ivVoice;
   private File mAudioDir;
   private int voice_id = 0;
+  private double voiceCoin = 0.00;
+
 
   public long oldTime;
   public long newTime;
@@ -63,6 +68,7 @@ public class VoiceActivityNew extends BaseActivity {
   private IAudioRecordListener listener;
   private Boolean isreodering;
   public boolean hasVoice;
+  private DecimalFormat decimalFormat;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +77,7 @@ public class VoiceActivityNew extends BaseActivity {
     ButterKnife.bind(this);
     initRecord();
     initListener();
+    tvHaveCoin.setText("" + voiceCoin);
 
 
   }
@@ -248,16 +255,20 @@ public class VoiceActivityNew extends BaseActivity {
             }
             tvVoiceText.setText(uploadVoiceBeanResBaseModel.data.getNext().getContent());
             if (voice_id != 0) {
+              BigDecimal b1 = new BigDecimal(voiceCoin);
+              BigDecimal b2 = new BigDecimal(
+                  Double.valueOf(uploadVoiceBeanResBaseModel.data.getNext().getVoc_coin()));
+              //数据格式化为小数点后两位
+              decimalFormat = new DecimalFormat("#.00");
+              //高精度计算
+              //voiceCoin = b1.add(b2).setScale(2, RoundingMode.DOWN).doubleValue();
 
-              // lina 转为 java
-//              val bigDecimal = BigDecimal(voice_coin)
-//              val plus = BigDecimal(model.data.next.voc_coin).plus(bigDecimal)
-//              val format = DecimalFormat("#######.##")
-//              voice_coin = format.format(plus)
+              voiceCoin = b1.add(b2).doubleValue();
+
             }
             voice_id = uploadVoiceBeanResBaseModel.data.getNext().getId();
-            tvHaveCoin.setText(uploadVoiceBeanResBaseModel.data.getNext().getVoc_coin());
-//            tv_have_coin.text = voice_coin
+
+            tvHaveCoin.setText(decimalFormat.format(voiceCoin) + "");
           }
 
           @Override
