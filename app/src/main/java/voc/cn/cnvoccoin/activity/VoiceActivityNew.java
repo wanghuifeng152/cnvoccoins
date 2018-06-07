@@ -178,6 +178,7 @@ public class VoiceActivityNew extends BaseActivity {
           case 0:
             break;
           case 1:
+            hasVoice = true;
             break;
           case 2:
             hasVoice = true;

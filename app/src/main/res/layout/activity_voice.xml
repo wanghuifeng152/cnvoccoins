@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  android:gravity="center_horizontal">
+
+  <LinearLayout
+    android:id="@+id/ll_voice_top"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/bgc_black"
+    android:orientation="vertical">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="right"
+      android:padding="10dp"
+      android:text="@string/coin_rule"
+      android:textColor="@color/color_654c34"
+      android:visibility="invisible"/>
+
+    <TextView
+      android:id="@+id/tv_info"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp"
+      android:layout_gravity="center"
+      android:text="@string/have_coin"
+      android:textColor="@color/color_b3642b"/>
+
+    <TextView
+      android:id="@+id/tv_have_coin"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/tv_info"
+      android:layout_gravity="center"
+      android:text="0.00"
+      android:textColor="@color/color_c89158"
+      android:textSize="28sp"/>
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/tv_voice_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:layout_below="@id/ll_voice_top"
+    android:layout_centerHorizontal="true"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
     android:background="@color/white"
-    android:gravity="center_horizontal">
+    android:lines="3"
+    android:textColor="@color/color_8c"
+    android:textSize="24sp"/>
 
-    <LinearLayout
-        android:id="@+id/ll_voice_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/bgc_black"
-        android:orientation="vertical">
+  <voc.cn.cnvoccoin.view.WaveLineView
+    android:id="@+id/view_wave"
+    android:layout_width="match_parent"
+    android:layout_height="109dp"
+    android:layout_below="@id/tv_voice_text"
+    android:background="@color/white"
+    app:wlvBackgroundColor="@color/white"
+    app:wlvLineColor="@color/color_b3642b"
+    app:wlvMoveSpeed="600"
+    app:wlvThickLineWidth="1dp"
+    />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:layout_gravity="right"
-            android:text="@string/coin_rule"
-            android:visibility="invisible"
-            android:textColor="@color/color_654c34" />
+  <ImageView
+    android:id="@+id/iv_voice"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="80dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:src="@mipmap/icon_voice"/>
 
-        <TextView
-            android:id="@+id/tv_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center"
-            android:text="@string/have_coin"
-            android:textColor="@color/color_b3642b" />
-
-        <TextView
-            android:id="@+id/tv_have_coin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_info"
-            android:layout_gravity="center"
-            android:text="0.00"
-            android:textColor="@color/color_c89158"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_voice_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_voice_top"
-        android:background="@color/white"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:lines="3"
-        android:textColor="@color/color_8c"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:textSize="24sp" />
-
-    <voc.cn.cnvoccoin.view.WaveLineView
-        android:id="@+id/view_wave"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        app:wlvBackgroundColor="@color/white"
-        app:wlvMoveSpeed="600"
-        app:wlvThickLineWidth="1dp"
-        app:wlvLineColor="@color/color_b3642b"
-        android:background="@color/white"
-        android:layout_below="@id/tv_voice_text"
-        />
-
-    <ImageView
-        android:id="@+id/iv_voice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:src="@mipmap/icon_voice" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:text="@string/coin_read"
-        android:textColor="@color/color_a8" />
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="40dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:text="@string/coin_read"
+    android:textColor="@color/color_a8"/>
 
 </RelativeLayout>
