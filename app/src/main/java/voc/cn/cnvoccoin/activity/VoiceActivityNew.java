@@ -127,8 +127,10 @@ public class VoiceActivityNew extends BaseActivity {
 
             if (newTime - oldTime < 1000) {
               ToastUtil.showToast("录音时间太短了哦");
+              hasVoice = false;
             } else if (hasVoice == false) {
               ToastUtil.showToast("声音再大一些");
+              hasVoice = false;
             } else {
               getReadCoin();
               hasVoice = false;
@@ -197,7 +199,7 @@ public class VoiceActivityNew extends BaseActivity {
 
         Logger.t("db").e("db-------->" + db);
 
-        if (db > 4) {
+        if (db > 3 && db < 30) {
           hasVoice = true;
         }
       }
@@ -231,7 +233,7 @@ public class VoiceActivityNew extends BaseActivity {
     return false;
   }
 
-  //网络请求
+  //网络请求//网络请求
   private void getReadCoin() {
     //参数转换
     UploadCoinRequest request = new UploadCoinRequest(String.valueOf(voice_id));

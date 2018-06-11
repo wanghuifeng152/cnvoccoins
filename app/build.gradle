@@ -9,8 +9,8 @@ android {
         applicationId "voc.cn.cnvoccoin"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 6
-        versionName "2.3"
+        versionCode 8
+        versionName "2.4.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +22,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('D:/Develop/voc.jks')
+            storeFile file(storeFilePath)
             keyAlias alias
             keyPassword keyPasswordValue
             storePassword keyStorePasswordValue
