@@ -111,7 +111,7 @@ public class VoiceActivityNew extends BaseActivity {
               AudioRecordManager.getInstance(VoiceActivityNew.this).willCancelRecord();
               viewWave.stopAnim();
               isreodering = false;
-              hasVoice = false;
+//              hasVoice = false;
 
             } else {
               AudioRecordManager.getInstance(VoiceActivityNew.this).continueRecord();
@@ -128,10 +128,12 @@ public class VoiceActivityNew extends BaseActivity {
             if (newTime - oldTime < 1000) {
               ToastUtil.showToast("录音时间太短了哦");
               hasVoice = false;
-            } else if (hasVoice == false) {
+            }
+            else if (hasVoice == false) {
               ToastUtil.showToast("声音再大一些");
               hasVoice = false;
-            } else {
+            }
+            else {
               getReadCoin();
               hasVoice = false;
             }
@@ -199,7 +201,7 @@ public class VoiceActivityNew extends BaseActivity {
 
         Logger.t("db").e("db-------->" + db);
 
-        if (db > 3 && db < 30) {
+        if (db > 2 && db < 30) {
           hasVoice = true;
         }
       }
@@ -266,6 +268,9 @@ public class VoiceActivityNew extends BaseActivity {
             voice_id = uploadVoiceBeanResBaseModel.data.getNext().getId();
 
             tvHaveCoin.setText(decimalFormat.format(voiceCoin) + "");
+
+            hasVoice = false;
+
           }
 
           @Override

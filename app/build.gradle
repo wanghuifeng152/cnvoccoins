@@ -9,8 +9,8 @@ android {
         applicationId "voc.cn.cnvoccoin"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 8
-        versionName "2.4.1"
+        versionCode 9
+        versionName "2.4.2"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
