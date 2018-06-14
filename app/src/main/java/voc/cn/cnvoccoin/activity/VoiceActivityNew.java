@@ -111,7 +111,9 @@ public class VoiceActivityNew extends BaseActivity {
               AudioRecordManager.getInstance(VoiceActivityNew.this).willCancelRecord();
               viewWave.stopAnim();
               isreodering = false;
-//              hasVoice = false;
+              hasVoice = false;
+              viewWave.clearDraw();
+              ToastUtil.showToast("已取消~");
 
             } else {
               AudioRecordManager.getInstance(VoiceActivityNew.this).continueRecord();
@@ -201,7 +203,7 @@ public class VoiceActivityNew extends BaseActivity {
 
         Logger.t("db").e("db-------->" + db);
 
-        if (db > 2 && db < 30) {
+        if (db > 2) {
           hasVoice = true;
         }
       }
