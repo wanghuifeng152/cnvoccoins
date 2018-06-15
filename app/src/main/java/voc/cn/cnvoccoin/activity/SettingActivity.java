@@ -1,11 +1,11 @@
 package voc.cn.cnvoccoin.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
 import voc.cn.cnvoccoin.R;
+import voc.cn.cnvoccoin.util.Utils;
 
 /**
  * Created by shy on 2018/6/15.
@@ -26,5 +26,10 @@ public class SettingActivity extends BaseActivity {
                 finish();
             }
         });
+
+        TextView tvVersion = findViewById(R.id.tv_version);
+        tvVersion.setText(Utils.getVersionName(this));
     }
+
+
 }
