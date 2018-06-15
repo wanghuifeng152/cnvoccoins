@@ -76,7 +76,7 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
                             if (token == null || token.isEmpty()) {
                                 mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
                             } else {
-                                mContext.startActivity(Intent(mContext, VoiceActivity::class.java))
+                                mContext.startActivity(Intent(mContext, VoiceActivityNew::class.java))
                             }
                         }
                         1 -> {
@@ -84,7 +84,7 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
                             if (token == null || token.isEmpty()) {
                                 mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
                             } else {
-                                mContext.startActivity(Intent(mContext, VoiceActivity::class.java))
+                                mContext.startActivity(Intent(mContext, VoiceActivityNew::class.java))
                             }
 
                         }

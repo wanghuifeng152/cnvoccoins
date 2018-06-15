@@ -13,7 +13,7 @@ const val BASIC_TASK = 0
 const val SUPER_TASK = 1
 class TaskActivity:BaseActivity() {
     var basicImagmgList = arrayListOf<Int>(R.mipmap.task_uninvite,R.mipmap.task_unjoin,R.mipmap.task_unfocus,R.mipmap.task_login)
-    var superImagmgList = arrayListOf<Int>(R.mipmap.task_unrank,R.mipmap.task_unvoice)
+    var superImagmgList = arrayListOf<Int>(R.mipmap.task_unrank)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -22,7 +22,6 @@ android {
 
     signingConfigs {
         release {
-//            storeFile file('D:/Develop/voc.jks')
             storeFile file(storeFilePath)
             keyAlias alias
             keyPassword keyPasswordValue

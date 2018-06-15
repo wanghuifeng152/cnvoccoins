@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_user.*
 import voc.cn.cnvoccoin.R
-import voc.cn.cnvoccoin.activity.CommnutityActivity
-import voc.cn.cnvoccoin.activity.FocusOfficalActivity
-import voc.cn.cnvoccoin.activity.LoginActivityNew
-import voc.cn.cnvoccoin.activity.TaskActivity
+import voc.cn.cnvoccoin.activity.*
 import voc.cn.cnvoccoin.entity.MyCoinResponse
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.ResBaseModel
@@ -59,6 +56,8 @@ class UserFragment : Fragment() {
         }
         btn_join.setOnClickListener { startActivity(Intent(activity, CommnutityActivity::class.java)) }
         btn_focus.setOnClickListener { startActivity(Intent(activity, FocusOfficalActivity::class.java)) }
+        tv_set.setOnClickListener { startActivity(Intent(activity, SettingActivity::class.java)) }
+        ll_wallet.setOnClickListener { startActivity(Intent(activity,WalletActivity::class.java)) }
     }
 
     override fun onResume() {

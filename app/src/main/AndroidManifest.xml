@@ -91,7 +91,6 @@
         android:name="android.support.FILE_PROVIDER_PATHS"
         android:resource="@xml/filepaths"/>
     </provider>
-    <service android:name=".service.RecordingService"/>
 
     <meta-data
       android:name="UMENG_APPKEY"
@@ -103,10 +102,15 @@
 
     //录音界面
     <activity
-      android:launchMode="singleTask"
       android:name=".activity.VoiceActivityNew"
-      android:screenOrientation="portrait"
       android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
+    <activity android:name=".activity.SettingActivity"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+    <activity android:name=".activity.WalletActivity"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
 
   </application>
 
