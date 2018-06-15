@@ -44,7 +44,7 @@
                 android:background="@drawable/circle_header_border"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_info"
-                android:src="@mipmap/head"
+                android:src="@mipmap/img_avatar_personal"
                 />
             <TextView
                 android:id="@+id/tv_notlogin"
