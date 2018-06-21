@@ -71,5 +71,5 @@
         android:layout_height="match_parent"
         android:layout_below="@id/iv_back"
         android:layout_marginTop="10dp"
-        android:src="@mipmap/img_info"/>
+        android:src="@mipmap/wall_b"/>
 </RelativeLayout>

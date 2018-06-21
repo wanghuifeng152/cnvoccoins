@@ -12,9 +12,9 @@
         android:id="@+id/tv_rank"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:gravity="center"
-        android:textColor="@color/color_654c34"
+        android:textColor="@color/color_c89158"
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/tv_name"
@@ -24,7 +24,7 @@
         android:textColor="@color/color_454545"
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:text="1111" />
 
     <TextView
@@ -33,6 +33,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/color_666666"
         android:layout_alignParentRight="true"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:text="1332" />
 </RelativeLayout>

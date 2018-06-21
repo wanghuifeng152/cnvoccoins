@@ -25,17 +25,6 @@
                 android:text="@string/user_info"
                 android:textColor="@color/white" />
 
-            <TextView
-                android:id="@+id/tv_set"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="设置"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="25dp"/>
-
             <voc.cn.cnvoccoin.view.CircleImageView
                 android:id="@+id/iv_header"
                 android:layout_width="70dp"
@@ -44,7 +33,7 @@
                 android:background="@drawable/circle_header_border"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/tv_info"
-                android:src="@mipmap/img_avatar_personal"
+                android:src="@mipmap/head"
                 />
             <TextView
                 android:id="@+id/tv_notlogin"
@@ -65,50 +54,8 @@
             android:layout_marginTop="230dp"
             android:orientation="vertical">
 
-            <RelativeLayout
-            android:id="@+id/ll_news"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg_white"
-            android:orientation="vertical"
-            android:paddingBottom="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
-            android:paddingTop="20dp">
-            <TextView
-                android:id="@+id/tv_my_assets"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/my_assets"/>
-            <TextView
-                android:id="@+id/tv_my_coin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_my_assets"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/black"
-                android:text="*******"/>
-
-            <TextView
-                android:id="@+id/tv_see"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_666666"
-                android:layout_alignParentRight="true"
-                android:text="@string/login_see"/>
-        </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/color_gray"/>
-
-            <RelativeLayout
-                android:id="@+id/ll_wallet"
+            <LinearLayout
+                android:id="@+id/ll_news"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -120,21 +67,67 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp"
                 android:paddingTop="20dp">
-                <TextView
-                    android:id="@+id/tv_my_wallet"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="我的钱包"/>
+                <RelativeLayout
+                    android:id="@+id/rl_news1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_my_assets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/my_assets"/>
+                    <TextView
+                        android:id="@+id/tv_my_coin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/tv_my_assets"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/black"
+                        android:text="*******"/>
 
-                <TextView
-                    android:id="@+id/tv_can_cash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/color_666666"
-                    android:layout_alignParentRight="true"
-                    android:text="可提现 >"/>
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_see"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_666666"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/login_see"/>
+
+
+                </RelativeLayout>
+                <View
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_f2"/>
+
+                <RelativeLayout
+
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/rl_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_my_asset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/wallet"/>
+
+                    <TextView
+                        android:id="@+id/tv_se"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_666666"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/reflect"/>
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -163,7 +156,7 @@
                     android:layout_alignParentRight="true"
                     android:text="@string/more"
                     android:textColor="@color/color_666666"
-                    android:textSize="16sp" />
+                     />
 
                 <LinearLayout
                     android:id="@+id/ll_basic_task"
@@ -344,9 +337,10 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_below="@id/ll_basic_task"
-                android:src="@mipmap/welcome_join"/>
+                android:src="@mipmap/rectangle_two"/>
         </LinearLayout>
 
     </FrameLayout>

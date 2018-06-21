@@ -14,6 +14,7 @@
       android:background="@mipmap/bgc_home">
 
       <TextView
+
         android:id="@+id/tv_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -100,8 +101,8 @@
           android:layout_height="wrap_content"
           android:paddingBottom="10dp"
           android:text="@string/news"
-          android:textSize="15sp"
-          android:textColor="@color/black"/>
+          android:textSize="14sp"
+          android:textColor="@color/color_454545"/>
 
         <RelativeLayout
           android:id="@+id/rl_news1"
@@ -113,7 +114,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginRight="20dp"
-            android:src="@mipmap/zixun_one"/>
+            android:src="@mipmap/zixun_two"/>
 
           <TextView
             android:id="@+id/tv_info_title"
@@ -122,8 +123,8 @@
             android:layout_toRightOf="@id/iv_news"
             android:singleLine="true"
             android:text="怎样最快速度挖币？"
-            android:textColor="@color/black"
-            android:textSize="17sp"/>
+            android:textColor="@color/light_black"
+            android:textSize="15sp"/>
 
           <TextView
             android:layout_width="wrap_content"
@@ -131,8 +132,10 @@
             android:layout_below="@id/tv_info_title"
             android:layout_toRightOf="@id/iv_news"
             android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/color_gray2"
             android:text="通过语音链奖励机制，迅速获得大量代币"
-            android:textSize="12sp"/>
+            android:textSize="11sp"/>
         </RelativeLayout>
 
         <View
@@ -143,6 +146,8 @@
 
         <RelativeLayout
           android:id="@+id/rl_news2"
+          android:layout_gravity="center"
+          android:layout_marginTop="14dp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content">
 
@@ -152,7 +157,7 @@
             android:layout_height="50dp"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
-            android:src="@mipmap/zixun_two"/>
+            android:src="@mipmap/zixun_one"/>
 
           <TextView
             android:id="@+id/tv_info_title1"
@@ -161,8 +166,8 @@
             android:layout_toRightOf="@id/iv_news1"
             android:singleLine="true"
             android:text="VOC语音链全球首发，抢占时代技红利"
-            android:textColor="@color/black"
-            android:textSize="17sp"/>
+            android:textColor="@color/light_black"
+            android:textSize="15sp"/>
 
           <TextView
             android:layout_width="wrap_content"
@@ -170,8 +175,10 @@
             android:layout_below="@id/tv_info_title1"
             android:layout_toRightOf="@id/iv_news1"
             android:singleLine="true"
+            android:layout_marginTop="5dp"
+              android:textColor="@color/color_gray2"
             android:text="我们相信，技术应当惠及多数人，但也绝不应当忘记少数人。他们是我们的同胞，同样有权利用技术让生活变得更加美好"
-            android:textSize="12sp"/>
+            android:textSize="11sp"/>
         </RelativeLayout>
       </LinearLayout>
 
@@ -199,7 +206,8 @@
           android:layout_height="wrap_content"
           android:layout_alignParentRight="true"
           android:text="@string/gift_up"
-          android:textColor="@color/light_black"/>
+            android:textSize="12dp"
+          android:textColor="@color/color_gray2"/>
 
         <android.support.v7.widget.RecyclerView
           android:id="@+id/rv_rank"

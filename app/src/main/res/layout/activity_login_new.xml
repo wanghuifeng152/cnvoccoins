@@ -52,6 +52,7 @@
                 android:layout_toRightOf="@+id/line"
                 android:background="@android:color/transparent"
                 android:hint="请输入手机号"
+                android:singleLine="true"
                 android:textColor="@color/color_c89158"
                 android:textColorHint="@color/color_58422d"
                 android:textSize="18sp"
@@ -74,17 +75,17 @@
         android:id="@+id/et_login_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/line1"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_alignLeft="@+id/line1"
+        android:layout_alignStart="@+id/line1"
+        android:layout_below="@+id/line1"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_centerVertical="true"
-        android:textSize="18sp"
-        android:textColor="@color/color_c89158"
+        android:password="true"
+        android:singleLine="true"
         android:background="@android:color/transparent"
         android:hint="请输入登录密码"
-        android:textColorHint="@color/color_58422d" />
+        android:textColor="@color/color_c89158"
+        android:textColorHint="@color/color_58422d"
+        android:textSize="18sp" />
 
     <View
         android:id="@+id/line2"

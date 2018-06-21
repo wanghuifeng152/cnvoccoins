@@ -38,6 +38,18 @@ class UserFragment : Fragment() {
             }else{
                 startActivity(Intent(activity, TaskActivity::class.java)) }
         }
+
+        tv_se!!.setOnClickListener({
+            val token = PreferenceUtil!!.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()){
+                //没有登录跳转到登录页面
+                startActivity(Intent(activity, LoginActivityNew::class.java))
+            }else{
+                //已登录跳转到提现页面
+                startActivity(Intent(activity, WalletActivity::class.java))
+            }
+        })
+
         tv_notlogin.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
         iv_header.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
@@ -56,8 +68,6 @@ class UserFragment : Fragment() {
         }
         btn_join.setOnClickListener { startActivity(Intent(activity, CommnutityActivity::class.java)) }
         btn_focus.setOnClickListener { startActivity(Intent(activity, FocusOfficalActivity::class.java)) }
-        tv_set.setOnClickListener { startActivity(Intent(activity, SettingActivity::class.java)) }
-        ll_wallet.setOnClickListener { startActivity(Intent(activity,WalletActivity::class.java)) }
     }
 
     override fun onResume() {

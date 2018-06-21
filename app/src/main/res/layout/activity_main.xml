@@ -23,12 +23,13 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:checked="true"
             android:id="@+id/radioButton_rank"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableTop="@mipmap/icon_home_shouye"
+            android:drawableTop="@drawable/rabio_selectro_one"
             android:text="首页"
             android:textSize="12sp"
             android:textColor="@color/color_b9854f"
@@ -46,7 +47,7 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:button="@null"
-            android:drawableTop="@mipmap/icon_home_my"
+            android:drawableTop="@drawable/rabio_selector_two"
             android:textSize="12sp"
             android:text="我的"
             android:textColor="@color/color_b9854f"

@@ -56,9 +56,9 @@ class RankAdapter(var mContext: Context, var data: List<RankBean.DataBean.ListBe
     private fun setRankImage(position: Int, holder: RankViewHolder?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             when (position) {
-                0 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_one)
-                1 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_two)
-                2 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_rank_three)
+                0 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_badeg_one)
+                1 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_badeg_two)
+                2 -> holder?.mTvRank?.background = mContext.getDrawable(R.mipmap.icon_badeg_three)
 
             }
         }

@@ -1,7 +1,9 @@
 package voc.cn.cnvoccoin.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -13,6 +15,8 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.support.v4.view.ViewPager
+import android.telephony.TelephonyManager
+import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.widget.Toast
@@ -60,7 +64,9 @@ class MainActivity : BaseActivity() {
         initRadioButton()
         requestPermission()
         checkVersion()
-    }
+
+}
+
 
     private fun checkVersion() {
         try {

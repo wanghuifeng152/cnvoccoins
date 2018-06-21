@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputType;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,13 +56,29 @@ public class RegistActivity extends BaseActivity {
         mTvConfirm = findViewById(R.id.tv_get_confirm);
         mEtConfirm = findViewById(R.id.et_confirm_code);
         final ImageView iv1 = findViewById(R.id.hide);
+        yaoqingma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                //当actionId == XX_SEND 或者 XX_DONE时都触发
+                //或者event.getKeyCode == ENTER 且 event.getAction == ACTION_DOWN时也触发
+                //注意，这是一定要判断event != null。因为在某些输入法上会返回null。
+                if (actionId == EditorInfo.IME_ACTION_SEND
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || (event != null && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction())) {
+                    setRegister();
+                }
+                return false;
+            }
+        });
         getConfirmCode();
+        //返回监听
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        //注册监听 根据两次输入密码是否一样进行判断注册
         findViewById(R.id.btn_commit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,20 +92,25 @@ public class RegistActivity extends BaseActivity {
                 }
             }
         });
+
+        //点击返回上一个页面（登录页面）
         findViewById(R.id.tv_regist).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+        //点击输入密码后面图标显示密码是否隐藏
         iv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isshow) {
+                    //密码隐藏
                     isshow = false;
                     iv1.setImageResource(R.mipmap.hide);
                     pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 } else {
+                    //密码显示
                     isshow = true;
                     iv1.setImageResource(R.mipmap.show);
                     pwd.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -94,14 +118,17 @@ public class RegistActivity extends BaseActivity {
             }
         });
         final ImageView iv2 = findViewById(R.id.show);
+        //点击确认密码后面图标是否隐藏
         iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isshow2) {
+                    //密码隐藏
                     isshow2 = false;
                     iv2.setImageResource(R.mipmap.hide);
                     pwd_again.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 } else {
+                    //密码显示
                     isshow2 = true;
                     iv2.setImageResource(R.mipmap.show);
                     pwd_again.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -111,6 +138,7 @@ public class RegistActivity extends BaseActivity {
     }
 
     private void getConfirmCode() {
+        //点击获取验证码
         mTvConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,20 +212,23 @@ public class RegistActivity extends BaseActivity {
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_REGISTER, wrapper).subscribe(new Subscriber<String>() {
             @Override
-            public void onNext(String s) {
-                if (s == null || s.isEmpty()) return;
+            public void onNext(final String s) {
+                if (s == null || s.isEmpty())
+                    return;
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(s);
-                    int code = jsonObject.getInt("code");
+                    final int code = jsonObject.getInt("code");
                     if (code == 1) {
-//                    ToastUtil.showToast(jsonObject.getString("msg"))
+                        //处理事件
                         ToastUtil.showToast("注册成功");
                         startActivity(new Intent(RegistActivity.this, LoginActivityNew.class));
+//                    ToastUtil.showToast(jsonObject.getString("msg"))
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
 
             }
 
@@ -213,10 +244,11 @@ public class RegistActivity extends BaseActivity {
         });
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(timer != null){
+        if (timer != null) {
             timer.cancel();
         }
     }

@@ -34,7 +34,7 @@ class VocApplication : Application {
 //        CrashReport.initCrashReport(applicationContext, "注册时申请的APPID", false)
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "")
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL)
-        MobclickAgent.setDebugMode(true)
+        MobclickAgent.setDebugMode(false)
         Logger.addLogAdapter(AndroidLogAdapter());
         OkGo.getInstance().init(this);
         try {
