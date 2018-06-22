@@ -47,7 +47,7 @@ import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.view.WaveLineView;
 
 /**
- * describe:录音界面
+ * describe:录音界面啊啊啊啊所多付过
  * <p>
  * author: Gary
  */
