@@ -81,10 +81,11 @@ class HomeFragment : Fragment() {
 //点击跳转到挖币说明
         view?.findViewById<TextView>(R.id.tv_info)?.setOnClickListener { startActivity(Intent(activity, InfoActivity::class.java)) }
     }
-//点击条目跳转
+
+    //点击条目跳转
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    //点击条目跳转到怎样快速挖币
+        //点击条目跳转到怎样快速挖币
         rl_news1.setOnClickListener {
             val intent = Intent(activity, NewsActivity::class.java)
             intent.putExtra(TAG, 1)
@@ -156,6 +157,7 @@ class HomeFragment : Fragment() {
             }
         })
     }
+
     //RecyclerView适配器 排行榜UI视图名单
     private fun setRankModel(data: List<RankBean.DataBean.ListBean>) {
         mRvRank?.layoutManager = LinearLayoutManager(activity)

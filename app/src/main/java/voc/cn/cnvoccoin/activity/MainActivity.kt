@@ -65,7 +65,7 @@ class MainActivity : BaseActivity() {
         requestPermission()
         checkVersion()
 
-}
+    }
 
 
     private fun checkVersion() {
@@ -159,19 +159,42 @@ class MainActivity : BaseActivity() {
 
 
     fun installApk(file: File) {
-        var intent = Intent()
-        // 执行动作
-        intent.action = Intent.ACTION_VIEW
-        // 执行的数据类型
-        var uri: Uri? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            FileProvider.getUriForFile(this, "voc.cn.cnvoccoin.fileprovider", file)
+//        var intent = Intent()
+//        // 执行动作
+//        intent.action = Intent.ACTION_VIEW
+//        // 执行的数据类型
+//        var uri: Uri? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            FileProvider.getUriForFile(this, "voc.cn.cnvoccoin.fileprovider", file)
+//        } else {
+//            Uri.fromFile(file)
+//        }
+        val uri = Uri.fromFile(file);
+//        String[] command = { "chmod", "777", file.getPath() };
+//        ProcessBuilder builder = new ProcessBuilder();
+//        try {
+//            builder.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        if (Build.VERSION.SDK_INT >= 24) {//判读版本是否在7.0以上
+            val apkUri = FileProvider.getUriForFile(this@MainActivity, "voc.cn.cnvoccoin.fileprovider", file)
+            val install = Intent(Intent.ACTION_VIEW)
+            install.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
+            install.setDataAndType(apkUri, "application/vnd.android.package-archive")
+            startActivity(install)
         } else {
-            Uri.fromFile(file)
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setDataAndType(uri, "application/vnd.android.package-archive")
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+
         }
-        intent.setDataAndType(uri, "application/vnd.android.package-archive")
-        intent.flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+
+//        intent.setDataAndType(uri, "application/vnd.android.package-archive")
+//        intent.flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        startActivity(intent)
     }
 
     fun getFileFromServer(path: String, pd: ProgressDialog): File? {
@@ -192,7 +215,7 @@ class MainActivity : BaseActivity() {
             }
             var fos = FileOutputStream(file)
             var bis = BufferedInputStream(ins)
-            val buffer = ByteArray(1024)
+            val buffer = ByteArray(64)
             var len: Int = 0
             var total: Int = 0
             while (ins.read(buffer).apply { len = this } != -1) {
