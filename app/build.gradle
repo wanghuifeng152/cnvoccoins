@@ -83,7 +83,7 @@ dependencies {
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
-
+    implementation 'com.ljs.lovelytoast:LovelyToast:1.0.0'
     implementation 'com.lzy.net:okgo:3.0.4'
 
 

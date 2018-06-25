@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
         mMyCoin = view?.findViewById<TextView>(R.id.tv_my_coin)
         val token = PreferenceUtil.instance?.getString(TOKEN)
         if (token == null || token.isEmpty()) {
-            mMyCoin?.text = "点击登录"
+            mMyCoin?.text = "登录/注册后可见"
         }
 
         //语言挖矿按钮点击判断是否已经登录

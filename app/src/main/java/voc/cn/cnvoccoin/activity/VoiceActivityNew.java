@@ -1,9 +1,14 @@
 package voc.cn.cnvoccoin.activity;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +21,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import com.ljs.lovelytoast.LovelyToast;
 import com.lqr.audio.AudioRecordManager;
 import com.lqr.audio.IAudioRecordListener;
 import com.lzy.okgo.OkGo;
@@ -31,6 +37,8 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 
 import org.jetbrains.annotations.Nullable;
@@ -80,13 +88,15 @@ public class VoiceActivityNew extends BaseActivity {
     private Boolean isreodering;
     public boolean hasVoice;
     private DecimalFormat decimalFormat;
-
+    private IntentFilter intentFilter;
+    private Handler handler = new Handler();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice);
         ButterKnife.bind(this);
         initRecord();
+        intentFilter = new IntentFilter();
         initListener();
         getReadCoin();
         tvHaveCoin.setText("" + voiceCoin);
@@ -96,7 +106,7 @@ public class VoiceActivityNew extends BaseActivity {
 
     //处理触摸事件
 
-    private void initListener() {
+    private synchronized void initListener() {
 
         ivVoice.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -111,7 +121,8 @@ public class VoiceActivityNew extends BaseActivity {
                         hasVoice = false;
                         //开始录制时间
                         oldTime = java.lang.System.currentTimeMillis();
-
+                        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+                        registerReceiver(broadcastReceiver, intentFilter);
                         break;
                     //移动按钮时
                     case MotionEvent.ACTION_MOVE:
@@ -137,13 +148,22 @@ public class VoiceActivityNew extends BaseActivity {
                         viewWave.clearDraw();
                         //录制完毕时间
                         newTime = java.lang.System.currentTimeMillis();
+                        ivVoice.setEnabled(false);
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ivVoice.setEnabled(true);
+                            }
 
+                        },500);
                         if (newTime - oldTime < 1000) {
                             ToastUtil.showToast("录音时间太短了哦");
                             hasVoice = false;
+
                         } else if (hasVoice == false && isreodering == true ) {
                             ToastUtil.showToast("声音再大一些");
                             hasVoice = false;
+
                         } else if(newTime - oldTime >= 1000 && hasVoice == true){
                             getReadCoin();
                             hasVoice = false;
@@ -221,11 +241,29 @@ public class VoiceActivityNew extends BaseActivity {
 
 
     }
+
+    //判断是否熄屏
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+                //停止录音
+                AudioRecordManager.getInstance(VoiceActivityNew.this).stopRecord();
+                //销毁录音
+                AudioRecordManager.getInstance(VoiceActivityNew.this).destroyRecord();
+                //销毁动画
+                viewWave.stopAnim();
+                viewWave.clearDraw();
+            }
+        }
+    };
+
     //初始化录音机
 
     private void initRecord() {
         //设定录音最长时间
-        AudioRecordManager.getInstance(this).setMaxVoiceDuration(12);
+        AudioRecordManager.getInstance(this).setMaxVoiceDuration(120);
         //创建本地文件目录
         mAudioDir = new File(Environment.getExternalStorageDirectory(), "voc_record");
         if (!mAudioDir.exists()) {
@@ -277,7 +315,7 @@ public class VoiceActivityNew extends BaseActivity {
 
                         }
                         voice_id = uploadVoiceBeanResBaseModel.data.getNext().getId();
-
+//                        LovelyToast.makeText(VoiceActivityNew.this,decimalFormat.format(voiceCoin)+"",LovelyToast.LENGTH_SHORT,LovelyToast.SUCCESS);
                         tvHaveCoin.setText(decimalFormat.format(voiceCoin) + "");
 
                         hasVoice = false;

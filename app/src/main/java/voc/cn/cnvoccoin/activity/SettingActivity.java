@@ -28,7 +28,7 @@ public class SettingActivity extends BaseActivity {
         });
 
         TextView tvVersion = findViewById(R.id.tv_version);
-        tvVersion.setText(Utils.getVersionName(this));
+        //tvVersion.setText(Utils.getVersionName(this));
     }
 
 
