@@ -133,7 +133,8 @@ class MainActivity : BaseActivity() {
         // 监听返回键--防止下载的时候点击返回
         pd.setOnKeyListener { dialog, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_BACK && event.repeatCount === 0) {
-                Toast.makeText(this@MainActivity, "正在下载请稍后", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@MainActivity, "正在下载请稍后", Toast.LENGTH_SHORT).show()
+                ToastUtil.showToast("正在下载请稍后")
                 true
             } else {
                 false
@@ -141,7 +142,8 @@ class MainActivity : BaseActivity() {
         }
         // Sdcard不可用
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            Toast.makeText(this@MainActivity, "SD卡不可用~", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this@MainActivity, "SD卡不可用~", Toast.LENGTH_SHORT).show()
+            ToastUtil.showToast("SD卡不可用")
         } else {
             pd.show()
             //下载的子线程

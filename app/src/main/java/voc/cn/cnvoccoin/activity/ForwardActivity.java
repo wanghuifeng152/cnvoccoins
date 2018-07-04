@@ -215,7 +215,9 @@ public class ForwardActivity extends BaseActivity {
 
                 //判断不能小于10000
                 if (wallet < 3500) {
-                    Toast.makeText(ForwardActivity.this, "最少3500voc" , Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ForwardActivity.this, "最少3500voc" , Toast.LENGTH_SHORT).show();
+                    ToastUtil.showToast("最少3500voc");
+
                 } else {
                     if(Double.parseDouble(addressSnmd.getText().toString().trim()) <= use1) {
                         showPayDialog(mwallet);
@@ -292,7 +294,9 @@ public class ForwardActivity extends BaseActivity {
                             addressConfirm.setEnabled(true);
                         }
                     } else {
-                        Toast.makeText(ForwardActivity.this, "地址错误", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ForwardActivity.this, "地址错误", Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast("地址错误");
+
                     }
                 } else {
                     addressConfirm.setEnabled(false);

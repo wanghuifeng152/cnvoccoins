@@ -21,6 +21,7 @@ import java.util.TimerTask;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.VocApplication;
 import voc.cn.cnvoccoin.util.PreferenceUtil;
+import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.view.PasswordInputEdt;
 
 /**
@@ -96,7 +97,9 @@ public class SetPayPwdActivity extends BaseActivity implements View.OnClickListe
                     pwd = "";
                     startActivityForResult(in,1);
                 }else{
-                    Toast.makeText(this,"请输入正确的密码",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this,"请输入正确的密码",Toast.LENGTH_LONG).show();
+                    ToastUtil.showToast("请输入正确的密码");
+
                 }
                 break;
         }

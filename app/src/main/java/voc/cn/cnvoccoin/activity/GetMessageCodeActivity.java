@@ -109,7 +109,9 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
                 if(et_phone.getText().toString().trim().length() == 11 && et_code.getText().toString().length() == 6){
                     postMessage();;
                 }else{
-                    Toast.makeText(this,"请输入正确的手机号和验证码",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this,"请输入正确的手机号和验证码",Toast.LENGTH_LONG).show();
+                    ToastUtil.showToast("请输入正确的手机号和验证码");
+
                 }
 
                 break;
