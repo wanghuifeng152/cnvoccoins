@@ -235,7 +235,8 @@ public class VoiceActivityNew extends BaseActivity {
                             break;
                     }
                 } else {
-                    Toast.makeText(VoiceActivityNew.this, "没有录音权限", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(VoiceActivityNew.this, "没有录音权限", Toast.LENGTH_SHORT).show();
+                    ToastUtil.showToast("没有录音权限");
                     String[] perms = {"android.permission.RECORD_AUDIO"};
                     ActivityCompat.requestPermissions(VoiceActivityNew.this, perms, 1);
                 }
