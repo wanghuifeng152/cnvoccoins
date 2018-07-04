@@ -158,7 +158,9 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
                     }
                     pwd = "";
                 } else {
-                    Toast.makeText(this, "请输入正确的密码" + pwd, Toast.LENGTH_LONG).show();
+//                    Toast.makeText(this, "请输入正确的密码" + pwd, Toast.LENGTH_LONG).show();
+                    ToastUtil.showToast("请输入正确的密码");
+
                 }
                 break;
         }
