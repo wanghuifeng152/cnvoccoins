@@ -189,8 +189,9 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
 
                             VocApplication.Companion.getInstance().setResetPwd(false);
                             ToastUtil.showToast("重置成功");
+                            CacheActivity.finishActivity();
                             VocApplication.Companion.getInstance().setMessage_flag(true);
-                            Intent in = new Intent(ReSetPayPwdActivity.this, MainActivity.class);
+                            Intent in = new Intent(ReSetPayPwdActivity.this, WalletActivity.class);
                             startActivity(in);
 
                         } else {
