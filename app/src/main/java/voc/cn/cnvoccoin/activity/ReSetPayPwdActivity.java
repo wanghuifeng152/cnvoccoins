@@ -189,27 +189,18 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
 
                             VocApplication.Companion.getInstance().setResetPwd(false);
                             ToastUtil.showToast("重置成功");
+                            CacheActivity.finishActivity();
                             VocApplication.Companion.getInstance().setMessage_flag(true);
-                            Intent in = new Intent(ReSetPayPwdActivity.this, MainActivity.class);
+                            Intent in = new Intent(ReSetPayPwdActivity.this, WalletActivity.class);
                             startActivity(in);
 
                         } else {
-//                            ToastUtil.showToast(jsonObject.getString("msg"));
-                            ToastUtil.showToast("新密码不能与近期用过密码相同");
-                            edt.setText("");
-                            edt.closeText();
-                            finish();
-                        }
-//                        else if(jsonObject.getString("msg").equals("重置密码失败")){
-//                            VocApplication.Companion.getInstance().setPwd2(pwd);
+                            ToastUtil.showToast(jsonObject.getString("msg"));
+//                            ToastUtil.showToast("新密码不能与近期用过密码相同");
 //                            edt.setText("");
 //                            edt.closeText();
-//                            Intent intent = getIntent();
-//                            setResult(1,intent);
 //                            finish();
-//                        }
-
-
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
