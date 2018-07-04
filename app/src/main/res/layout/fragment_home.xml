@@ -9,8 +9,9 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:paddingTop="20dp"
       android:layout_width="match_parent"
-      android:layout_height="260dp"
+      android:layout_height="280dp"
       android:background="@mipmap/bgc_home">
 
       <TextView

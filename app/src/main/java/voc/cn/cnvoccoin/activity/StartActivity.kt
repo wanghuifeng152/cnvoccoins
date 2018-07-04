@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
 import voc.cn.cnvoccoin.R
 import java.util.*
 import kotlin.concurrent.timerTask
@@ -20,6 +22,11 @@ import java.time.temporal.ValueRange
 class StartActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //无title
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        //全屏
+        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
+                WindowManager.LayoutParams. FLAG_FULLSCREEN)
         setContentView(R.layout.activity_start)
         var task = timerTask {
             val utils = AppUtils(this@StartActivity);

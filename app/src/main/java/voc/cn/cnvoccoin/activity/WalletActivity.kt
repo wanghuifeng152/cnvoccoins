@@ -2,12 +2,12 @@ package voc.cn.cnvoccoin.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
 import android.widget.PopupWindow
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_wallet.*
@@ -35,6 +35,7 @@ class WalletActivity : Activity() {
         setContentView(R.layout.activity_wallet)
 //        val qianbaoflag = PreferenceUtil!!.instance?.getString("money")
 //        tv_coin?.text = qianbaoflag
+        hideStatusBar()
         iv_back.setOnClickListener { finish() }
         mingxi!!.setOnClickListener({
             startActivity(Intent(this@WalletActivity, DetailedActivity::class.java))
@@ -59,7 +60,19 @@ class WalletActivity : Activity() {
             postIsHavePwd()
         }
     }
-
+    private fun hideStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            var window = getWindow()
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.setStatusBarColor(Color.TRANSPARENT)
+            return
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        }
+    }
 
     override fun onResume() {
         getData()

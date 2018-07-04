@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+    <View
+        android:fitsSystemWindows="true"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"/>
     <RelativeLayout
         android:id="@+id/rl_title"
         android:layout_width="match_parent"

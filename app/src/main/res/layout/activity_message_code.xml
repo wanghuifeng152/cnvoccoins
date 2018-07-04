@@ -5,7 +5,11 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <View
+        android:fitsSystemWindows="true"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"/>
     <RelativeLayout
         android:background="@color/black"
         android:gravity="center_vertical"
