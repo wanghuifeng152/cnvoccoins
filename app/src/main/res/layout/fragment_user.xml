@@ -11,6 +11,8 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:paddingTop="23dp"
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:background="@mipmap/bgc_user">

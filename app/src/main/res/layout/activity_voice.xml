@@ -9,7 +9,9 @@
   <!--<include-->
     <!--layout="@layout/base_title"/>-->
   <LinearLayout
-    android:id="@+id/ll_voice_top"
+      android:fitsSystemWindows="true"
+
+      android:id="@+id/ll_voice_top"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@mipmap/bgc_black"

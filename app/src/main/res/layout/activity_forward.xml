@@ -7,7 +7,11 @@
     android:orientation="vertical"
     android:background="#fff"
   >
-
+    <View
+        android:fitsSystemWindows="true"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"/>
     <RelativeLayout
         android:background="#000"
         android:layout_width="match_parent"

@@ -5,7 +5,11 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <View
+        android:background="@color/black"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"/>
    <include
        layout="@layout/base_title"/>
 
