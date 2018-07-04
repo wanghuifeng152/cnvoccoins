@@ -15,10 +15,21 @@ import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
 import android.R.array
 import android.app.Activity
+import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import voc.cn.cnvoccoin.entity.CommunityShequModel
 import voc.cn.cnvoccoin.entity.communityModel
+import android.R.attr.bitmap
+import android.graphics.Bitmap
+import com.github.dfqin.grantor.PermissionListener
+import com.github.dfqin.grantor.PermissionsUtil
+import voc.cn.cnvoccoin.entity.PermisionUtils
+import voc.cn.cnvoccoin.entity.PermisionUtils.verifyStoragePermissions
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.MalformedURLException
+import java.net.URL
 
 
 /**
@@ -26,7 +37,8 @@ import voc.cn.cnvoccoin.entity.communityModel
  */
 open class CommnutityActivity:BaseActivity() {
     var tag:String = ""
-    var imgId:Int = 0
+    var imgId:String = ""
+    var decodeStream : Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
@@ -40,7 +52,7 @@ open class CommnutityActivity:BaseActivity() {
 
     open fun setParams() {
         tag = JOIN_COMMUNTITY
-        imgId = R.mipmap.ic_group
+//        imgId = R.mipmap.ic_group
     }
 
 
@@ -81,19 +93,60 @@ open class CommnutityActivity:BaseActivity() {
     }
 
     private fun copyImage() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (PreferenceUtil.instance?.getBoolean(IS_GRANTED_PERMISSION, false) == true) {
-                val res = resources
-                val bmp = BitmapFactory.decodeResource(res, imgId)
-                Utils.saveImageToGallery(this, bmp)
-            } else {
-                ToastUtil.showToast("权限未开启，请开启应用的存储权限")
+        PermissionsUtil.requestPermission(this,object : PermissionListener {
+            override fun permissionDenied(permission: Array<out String>) {
+//                ToastUtil.showToast("已同意")
+//                    val res = resources
+//                    val bmp = BitmapFactory.decodeResource(res, imgId)
+//                    Utils.saveImageToGallery(this@CommnutityActivity, bmp)
+//                Toast.makeText(this@CommnutityActivity,"已同意",Toast.LENGTH_SHORT).show()
             }
-        }else{
-            val res = resources
-            val bmp = BitmapFactory.decodeResource(res, imgId)
-            Utils.saveImageToGallery(this, bmp)
-        }
+
+            override fun permissionGranted(permission: Array<out String>) {
+//                if (android.os.Build.VERSION.SDK_INT < 24) {
+//                    ActivityCompat.requestPermissions(this@CommnutityActivity, PERMISSIONS_STORAGE, REQUEST_EXTERNAL_STORAGE)
+//                    return
+//                }else{
+//                val res = resources
+//                val bmp = BitmapFactory.decodeResource(res, imgId)
+                if(imgId != null){
+                    Thread(Runnable {
+                        val bitmap1 = BitMap.getInstance().returnBitMap(imgId)
+                            runOnUiThread(Runnable {
+                                if (bitmap1 != null){
+                                    Utils.saveImageToGallery(this@CommnutityActivity, bitmap1)
+                                }else{
+                                    val res = resources
+                                    val bmp = BitmapFactory.decodeResource(res,R.mipmap.gongzhonghao)
+                                    Utils.saveImageToGallery(this@CommnutityActivity,bmp)
+                                }
+                            })
+                    }).start()
+                }else{
+
+                }
+
+
+//                }
+
+//                ToastUtil.showToast("已拒绝")
+//                Toast.makeText(this@CommnutityActivity,"已拒绝",Toast.LENGTH_SHORT).show()
+            }
+
+        },android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (PreferenceUtil.instance?.getBoolean(IS_GRANTED_PERMISSION, false) == true) {
+//                PermisionUtils.verifyStoragePermissions(this);
+//                //Utils.saveImageToGallery(this, returnBitMap(imgId))
+//            } else {
+//                ToastUtil.showToast("权限未开启，请开启应用的存储权限")
+//
+//            }
+//        }else{
+////            val res = resources
+////            val bmp = BitmapFactory.decodeResource(res, imgId)
+//            Utils.saveImageToGallery(this, returnBitMap(imgId))
+//        }
     }
     private fun getPicUrls() {
         // 请求公众号图片地址
@@ -114,7 +167,8 @@ open class CommnutityActivity:BaseActivity() {
                 if(model.code == 1){
                     if(model.data == null || model.data.isEmpty())return
                     val picUrl = model.data[0]
-
+                    imgId = picUrl
+                    Log.i("picUrl",picUrl);
                     Glide.with(this@CommnutityActivity)
                             .load(picUrl)
                             .into(findViewById(R.id.iv_img))
@@ -123,5 +177,31 @@ open class CommnutityActivity:BaseActivity() {
 
 
         })
+    }
+
+    fun returnBitMap(url: String): Bitmap? {
+
+        Thread(Runnable {
+            var imageurl: URL? = null
+
+            try {
+                imageurl = URL(url)
+            } catch (e: MalformedURLException) {
+                e.printStackTrace()
+            }
+
+            try {
+                val conn = imageurl!!.openConnection() as HttpURLConnection
+                conn.setDoInput(true)
+                conn.connect()
+                val `is` = conn.getInputStream()
+                decodeStream = BitmapFactory.decodeStream(`is`)
+                `is`.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }).start()
+
+        return decodeStream
     }
 }

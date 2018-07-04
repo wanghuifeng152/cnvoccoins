@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+   <include
+       layout="@layout/base_title"/>
+
+     <ImageView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@mipmap/icon_network"
+         android:layout_marginTop="70dip"
+         android:layout_gravity="center_horizontal"
+
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="网络好像有问题哦~"
+        android:layout_marginTop="10dip"
+        android:textSize="18dip"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/color_b9854f"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="刷新再试试"
+        android:textSize="16dip"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dip"/>
+</LinearLayout>

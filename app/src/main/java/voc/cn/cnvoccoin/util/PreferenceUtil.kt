@@ -14,6 +14,7 @@ class PreferenceUtil {
     var preferences: SharedPreferences? = null
 
     companion object {
+
         val instance: PreferenceUtil? = PreferenceUtil()
     }
 

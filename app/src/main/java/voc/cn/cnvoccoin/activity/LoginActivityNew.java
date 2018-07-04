@@ -34,7 +34,7 @@ import static voc.cn.cnvoccoin.util.ConstantsKt.USER_NAME;
  * Created by Administrator on 2018/5/2.
  */
 
-public class LoginActivityNew extends BaseActivity {
+public class  LoginActivityNew extends BaseActivity {
 
     TextView mTvRegist;
     Button mBtnLogin;
@@ -95,7 +95,7 @@ public class LoginActivityNew extends BaseActivity {
         }
     };
 
-    private void getLogin() {
+    private void       getLogin() {
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
         if (username.isEmpty()) return;

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -104,8 +105,6 @@ class HomeFragment : Fragment() {
         getRank()
         getCoin()
     }
-
-
     private fun getCoin() {
         //排行榜
         val token = PreferenceUtil.instance?.getString(TOKEN)
@@ -118,6 +117,7 @@ class HomeFragment : Fragment() {
                 }
             }
 
+
             override fun onError(t: Throwable?) {
 
                 // 未登录的话会走这个方法的
@@ -126,6 +126,12 @@ class HomeFragment : Fragment() {
             }
 
             override fun onComplete() {
+                //  weidenglu
+                val token = PreferenceUtil.instance?.getString(TOKEN)
+                if (token == null || token.isEmpty()) {
+                    mMyCoin?.text = "登录/注册后可见"
+                }
+
             }
 
         }, MyCoinResponse::class.java, ResBaseModel::class.java)
@@ -150,7 +156,6 @@ class HomeFragment : Fragment() {
                     if (model.data?.list == null || model.data?.list?.size == 0) return
                     setRankModel(model.data.list)
                 }
-
             }
 
             override fun onError(t: Throwable?) {

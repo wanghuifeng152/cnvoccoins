@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000</color>
     <color name="white">#fff</color>
+    <color name="edit_error">#ff5f5f</color>
     <color name="light_black">#101010</color>
     <color name="color_orange">#FF9800</color>
     <color name="color_gray">#F5F5F5</color>
@@ -26,9 +27,15 @@
     <color name="color_966E4A">#966E4A</color>
     <color name="color_8c">#8C8C8C</color>
     <color name="color_58422d">#58422D</color>
-    <color name="qlColorDivider">#D2D2D2</color>
+    <color name="qlColorDivider">#efeded</color>
     <color name="qlColorHqZFUpBg">#EC4545</color>
     <color name="qlColorTextRed">#c50f0e</color>
-
+    <color name="color_FFC3C1C1">#c3c1c1</color>
+    <color name="color_F5b49d">#fbc3af</color>
+    <color name="color_F1955f">#de8b5a</color>
+    <color name="pwd">#d1ad79</color>
+    <color name="colorbg">#2c2c2c</color>
+    <color name="colorgg">#ecaa65</color>
+    <color name="colorhh">#ad9266</color>
 </resources>
 

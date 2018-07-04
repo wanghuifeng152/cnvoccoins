@@ -52,6 +52,7 @@
                 android:layout_toRightOf="@+id/line"
                 android:background="@android:color/transparent"
                 android:hint="请输入手机号"
+                android:maxLength="11"
                 android:singleLine="true"
                 android:textColor="@color/color_c89158"
                 android:textColorHint="@color/color_58422d"

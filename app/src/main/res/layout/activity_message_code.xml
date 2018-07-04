@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:background="@color/black"
+        android:gravity="center_vertical"
+        android:id="@+id/ll_title"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="设置密码"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+<TextView
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="验证码已经发送到您的手机"
+    android:textSize="15sp"
+    android:gravity="center"
+    android:layout_marginTop="60dp"
+    android:textColor="@color/color_gray2"
+
+    />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/color_c89158"
+        />
+
+
+<TextView
+    android:text="请输入验证码"
+    android:gravity="center"
+    android:id="@+id/tv_input"
+    android:textSize="15sp"
+    android:layout_marginTop="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+    <lsp.com.lib.PasswordInputEdt
+        android:id="@+id/edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        app:rectChooseColor="@color/color_c89158"
+        app:isPwd="false"
+        app:rectStroke="1dip"
+        android:layout_marginTop="30dip"/>
+
+        <TextView
+            android:id="@+id/te_number"
+            android:layout_width="match_parent"
+            android:text="sss"
+            android:layout_marginTop="10dip"
+            android:textColor="@color/color_c89158"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content" />
+
+
+
+</LinearLayout>

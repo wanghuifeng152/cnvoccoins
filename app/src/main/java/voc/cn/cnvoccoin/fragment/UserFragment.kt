@@ -10,13 +10,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_user.*
+import org.json.JSONException
+import org.json.JSONObject
 import voc.cn.cnvoccoin.R
+import voc.cn.cnvoccoin.VocApplication
 import voc.cn.cnvoccoin.activity.*
 import voc.cn.cnvoccoin.entity.MyCoinResponse
 import voc.cn.cnvoccoin.network.HttpManager
+import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
@@ -32,42 +35,80 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        //点击更多按钮跳转到更多页面
         tv_more.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 Logger.t("token").e(token + "")
+                //如果没有登录跳转到登录页面
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             } else {
+                //已经登录跳转到更多页面
                 startActivity(Intent(activity, TaskActivity::class.java))
             }
         }
+        //点击底部图片跳转到官网
         jump_img.setOnClickListener({
+
             val token = PreferenceUtil!!.instance?.getString(TOKEN)
             if (token == null){
+                //没有登录将跳转到登录页面
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
+                //已经登录跳转到官网
                 startActivity(Intent(activity,VocOfficialActivity::class.java))
             }
         })
+        //点击体现按钮
         tv_se!!.setOnClickListener({
             val token = PreferenceUtil!!.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 //没有登录跳转到登录页面
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             } else {
-                //已登录跳转到提现页面
-                startActivity(Intent(activity, WalletActivity::class.java))
-            }
-        })
 
+                //已登录跳转到提现页面
+//                val qianbaoflag = PreferenceUtil!!.instance?.getString("flag")
+//                if(qianbaoflag ==null){
+//                    VocApplication.getInstance().message_flag = false;
+//                    startActivity(Intent(activity, MessageCodeActivity::class.java))
+//                }else{
+                    startActivity(Intent(activity, WalletActivity::class.java))
+//                }
+            }
+
+
+            }
+
+        )
+            //点击登录按钮
         tv_notlogin.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
+
+        //点击头像
         iv_header.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             }
         }
+        //点击设置
+      tv_setting.setOnClickListener({
+          startActivity(Intent(activity, SettingActivity::class.java))
+      })
+        //点击重置密码
+        rl_reset_pwd.setOnClickListener({
+
+            postIsHavePwd()
+
+        })
+
+        //点击实名认证
+        rl_real_name.setOnClickListener({
+            //startActivity(Intent(activity, IdentityActivity::class.java))
+            ToastUtil.showToast("正在开发中......")
+        })
+
+        //点击邀请好友图片
         invitation.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
@@ -86,21 +127,34 @@ class UserFragment : Fragment() {
 //                startActivity(Intent(activity, TaskActivity::class.java))
             }
         }
+        //点击加入社区
         btn_join.setOnClickListener { startActivity(Intent(activity, CommnutityActivity::class.java)) }
+        //点击关注公众号
         btn_focus.setOnClickListener { startActivity(Intent(activity, FocusOfficalActivity::class.java)) }
     }
 
     override fun onResume() {
         super.onResume()
+        isLogin()
         getCoin()
-        val token = PreferenceUtil.instance?.getString(TOKEN)
-        if (token != null) {
-            tv_notlogin.visibility = View.GONE
-        } else {
-            tv_notlogin.visibility = View.VISIBLE
-        }
     }
 
+    /**
+     * 是否登录
+     */
+    private fun isLogin(){
+        val token = PreferenceUtil.instance?.getString(TOKEN)
+        if (token == null || token.isEmpty()) {
+            tv_notlogin.visibility = View.VISIBLE
+            tv_se.visibility = View.GONE
+            tv_see.visibility = View.VISIBLE
+            tv_my_coin?.text = "*******"
+        }else{
+            tv_notlogin.visibility = View.GONE
+            tv_se.visibility = View.VISIBLE
+            tv_see.visibility = View.GONE
+        }
+    }
     private fun getCoin() {
         val token = PreferenceUtil.instance?.getString(TOKEN)
         if (token == null || token?.isEmpty()) return
@@ -117,10 +171,53 @@ class UserFragment : Fragment() {
             }
 
             override fun onComplete() {
+                isLogin()
+
+
             }
 
         }, MyCoinResponse::class.java, ResBaseModel::class.java)
     }
 
 
+    private fun postIsHavePwd(){
+        val request = postId("11")
+        val wrapper = RequestBodyWrapper(request)
+        HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
+
+            override fun onNext(s: String) {
+                if (s == null || s.isEmpty()) return
+                var jsonObject: JSONObject? = null
+                try {
+                    jsonObject = JSONObject(s)
+                    val code = jsonObject.getInt("code")
+                    if (code == 1) {
+                        //没有支付密码跳转到设置密码
+                        if (jsonObject.getString("msg").equals("还没有支付密码")){
+                            ToastUtil.showToast("您还没有设置支付密码, 请先设置支付密码")
+                            VocApplication.getInstance().message_flag = true;
+                            startActivity(Intent(activity, MessageCodeActivity::class.java))
+
+                        }else{
+                            //有设置密码去重置
+                            VocApplication.getInstance().isResetPwd = true
+                            val intent = Intent(activity, GetMessageCodeActivity::class.java)
+                            intent.putExtra("isTitle",0);
+                            startActivity(intent)
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onError(t: Throwable) {
+
+            }
+
+            override fun onComplete() {
+
+            }
+        })
+    }
 }

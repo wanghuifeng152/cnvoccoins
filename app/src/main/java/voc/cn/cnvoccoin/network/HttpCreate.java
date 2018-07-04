@@ -1,6 +1,8 @@
 package voc.cn.cnvoccoin.network;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -17,6 +19,7 @@ import java.util.Map;
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import voc.cn.cnvoccoin.VocApplication;
 import voc.cn.cnvoccoin.util.ConstantsKt;
 import voc.cn.cnvoccoin.util.PreferenceUtil;
 import voc.cn.cnvoccoin.util.ToastUtil;
@@ -95,7 +98,7 @@ public abstract class HttpCreate<T> implements Publisher {
 
             @Override
             public void _onNext(String s) throws JSONException {
-                YHLog.i("---response---> " + s);
+                YHLog.i("---response666---> " + s);
                 if (s == null) {
                     sub.onError(new ErrorCodeThrowable(-1,"response is null"));
                     return;
@@ -108,7 +111,12 @@ public abstract class HttpCreate<T> implements Publisher {
                         int code = jsonObject.has("code") ? jsonObject.getInt("code") : -1;
                         if(code == 10001){
                             ToastUtil.showToast(tip);
-                            PreferenceUtil.Companion.getInstance().set(ConstantsKt.TOKEN,"");
+//                          PreferenceUtil.Companion.getInstance().set(ConstantsKt.TOKEN,"");
+                            SharedPreferences flag = VocApplication.Companion.getInstance().getSharedPreferences("voccoin", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = flag.edit();
+                            editor.putString(ConstantsKt.TOKEN,"");
+                            editor.commit();
+                            sub.onComplete();
                             return;
                         }
                     }
@@ -176,7 +184,7 @@ public abstract class HttpCreate<T> implements Publisher {
                 }
                 sub.onError(new ErrorCodeThrowable(-1, t.getMessage()));
                 sub.onComplete();
-                YHLog.i("---response---> error : " + t.getMessage() + "; cause : " + t.getCause());
+                YHLog.i("---response444---> error : " + t.getMessage() + "; cause : " + t.getCause());
             }
 
             @Override

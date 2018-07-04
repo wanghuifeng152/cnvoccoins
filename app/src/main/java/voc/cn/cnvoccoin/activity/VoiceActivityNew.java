@@ -5,10 +5,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.media.AudioFormat;
+import android.media.AudioRecord;
+import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,6 +48,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import voc.cn.cnvoccoin.R;
@@ -49,8 +57,10 @@ import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.ResBaseModel;
 import voc.cn.cnvoccoin.network.Subscriber;
+import voc.cn.cnvoccoin.util.AppUtils;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UploadCoinRequest;
+import voc.cn.cnvoccoin.util.UploadCoinRequestVoc;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.view.WaveLineView;
 
@@ -60,7 +70,16 @@ import voc.cn.cnvoccoin.view.WaveLineView;
  * author: Gary
  */
 public class VoiceActivityNew extends BaseActivity {
-
+    // 音频获取源
+    public static int audioSource = MediaRecorder.AudioSource.MIC;
+    // 设置音频采样率，44100是目前的标准，但是某些设备仍然支持22050，16000，11025
+    public static int sampleRateInHz = 44100;
+    // 设置音频的录制的声道CHANNEL_IN_STEREO为双声道，CHANNEL_CONFIGURATION_MONO为单声道
+    public static int channelConfig = AudioFormat.CHANNEL_IN_STEREO;
+    // 音频数据格式:PCM 16位每个样本。保证设备支持。PCM 8位每个样本。不一定能得到设备支持。
+    public static int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+    // 缓冲区字节大小
+    public static int bufferSizeInBytes = 0;
     //上传币;
     private static final String UPLOAD_COIN = "/api/portal/voc/uploadVocCoinV2";
     @BindView(R.id.tv_info)
@@ -78,7 +97,7 @@ public class VoiceActivityNew extends BaseActivity {
     private File mAudioDir;
     private int voice_id = 0;
     private double voiceCoin = 0.00;
-
+    String StrVersion;
 
     public long oldTime;
     public long newTime;
@@ -90,11 +109,24 @@ public class VoiceActivityNew extends BaseActivity {
     private DecimalFormat decimalFormat;
     private IntentFilter intentFilter;
     private Handler handler = new Handler();
+    ImageView iv_back;
+    TextView title_name;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice);
+//        iv_back =findViewById(R.id.iv_back);
+//        iv_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//        title_name =findViewById(R.id.title_name);
+//        title_name.setText("");
         ButterKnife.bind(this);
+        StrVersion = AppUtils.getVerName(this);
         initRecord();
         intentFilter = new IntentFilter();
         initListener();
@@ -104,6 +136,36 @@ public class VoiceActivityNew extends BaseActivity {
 
     }
 
+    /**
+     * 判断是是否有录音权限
+     */
+    public boolean checkAudioPermission(final Context context) {
+        bufferSizeInBytes = 0;
+        bufferSizeInBytes = AudioRecord.getMinBufferSize(sampleRateInHz,
+                channelConfig, audioFormat);
+        AudioRecord audioRecord = new AudioRecord(audioSource, sampleRateInHz,
+                channelConfig, audioFormat, bufferSizeInBytes);
+        //开始录制音频
+        try {
+            // 防止某些手机崩溃，例如联想
+            audioRecord.startRecording();
+        } catch (IllegalStateException e) {
+            return false;
+        }
+        /**
+         * 根据开始录音判断是否有录音权限
+         */
+        if (audioRecord.getRecordingState() != AudioRecord.RECORDSTATE_RECORDING
+                && audioRecord.getRecordingState() != AudioRecord.RECORDSTATE_STOPPED) {
+            return false;
+        }
+
+
+        audioRecord.stop();
+        audioRecord.release();
+
+        return true;
+    }
     //处理触摸事件
 
     private synchronized void initListener() {
@@ -111,64 +173,71 @@ public class VoiceActivityNew extends BaseActivity {
         ivVoice.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    //按下按钮时 开始录音
-                    case MotionEvent.ACTION_DOWN:
-                        AudioRecordManager.getInstance(VoiceActivityNew.this).startRecord();
-                        viewWave.stopAnim();
-                        viewWave.startAnim();
-                        isreodering = true;
-                        hasVoice = false;
-                        //开始录制时间
-                        oldTime = java.lang.System.currentTimeMillis();
-                        intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
-                        registerReceiver(broadcastReceiver, intentFilter);
-                        break;
-                    //移动按钮时
-                    case MotionEvent.ACTION_MOVE:
-                        if (isCancelled(view, motionEvent)) {
-                            AudioRecordManager.getInstance(VoiceActivityNew.this).willCancelRecord();
+                if (checkAudioPermission(VoiceActivityNew.this)) {
+                    switch (motionEvent.getAction()) {
+                        //按下按钮时 开始录音
+                        case MotionEvent.ACTION_DOWN:
+                            AudioRecordManager.getInstance(VoiceActivityNew.this).startRecord();
                             viewWave.stopAnim();
-                            isreodering = false;
+                            viewWave.startAnim();
+                            isreodering = true;
                             hasVoice = false;
-                            viewWave.clearDraw();
-                            ToastUtil.showToast("已取消~");
+                            //开始录制时间
+                            oldTime = java.lang.System.currentTimeMillis();
+                            intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
+                            registerReceiver(broadcastReceiver, intentFilter);
+                            break;
+                        //移动按钮时
+                        case MotionEvent.ACTION_MOVE:
+                            if (isCancelled(view, motionEvent)) {
+                                AudioRecordManager.getInstance(VoiceActivityNew.this).willCancelRecord();
+                                viewWave.stopAnim();
+                                isreodering = false;
+                                hasVoice = false;
+                                viewWave.clearDraw();
+                                ToastUtil.showToast("已取消~");
 
-                        } else {
-                            AudioRecordManager.getInstance(VoiceActivityNew.this).continueRecord();
-                        }
-                        break;
-                    //释放按钮时
-                    case MotionEvent.ACTION_UP:
-                        //停止录音
-                        AudioRecordManager.getInstance(VoiceActivityNew.this).stopRecord();
-                        //销毁录音
-                        AudioRecordManager.getInstance(VoiceActivityNew.this).destroyRecord();
-                        viewWave.stopAnim();
-                        viewWave.clearDraw();
-                        //录制完毕时间
-                        newTime = java.lang.System.currentTimeMillis();
-                        ivVoice.setEnabled(false);
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                ivVoice.setEnabled(true);
+                            } else {
+                                AudioRecordManager.getInstance(VoiceActivityNew.this).continueRecord();
                             }
+                            break;
+                        //释放按钮时
+                        case MotionEvent.ACTION_UP:
+                            //停止录音
+                            AudioRecordManager.getInstance(VoiceActivityNew.this).stopRecord();
+                            //销毁录音
+                            AudioRecordManager.getInstance(VoiceActivityNew.this).destroyRecord();
+                            viewWave.stopAnim();
+                            viewWave.clearDraw();
 
-                        },500);
-                        if (newTime - oldTime < 1000) {
-                            ToastUtil.showToast("录音时间太短了哦");
-                            hasVoice = false;
+                            //录制完毕时间
+                            newTime = java.lang.System.currentTimeMillis();
+                            ivVoice.setEnabled(false);
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ivVoice.setEnabled(true);
+                                }
 
-                        } else if (hasVoice == false && isreodering == true ) {
-                            ToastUtil.showToast("声音再大一些");
-                            hasVoice = false;
+                            }, 500);
+                            if (newTime - oldTime < 1000) {
+                                ToastUtil.showToast("录音时间太短了哦");
+                                hasVoice = false;
 
-                        } else if(newTime - oldTime >= 1000 && hasVoice == true){
-                            getReadCoin();
-                            hasVoice = false;
-                        }
-                        break;
+                            } else if (hasVoice == false && isreodering == true) {
+                                ToastUtil.showToast("声音再大一些");
+                                hasVoice = false;
+
+                            } else if (newTime - oldTime >= 1000 && hasVoice == true) {
+                                getReadCoin();
+                                hasVoice = false;
+                            }
+                            break;
+                    }
+                } else {
+                    Toast.makeText(VoiceActivityNew.this, "没有录音权限", Toast.LENGTH_SHORT).show();
+                    String[] perms = {"android.permission.RECORD_AUDIO"};
+                    ActivityCompat.requestPermissions(VoiceActivityNew.this, perms, 1);
                 }
                 return true;
             }
@@ -241,7 +310,19 @@ public class VoiceActivityNew extends BaseActivity {
 
 
     }
-
+    private void getAppDetailSettingIntent(Context context){
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(Build.VERSION.SDK_INT >= 9){
+            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            intent.setData(Uri.fromParts("package", getPackageName(), null));
+        } else if(Build.VERSION.SDK_INT <= 8){
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setClassName("com.android.settings","com.android.settings.InstalledAppDetails");
+            intent.putExtra("com.android.settings.ApplicationPkgName", getPackageName());
+        }
+        startActivity(intent);
+    }
     //判断是否熄屏
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -287,7 +368,7 @@ public class VoiceActivityNew extends BaseActivity {
     //网络请求//网络请求
     private void getReadCoin() {
         //参数转换
-        UploadCoinRequest request = new UploadCoinRequest(String.valueOf(voice_id));
+        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id), StrVersion, "Android");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
                 .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {
@@ -338,7 +419,7 @@ public class VoiceActivityNew extends BaseActivity {
     protected void onStart() {
         super.onStart();
         //获取语句
-//        getReadCoin();
+        //       getReadCoin();
     }
 
     //上传音频
@@ -360,6 +441,27 @@ public class VoiceActivityNew extends BaseActivity {
                     }
                 });
     }
+
+    @Override
+    protected void onPause() {
+        viewWave.stopAnim();
+        isreodering = false;
+        hasVoice = false;
+        viewWave.clearDraw();
+        super.onPause();
+    }
+
+    @NotNull
+    @Override
+    public Resources getResources() {
+        Resources res = super.getResources();
+        Configuration config = new Configuration();
+        config.fontScale = 1.0f;
+        res.updateConfiguration(config, res.getDisplayMetrics());
+        return res;
+
+    }
+
 }
 
 

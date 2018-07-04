@@ -19,7 +19,7 @@ class VocOfficialActivity : Activity() {
         setContentView(R.layout.activity_voc_official)
         setWebView()
         voc_webview.webViewClient = WebViewClient()
-        voc_webview.loadUrl("http://www.vochain.world/")
+        voc_webview.loadUrl("http://www.vocalchain.io/")
     }
     private fun setWebView() {
         val settings = voc_webview.settings

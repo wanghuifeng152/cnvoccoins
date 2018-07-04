@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_rank.*
+import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.adapter.RankAdapter
 import voc.cn.cnvoccoin.entity.DataBean
 import voc.cn.cnvoccoin.entity.RankResModel
@@ -19,7 +20,7 @@ import voc.cn.cnvoccoin.view.LoadingDialog
 class RankActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.fragment_rank)
+     //  setContentView(R.layout.fragment_rank)
         initView()
         getRank()
     }

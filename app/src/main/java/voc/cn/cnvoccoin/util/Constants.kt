@@ -1,6 +1,7 @@
 package voc.cn.cnvoccoin.util
 
 import android.support.annotation.Keep
+import android.widget.TextView
 import java.io.Serializable
 
 /**
@@ -38,7 +39,47 @@ data class VersionResponse(var isUpdate:Int,var platform:String,var version:Stri
 data class UploadCoinRequest(var id:String)
 
 @Keep
+data class UploadCoinRequestVoc(var id:String,var version:String ,var platform:String)
+
+@Keep
 data class TaskRequest(var code:String,var type:String)
 
 @Keep
 data class GetConfirmCodeRequest(var mobile:String)
+
+@Keep
+data class add(var remarks:String,var address:String)
+
+@Keep
+data class UploadCoinRequest2(var mobile:String)
+
+@Keep
+data class UploadCoinRequest3(var mobile:String,var code:String)
+
+@Keep
+data class Forwardid(var money: String)
+
+
+@Keep
+data class postId(var id:String)
+@Keep
+data class mingxi(var today:String,var threevoc:String,var friends:String,var community:String,var number:String)
+
+@Keep
+data class list(var id:String)
+@Keep
+data class postPayPwd(var put_pass:String)
+//tonken 为1
+@Keep
+data class ResetPwd1(var code:String,var mobile:String,var token:String)
+//tonken 为2
+@Keep
+data class ResetPwd2(var password:String,var token:String)
+//支付密码接口
+@Keep
+data class ResetPwd3(var address:String,var voc :String,var password: String)
+@Keep
+data class isHaveAddress(var token:String)
+
+
+

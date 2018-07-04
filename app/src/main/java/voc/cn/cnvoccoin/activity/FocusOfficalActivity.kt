@@ -13,7 +13,7 @@ class FocusOfficalActivity:CommnutityActivity() {
 
     override fun setParams() {
         tag = FOCUS_COMMON
-        imgId = R.mipmap.gongzhonghao
+        imgId = R.mipmap.gongzhonghao.toString()
 
     }
 

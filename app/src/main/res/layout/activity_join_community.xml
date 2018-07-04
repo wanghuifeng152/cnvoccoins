@@ -4,49 +4,53 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical">
+
     <RelativeLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:background="@color/black"
         android:gravity="center_vertical"
-        android:id="@+id/ll_title"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_height="match_parent"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:paddingLeft="10dp"
             android:src="@mipmap/back" />
 
         <TextView
-            android:gravity="center"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:text="@string/join_community"
             android:textColor="@color/white"
             android:textSize="20sp" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@mipmap/bgc_user"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_c89158"
-            android:layout_margin="10dp"
             android:layout_gravity="center_horizontal"
-            android:textSize="20sp"
-            android:text="@string/community_text"/>
+            android:layout_margin="10dp"
+            android:text="@string/community_text"
+            android:textColor="@color/color_c89158"
+            android:textSize="20sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:textSize="15sp"
+            android:text="@string/join_step"
             android:textColor="@color/white"
-            android:text="@string/join_step"/>
+            android:textSize="15sp" />
     </LinearLayout>
 
     <EditText
@@ -58,9 +62,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:layout_margin="10dp"
-        android:text="@string/please_input"/>
+        android:text="@string/please_input"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tv_confirm"
@@ -68,18 +72,20 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_task_button"
         android:gravity="center"
-        android:text="@string/sure"/>
+        android:text="@string/sure" />
 
     <ImageView
         android:id="@+id/iv_img"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_margin="10dp"
-        android:src="@mipmap/ic_group"
-        />
-    <TextView
+        android:layout_margin="10dp" />
+
+    <Button
         android:id="@+id/tv_copy_into"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/copy_into"/>
+        android:layout_height="25dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_task_button"
+        android:text="@string/copy_into"
+        android:textSize="10dp" />
 </LinearLayout>

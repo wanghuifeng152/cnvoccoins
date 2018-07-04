@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/base_title"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请确认设置支付密码"
+        android:layout_marginTop="70dip"
+        android:layout_gravity="center_horizontal"/>
+
+    <lsp.com.lib.PasswordInputEdt
+        android:id="@+id/edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        app:rectChooseColor="@color/color_c89158"
+        app:isPwd="false"
+        android:layout_marginTop="30dip"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_marginTop="50dip"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
+        android:background="@drawable/bg_task_butt"
+        android:textSize="16dip"
+        android:text="下一步"/>
+</LinearLayout>

@@ -16,8 +16,11 @@ import com.lzy.okgo.cache.CacheMode
  */
 class VocApplication : Application {
     private val TAG = this.javaClass.simpleName
-
-
+    var message_flag = false //false  从userFragment 提现按钮跳转,true 从提现页面 判断是否设置过支付密码跳转
+    var pwd1 = ""
+    var pwd2 = ""
+    var isResetPwd = false
+    var istitle = false
     constructor() {
         sInstance = this
     }

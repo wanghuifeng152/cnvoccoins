@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/base_title"/>
+
+    <TextView
+        android:id="@+id/tv_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dip"
+        android:layout_gravity="center_horizontal"/>
+
+    <voc.cn.cnvoccoin.view.PasswordInputEdt
+        android:id="@+id/edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        app:rectChooseColor="@color/pwd"
+        app:rectNormalColor="@color/color_gray"
+        app:isPwd="false"
+        app:rectStroke="1dip"
+        android:layout_marginTop="30dip"/>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:layout_marginTop="50dip"
+        android:layout_marginLeft="35dip"
+        android:layout_marginRight="35dip"
+        android:background="@drawable/bg_task_butt"
+        android:textSize="16dip"
+        />
+</LinearLayout>

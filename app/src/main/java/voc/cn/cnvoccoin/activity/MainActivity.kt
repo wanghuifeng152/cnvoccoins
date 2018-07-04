@@ -13,6 +13,7 @@ import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.content.FileProvider
 import android.support.v4.view.ViewPager
 import android.telephony.TelephonyManager
@@ -28,6 +29,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 import voc.cn.cnvoccoin.R
+import voc.cn.cnvoccoin.R.id.rg
+import voc.cn.cnvoccoin.R.id.vp_coin
 import voc.cn.cnvoccoin.activity.Constant.IS_GRANTED_PERMISSION
 import voc.cn.cnvoccoin.adapter.ViewPagerAdapter
 import voc.cn.cnvoccoin.dialog.LOGIN
@@ -76,11 +79,16 @@ class MainActivity : BaseActivity() {
                 override fun onNext(model: ResBaseModel<VersionResponse>?) {
                     if (model == null) return
                     if (model.code == 1 && model.data != null) {
-                        when (model.data.isUpdate) {
-                            0 -> return
-                            1 -> showUpdataDialog(model.data, false)
-                            2 -> showUpdataDialog(model.data, true)
-                        }
+                       when (model.data.isUpdate) {
+
+                           0 -> return
+                           1 -> showUpdataDialog(model.data, false)
+                       2 -> showUpdataDialog(model.data, true)
+                       }
+
+
+
+
                     }
                 }
 
@@ -179,7 +187,8 @@ class MainActivity : BaseActivity() {
         if (Build.VERSION.SDK_INT >= 24) {//判读版本是否在7.0以上
             val apkUri = FileProvider.getUriForFile(this@MainActivity, "voc.cn.cnvoccoin.fileprovider", file)
             val install = Intent(Intent.ACTION_VIEW)
-            install.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            install.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
             install.setDataAndType(apkUri, "application/vnd.android.package-archive")
             startActivity(install)
@@ -352,5 +361,25 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+    }
+
+
+    var exitTime : Long? = 0
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        ToastUtil.showToast("再按一次退出VOC")
+        if(keyCode == KeyEvent.KEYCODE_BACK &&
+                event!!.getAction() == KeyEvent.ACTION_DOWN){
+
+            if((System.currentTimeMillis()- this!!.exitTime!!) >2000){
+                ToastUtil.showToast("再按一次退出VOC")
+                exitTime = System.currentTimeMillis()
+            }else{
+                finish()
+            }
+
+            return true
+        }
+
+        return super.onKeyDown(keyCode, event)
     }
 }

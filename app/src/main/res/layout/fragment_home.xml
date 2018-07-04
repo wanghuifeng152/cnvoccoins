@@ -213,6 +213,7 @@
         <android.support.v7.widget.RecyclerView
           android:id="@+id/rv_rank"
           android:layout_width="match_parent"
+            android:nestedScrollingEnabled="false"
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
           android:layout_below="@id/tv_rank"/>

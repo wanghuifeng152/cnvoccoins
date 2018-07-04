@@ -10,7 +10,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 9
-        versionName "2.4.3"
+        versionName "2.5.4"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -36,6 +36,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release //签名
             zipAlignEnabled true
+            shrinkResources true
         }
     }
 }
@@ -85,8 +86,10 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.ljs.lovelytoast:LovelyToast:1.0.0'
     implementation 'com.lzy.net:okgo:3.0.4'
+    implementation 'com.github.superSp:PasswordInputEdt:v1.0'
 
 
+    implementation 'com.github.dfqin:grantor:2.5'
 }
 repositories {
     mavenCentral()

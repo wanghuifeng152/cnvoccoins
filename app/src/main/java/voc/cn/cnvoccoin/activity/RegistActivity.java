@@ -41,8 +41,8 @@ public class RegistActivity extends BaseActivity {
     TextView mTvConfirm;
     EditText mEtConfirm;
     Timer timer;
-    private boolean isshow = true;
-    private boolean isshow2 = true;
+    private boolean isshow = false;
+    private boolean isshow2 = false;
     int time = 60;
 
     @Override

@@ -25,6 +25,7 @@
     <string name="my_own">我的总资产</string>
     <string name="voice_coin">语音挖币</string>
     <string name="task_coin">任务挖矿</string>
+    <string name="message_code">短信验证</string>
     <string name="news">最新资讯</string>
     <string name="gift_up">上榜即可获得 1000 VOC奖励</string>
     <string name="user_info">个人中心</string>
@@ -34,8 +35,8 @@
     <string name="basic_target">基础任务</string>
     <string name="super_target">超级任务</string>
     <string name="more">更多 ></string>
-    <string name="reflect">可提现  ></string>
-    <string name="wallet">我的钱包</string>
+    <string name="reflect">提现</string>
+    <string name="reset_pwd">重置支付密码</string>
     <string name="invite">邀请好友</string>
     <string name="to_invite">去邀请</string>
     <string name="join_home">加入社区</string>
@@ -54,6 +55,34 @@
     <string name="sure">确认</string>
     <string name="get_cofirm_code">获取验证码</string>
     <string name="invite_labelText">现在邀请好友即送3000voc\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
-    <string name="copy_inviteText">2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，6月28日上所。注册即送3000VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=</string>
+    <string name="copy_inviteText">2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，注册即送1998VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=41</string>
     <string name="default_file_name">voc</string>
+    <string name="The_ether_square">请勿绑定非以太坊地址(推荐绑定imtoken、kcash)</string>
+    <string name="add_the_address">添加地址</string>
+    <string name="remarks">备注</string>
+    <string name="Please_enter_the_remark">请自定义钱包地址名称</string>
+    <string name="Please_enter_the_address">请输入地址</string>
+    <string name="purse_address">钱包地址</string>
+    <string name="identity_Verification">身份验证</string>
+    <string name="identity_name">姓名</string>
+    <string name="identity_number">身份证号码</string>
+    <string name="identity_content">不会将您的身份证信息用于除身份认证以外的任何用途</string>
+    <string name="detailed">收支明细</string>
+    <string name="detailed_time">产矿时间</string>
+    <string name="detailed_umber">挖矿数量</string>
+    <string name="detailed_gengduo">没有更多啦~</string>
+    <string name="real_name">实名认证</string>
+
+    <string name="phone">请输入手机号</string>
+    <string name="phone_code">请输入手机验证码</string>
+    <string name="username">请输入本人姓名</string>
+    <string name="id_card">请输入本人身份证</string>
+    <string name="ok">确定</string>
+
+    <string name="xuan_ze">请选择钱包地址</string>
+    <string name="Ming_Xi">收支明细</string>
+
+    <string name="shuo_ming">获得的VOC初始为锁定状态，自获\n得日后满一个月，变为可提现状态</string>
+
+
 </resources>

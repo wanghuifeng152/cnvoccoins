@@ -6,6 +6,8 @@
   android:background="@color/white"
   android:gravity="center_horizontal">
 
+  <!--<include-->
+    <!--layout="@layout/base_title"/>-->
   <LinearLayout
     android:id="@+id/ll_voice_top"
     android:layout_width="match_parent"

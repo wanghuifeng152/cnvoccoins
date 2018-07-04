@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="voc.cn.cnvoccoin.activity.SuccessActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#000"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/address_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:src="@mipmap/back" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/add_the_address"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </FrameLayout>
+    </LinearLayout>
+
+
+    <ImageView
+        android:src="@mipmap/success"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
+    <TextView
+        android:text="恭喜！地址添加成功"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:textSize="20dp"
+        android:textColor="@color/color_c89158"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

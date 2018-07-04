@@ -125,6 +125,7 @@
         >
     <EditText
         android:id="@+id/pwd"
+        android:inputType="textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
@@ -161,6 +162,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/rl_pwd">
     <EditText
+        android:inputType="textPassword"
         android:id="@+id/pwd_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

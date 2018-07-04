@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:background="#fff"
+    >
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_marginTop="20dp"
+        android:text="支付密码错误，请重试"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/color_454545"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:id="@+id/vi_view"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="0.5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_text"
+        android:background="@color/color_8c"
+        />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/vi_view"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_forget"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textColor="@color/color_c89158"
+            android:gravity="center"
+            android:text="忘记密码"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="0.5dp"
+            android:layout_gravity="center"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/color_b9854f"/>
+        <TextView
+            android:id="@+id/tv_retry"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textColor="@color/color_c89158"
+            android:gravity="center"
+            android:text="重试"
+            android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
