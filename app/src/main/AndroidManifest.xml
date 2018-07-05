@@ -38,55 +38,55 @@
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.InfoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.RankActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.VoiceActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.TaskActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.MessageCodeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.LoginActivityNew"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.RegistActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.InvitationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.CommnutityActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.FocusOfficalActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.NewsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -111,38 +111,38 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
 
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".activity.WalletActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.Main"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".activity.VocOfficialActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             tools:ignore="DuplicateActivity"/>
 
         <activity
             android:name=".activity.AddresActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".activity.SuccessActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <activity
             android:name=".activity.AddresActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             tools:ignore="DuplicateActivity" />
         <activity
             android:name=".activity.SettingActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
-            android:theme="@style/AppTheme.Main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"
             android:name=".activity.ForwardActivity"
             />
@@ -150,46 +150,46 @@
         <activity
             android:name=".activity.GetMessageCodeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".activity.NetWorkErrorActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity
             android:name=".activity.WalletTwoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <activity
             android:name=".activity.IdentityActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             tools:ignore="DuplicateActivity" />
         <activity
             android:name=".activity.DetailedActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.AddresActivity2"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <activity android:name=".activity.ForwardTwoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <activity android:name=".activity.SetPayPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" ></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
 
         <activity android:name=".activity.ReSetPayPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Main" ></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
 
     </application>
 

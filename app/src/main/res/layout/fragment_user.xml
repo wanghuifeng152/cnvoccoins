@@ -224,13 +224,6 @@
                     android:orientation="horizontal"
                     android:weightSum="3">
 
-                    <ImageView
-                        android:id="@+id/invitation"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@mipmap/task_uninvite" />
-
                     <android.support.v7.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -277,13 +270,6 @@
                                 android:textColor="@color/color_654c34" />
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
-
-                    <ImageView
-                        android:id="@+id/btn_join"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:src="@mipmap/task_unjoin" />
 
                     <android.support.v7.widget.CardView
                         android:layout_width="0dp"
@@ -335,11 +321,25 @@
                     </android.support.v7.widget.CardView>
 
                     <ImageView
+                        android:id="@+id/invitation"
+                        android:layout_width="0dp"
+                        android:layout_height="170dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/task_uninvite1" />
+
+                    <ImageView
+                        android:id="@+id/btn_join"
+                        android:layout_width="0dp"
+                        android:layout_height="170dp"
+                        android:layout_weight="1"
+                        android:src="@mipmap/task_unjoin1" />
+
+                    <ImageView
                         android:id="@+id/btn_focus"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="170dp"
                         android:layout_weight="1"
-                        android:src="@mipmap/task_unfocus" />
+                        android:src="@mipmap/task_unfocus1" />
 
                     <android.support.v7.widget.CardView
                         android:layout_width="0dp"
