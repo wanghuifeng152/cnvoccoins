@@ -49,6 +49,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import voc.cn.cnvoccoin.VocApplication;
 import voc.cn.cnvoccoin.entity.WalletClass;
+import voc.cn.cnvoccoin.util.isNumber;
 import voc.cn.cnvoccoin.view.PasswordInputEdt;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.ChargeBean;
@@ -98,6 +99,7 @@ public class ForwardActivity extends BaseActivity {
     private Dialog dialog;
     private double use1;
     private int startTwo;
+    private String mwallet;
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,17 +122,15 @@ public class ForwardActivity extends BaseActivity {
             }
         });
         inputFilters = new ArrayList<>();
-        initHuoQu();
+        Intent intent = getIntent();
+        moeny = intent.getDoubleExtra("moeny", 0.0);
         initData();
+
         //获取备注，钱包地址
 //        initHuoQu();
     }
 
-    private void initHuoQu() {
-        Intent intent = getIntent();
-        moeny = intent.getDoubleExtra("moeny", 0.0);
-//        tvTxian.setText(moeny +"");
-    }
+
 
     private void initQingqiu() {
 
@@ -216,28 +216,34 @@ public class ForwardActivity extends BaseActivity {
 
         //确定按钮
         addressConfirm.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 //提币输入数量
-                String mwallet = addressSnmd.getText().toString().trim();
+                mwallet = addressSnmd.getText().toString().trim();
                 double wallet = 0;
                 //判断它不为空
                 if (!TextUtils.isEmpty(mwallet) && !mwallet.equals("")) {
                     wallet = Double.parseDouble(mwallet);
+                    showPayDialog(mwallet);
+                    initQingqiu() ;
+                }else{
+                    ToastUtil.showToast("提现金额不能为空");
                 }
 
-                //判断不能小于10000
-                if (wallet < 3500) {
-//                    Toast.makeText(ForwardActivity.this, "最少3500voc" , Toast.LENGTH_SHORT).show();
-                    ToastUtil.showToast("最少3500voc");
-
-                } else {
-                    if(Double.parseDouble(addressSnmd.getText().toString().trim()) <= use1) {
-                        showPayDialog(mwallet);
-                    }else {
-                        initQingqiu() ;
-                    }
-                }
+//                //判断不能小于10000
+//                if (wallet < 3500) {
+////                    Toast.makeText(ForwardActivity.this, "最少3500voc" , Toast.LENGTH_SHORT).show();
+//                    ToastUtil.showToast("最少3500voc");
+//
+//                } else {
+//                    if(Double.parseDouble(addressSnmd.getText().toString().trim()) <= use1) {
+//                        showPayDialog(mwallet);
+//                    }else {
+//                        initQingqiu() ;
+//                    }
+//                }
             }
         });
 //提币数量输入框
@@ -248,10 +254,13 @@ public class ForwardActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if (Double.parseDouble(addressSnmd.getText().toString().trim()) > use1){
+//                    addressSnmd.setText("");
+//                }
+
                 String moneyNum = addressSnmd.getText().toString().trim();
                 if (addressSnmd.getText().toString().trim().matches("^0")) {//判断当前的输入第一个数是不是为0
                     addressSnmd.setText("");
-                    return;
                 }
                 if (!"".equals(addressSnmd.getText().toString())) {
                     if (moneyNum.length() >= 1) {
@@ -278,6 +287,9 @@ public class ForwardActivity extends BaseActivity {
                 }else {
                     tvAssets.setText("0");
                 }
+
+
+
             }
 
             @Override
@@ -430,9 +442,22 @@ public class ForwardActivity extends BaseActivity {
                                         dialogr.setCanceledOnTouchOutside(false);
                                         dialogr.setCancelable(false);
 
-                                    } else {
+                                    } else if (msg.equals("提现数量低于下限")){
+                                        isDialog = true;
+                                        dialog.dismiss();
+                                        Toast.makeText(ForwardActivity.this, "提现数量低于最低下限", Toast.LENGTH_SHORT).show();
+//                                        showPayDialog(mwallet);
+
+                                    }else  if (msg.equals("同一个地址十天之内只能提现一次")){
+                                        isDialog = true;
+                                        dialog.dismiss();
+                                        Toast.makeText(ForwardActivity.this, "同一个地址十天之内只能提现一次", Toast.LENGTH_SHORT).show();
+//                                        showPayDialog(mwallet);
+
+                                    }else {
                                         dialog.dismiss();
                                         ToastUtil.showToast(msg);
+
                                     }
                                 }
                             } catch (JSONException e) {
@@ -631,6 +656,7 @@ public class ForwardActivity extends BaseActivity {
             }
         }
     }
+
 
     private void getMoeny(){
         RequestBodyWrapper requestBodyWrapper = new RequestBodyWrapper(null);
