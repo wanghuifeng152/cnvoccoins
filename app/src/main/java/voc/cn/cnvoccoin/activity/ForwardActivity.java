@@ -112,7 +112,7 @@ public class ForwardActivity extends BaseActivity {
                 if (keyCode == KeyEvent.KEYCODE_DEL)
                 {
                     addressSnmd.getText().toString().trim();
-                    if (addressSnmd.getText().toString().trim().matches("^0") || addressSnmd.getText().toString().trim().startsWith(".")){
+                    if (addressSnmd.getText().toString().trim().startsWith("0") || addressSnmd.getText().toString().trim().startsWith(".")){
                         addressSnmd.setText("");
                     }
                 }
@@ -248,13 +248,10 @@ public class ForwardActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (Double.parseDouble(addressSnmd.getText().toString().trim()) > use1){
-//                    addressSnmd.setText("");
-//                }
-                Log.e("aaaaaaaaaaaaa",start+"");
                 String moneyNum = addressSnmd.getText().toString().trim();
                 if (addressSnmd.getText().toString().trim().matches("^0")) {//判断当前的输入第一个数是不是为0
                     addressSnmd.setText("");
+                    return;
                 }
                 if (!"".equals(addressSnmd.getText().toString())) {
                     if (moneyNum.length() >= 1) {
@@ -263,11 +260,15 @@ public class ForwardActivity extends BaseActivity {
                     if (moneyNum.length() < 1) {
                         moneyNum = "0";
                     }
-                    if ("0".equals(addressSnmd.getText().toString().trim().substring(0,1)))
-                    {
-                        addressSnmd.setText("");
-                    }
+//                    if ("0".equals(addressSnmd.getText().toString().trim().substring(0,1)))
+//                    {
+//                        addressSnmd.setText("");
+//                    }
                     tvAssets.setText(moneyNum + "");
+                    if (addressSnmd.getText().toString().trim().matches("^0")) {//判断当前的输入第一个数是不是为0
+                        addressSnmd.setText("");
+                        return;
+                    }
                     if (Double.parseDouble(addressSnmd.getText().toString().trim()) > use1) {
 //                        addressSnmd.setHint("超出可提现金额");
 //                        addressSnmd.setHintTextColor(Color.parseColor("#B2FF0000"));
