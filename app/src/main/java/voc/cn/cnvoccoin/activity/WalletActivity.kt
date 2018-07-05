@@ -57,6 +57,7 @@ class WalletActivity : Activity() {
         })
 
         tv_forward!!.setOnClickListener {
+            tv_forward.isClickable = false
             postIsHavePwd()
         }
     }
@@ -98,6 +99,7 @@ class WalletActivity : Activity() {
                             var intents = Intent(this@WalletActivity, ForwardActivity::class.java)
                             intents.putExtra("moeny",use);
                             startActivity(intents)
+                            tv_forward.isClickable = true
                         }
                     }
                 } catch (e: JSONException) {
