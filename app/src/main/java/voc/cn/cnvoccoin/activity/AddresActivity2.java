@@ -82,7 +82,9 @@ public class AddresActivity2 extends AppCompatActivity {
                 Log.d("TAG", "onNext() returned:++++++++++++++++ " + s);
                 AddresClass addresClass = new Gson().fromJson(s, AddresClass.class);
                 addresClassMsg = addresClass.getMsg();
-
+                if (addresClassMsg.get(0).getAddress().equals("0") && addresClassMsg.get(0).getRemarks().equals("0")){
+                    ToastUtil.showToast("您还没有添加地址");
+                }else{
                     detailedAdapter = new DetailedAdapter(AddresActivity2.this, addresClassMsg);
                     address2Lv.setAdapter(detailedAdapter);
                     Intent intent = getIntent();
@@ -90,7 +92,7 @@ public class AddresActivity2 extends AppCompatActivity {
                     detailedAdapter.setChecked(position);
                     detailedAdapter.notifyDataSetChanged();
 
-
+                }
                 initListener(addresClassMsg);
             }
 

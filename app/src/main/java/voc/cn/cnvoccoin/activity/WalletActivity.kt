@@ -21,7 +21,7 @@ import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
-
+import voc.cn.cnvoccoin.view.LoadingDialog
 
 
 /**
@@ -79,11 +79,14 @@ class WalletActivity : Activity() {
         super.onResume()
     }
     private fun postIsHavePwd(){
+        val loadingDialog = LoadingDialog(this, null)
+        loadingDialog.show()
         val request = postId("11")
         val wrapper = RequestBodyWrapper(request)
         HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
 
             override fun onNext(s: String) {
+                loadingDialog.dismiss()
                 if (s == null || s.isEmpty()) return
                 var jsonObject: JSONObject? = null
                 try {
@@ -106,11 +109,11 @@ class WalletActivity : Activity() {
             }
 
             override fun onError(t: Throwable) {
-
+                loadingDialog.dismiss()
             }
 
             override fun onComplete() {
-
+                loadingDialog.dismiss()
             }
         })
     }
