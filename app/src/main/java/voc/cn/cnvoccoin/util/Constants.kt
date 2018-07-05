@@ -81,5 +81,8 @@ data class ResetPwd3(var address:String,var voc :String,var password: String)
 @Keep
 data class isHaveAddress(var token:String)
 
+//提币下限
+@Keep
+data class isNumber(var voc : String)
 
 
