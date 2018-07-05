@@ -1,5 +1,7 @@
 package voc.cn.cnvoccoin.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -23,6 +25,8 @@ import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -36,6 +40,42 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater?.inflate(R.layout.fragment_home, container, false)
         initView(view)
+        val token = PreferenceUtil.instance?.getString(TOKEN)
+        if (token == null || token.isEmpty()){
+
+        }else{
+            /**
+             * 排行榜定时器，30分钟刷新一次
+             */
+            Timer().schedule(object : TimerTask(){
+                override fun run() {
+                    val sharedPreferences = activity.getSharedPreferences("timer", 0)
+                    val simpleDateFormatss = SimpleDateFormat("yyyyMMddhhmmss")// HH:mm:ss
+                    //获取当前时间
+                    val datess = Date(System.currentTimeMillis())
+
+                    if (sharedPreferences.getLong("timeOne",0) == 0L){
+                        val simpleDateFormat = SimpleDateFormat("yyyyMMddhhmmss")
+                        val date = Date(System.currentTimeMillis())
+                        val format = simpleDateFormat.format(date)
+                        val time = simpleDateFormat.parse(format).time
+//            val sharedPreferences = activity.getSharedPreferences("timer", 0)
+//            val edit = sharedPreferences.edit()
+                        val edit = sharedPreferences.edit()
+                        edit.putLong("timeOne",time)
+                        edit.apply()
+                        getRank()
+                        Log.e("sssss",""+time)
+                    }else if (simpleDateFormatss.parse(simpleDateFormatss.format(datess)).time >= (sharedPreferences.getLong("timeOne",0)+(30*60*1000))){
+                        val edit = sharedPreferences.edit()
+                        edit.putLong("timeOne",simpleDateFormatss.parse(simpleDateFormatss.format(datess)).time)
+                        edit.apply()
+                        Log.e("ffff",""+simpleDateFormatss.parse(simpleDateFormatss.format(datess)).time)
+                        getRank()
+                    }
+                }
+            },30*60*1000,30*60*1000)
+        }
         return view
     }
 
@@ -102,7 +142,8 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        getRank()
+
+            getRank()
         getCoin()
     }
     private fun getCoin() {
@@ -146,7 +187,6 @@ class HomeFragment : Fragment() {
             override fun onComplete() {
 
             }
-
             override fun onNext(s: String?) {
                 YHLog.d("rank_url", s)
                 if (s == null) return
@@ -155,6 +195,7 @@ class HomeFragment : Fragment() {
                 if (model.code == 1) {
                     if (model.data?.list == null || model.data?.list?.size == 0) return
                     setRankModel(model.data.list)
+                    Log.e("sxzcxzcz",s)
                 }
             }
 
@@ -169,7 +210,6 @@ class HomeFragment : Fragment() {
         var adapter = RankAdapter(activity, data)
         mRvRank?.adapter = adapter
 
+
     }
-
-
 }
