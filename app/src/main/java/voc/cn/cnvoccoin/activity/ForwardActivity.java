@@ -451,11 +451,14 @@ public class ForwardActivity extends BaseActivity {
                                     }else  if (msg.equals("同一个地址十天之内只能提现一次")){
                                         isDialog = true;
                                         dialog.dismiss();
+                                        dialog = null;
                                         Toast.makeText(ForwardActivity.this, "同一个地址十天之内只能提现一次", Toast.LENGTH_SHORT).show();
 //                                        showPayDialog(mwallet);
 
                                     }else {
+                                        isDialog = true;
                                         dialog.dismiss();
+                                        dialog = null;
                                         ToastUtil.showToast(msg);
 
                                     }
