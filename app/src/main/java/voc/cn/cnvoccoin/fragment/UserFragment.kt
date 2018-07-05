@@ -24,6 +24,7 @@ import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
+import voc.cn.cnvoccoin.view.LoadingDialog
 
 /**
  * Created by shy on 2018/3/24.
@@ -190,11 +191,14 @@ class UserFragment : Fragment() {
 
 
     private fun postIsHavePwd(){
+        val loadingDialog = LoadingDialog(activity, null)
+        loadingDialog.show()
         val request = postId("11")
         val wrapper = RequestBodyWrapper(request)
         HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
 
             override fun onNext(s: String) {
+                loadingDialog.dismiss();
                 if (s == null || s.isEmpty()) return
                 var jsonObject: JSONObject? = null
                 try {
@@ -210,6 +214,7 @@ class UserFragment : Fragment() {
                         }else{
                             //有设置密码去重置
                             VocApplication.getInstance().isResetPwd = true
+                            PreferenceUtil.instance?.set("pwdFlag", "1");//首页重置密码跳转
                             val intent = Intent(activity, GetMessageCodeActivity::class.java)
                             intent.putExtra("isTitle",0);
                             startActivity(intent)
@@ -222,7 +227,7 @@ class UserFragment : Fragment() {
             }
 
             override fun onError(t: Throwable) {
-
+                loadingDialog.dismiss()
             }
 
             override fun onComplete() {
