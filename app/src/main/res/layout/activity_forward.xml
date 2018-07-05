@@ -156,17 +156,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <Button
-        android:enabled="false"
         android:id="@+id/address_confirm"
-        android:textColor="#fff"
-        android:text="确定"
-        android:textSize="15sp"
-        android:background="@drawable/btn_tach"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
         android:layout_width="300dp"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_tach"
+        android:enabled="false"
+        android:text="确定"
+        android:textColor="#fff"
+        android:textSize="15sp" />
     <TextView
         android:id="@+id/tv_address"
         android:textColor="@color/color_BF986F"

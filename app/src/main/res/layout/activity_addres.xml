@@ -74,7 +74,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:maxLength="100"
+                    android:maxLength="43"
                     android:hint="@string/Please_enter_the_remark"
                     android:textSize="12dp" />
             </LinearLayout>
