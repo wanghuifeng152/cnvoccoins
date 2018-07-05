@@ -106,6 +106,19 @@ public class ForwardActivity extends BaseActivity {
         setContentView(R.layout.activity_forward);
         ButterKnife.bind(this);
         addressSnmd.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        addressSnmd.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_DEL)
+                {
+                    addressSnmd.getText().toString().trim();
+                    if (addressSnmd.getText().toString().trim().matches("^0") || addressSnmd.getText().toString().trim().startsWith(".")){
+                        addressSnmd.setText("");
+                    }
+                }
+                return false;
+            }
+        });
         inputFilters = new ArrayList<>();
         initHuoQu();
         initData();
