@@ -48,6 +48,7 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import voc.cn.cnvoccoin.VocApplication;
+import voc.cn.cnvoccoin.entity.Nument;
 import voc.cn.cnvoccoin.entity.WalletClass;
 import voc.cn.cnvoccoin.util.isNumber;
 import voc.cn.cnvoccoin.view.PasswordInputEdt;
@@ -126,10 +127,39 @@ public class ForwardActivity extends BaseActivity {
         moeny = intent.getDoubleExtra("moeny", 0.0);
         initData();
 
+        initNumber();
+
+
         //获取备注，钱包地址
 //        initHuoQu();
     }
 
+
+    private void initNumber() {
+
+        isNumber isNumber = new isNumber("1");
+        RequestBodyWrapper bodyWrapper = new RequestBodyWrapper(isNumber);
+       HttpManager.post(UrlConstantsKt.POST_NUMBER,bodyWrapper).subscribe(new Subscriber<String>() {
+           @Override
+           public void onNext(String o) {
+               Nument nument = new Gson().fromJson(o, Nument.class);
+               String msg = nument.getMsg();
+               addressSnmd.setHint("最低提现"+msg+"");
+
+           }
+
+           @Override
+           public void onError(Throwable t) {
+
+           }
+
+           @Override
+           public void onComplete() {
+
+           }
+       });
+
+    }
 
 
     private void initQingqiu() {
@@ -458,12 +488,17 @@ public class ForwardActivity extends BaseActivity {
                                         Toast.makeText(ForwardActivity.this, "同一个地址十天之内只能提现一次", Toast.LENGTH_SHORT).show();
 //                                        showPayDialog(mwallet);
 
+                                    }else if (msg.equals("地址已被他人绑定")){
+                                        isDialog = true;
+                                        dialog.dismiss();
+                                        Toast.makeText(ForwardActivity.this, "地址已被他人绑定", Toast.LENGTH_SHORT).show();
+
+
                                     }else {
                                         isDialog = true;
                                         dialog.dismiss();
                                         dialog = null;
                                         ToastUtil.showToast(msg);
-
                                     }
                                 }
                             } catch (JSONException e) {
@@ -474,7 +509,8 @@ public class ForwardActivity extends BaseActivity {
 
                         @Override
                         public void onError(Throwable t) {
-
+                            isDialog = true;
+                            dialog.dismiss();
                         }
 
                         @Override
