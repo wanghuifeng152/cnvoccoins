@@ -69,7 +69,7 @@
                 android:layout_height="20dp"
                 android:src="@mipmap/return_two"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="40dp"
                 />
 
             <TextView
@@ -115,8 +115,8 @@
         android:layout_height="2dp"
         android:layout_below="@+id/rl_top"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:src="@mipmap/lll"
 
         />
@@ -125,10 +125,10 @@
         android:id="@+id/et_login_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="50dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:layout_below="@+id/line1"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:password="true"
         android:singleLine="true"
         android:background="@android:color/transparent"
@@ -143,8 +143,8 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/et_login_pwd"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/lll"
 
@@ -195,6 +195,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"
