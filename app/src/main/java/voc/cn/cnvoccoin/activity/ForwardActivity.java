@@ -446,6 +446,9 @@ public class ForwardActivity extends BaseActivity {
                                                 VocApplication.Companion.getInstance().setResetPwd(true);
                                                 Intent in = new Intent(ForwardActivity.this, GetMessageCodeActivity.class);
                                                 PreferenceUtil.Companion.getInstance().set("istitle", "2");
+                                                PreferenceUtil.Companion.getInstance().set("pwdFlag", "2");//忘记密码跳转
+                                                dialog.dismiss();
+                                                dialogr.dismiss();
                                                 startActivity(in);
                                             }
                                         });

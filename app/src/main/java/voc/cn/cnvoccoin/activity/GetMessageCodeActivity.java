@@ -26,6 +26,8 @@ import voc.cn.cnvoccoin.util.PreferenceUtil;
 import voc.cn.cnvoccoin.util.ResetPwd1;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
+import voc.cn.cnvoccoin.view.LoadingDialog;
+
 import static voc.cn.cnvoccoin.util.UrlConstantsKt.POST_RESET_PWD;
 
 /**
@@ -59,6 +61,8 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
     }
 
     public void postMessage(){
+        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
+        loadingDialog.show();
         String code = et_code.getText().toString().trim();
         String mobile = et_phone.getText().toString().trim();
         ResetPwd1 request = new ResetPwd1(code,mobile,"1");
@@ -67,6 +71,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onNext(String s) {
+                loadingDialog.dismiss();
                 if (s == null || s.isEmpty()) return;
                 JSONObject jsonObject = null;
                 try {
@@ -92,7 +97,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onError(Throwable t) {
-
+                loadingDialog.dismiss();
             }
 
             @Override
@@ -119,6 +124,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
                 if(et_phone.getText().toString().trim().length() == 11 ){
                     String token = PreferenceUtil.Companion.getInstance().getString("USER_MOBILE");
                     if(token.equals(et_phone.getText().toString().trim())){
+                        restart(tv_message);
                         getMessage();
                     }else{
                         ToastUtil.showToast("手机号码错误~");
@@ -138,6 +144,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
      * 请求获取验证码
      */
     public void getMessage() {
+
         String phone = et_phone.getText().toString().trim();
         GetConfirmCodeRequest request = new GetConfirmCodeRequest(phone);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
@@ -145,8 +152,9 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
             @Override
             public void onNext(String s)
             {
+
                 ToastUtil.showToast("验证码发送成功");
-                restart(tv_message);
+
             }
 
             @Override

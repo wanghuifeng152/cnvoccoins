@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.json.JSONException
@@ -23,6 +24,7 @@ import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
+import voc.cn.cnvoccoin.view.LoadingDialog
 
 /**
  * Created by shy on 2018/3/24.
@@ -35,6 +37,7 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         //点击更多按钮跳转到更多页面
         tv_more.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
@@ -97,7 +100,7 @@ class UserFragment : Fragment() {
       })
         //点击重置密码
         rl_reset_pwd.setOnClickListener({
-
+            rl_reset_pwd.isEnabled = false
             postIsHavePwd()
 
         })
@@ -150,7 +153,14 @@ class UserFragment : Fragment() {
             tv_see.visibility = View.VISIBLE
             tv_my_coin?.text = "*******"
         }else{
-            tv_notlogin.visibility = View.GONE
+            if (tv_notlogin == null)
+            {
+            }
+            else
+            {
+                tv_notlogin.visibility = View.GONE
+            }
+
             tv_se.visibility = View.VISIBLE
             tv_see.visibility = View.GONE
         }
@@ -181,11 +191,14 @@ class UserFragment : Fragment() {
 
 
     private fun postIsHavePwd(){
+        val loadingDialog = LoadingDialog(activity, null)
+        loadingDialog.show()
         val request = postId("11")
         val wrapper = RequestBodyWrapper(request)
         HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
 
             override fun onNext(s: String) {
+                loadingDialog.dismiss();
                 if (s == null || s.isEmpty()) return
                 var jsonObject: JSONObject? = null
                 try {
@@ -197,13 +210,15 @@ class UserFragment : Fragment() {
                             ToastUtil.showToast("您还没有设置支付密码, 请先设置支付密码")
                             VocApplication.getInstance().message_flag = true;
                             startActivity(Intent(activity, MessageCodeActivity::class.java))
-
+                            rl_reset_pwd.isEnabled = true
                         }else{
                             //有设置密码去重置
                             VocApplication.getInstance().isResetPwd = true
+                            PreferenceUtil.instance?.set("pwdFlag", "1");//首页重置密码跳转
                             val intent = Intent(activity, GetMessageCodeActivity::class.java)
                             intent.putExtra("isTitle",0);
                             startActivity(intent)
+                            rl_reset_pwd.isEnabled = true
                         }
                     }
                 } catch (e: JSONException) {
@@ -212,7 +227,7 @@ class UserFragment : Fragment() {
             }
 
             override fun onError(t: Throwable) {
-
+                loadingDialog.dismiss()
             }
 
             override fun onComplete() {

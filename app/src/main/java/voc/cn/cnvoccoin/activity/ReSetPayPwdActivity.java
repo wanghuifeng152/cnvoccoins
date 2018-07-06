@@ -46,7 +46,7 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
     PasswordInputEdt edt;
     String pwd;
     ImageView iv_back;
-
+    String pwdIntentFlag;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,28 +58,8 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
         Intent intent = getIntent();
         int isTitle = intent.getIntExtra("isTitle", -1);
         String istitle = PreferenceUtil.Companion.getInstance().getString("istitle");
+       pwdIntentFlag = PreferenceUtil.Companion.getInstance().getString("pwdFlag");
 
-        if (isTitle != 0) {
-            title_name.setText("设置密码");
-        } else if (isTitle == 1) {
-            title_name.setText("确认密码");
-        } else {
-            title_name.setText("重置支付密码");
-        }
-
-       /*   if(istitle.equals("1")){
-            title_name.setText("重置密码");
-        }else{
-            title_name.setText("确认重置支付密码");
-        }*/
-
-//        if(isTitle != 0){
-////            title_name.setText("设置密码");
-////        }else if (isTitle == 1){
-////            title_name.setText("确认密码");
-////        }else{
-////            title_name.setText("重置支付密码");
-////        }
         if (istitle.equals("1")) {
             title_name.setText("确认密码");
         } else {
@@ -186,13 +166,17 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
                     int code = jsonObject.getInt("code");
                     if (code == 1) {
                         if (jsonObject.getString("msg").equals("重置密码成功")) {
-
                             VocApplication.Companion.getInstance().setResetPwd(false);
                             ToastUtil.showToast("重置成功");
                             CacheActivity.finishActivity();
                             VocApplication.Companion.getInstance().setMessage_flag(true);
-                            Intent in = new Intent(ReSetPayPwdActivity.this, WalletActivity.class);
-                            startActivity(in);
+                            if(pwdIntentFlag.equals("1")){
+                                Intent in = new Intent(ReSetPayPwdActivity.this, MainActivity.class);
+                                startActivity(in);
+                            }
+                            CacheActivity.finishActivity();
+
+
 
                         } else {
                             ToastUtil.showToast(jsonObject.getString("msg"));

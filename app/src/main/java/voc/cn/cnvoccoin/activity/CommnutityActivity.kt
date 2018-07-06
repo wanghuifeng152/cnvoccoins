@@ -26,6 +26,7 @@ import com.github.dfqin.grantor.PermissionListener
 import com.github.dfqin.grantor.PermissionsUtil
 import voc.cn.cnvoccoin.entity.PermisionUtils
 import voc.cn.cnvoccoin.entity.PermisionUtils.verifyStoragePermissions
+import java.io.BufferedInputStream
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
@@ -39,6 +40,7 @@ open class CommnutityActivity:BaseActivity() {
     var tag:String = ""
     var imgId:String = ""
     var decodeStream : Bitmap? = null
+    private var imsg : ImageView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
@@ -61,6 +63,7 @@ open class CommnutityActivity:BaseActivity() {
     }
 
     private fun initView() {
+        imsg = findViewById(R.id.iv_back)
         tv_copy_into.setOnClickListener { copyImage() }
         tv_confirm.setOnClickListener { confirmTask() }
         iv_back.setOnClickListener { finish() }
@@ -168,15 +171,39 @@ open class CommnutityActivity:BaseActivity() {
                     if(model.data == null || model.data.isEmpty())return
                     val picUrl = model.data[0]
                     imgId = picUrl
-                    Log.i("picUrl",picUrl);
-                    Glide.with(this@CommnutityActivity)
-                            .load(picUrl)
-                            .into(findViewById(R.id.iv_img))
+                    imsg!!.setImageBitmap(getBitmap(picUrl))
+                    Log.i("picUrl",picUrl)
+//                    Glide.with(this@CommnutityActivity)
+//                            .load(picUrl)
+//                            .into(findViewById(R.id.iv_img))
                 }
             }
 
 
         })
+    }
+
+    fun getBitmap(url: String): Bitmap? {
+        var bm: Bitmap? = null
+        try {
+            val iconUrl = URL(url)
+            val conn = iconUrl.openConnection()
+            val http = conn as HttpURLConnection
+
+            val length = http.contentLength
+
+            conn.connect()
+            // 获得图像的字符流
+            val `is` = conn.getInputStream()
+            val bis = BufferedInputStream(`is`, length)
+            bm = BitmapFactory.decodeStream(bis)
+            bis.close()
+            `is`.close()// 关闭流
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return bm
     }
 
     fun returnBitMap(url: String): Bitmap? {

@@ -1,6 +1,12 @@
 package voc.cn.cnvoccoin
 
 import android.app.Application
+import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
+import android.net.Uri
+import android.os.Build
 import com.lzy.okgo.OkGo
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
@@ -9,6 +15,11 @@ import com.orhanobut.logger.Logger
 import com.orhanobut.logger.Logger.addLogAdapter
 import com.lzy.okgo.cache.CacheEntity
 import com.lzy.okgo.cache.CacheMode
+import voc.cn.cnvoccoin.activity.TaskActivity
+import voc.cn.cnvoccoin.activity.VocOfficialActivity
+import voc.cn.cnvoccoin.activity.VoiceActivityNew
+import voc.cn.cnvoccoin.activity.WalletActivity
+import java.util.ArrayList
 
 
 /**
@@ -36,10 +47,42 @@ class VocApplication : Application {
         super.onCreate()
 //        CrashReport.initCrashReport(applicationContext, "注册时申请的APPID", false)
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "")
+        if (Build.VERSION.SDK_INT >= 25) {
+            val systemService = getSystemService(ShortcutManager::class.java)
+            val intent = Intent(this, VoiceActivityNew::class.java)
+            intent.action = Intent.ACTION_VIEW
+            val intent2 = Intent(this, TaskActivity::class.java)
+            intent2.action = Intent.ACTION_VIEW
+            val intent3 = Intent(this, WalletActivity::class.java)
+            intent3.action = Intent.ACTION_VIEW
+            val build = ShortcutInfo.Builder(this, "id" + 1)
+                    .setShortLabel("我的资产")
+                    .setLongLabel("我的资产")
+                    .setIcon(Icon.createWithResource(this, R.mipmap.kjfs_three))
+                    .setIntent(intent3)
+                    .build()
+            val build2 = ShortcutInfo.Builder(this, "id" + 2)
+                    .setShortLabel("任务挖矿")
+                    .setLongLabel("任务挖矿")
+                    .setIcon(Icon.createWithResource(this,  R.mipmap.kjfs_two))
+                    .setIntent(intent2)
+                    .build()
+            val build3 = ShortcutInfo.Builder(this, "id" + 3)
+                    .setShortLabel("语音挖币")
+                    .setLongLabel("语音挖币")
+                    .setIcon(Icon.createWithResource(this, R.mipmap.kjfs_one))
+                    .setIntent(intent)
+                    .build()
+            val mList = ArrayList<ShortcutInfo>()
+            mList.add(build)
+            mList.add(build2)
+            mList.add(build3)
+            systemService!!.dynamicShortcuts = mList
+        }
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL)
         MobclickAgent.setDebugMode(false)
-        Logger.addLogAdapter(AndroidLogAdapter());
-        OkGo.getInstance().init(this);
+        Logger.addLogAdapter(AndroidLogAdapter())
+        OkGo.getInstance().init(this)
         try {
             //以下都不是必须的，根据需要自行选择,一般来说只需要 debug,缓存相关,cookie相关的 就可以了
             OkGo.getInstance()
