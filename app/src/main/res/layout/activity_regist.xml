@@ -148,6 +148,7 @@
             android:layout_marginLeft="40dp"
             android:background="@android:color/transparent"
             android:hint="请输入短信验证码"
+            android:maxLength="6"
             android:singleLine="true"
             android:textColor="@color/color_zhuce2"
             android:textColorHint="@color/color_zhuce3"
@@ -186,7 +187,7 @@
             android:hint="请输入密码(至少6位数)"
             android:textColor="@color/color_zhuce2"
             android:textColorHint="@color/color_zhuce3"
-            android:inputType="numberPassword"
+            android:inputType="textPassword"
             android:textSize="18sp" />
 
         <View
