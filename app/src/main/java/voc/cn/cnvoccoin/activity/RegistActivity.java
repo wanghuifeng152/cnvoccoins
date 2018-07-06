@@ -97,7 +97,12 @@ public class RegistActivity extends BaseActivity {
 //                if (!password.equals(password_two)) {
 //                    ToastUtil.showToast("两次输入密码不一致");
 //                } else {
-                setRegister();
+                String psw = pwd.getText().toString();
+                if(psw.length() >= 6){
+                    setRegister();
+                }else{
+                    ToastUtil.showToast("密码输入错误");
+                }
 
 
             }
@@ -185,7 +190,6 @@ public class RegistActivity extends BaseActivity {
                 }else{
                     iv1.setVisibility(View.GONE);
                 }
-
             }
 
             @Override
