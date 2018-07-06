@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -43,7 +44,9 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.Timestamp;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -62,6 +65,7 @@ import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UploadCoinRequest;
 import voc.cn.cnvoccoin.util.UploadCoinRequestVoc;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
+import voc.cn.cnvoccoin.util.Utils;
 import voc.cn.cnvoccoin.view.WaveLineView;
 
 /**
@@ -111,7 +115,8 @@ public class VoiceActivityNew extends BaseActivity {
     private Handler handler = new Handler();
     ImageView iv_back;
     TextView title_name;
-
+    String strMD5;
+    String sign;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,10 +135,14 @@ public class VoiceActivityNew extends BaseActivity {
         initRecord();
         intentFilter = new IntentFilter();
         initListener();
-        getReadCoin();
+
         tvHaveCoin.setText("" + voiceCoin);
-
-
+        long  time = System.currentTimeMillis();
+        Log.i("msg",time+"");
+        strMD5 = Utils.md5("6f994ec9a2be0d9934b2b2057e4e1a25Android");
+//      getReadCoin();
+        String t = String.valueOf(time/1000);
+        sign = "6f994ec9a2be0d9934b2b2057e4e1a25#"+t;
     }
 
     /**
@@ -369,7 +378,7 @@ public class VoiceActivityNew extends BaseActivity {
     //网络请求//网络请求
     private void getReadCoin() {
         //参数转换
-        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id), StrVersion, "Android");
+        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id), StrVersion, strMD5,sign);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
                 .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {

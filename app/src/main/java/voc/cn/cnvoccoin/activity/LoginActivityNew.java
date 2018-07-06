@@ -62,13 +62,15 @@ public class  LoginActivityNew extends BaseActivity {
             }
         });
         //注册监听
-        findViewById(R.id.tv_regist).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.lin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), RegistActivity.class);
                 startActivity(intent);
             }
         });
+
+
         //登录监听
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +97,7 @@ public class  LoginActivityNew extends BaseActivity {
         }
     };
 
-    private void       getLogin() {
+    private void getLogin() {
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
         if (username.isEmpty()) return;
