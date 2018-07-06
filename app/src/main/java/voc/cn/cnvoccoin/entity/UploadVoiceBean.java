@@ -17,6 +17,24 @@ public class UploadVoiceBean implements Serializable,KeepAttr {
     private UserBean user;
     private CurrentBean current;
     private NextBean next;
+    private String todayNum;
+    private String sign;
+
+    public String getTodayNum() {
+        return todayNum;
+    }
+
+    public void setTodayNum(String todayNum) {
+        this.todayNum = todayNum;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
 
     public UserBean getUser() {
         return user;

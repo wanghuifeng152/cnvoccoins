@@ -140,9 +140,10 @@ public class VoiceActivityNew extends BaseActivity {
         long  time = System.currentTimeMillis();
         Log.i("msg",time+"");
         strMD5 = Utils.md5("6f994ec9a2be0d9934b2b2057e4e1a25Android");
-//      getReadCoin();
-        String t = String.valueOf(time/1000);
-        sign = "6f994ec9a2be0d9934b2b2057e4e1a25#"+t;
+
+        String t =Long.toString(time).substring(0,10);
+        sign = Utils.md5(t)+"#"+t;
+        getReadCoin();
     }
 
     /**
@@ -376,9 +377,11 @@ public class VoiceActivityNew extends BaseActivity {
     }
 
     //网络请求//网络请求
+//    UrlConstantsKt.UPLOAD_COIN
     private void getReadCoin() {
         //参数转换
-        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id), StrVersion, strMD5,sign);
+//        Log.i("msg","!!!!!!!!!!!!!11"+sign);
+        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id),StrVersion , strMD5,"Android",sign);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
                 .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {
@@ -408,7 +411,7 @@ public class VoiceActivityNew extends BaseActivity {
                         voice_id = uploadVoiceBeanResBaseModel.data.getNext().getId();
 //                        LovelyToast.makeText(VoiceActivityNew.this,decimalFormat.format(voiceCoin)+"",LovelyToast.LENGTH_SHORT,LovelyToast.SUCCESS);
                         tvHaveCoin.setText(decimalFormat.format(voiceCoin) + "");
-
+                        sign = uploadVoiceBeanResBaseModel.data.getSign();
                         hasVoice = false;
 
                     }
