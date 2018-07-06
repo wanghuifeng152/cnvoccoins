@@ -60,7 +60,6 @@
 
        <ListView
            android:id="@+id/address2_lv"
-           
            android:layout_width="match_parent"
            android:divider="@null"
            android:layout_height="wrap_content"></ListView>

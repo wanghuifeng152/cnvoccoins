@@ -81,7 +81,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun setRegister() {
-        val request = RegisterRequest(et_input.text.toString(), et_password.text.toString(), "",et_invite.text.toString())
+        val request = RegisterRequest(et_input.text.toString(), et_password.text.toString(), "")
         var wrapper: RequestBodyWrapper = RequestBodyWrapper(request)
         HttpManager.post(URL_REGISTER, wrapper).subscribe(object : Subscriber<String> {
             override fun onNext(s: String?) {

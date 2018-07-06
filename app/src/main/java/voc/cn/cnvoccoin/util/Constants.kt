@@ -23,7 +23,7 @@ class LoginEvent(var flag:Int,var number:String)
 
 //-------------------------url request response------------------------------//
 @Keep
-data class RegisterRequest(var username:String,var password:String,var code:String,var invite_code:String):Serializable
+data class RegisterRequest(var username:String,var password:String,var code:String):Serializable
 @Keep
 data class LoginRequest(var username:String,var password:String,var device_type:String):Serializable
 @Keep

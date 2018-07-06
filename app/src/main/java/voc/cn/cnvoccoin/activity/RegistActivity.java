@@ -1,14 +1,12 @@
-
 package voc.cn.cnvoccoin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.InputType;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.text.TextWatcher;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,8 +33,8 @@ import voc.cn.cnvoccoin.view.LoadingDialog;
 
 public class RegistActivity extends BaseActivity {
     EditText pwd;
-    EditText pwd_again;
-    EditText yaoqingma;
+    /*   EditText pwd_again;
+       EditText yaoqingma;*/
     EditText et_phone;
     TextView mTvConfirm;
     EditText mEtConfirm;
@@ -44,19 +42,24 @@ public class RegistActivity extends BaseActivity {
     private boolean isshow = false;
     private boolean isshow2 = false;
     int time = 60;
+    private ImageView delete;
+    private ImageView iv1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
+        initView();
         pwd = findViewById(R.id.pwd);
-        pwd_again = findViewById(R.id.pwd_again);
-        yaoqingma = findViewById(R.id.yaoqingma);
+    /*    pwd_again = findViewById(R.id.pwd_again);
+        yaoqingma = findViewById(R.id.yaoqingma);*/
         et_phone = findViewById(R.id.et_phone);
         mTvConfirm = findViewById(R.id.tv_get_confirm);
         mEtConfirm = findViewById(R.id.et_confirm_code);
-        final ImageView iv1 = findViewById(R.id.hide);
-        yaoqingma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        iv1 = findViewById(R.id.hide);
+
+        initJudge();
+        /*yaoqingma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 //当actionId == XX_SEND 或者 XX_DONE时都触发
@@ -69,7 +72,7 @@ public class RegistActivity extends BaseActivity {
                 }
                 return false;
             }
-        });
+        });*/
         getConfirmCode();
         //返回监听
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
@@ -78,18 +81,25 @@ public class RegistActivity extends BaseActivity {
                 finish();
             }
         });
+        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_phone.setText("");
+                delete.setVisibility(View.GONE);
+            }
+        });
         //注册监听 根据两次输入密码是否一样进行判断注册
         findViewById(R.id.btn_commit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String password = pwd.getText().toString();
-                String password_two = pwd_again.getText().toString();
-                if (!password.equals(password_two)) {
-                    ToastUtil.showToast("两次输入密码不一致");
-                } else {
-                    setRegister();
+//                String password = pwd.getText().toString();
+//                String password_two = pwd_again.getText().toString();
+//                if (!password.equals(password_two)) {
+//                    ToastUtil.showToast("两次输入密码不一致");
+//                } else {
+                setRegister();
 
-                }
+
             }
         });
 
@@ -107,7 +117,7 @@ public class RegistActivity extends BaseActivity {
                 if (isshow) {
                     //密码隐藏
                     isshow = false;
-                    iv1.setImageResource(R.mipmap.hide);
+                    iv1.setImageResource(R.mipmap.xianshi);
                     pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 } else {
                     //密码显示
@@ -117,9 +127,9 @@ public class RegistActivity extends BaseActivity {
                 }
             }
         });
-        final ImageView iv2 = findViewById(R.id.show);
+        //final ImageView iv2 = findViewById(R.id.show);
         //点击确认密码后面图标是否隐藏
-        iv2.setOnClickListener(new View.OnClickListener() {
+    /*    iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isshow2) {
@@ -133,6 +143,54 @@ public class RegistActivity extends BaseActivity {
                     iv2.setImageResource(R.mipmap.show);
                     pwd_again.setInputType(InputType.TYPE_CLASS_TEXT);
                 }
+            }
+        });*/
+
+    }
+
+    private void initJudge() {
+
+        et_phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String phone = et_phone.getText().toString();
+                if(phone != null){
+                    delete.setVisibility(View.VISIBLE);
+                }else{
+                    delete.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        pwd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String psw = pwd.getText().toString();
+                if(psw .length() > 0 ){
+                    iv1.setVisibility(View.VISIBLE);
+                }else{
+                    iv1.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -208,7 +266,7 @@ public class RegistActivity extends BaseActivity {
     }
 
     private void setRegister() {
-        RegisterRequest request = new RegisterRequest(et_phone.getText().toString(), pwd.getText().toString(), mEtConfirm.getText().toString(), yaoqingma.getText().toString());
+        RegisterRequest request = new RegisterRequest(et_phone.getText().toString(), pwd.getText().toString(), mEtConfirm.getText().toString());
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_REGISTER, wrapper).subscribe(new Subscriber<String>() {
             @Override
@@ -251,6 +309,10 @@ public class RegistActivity extends BaseActivity {
         if (timer != null) {
             timer.cancel();
         }
+    }
+
+    private void initView() {
+        delete = (ImageView) findViewById(R.id.delete);
     }
 }
 

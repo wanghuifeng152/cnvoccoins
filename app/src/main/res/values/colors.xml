@@ -37,5 +37,11 @@
     <color name="colorbg">#2c2c2c</color>
     <color name="colorgg">#ecaa65</color>
     <color name="colorhh">#ad9266</color>
+    <color name="color_zhuce">#313131</color>
+    <color name="color_zhuce2">#f6d89f</color>
+    <color name="color_zhuce3">#6e685e</color>
+    <color name="color_zhuce4">#bfad98</color>
+    <color name="color_zhuce5">#7f7469</color>
+    <color name="color_zhuce6">#d5d5d5</color>
 </resources>
 

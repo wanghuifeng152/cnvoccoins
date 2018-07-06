@@ -53,7 +53,7 @@
     <string name="focus_step">1. 在微信中扫描下方二维码，关注Vocal chain 公众号\n\n2.在公众号中选择“领取”－ “app任务” 获得验证码\n\n3. 在下方输入验证码，验证成功后即可领取VOC 金币\n\n说明：每人仅有一次领取机会</string>
     <string name="please_input">请输入6位验证码</string>
     <string name="sure">确认</string>
-    <string name="get_cofirm_code">获取验证码</string>
+    <string name="get_cofirm_code">发送验证码</string>
     <string name="invite_labelText">现在邀请好友即送3000voc\n&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
     <string name="copy_inviteText">2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，注册即送1998VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=41</string>
     <string name="default_file_name">voc</string>
