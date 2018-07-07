@@ -17,14 +17,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import voc.cn.cnvoccoin.R;
+import voc.cn.cnvoccoin.VocApplication;
 import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.ResBaseModel;
 import voc.cn.cnvoccoin.network.Subscriber;
+import voc.cn.cnvoccoin.util.GetConfirmCodeRequest;
 import voc.cn.cnvoccoin.util.LoginRequest;
 import voc.cn.cnvoccoin.util.LoginResponse;
 import voc.cn.cnvoccoin.util.PreferenceUtil;
 import voc.cn.cnvoccoin.util.ToastUtil;
+import voc.cn.cnvoccoin.util.UploadCoinRequest3;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.view.AsteriskPasswordTransformationMethod;
 import voc.cn.cnvoccoin.view.CountDownTextView;
@@ -124,7 +127,8 @@ public class LoginActivityNew extends BaseActivity {
                         if ("".equals(mEtPwd.getText().toString().trim())){
                             ToastUtil.showToast("请输入验证码");
                         }else {
-                            getLogin();
+                            postMessage(mEtPwd.getText().toString().trim());
+//                            getLogin();
                         }
                     }else {
                         ToastUtil.showToast("请输入正确手机号码");
@@ -219,6 +223,7 @@ public class LoginActivityNew extends BaseActivity {
             case R.id.verification_code_login:
                 if (isLoginType) {
                     //验证码登陆
+                    mEtPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     mEtPwd.setText("");
                     loginPswHide.setVisibility(View.GONE);
                     codeTime.setVisibility(View.VISIBLE);
@@ -229,6 +234,7 @@ public class LoginActivityNew extends BaseActivity {
                     isLoginType = !isLoginType;
                 } else {
 //                    密码登陆
+                    mEtPwd.setTransformationMethod(new AsteriskPasswordTransformationMethod());
                     mEtPwd.setText("");
                     loginPswHide.setVisibility(View.VISIBLE);
                     codeTime.setVisibility(View.GONE);
@@ -245,7 +251,7 @@ public class LoginActivityNew extends BaseActivity {
                     codeTime.start();
 
                     //获取验证码
-
+                    getMessage();
 
                 }else {
                     ToastUtil.showToast("请输入正确手机号码");
@@ -254,7 +260,55 @@ public class LoginActivityNew extends BaseActivity {
         }
     }
 
+    /**
+     * 获取验证码
+     */
+    public void getMessage() {
+        GetConfirmCodeRequest request = new GetConfirmCodeRequest(mEtPhone.getText().toString().trim());
+        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
+        HttpManager.post(UrlConstantsKt.GET_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
+            @Override
+            public void onNext(String s) {
+                ToastUtil.showToast("验证码发送成功");
+            }
 
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+    /**
+     * 发送验证码验证
+     * @param code
+     */
+    public void postMessage(String code){
+        UploadCoinRequest3 request = new UploadCoinRequest3(mEtPhone.getText().toString().trim(),code);
+        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
+        HttpManager.post(UrlConstantsKt.POST_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
+            @Override
+            public void onNext(String s) {
+                ToastUtil.showToast(s);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+//                tv_input.setText("验证码错误,请重试");
+//                tv_input.setTextColor(getResources().getColor(R.color.qlColorHqZFUpBg));
+                ToastUtil.showToast("验证码错误，请充实");
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
     public boolean isMobileNO(String mobileNums) {
         /**
          * 判断字符串是否符合手机号码格式
