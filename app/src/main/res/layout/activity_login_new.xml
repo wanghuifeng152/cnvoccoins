@@ -9,77 +9,82 @@
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:paddingLeft="15dp"
             android:src="@mipmap/arrow" />
+
         <RelativeLayout
             android:id="@+id/re"
             android:layout_width="match_parent"
-            android:layout_below="@id/iv_back"
             android:layout_height="wrap_content"
-            >
+            android:layout_below="@id/iv_back">
+
             <TextView
                 android:id="@+id/tv_login"
-                android:text="登录"
-                android:textSize="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"
-                android:textColor="#f6d89f"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"
+                android:text="登录"
+                android:textColor="#f6d89f"
+                android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/lin"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
+                android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                android:text="还没有账号去注册"
-                android:gravity="center"
-                android:textSize="13sp"
-                android:layout_alignParentRight="true"
-                android:textColor="#f0eadf"
                 android:layout_marginRight="60dp"
-                />
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="还没有账号去注册"
+                android:textColor="#f0eadf"
+                android:textSize="13sp" />
+
             <ImageView
-                android:layout_alignParentRight="true"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
+                android:layout_alignParentRight="true"
                 android:layout_marginRight="44dp"
                 android:layout_marginTop="36dp"
-                android:src="@mipmap/return_one"
-                />
+                android:src="@mipmap/return_one" />
 
         </RelativeLayout>
+
         <RelativeLayout
+            android:layout_centerVertical="true"
             android:id="@+id/rl"
-            android:layout_below="@id/re"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_below="@id/re"
 
             android:gravity="bottom">
+
             <ImageView
                 android:id="@+id/image_v"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/return_two"
-                android:layout_marginTop="5dp"
                 android:layout_marginLeft="40dp"
-                />
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/return_two" />
 
             <TextView
                 android:id="@+id/tv_tel_begin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/image_v"
                 android:text="+86"
                 android:textColor="#f6d89f"
-                android:layout_toRightOf="@+id/image_v"
                 android:textSize="20sp" />
 
             <View
@@ -89,8 +94,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/tv_tel_begin"
-                android:background="#58422d"
-                />
+                android:background="#58422d" />
 
             <EditText
                 android:id="@+id/et_login_phone"
@@ -100,13 +104,21 @@
                 android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/line"
                 android:background="@android:color/transparent"
-                android:hint="请输入手机号"
+                android:hint="@string/login_phone_hint"
                 android:maxLength="11"
                 android:singleLine="true"
                 android:textColor="#c89158"
                 android:textColorHint="#f6d89f"
-                android:textSize="18sp"
-                />
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/login_delete_name"
+                android:layout_marginTop="5dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dp"
+                android:src="@mipmap/psw_delete" />
         </RelativeLayout>
     </RelativeLayout>
     <ImageView
@@ -122,6 +134,7 @@
         />
 
     <EditText
+
         android:id="@+id/et_login_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -132,10 +145,27 @@
         android:password="true"
         android:singleLine="true"
         android:background="@android:color/transparent"
-        android:hint="请输入登录密码"
+        android:hint="@string/login_psw_hint"
         android:textColor="#c89158"
         android:textColorHint="#f6d89f"
         android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/login_psw_hide"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/et_login_pwd"
+        android:layout_alignEnd="@+id/et_login_pwd"
+        android:background="@mipmap/visible_true" />
+    <voc.cn.cnvoccoin.view.CountDownTextView
+        android:id="@+id/code_time"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:textColor="#FFF6D89F"
+        android:layout_alignBottom="@+id/et_login_pwd"
+        android:layout_alignEnd="@+id/et_login_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <ImageView
 
@@ -151,17 +181,24 @@
         />
 
     <TextView
-        android:id="@+id/tv_infomation"
-        android:layout_width="match_parent"
+        android:id="@+id/verification_code_login"
+        android:textSize="13sp"
+        android:textColor="#FFF0EADF"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="15dp"
+        android:layout_alignLeft="@+id/line2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/line2"
-        android:layout_marginLeft="50dp"
-        android:text="切换到验证码登录"
-        android:textColor="#f0eadf"
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="13sp" />
+        android:text="@string/login_code" />
+    <ImageView
+        android:layout_marginLeft="4dp"
+        android:src="@mipmap/return_one"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/verification_code_login"
+        android:layout_alignTop="@+id/verification_code_login"
+        android:layout_width="14dp"
+        android:layout_height="14dp" />
 
 
 

@@ -3,6 +3,8 @@ package voc.cn.cnvoccoin.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.network.HttpManager;
@@ -23,6 +26,8 @@ import voc.cn.cnvoccoin.util.LoginResponse;
 import voc.cn.cnvoccoin.util.PreferenceUtil;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
+import voc.cn.cnvoccoin.view.AsteriskPasswordTransformationMethod;
+import voc.cn.cnvoccoin.view.CountDownTextView;
 import voc.cn.cnvoccoin.view.LoadingDialog;
 
 import static voc.cn.cnvoccoin.util.ConstantsKt.PASSWORD;
@@ -34,19 +39,29 @@ import static voc.cn.cnvoccoin.util.ConstantsKt.USER_NAME;
  * Created by Administrator on 2018/5/2.
  */
 
-public class  LoginActivityNew extends BaseActivity {
+public class LoginActivityNew extends BaseActivity {
 
-    TextView mTvRegist;
-    Button mBtnLogin;
-    EditText mEtPhone;
-    EditText mEtPwd;
+    @BindView(R.id.verification_code_login)
+    TextView verificationCodeLogin;
+    @BindView(R.id.code_time)
+    CountDownTextView codeTime;
+    private TextView mTvRegist;
+    private Button mBtnLogin;
+    private EditText mEtPhone;
+    private EditText mEtPwd;
+    @BindView(R.id.login_delete_name)
+    ImageView loginDeleteName;
+    @BindView(R.id.login_psw_hide)
+    ImageView loginPswHide;
+    private boolean isVisible = true;
+    private boolean isLoginType = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_new);
+        ButterKnife.bind(this);
         initView();
-
     }
 
     private void initView() {
@@ -70,18 +85,58 @@ public class  LoginActivityNew extends BaseActivity {
             }
         });
 
+        //密码圆点变为*
+        mEtPwd.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
         //登录监听
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getLogin();
+//                判断当前登陆类型
+                if (isLoginType)
+
+                    /**
+                    * 密码登陆
+                    */
+                {
+//                    验证手机号码是否正确
+                    if (isMobileNO(mEtPhone.getText().toString().trim())){
+//                        是否输入验证码
+                        if ("".equals(mEtPwd.getText().toString().trim())){
+                            ToastUtil.showToast("请输入密码");
+                        }else {
+                            getLogin();
+                        }
+                    }else {
+                        ToastUtil.showToast("请输入正确手机号码");
+                    }
+                }
+
+                else
+
+                    /**
+                    * 验证码登陆
+                    */
+                {
+                    //                    验证手机号码是否正确
+                    if (isMobileNO(mEtPhone.getText().toString().trim())){
+//                        是否输入密码
+                        if ("".equals(mEtPwd.getText().toString().trim())){
+                            ToastUtil.showToast("请输入验证码");
+                        }else {
+                            getLogin();
+                        }
+                    }else {
+                        ToastUtil.showToast("请输入正确手机号码");
+                    }
+                }
+//                getLogin();
             }
         });
         mEtPwd.setOnEditorActionListener(listenerr);
     }
-    private TextView.OnEditorActionListener listenerr = new TextView.OnEditorActionListener()
-    {
+
+    private TextView.OnEditorActionListener listenerr = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             //当actionId == XX_SEND 或者 XX_DONE时都触发
@@ -135,4 +190,84 @@ public class  LoginActivityNew extends BaseActivity {
         }, LoginResponse.class, ResBaseModel.class);
     }
 
+    @OnClick({R.id.login_delete_name, R.id.et_login_pwd, R.id.login_psw_hide, R.id.verification_code_login,R.id.code_time})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+//            账号删除按钮
+            case R.id.login_delete_name:
+                mEtPhone.setText("");
+                break;
+//                密码是否可见按钮
+            case R.id.login_psw_hide:
+                if (isVisible) {
+                    loginPswHide.setBackgroundResource(R.mipmap.show);
+                    mEtPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    if (!"".equals(mEtPwd.getText().toString().trim())) {
+                        mEtPwd.setSelection(mEtPwd.getText().length());
+                    }
+                    isVisible = !isVisible;
+                } else {
+                    loginPswHide.setBackgroundResource(R.mipmap.visible_true);
+                    mEtPwd.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+                    if (!"".equals(mEtPwd.getText().toString().trim())) {
+                        mEtPwd.setSelection(mEtPwd.getText().length());
+                    }
+                    isVisible = !isVisible;
+                }
+                break;
+//                切换登陆方式按钮
+            case R.id.verification_code_login:
+                if (isLoginType) {
+                    //验证码登陆
+                    mEtPwd.setText("");
+                    loginPswHide.setVisibility(View.GONE);
+                    codeTime.setVisibility(View.VISIBLE);
+                    codeTime.setText(R.string.get_cofirm_code);
+                    codeTime.setCountDownMillis(60000);
+                    verificationCodeLogin.setText(R.string.login_psw);
+                    mEtPwd.setHint(R.string.login_psw_hint_code);
+                    isLoginType = !isLoginType;
+                } else {
+//                    密码登陆
+                    mEtPwd.setText("");
+                    loginPswHide.setVisibility(View.VISIBLE);
+                    codeTime.setVisibility(View.GONE);
+                    codeTime.setText("");
+                    verificationCodeLogin.setText(R.string.login_code);
+                    mEtPwd.setHint(R.string.login_psw_hint);
+                    isLoginType = !isLoginType;
+                }
+                break;
+//                获取验证码
+            case R.id.code_time:
+                if (isMobileNO(mEtPhone.getText().toString().trim())){
+//                    验证码计时开始
+                    codeTime.start();
+
+                    //获取验证码
+
+
+                }else {
+                    ToastUtil.showToast("请输入正确手机号码");
+                }
+                break;
+        }
+    }
+
+
+    public boolean isMobileNO(String mobileNums) {
+        /**
+         * 判断字符串是否符合手机号码格式
+         * 移动号段: 134,135,136,137,138,139,147,150,151,152,157,158,159,170,178,182,183,184,187,188
+         * 联通号段: 130,131,132,145,155,156,170,171,175,176,185,186
+         * 电信号段: 133,149,153,170,173,177,180,181,189
+         * @param str
+         * @return 待检测的字符串
+         */
+        String telRegex = "^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8]))\\d{8}$";// "[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        if (TextUtils.isEmpty(mobileNums))
+            return false;
+        else
+            return mobileNums.matches(telRegex);
+    }
 }

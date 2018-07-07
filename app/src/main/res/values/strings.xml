@@ -83,6 +83,9 @@
     <string name="Ming_Xi">收支明细</string>
 
     <string name="shuo_ming">获得的VOC初始为锁定状态，自获\n得日后满一个月，变为可提现状态</string>
-
-
+    <string name="login_psw">切换到密码登陆</string>
+    <string name="login_code">切换到验证码登陆</string>
+    <string name="login_psw_hint">请输入登陆密码</string>
+    <string name="login_psw_hint_code">请输入验证码</string>
+    <string name="login_phone_hint">请输入正确的手机号</string>
 </resources>
