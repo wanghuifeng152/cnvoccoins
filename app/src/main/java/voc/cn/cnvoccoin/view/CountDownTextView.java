@@ -71,7 +71,7 @@ public class CountDownTextView extends TextView {
 //                    Log.e("l", mLastMillis + "");
                     if (mLastMillis > 0) {
                         setUsable(false);
-                        mLastMillis -= 500;
+                        mLastMillis -= 1000;
                         mHandler.sendEmptyMessageDelayed(MSG_WHAT_START, mIntervalMillis);
                     } else {
                         setUsable(true);

@@ -450,6 +450,7 @@ public class ForwardActivity extends BaseActivity {
                                                 dialog.dismiss();
                                                 dialogr.dismiss();
                                                 startActivity(in);
+                                                isDialog = true;
                                             }
                                         });
                                         tv_retry.setOnClickListener(new View.OnClickListener() {
