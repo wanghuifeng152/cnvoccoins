@@ -239,7 +239,7 @@ public class VoiceActivityNew extends BaseActivity {
                                 }
 
                             }, 500);
-                            if (newTime - oldTime < 2000) {
+                            if (newTime - oldTime < 1000) {
                                 ToastUtil.showToast("录音时间太短了哦");
                                 hasVoice = false;
 
@@ -247,7 +247,7 @@ public class VoiceActivityNew extends BaseActivity {
                                 ToastUtil.showToast("声音再大一些");
                                 hasVoice = false;
 
-                            } else if (newTime - oldTime >= 2000 && hasVoice == true) {
+                            } else if (newTime - oldTime >= 1000 && hasVoice == true) {
                                 getReadCoin();
                                 hasVoice = false;
                             }
@@ -390,7 +390,7 @@ public class VoiceActivityNew extends BaseActivity {
     private void getReadCoin() {
         //参数转换
 //        Log.i("msg","!!!!!!!!!!!!!11"+sign);
-        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id),StrVersion , strMD5,"Android",sign);
+        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id),StrVersion ,"Android");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
                 .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {
