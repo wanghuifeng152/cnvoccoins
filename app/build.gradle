@@ -19,7 +19,11 @@ android {
         abortOnError false
     }
 
-
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
     signingConfigs {
         release {
             // storeFile file(storeFilePath)
@@ -87,9 +91,8 @@ dependencies {
     implementation 'com.ljs.lovelytoast:LovelyToast:1.0.0'
     implementation 'com.lzy.net:okgo:3.0.4'
     implementation 'com.github.superSp:PasswordInputEdt:v1.0'
-
-
     implementation 'com.github.dfqin:grantor:2.5'
+    implementation files('src/libs/smantifraud.jar')
 }
 repositories {
     mavenCentral()

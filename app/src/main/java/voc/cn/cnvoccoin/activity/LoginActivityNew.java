@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -157,7 +158,9 @@ public class LoginActivityNew extends BaseActivity {
             return false;
         }
     };
-
+/**
+*《---------------------------------------------==- 验证码登陆 -==---------------------------------------------》
+*/
     private void SMSLogin() {
         final String username = mEtPhone.getText().toString();
         final String SMScode = mEtPwd.getText().toString();
@@ -186,6 +189,7 @@ public class LoginActivityNew extends BaseActivity {
 
             @Override
             public void onError(Throwable t) {
+                ToastUtil.showToast("验证码有误");
                 loadingDialog.dismiss();
             }
 

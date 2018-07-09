@@ -210,4 +210,5 @@
 public static final int *;
 }
 #========================================================
-
+#数美
+-keep class com.ishumei.dfp.SMSDK { *; }
