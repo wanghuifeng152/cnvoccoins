@@ -81,19 +81,22 @@ public class AddresActivity2 extends AppCompatActivity {
             public void onNext(String s) {
                 Log.d("TAG", "onNext() returned:++++++++++++++++ " + s);
                 AddresClass addresClass = new Gson().fromJson(s, AddresClass.class);
-                addresClassMsg = addresClass.getMsg();
-                if (addresClassMsg.get(0).getAddress().equals("0") && addresClassMsg.get(0).getRemarks().equals("0")){
-                    ToastUtil.showToast("您还没有添加地址");
-                }else{
-                    detailedAdapter = new DetailedAdapter(AddresActivity2.this, addresClassMsg);
-                    address2Lv.setAdapter(detailedAdapter);
-                    Intent intent = getIntent();
-                    int position = intent.getIntExtra("position", 0);
-                    detailedAdapter.setChecked(position);
-                    detailedAdapter.notifyDataSetChanged();
+                    addresClassMsg = addresClass.getMsg();
+                    if(addresClassMsg != null){
+                        if (addresClassMsg.get(0).getAddress().equals("0") && addresClassMsg.get(0).getRemarks().equals("0")){
+                            ToastUtil.showToast("您还没有添加地址");
+                        }else{
+                            detailedAdapter = new DetailedAdapter(AddresActivity2.this, addresClassMsg);
+                            address2Lv.setAdapter(detailedAdapter);
+                            Intent intent = getIntent();
+                            int position = intent.getIntExtra("position", 0);
+                            detailedAdapter.setChecked(position);
+                            detailedAdapter.notifyDataSetChanged();
+
+                        }
+                        initListener(addresClassMsg);
 
                 }
-                initListener(addresClassMsg);
             }
 
             @Override

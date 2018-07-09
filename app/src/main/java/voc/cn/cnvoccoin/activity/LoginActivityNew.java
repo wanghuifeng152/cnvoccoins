@@ -2,7 +2,9 @@ package voc.cn.cnvoccoin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.view.KeyEvent;
@@ -30,7 +32,6 @@ import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UploadCoinRequest3;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.view.AsteriskPasswordTransformationMethod;
-import voc.cn.cnvoccoin.view.CountDownTextView;
 import voc.cn.cnvoccoin.view.LoadingDialog;
 
 import static voc.cn.cnvoccoin.util.ConstantsKt.PASSWORD;
@@ -47,7 +48,7 @@ public class LoginActivityNew extends BaseActivity {
     @BindView(R.id.verification_code_login)
     TextView verificationCodeLogin;
     @BindView(R.id.code_time)
-    CountDownTextView codeTime;
+    TextView codeTime;
     private TextView mTvRegist;
     private Button mBtnLogin;
     private EditText mEtPhone;
@@ -70,7 +71,8 @@ public class LoginActivityNew extends BaseActivity {
     private void initView() {
         mEtPhone = findViewById(R.id.et_login_phone);
         mEtPwd = findViewById(R.id.et_login_pwd);
-
+        mEtPhone.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+        mEtPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
         mBtnLogin = findViewById(R.id.btn_commit);
         //左上角返回监听
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
@@ -225,17 +227,20 @@ public class LoginActivityNew extends BaseActivity {
                     //验证码登陆
                     mEtPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     mEtPwd.setText("");
+                    mEtPwd.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+                    mEtPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
                     loginPswHide.setVisibility(View.GONE);
                     codeTime.setVisibility(View.VISIBLE);
                     codeTime.setText(R.string.get_cofirm_code);
-                    codeTime.setCountDownMillis(60000);
                     verificationCodeLogin.setText(R.string.login_psw);
                     mEtPwd.setHint(R.string.login_psw_hint_code);
                     isLoginType = !isLoginType;
                 } else {
-//                    密码登陆
+//                  密码登陆
                     mEtPwd.setTransformationMethod(new AsteriskPasswordTransformationMethod());
                     mEtPwd.setText("");
+                    mEtPwd.setInputType(EditorInfo.IME_ACTION_NONE);
+                    mEtPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
                     loginPswHide.setVisibility(View.VISIBLE);
                     codeTime.setVisibility(View.GONE);
                     codeTime.setText("");
@@ -247,8 +252,6 @@ public class LoginActivityNew extends BaseActivity {
 //                获取验证码
             case R.id.code_time:
                 if (isMobileNO(mEtPhone.getText().toString().trim())){
-//                    验证码计时开始
-                    codeTime.start();
 
                     //获取验证码
                     getMessage();
@@ -261,6 +264,37 @@ public class LoginActivityNew extends BaseActivity {
     }
 
     /**
+     * 取消倒计时
+     * @param v
+     */
+    public void oncancel(View v) {
+        timer.cancel();
+    }
+
+    /**
+     * 开始倒计时
+     * @param v
+     */
+    public void restart(View v) {
+        timer.start();
+    }
+
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            codeTime.setEnabled(false);
+            codeTime.setText((millisUntilFinished / 1000) + "秒后可重发");
+        }
+
+        @Override
+        public void onFinish() {
+            codeTime.setEnabled(true);
+            codeTime.setText("获取验证码");
+        }
+    };
+
+    /**
      * 获取验证码
      */
     public void getMessage() {
@@ -269,6 +303,7 @@ public class LoginActivityNew extends BaseActivity {
         HttpManager.post(UrlConstantsKt.GET_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
             @Override
             public void onNext(String s) {
+                restart(codeTime);
                 ToastUtil.showToast("验证码发送成功");
             }
 
