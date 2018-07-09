@@ -3,11 +3,9 @@ package voc.cn.cnvoccoin.activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -36,9 +34,9 @@ import com.google.gson.Gson;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.text.DecimalFormat;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -48,7 +46,6 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import voc.cn.cnvoccoin.VocApplication;
-import voc.cn.cnvoccoin.entity.Nument;
 import voc.cn.cnvoccoin.entity.WalletClass;
 import voc.cn.cnvoccoin.util.isNumber;
 import voc.cn.cnvoccoin.view.PasswordInputEdt;
@@ -136,15 +133,38 @@ public class ForwardActivity extends BaseActivity {
 
 
     private void initNumber() {
+        String trim = addressSnmd.getText().toString().trim();
 
-        isNumber isNumber = new isNumber("1");
+        isNumber isNumber = new isNumber(trim);
         RequestBodyWrapper bodyWrapper = new RequestBodyWrapper(isNumber);
        HttpManager.post(UrlConstantsKt.POST_NUMBER,bodyWrapper).subscribe(new Subscriber<String>() {
            @Override
            public void onNext(String o) {
-               Nument nument = new Gson().fromJson(o, Nument.class);
-               String msg = nument.getMsg();
-               addressSnmd.setHint("最低提现"+msg+"");
+
+              Log.e("TAG", "onNext: -------2222222222222222222--->"+o.toString() );
+
+               if ( o == null || o.isEmpty()) return;
+               JSONObject jsonObject = null;
+               try {
+                   jsonObject = new JSONObject(o);
+                   int code = jsonObject.getInt("code");
+                   if (code==1) {
+                       String msg = jsonObject.getString("msg");
+                       addressSnmd.setHint(msg + "");
+                   }
+//                       if (msg.equals("提现金额不能小于3500")){
+//                           Toast.makeText(ForwardActivity.this, "提现金额不能小于3500", Toast.LENGTH_SHORT).show();
+//                       }else if (msg.equals("0")){
+//                           addressSnmd.setHint(0+"");
+//                       }else {
+//
+//                       }
+//
+//
+//                   }
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
 
            }
 
@@ -319,12 +339,11 @@ public class ForwardActivity extends BaseActivity {
                 }
 
 
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                initNumber();
             }
         });
 
@@ -450,6 +469,7 @@ public class ForwardActivity extends BaseActivity {
                                                 dialog.dismiss();
                                                 dialogr.dismiss();
                                                 startActivity(in);
+                                                isDialog = true;
                                             }
                                         });
                                         tv_retry.setOnClickListener(new View.OnClickListener() {
@@ -643,7 +663,10 @@ public class ForwardActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         getMoeny();
+
     }
+
+
     /**
      * 限制输入最大值
      */
@@ -740,5 +763,7 @@ public class ForwardActivity extends BaseActivity {
                     }
                 });
     }
+
+
 
 }

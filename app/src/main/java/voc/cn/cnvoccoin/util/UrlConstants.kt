@@ -27,7 +27,7 @@ const val POST_IS_HAVE_PWD = "/api/user/Verification_code/seTransaction"//获取
 const val POST_PAY_PWD = "/api/user/Verification_code/PutForward"//设置支付密码
 const val POST_RESET_PWD = "/api/user/Verification_code/resPass"//重置密码
 const val POST_RESET_THREE = "/api/user/Verification_code/verifiPass"//支付密码
-const val POST_NUMBER = "/api/user/Verification_code/standard"//提币下限
+const val POST_NUMBER = "/api/user/Verification_code/standardes"//提币下限
 
 
 

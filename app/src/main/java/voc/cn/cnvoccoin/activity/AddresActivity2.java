@@ -56,6 +56,7 @@ public class AddresActivity2 extends AppCompatActivity {
         intent = getIntent();
         hideStatusBar();
     }
+
     //只透明状态栏
     private void hideStatusBar() {
         if (Build.VERSION.SDK_INT >= 24) {
@@ -70,6 +71,7 @@ public class AddresActivity2 extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
+
     private void initData() {
 
         list request = new list("1");
@@ -81,22 +83,16 @@ public class AddresActivity2 extends AppCompatActivity {
             public void onNext(String s) {
                 Log.d("TAG", "onNext() returned:++++++++++++++++ " + s);
                 AddresClass addresClass = new Gson().fromJson(s, AddresClass.class);
-                    addresClassMsg = addresClass.getMsg();
-                    if(addresClassMsg != null){
-                        if (addresClassMsg.get(0).getAddress().equals("0") && addresClassMsg.get(0).getRemarks().equals("0")){
-                            ToastUtil.showToast("您还没有添加地址");
-                        }else{
-                            detailedAdapter = new DetailedAdapter(AddresActivity2.this, addresClassMsg);
-                            address2Lv.setAdapter(detailedAdapter);
-                            Intent intent = getIntent();
-                            int position = intent.getIntExtra("position", 0);
-                            detailedAdapter.setChecked(position);
-                            detailedAdapter.notifyDataSetChanged();
+                addresClassMsg = addresClass.getMsg();
+                detailedAdapter = new DetailedAdapter(AddresActivity2.this, addresClassMsg);
+                address2Lv.setAdapter(detailedAdapter);
+                Intent intent = getIntent();
+                int position = intent.getIntExtra("position", 0);
+                detailedAdapter.setChecked(position);
+                detailedAdapter.notifyDataSetChanged();
 
-                        }
-                        initListener(addresClassMsg);
+                initListener(addresClassMsg);
 
-                }
             }
 
             @Override
@@ -115,9 +111,9 @@ public class AddresActivity2 extends AppCompatActivity {
         identityBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("addres","");
+                intent.putExtra("addres", "");
 //                startActivity(intent);
-                setResult(200,intent);
+                setResult(200, intent);
                 finish();
             }
         });
@@ -128,7 +124,7 @@ public class AddresActivity2 extends AppCompatActivity {
                 detailedAdapter.setChecked(position);
 //                Intent intent = new Intent(AddresActivity2.this,ForwardActivity.class);
                 intent.putExtra("addres", addresClassMsgList.get(i).getAddress());
-                intent.putExtra("position",position);
+                intent.putExtra("position", position);
 //                startActivity(intent);
                 setResult(200, intent);
                 detailedAdapter.notifyDataSetChanged();
@@ -139,7 +135,7 @@ public class AddresActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddresActivity2.this, AddresActivity.class);
-                startActivityForResult(intent,100);
+                startActivityForResult(intent, 100);
             }
         });
     }
