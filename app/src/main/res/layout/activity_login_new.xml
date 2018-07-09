@@ -157,7 +157,7 @@
         android:layout_alignBottom="@+id/et_login_pwd"
         android:layout_alignEnd="@+id/et_login_pwd"
         android:background="@mipmap/visible_true" />
-    <voc.cn.cnvoccoin.view.CountDownTextView
+    <TextView
         android:id="@+id/code_time"
         android:textSize="16sp"
         android:visibility="gone"
