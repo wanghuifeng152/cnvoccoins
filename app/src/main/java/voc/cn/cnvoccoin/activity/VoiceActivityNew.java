@@ -390,7 +390,7 @@ public class VoiceActivityNew extends BaseActivity {
     private void getReadCoin() {
         //参数转换
 //        Log.i("msg","!!!!!!!!!!!!!11"+sign);
-        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id),StrVersion , strMD5,"Android",sign);
+        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id),StrVersion ,"Android");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
                 .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {
