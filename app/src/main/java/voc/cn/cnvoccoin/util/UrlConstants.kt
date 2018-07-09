@@ -7,6 +7,7 @@ const val RANK_URL: String = "/api/portal/voc/rank"//获取排行榜
 const val MY_RANK_URL: String = "/api/portal/voc/my"//我的排行榜
 const val URL_REGISTER: String = "/api/user/public/register"//注册
 const val URL_LOGIN: String = "/api/user/public/login"//登录
+const val SMS_URL_LOGIN: String = "/api/user/Sms_code/SmsCode"//验证码登录
 const val GET_VOICE_TEXT = "/api/portal/corpus/getList"//获取语料文本
 const val VERSION_CHECK = "/api/portal/app/check"//版本升级
 const val UPLOAD_COIN = "/api/portal/voc/uploadVocCoinV2"//上传币
@@ -28,5 +29,6 @@ const val POST_RESET_PWD = "/api/user/Verification_code/resPass"//重置密码
 const val POST_RESET_THREE = "/api/user/Verification_code/verifiPass"//支付密码
 const val POST_NUMBER = "/api/user/Verification_code/standard"//提币下限
 const val GET_TASK =  "/api/user/public/taskstatus"//任务完成状态
+
 
 

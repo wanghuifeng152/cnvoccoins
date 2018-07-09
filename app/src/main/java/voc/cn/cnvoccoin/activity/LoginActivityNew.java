@@ -28,6 +28,7 @@ import voc.cn.cnvoccoin.util.GetConfirmCodeRequest;
 import voc.cn.cnvoccoin.util.LoginRequest;
 import voc.cn.cnvoccoin.util.LoginResponse;
 import voc.cn.cnvoccoin.util.PreferenceUtil;
+import voc.cn.cnvoccoin.util.SMSLogin;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UploadCoinRequest3;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
@@ -123,14 +124,13 @@ public class LoginActivityNew extends BaseActivity {
                     * 验证码登陆
                     */
                 {
-                    //                    验证手机号码是否正确
+                    //  验证手机号码是否正确
                     if (isMobileNO(mEtPhone.getText().toString().trim())){
 //                        是否输入密码
                         if ("".equals(mEtPwd.getText().toString().trim())){
                             ToastUtil.showToast("请输入验证码");
                         }else {
-                            postMessage(mEtPwd.getText().toString().trim());
-//                            getLogin();
+                            SMSLogin();
                         }
                     }else {
                         ToastUtil.showToast("请输入正确手机号码");
@@ -157,6 +157,44 @@ public class LoginActivityNew extends BaseActivity {
             return false;
         }
     };
+
+    private void SMSLogin() {
+        final String username = mEtPhone.getText().toString();
+        final String SMScode = mEtPwd.getText().toString();
+        if (username.isEmpty()) return;
+        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
+        loadingDialog.show();
+        SMSLogin request = new SMSLogin(username, SMScode, "android");
+        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
+        HttpManager.post(UrlConstantsKt.SMS_URL_LOGIN, wrapper).subscribe(new Subscriber<ResBaseModel<LoginResponse>>() {
+
+            @Override
+            public void onNext(ResBaseModel<LoginResponse> model) {
+                loadingDialog.dismiss();
+                if (model == null || model.data == null) return;
+                if (model.code != 1) return;
+                PreferenceUtil.Companion.getInstance().set(TOKEN, model.data.getToken());
+                PreferenceUtil.Companion.getInstance().set(USER_NAME, username);
+                PreferenceUtil.Companion.getInstance().set(PASSWORD, SMScode);
+                if (model.data.getUser() != null) {
+                    PreferenceUtil.Companion.getInstance().set(USER_ID, model.data.getUser().getId());
+                }
+                ToastUtil.showToast("登录成功");
+                //登录成功后跳转到MainActivity页面
+                startActivity(new Intent(LoginActivityNew.this, MainActivity.class));
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                loadingDialog.dismiss();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        }, LoginResponse.class, ResBaseModel.class);
+    }
 
     private void getLogin() {
         final String username = mEtPhone.getText().toString();
@@ -298,18 +336,21 @@ public class LoginActivityNew extends BaseActivity {
      * 获取验证码
      */
     public void getMessage() {
+        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
+        loadingDialog.show();
         GetConfirmCodeRequest request = new GetConfirmCodeRequest(mEtPhone.getText().toString().trim());
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.GET_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
             @Override
             public void onNext(String s) {
+                loadingDialog.dismiss();
                 restart(codeTime);
                 ToastUtil.showToast("验证码发送成功");
             }
 
             @Override
             public void onError(Throwable t) {
-
+                loadingDialog.dismiss();
             }
 
             @Override
@@ -320,30 +361,30 @@ public class LoginActivityNew extends BaseActivity {
     }
     /**
      * 发送验证码验证
-     * @param code
+//     * @param code
      */
-    public void postMessage(String code){
-        UploadCoinRequest3 request = new UploadCoinRequest3(mEtPhone.getText().toString().trim(),code);
-        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
-        HttpManager.post(UrlConstantsKt.POST_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
-            @Override
-            public void onNext(String s) {
-                ToastUtil.showToast(s);
-            }
-
-            @Override
-            public void onError(Throwable t) {
-//                tv_input.setText("验证码错误,请重试");
-//                tv_input.setTextColor(getResources().getColor(R.color.qlColorHqZFUpBg));
-                ToastUtil.showToast("验证码错误，请充实");
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
+//    public void postMessage(String code){
+//        UploadCoinRequest3 request = new UploadCoinRequest3(mEtPhone.getText().toString().trim(),code);
+//        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
+//        HttpManager.post(UrlConstantsKt.POST_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
+//            @Override
+//            public void onNext(String s) {
+//                ToastUtil.showToast(s);
+//            }
+//
+//            @Override
+//            public void onError(Throwable t) {
+////                tv_input.setText("验证码错误,请重试");
+////                tv_input.setTextColor(getResources().getColor(R.color.qlColorHqZFUpBg));
+//                ToastUtil.showToast("验证码错误，请充实");
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });
+//    }
     public boolean isMobileNO(String mobileNums) {
         /**
          * 判断字符串是否符合手机号码格式
