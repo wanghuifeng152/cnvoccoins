@@ -83,6 +83,6 @@ data class isHaveAddress(var token:String)
 
 //提币下限
 @Keep
-data class isNumber(var id : String)
+data class isNumber(var money : String)
 
 
