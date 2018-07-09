@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;

@@ -80,6 +80,7 @@ data class ResetPwd2(var password:String,var token:String)
 //支付密码接口
 @Keep
 data class ResetPwd3(var address:String,var voc :String,var password: String)
+
 @Keep
 data class isHaveAddress(var token:String)
 
