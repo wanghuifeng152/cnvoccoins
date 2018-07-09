@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INJECT_EVENTS"/>
 
+
     <application
         android:name=".VocApplication"
         android:allowBackup="true"
@@ -185,11 +186,11 @@
 
         <activity android:name=".activity.SetPayPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
 
         <activity android:name=".activity.ReSetPayPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
 
     </application>
 

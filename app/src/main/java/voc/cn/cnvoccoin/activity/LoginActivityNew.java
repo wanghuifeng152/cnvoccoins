@@ -158,7 +158,9 @@ public class LoginActivityNew extends BaseActivity {
             return false;
         }
     };
-
+/**
+*《---------------------------------------------==- 验证码登陆 -==---------------------------------------------》
+*/
     private void SMSLogin() {
         final String username = mEtPhone.getText().toString();
         final String SMScode = mEtPwd.getText().toString();
@@ -187,6 +189,7 @@ public class LoginActivityNew extends BaseActivity {
 
             @Override
             public void onError(Throwable t) {
+                ToastUtil.showToast("验证码有误");
                 loadingDialog.dismiss();
             }
 

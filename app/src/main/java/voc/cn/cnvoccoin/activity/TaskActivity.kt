@@ -51,6 +51,7 @@ class TaskActivity:BaseActivity() {
                     basicAdapter!!.setOnClick(object : BasicAdapter.OnClicks{
                         override fun OnClickItem(v: View, position: Int) {
                             for (datum in data) {
+
                                 if (datum.taskstatus == 1){
                                     basicImagmgList.set(1,R.mipmap.task_unjoin1_true)
 //                                    设置索引为1的ImageViw不可点击
@@ -65,6 +66,7 @@ class TaskActivity:BaseActivity() {
                                     }
                                     basicImagmgList.set(1,R.mipmap.task_unjoin1)
                                 }
+                                
                                 if (datum.taskStatus == 1){
 //                                    设置索引为2的ImageView不可点击
                                     if (position == 2){

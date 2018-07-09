@@ -36,15 +36,15 @@
       android:textColor="@color/color_b3642b"/>
 
     <TextView
-      android:id="@+id/tv_have_coin"
-      android:textStyle="bold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/tv_info"
-      android:layout_gravity="center"
-      android:text="0.00"
-      android:textColor="@color/color_c89158"
-      android:textSize="28sp"/>
+        android:id="@+id/tv_have_coin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_info"
+        android:layout_gravity="center"
+        android:text="0.00"
+        android:textColor="@color/color_c89158"
+        android:textSize="28sp"
+        android:textStyle="bold" />
   </LinearLayout>
 
   <TextView

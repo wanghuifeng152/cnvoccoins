@@ -1,6 +1,8 @@
 package voc.cn.cnvoccoin
 
+import android.app.ActivityManager
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
@@ -20,12 +22,16 @@ import voc.cn.cnvoccoin.activity.VocOfficialActivity
 import voc.cn.cnvoccoin.activity.VoiceActivityNew
 import voc.cn.cnvoccoin.activity.WalletActivity
 import java.util.ArrayList
+import android.content.Context.ACTIVITY_SERVICE
+import com.ishumei.smantifraud.SmAntiFraud
+import com.ishumei.smantifraud.SmAntiFraud.option
 
 
 /**
  * Created by shy on 2018/3/24.
  */
 class VocApplication : Application {
+
     private val TAG = this.javaClass.simpleName
     var message_flag = false //false  从userFragment 提现按钮跳转,true 从提现页面 判断是否设置过支付密码跳转
     var pwd1 = ""
@@ -42,11 +48,47 @@ class VocApplication : Application {
             return sInstance
         }
     }
+    /**
+     *  取得当前进程名
+     *  @param context
+     *  @return      */
+    fun getCurProcessName(context: Context): String? {
+        val pid = android.os.Process.myPid()
+        val mActivityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (appProcess in mActivityManager.getRunningAppProcesses()) {
+            if (appProcess.pid === pid) {
+                return appProcess.processName
+            }
+        }
+        return null
+    }
 
     override fun onCreate() {
         super.onCreate()
 //        CrashReport.initCrashReport(applicationContext, "注册时申请的APPID", false)
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "")
+
+        /**
+        *《---------------------------------------------==- 数美代码 -==---------------------------------------------》
+        */
+//             如果 AndroidManifest.xml 中没有指定主进程名字，主进程名默认与 packagename 相同
+//        if (getCurProcessName(this).equals(this.getPackageName())) {
+//            val option : SmAntiFraud.SmOption  = SmAntiFraud.SmOption()
+//        };
+//        var DEBUG_ORG : String= "IpY1WdrvDKXFcTL80wcH"
+//        // organization 代码 不要传 AccessKey
+//        option.setOrganization(DEBUG_ORG)
+//        option.setChannel("Voc")
+//        //渠道代码
+//        SmAntiFraud.create(this, option)
+        // 注意！！获取 deviceId，这个接口在需要使用 deviceId 时地方调用。
+//        val deviceId = SmAntiFraud.getDeviceId()
+
+
+
+        /**
+        *《---------------------------------------------==- 7.0 新特性 -==---------------------------------------------》
+        */
         if (Build.VERSION.SDK_INT >= 25) {
             val systemService = getSystemService(ShortcutManager::class.java)
             val intent = Intent(this, VoiceActivityNew::class.java)
