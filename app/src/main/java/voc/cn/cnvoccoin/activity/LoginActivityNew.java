@@ -70,7 +70,7 @@ public class LoginActivityNew extends BaseActivity {
     private void initView() {
         mEtPhone = findViewById(R.id.et_login_phone);
         mEtPwd = findViewById(R.id.et_login_pwd);
-
+        mEtPhone.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         mBtnLogin = findViewById(R.id.btn_commit);
         //左上角返回监听
         findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
