@@ -32,6 +32,8 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
     @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder?.mImg?.setImageResource(data[position])
+        if (onClick != null)
+            onClick!!.OnClickItem(holder?.mImg!!,position)
         holder?.mImg?.setOnClickListener {
             when (tag) {
                 BASIC_TASK -> {
@@ -92,6 +94,15 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
         }
     }
 
+    interface OnClicks {
+        fun OnClickItem(v: View, position: Int)
+    }
+
+    private var onClick: OnClicks? = null
+
+    fun setOnClick(onClick: OnClicks) {
+        this.onClick = onClick
+    }
 
     class ViewHolder : RecyclerView.ViewHolder {
         var mImg: ImageView?
@@ -100,8 +111,6 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
             mImg = itemView?.findViewById<ImageView>(R.id.iv_img)
         }
     }
-
-
 }
 
 

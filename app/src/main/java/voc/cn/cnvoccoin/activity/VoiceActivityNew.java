@@ -41,12 +41,15 @@ import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -86,6 +89,12 @@ public class VoiceActivityNew extends BaseActivity {
     public static int bufferSizeInBytes = 0;
     //上传币;
     private static final String UPLOAD_COIN = "/api/portal/voc/uploadVocCoinV2";
+
+    //miui系统
+    private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
+    private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
+    private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
+
     @BindView(R.id.tv_info)
     TextView tvInfo;
     @BindView(R.id.tv_have_coin)
