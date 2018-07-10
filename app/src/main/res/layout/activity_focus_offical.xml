@@ -79,11 +79,11 @@
     <EditText
         android:maxLength="6"
         android:singleLine="true"
-        android:background="@null"
+        android:background="@drawable/bg_task_edit"
         android:id="@+id/et_yanzhengma"
         android:layout_width="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:hint="请输入6位验证码"
         android:textColor="#757066"
         android:textSize="20sp"
@@ -100,12 +100,6 @@
             android:background="@drawable/sq_btn_false"
             android:gravity="center"
             android:text="@string/sure" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/please_input"
-        android:textSize="16sp" />
     </LinearLayout>
 
 </ScrollView>

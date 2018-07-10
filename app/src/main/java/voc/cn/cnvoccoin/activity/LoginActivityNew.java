@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ishumei.smantifraud.SmAntiFraud;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -236,6 +238,8 @@ public class LoginActivityNew extends BaseActivity {
     private void getLogin() {
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
+        String deviceId = SmAntiFraud.getDeviceId();
+        Log.e("aaaaaaa",deviceId);
         if (username.isEmpty()) return;
         final LoadingDialog loadingDialog = new LoadingDialog(this, null);
         loadingDialog.show();

@@ -79,11 +79,11 @@
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:maxLength="6"
                 android:singleLine="true"
                 android:textColor="#FF757066"
-                android:background="@null"
+                android:background="@drawable/bg_task_edit"
                 android:textColorHint="#FFD1C9BA"
                 android:hint="@string/please_input"
                 android:layout_marginTop="10dp"
