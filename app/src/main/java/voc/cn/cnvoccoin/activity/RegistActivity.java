@@ -363,44 +363,5 @@ public class RegistActivity extends BaseActivity {
     private void initView() {
         delete = (ImageView) findViewById(R.id.delete);
     }
-
-/**
-*《---------------------------------------------==- 获取当前IP地址 -==---------------------------------------------》
-*/
-    public String getIP(){
-
-        try {
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-                NetworkInterface intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
-                {
-                    InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address))
-                    {
-                        return inetAddress.getHostAddress().toString();
-                    }
-                }
-            }
-        }
-        catch (SocketException ex){
-            ex.printStackTrace();
-        }
-        return null;
-    }
-    /**
-    *《---------------------------------------------==- 获取当前时间Long -==---------------------------------------------》
-    */
-    public long getTimer(){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-        Date date = new Date();
-        try {
-            Date parse = df.parse(df.format(date));
-            long time = parse.getTime();
-            return time;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
 }
 
