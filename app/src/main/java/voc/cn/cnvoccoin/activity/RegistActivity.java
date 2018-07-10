@@ -180,15 +180,11 @@ public class RegistActivity extends BaseActivity {
     /**
     *《---------------------------------------------==- 数美注册 -==---------------------------------------------》
     */
-        Map<String,String> options = new HashMap<>();
-        options.put("accessKey","JAfaz1iOMMcUCAmZedUi");
-        options.put("appId ","voc.cn.cnvoccoin");
-        options.put("eventId","register");
         Gson gson = new Gson();
 //        注意！！获取 deviceId，这个接口在需要使用 deviceId 时地方调用。
         String deviceId = SmAntiFraud.getDeviceId();
         String data = gson.toJson(new NextDateEntity("JAfaz1iOMMcUCAmZedUi", "voc.cn.cnvoccoin", "register",
-                new NextDateEntity.Data("15801338141",deviceId,getIP(this),getTimer(),"phone","15801338141")));
+                new NextDateEntity.Data("15801338141",deviceId,OkHttpUtils.getInstens().getIP(),OkHttpUtils.getInstens().getTimer(),"phone","15801338141")));
         OkHttpUtils.getInstens().postHttp("http://api.fengkongcloud.com/v2/event",data).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -371,7 +367,7 @@ public class RegistActivity extends BaseActivity {
 /**
 *《---------------------------------------------==- 获取当前IP地址 -==---------------------------------------------》
 */
-    public String getIP(Context context){
+    public String getIP(){
 
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
@@ -392,7 +388,7 @@ public class RegistActivity extends BaseActivity {
         return null;
     }
     /**
-    *《---------------------------------------------==- 模块 -==---------------------------------------------》
+    *《---------------------------------------------==- 获取当前时间Long -==---------------------------------------------》
     */
     public long getTimer(){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
