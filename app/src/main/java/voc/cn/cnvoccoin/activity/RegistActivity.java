@@ -1,27 +1,55 @@
 package voc.cn.cnvoccoin.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.ishumei.smantifraud.SmAntiFraud;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import voc.cn.cnvoccoin.R;
+import voc.cn.cnvoccoin.entity.NextDateEntity;
 import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.Subscriber;
 import voc.cn.cnvoccoin.util.GetConfirmCodeRequest;
+import voc.cn.cnvoccoin.util.OkHttpUtils;
 import voc.cn.cnvoccoin.util.RegisterRequest;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
@@ -44,7 +72,6 @@ public class RegistActivity extends BaseActivity {
     int time = 60;
     private ImageView delete;
     private ImageView iv1;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,7 +177,29 @@ public class RegistActivity extends BaseActivity {
                 }
             }
         });*/
+    /**
+    *《---------------------------------------------==- 数美注册 -==---------------------------------------------》
+    */
+        Map<String,String> options = new HashMap<>();
+        options.put("accessKey","JAfaz1iOMMcUCAmZedUi");
+        options.put("appId ","voc.cn.cnvoccoin");
+        options.put("eventId","register");
+        Gson gson = new Gson();
+//        注意！！获取 deviceId，这个接口在需要使用 deviceId 时地方调用。
+        String deviceId = SmAntiFraud.getDeviceId();
+        String data = gson.toJson(new NextDateEntity("JAfaz1iOMMcUCAmZedUi", "voc.cn.cnvoccoin", "register",
+                new NextDateEntity.Data("15801338141",deviceId,getIP(this),getTimer(),"phone","15801338141")));
+        OkHttpUtils.getInstens().postHttp("http://api.fengkongcloud.com/v2/event",data).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("registerError",e.getMessage());
+            }
 
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.e("registerSuccess",response.body().string().toString());
+            }
+        });
     }
 
     private void initJudge() {
@@ -317,6 +366,45 @@ public class RegistActivity extends BaseActivity {
 
     private void initView() {
         delete = (ImageView) findViewById(R.id.delete);
+    }
+
+/**
+*《---------------------------------------------==- 获取当前IP地址 -==---------------------------------------------》
+*/
+    public String getIP(Context context){
+
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+                {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address))
+                    {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        }
+        catch (SocketException ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    /**
+    *《---------------------------------------------==- 模块 -==---------------------------------------------》
+    */
+    public long getTimer(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        Date date = new Date();
+        try {
+            Date parse = df.parse(df.format(date));
+            long time = parse.getTime();
+            return time;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }
 
