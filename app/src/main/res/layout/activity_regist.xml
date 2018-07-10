@@ -190,6 +190,7 @@
             android:background="@android:color/transparent"
             android:hint="请输入密码(至少6位数)"
             android:maxLines="1"
+            android:maxLength="18"
             android:textColor="@color/color_zhuce2"
             android:textColorHint="@color/color_zhuce3"
             android:inputType="textPassword"
@@ -202,9 +203,8 @@
 
         <ImageView
             android:id="@+id/hide"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginRight="40dp"
             android:src="@mipmap/xianshi" />
 

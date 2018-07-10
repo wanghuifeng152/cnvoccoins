@@ -23,7 +23,7 @@ class LoginEvent(var flag:Int,var number:String)
 
 //-------------------------url request response------------------------------//
 @Keep
-data class RegisterRequest(var username:String,var password:String,var code:String,var deviceId:String):Serializable
+data class RegisterRequest(var username:String,var password:String,var code:String):Serializable
 @Keep
 data class LoginRequest(var username:String,var password:String,var device_type:String):Serializable
 @Keep
@@ -48,6 +48,9 @@ data class TaskRequest(var code:String,var type:String)
 
 @Keep
 data class GetConfirmCodeRequest(var mobile:String)
+
+@Keep
+data class GetConfirmCodeRequest_sm(var mobile:String,var deviceId:String)
 
 @Keep
 data class add(var remarks:String,var address:String)

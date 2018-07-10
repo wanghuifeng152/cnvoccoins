@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.Subscriber;
 import voc.cn.cnvoccoin.util.GetConfirmCodeRequest;
+import voc.cn.cnvoccoin.util.GetConfirmCodeRequest_sm;
 import voc.cn.cnvoccoin.util.RegisterRequest;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
@@ -55,11 +57,13 @@ public class RegistActivity extends BaseActivity {
         initView();
         pwd = findViewById(R.id.pwd);
         et_phone = findViewById(R.id.et_phone);
+        et_phone.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         mTvConfirm = findViewById(R.id.tv_get_confirm);
         mEtConfirm = findViewById(R.id.et_confirm_code);
+        mEtConfirm.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         iv1 = findViewById(R.id.hide);
 
-        initJudge();
+//        initJudge();
         /*yaoqingma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -100,7 +104,6 @@ public class RegistActivity extends BaseActivity {
 //                } else {
                 String psw = pwd.getText().toString();
                 if (psw.length() >= 6) {
-                    Log.e("SmAntiFraud", SmAntiFraud.getDeviceId() + "----------------------------");
                     setRegister();
                 } else {
                     ToastUtil.showToast("密码输入错误");
@@ -213,16 +216,16 @@ public class RegistActivity extends BaseActivity {
 
                     } else {
                         findViewById(R.id.btn_commit).setSelected(false);
-                        findViewById(R.id.btn_commit).setOnClickListener(null);
+//                        findViewById(R.id.btn_commit).setOnClickListener(null);
                     }
 
                 } else {
                     findViewById(R.id.btn_commit).setSelected(false);
-                    findViewById(R.id.btn_commit).setOnClickListener(null);
+//                    findViewById(R.id.btn_commit).setOnClickListener(null);
                 }
             } else {
                 findViewById(R.id.btn_commit).setSelected(false);
-                findViewById(R.id.btn_commit).setOnClickListener(null);
+//                findViewById(R.id.btn_commit).setOnClickListener(null);
             }
         }
     }
@@ -239,8 +242,10 @@ public class RegistActivity extends BaseActivity {
                 }
                 final LoadingDialog loadingDialog = new LoadingDialog(RegistActivity.this, "");
                 loadingDialog.show();
-                GetConfirmCodeRequest request = new GetConfirmCodeRequest(mobile);
+
+                GetConfirmCodeRequest_sm request = new GetConfirmCodeRequest_sm(mobile,SmAntiFraud.getDeviceId());
                 RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
+//                UrlConstantsKt.MOBILE_CONFIRM_CODE
                 HttpManager.post(UrlConstantsKt.MOBILE_CONFIRM_CODE, wrapper).subscribe(new Subscriber<String>() {
                     @Override
                     public void onNext(String s) {
@@ -299,7 +304,7 @@ public class RegistActivity extends BaseActivity {
 
     private void setRegister() {
         String deviceId = SmAntiFraud.getDeviceId();
-        RegisterRequest request = new RegisterRequest(et_phone.getText().toString(), pwd.getText().toString(), mEtConfirm.getText().toString(), deviceId);
+        RegisterRequest request = new RegisterRequest(et_phone.getText().toString(), pwd.getText().toString(), mEtConfirm.getText().toString());
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_REGISTER, wrapper).subscribe(new Subscriber<String>() {
             @Override
