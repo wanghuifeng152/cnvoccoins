@@ -108,7 +108,6 @@
             android:maxLength="11"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:singleLine="true"
             android:hint="请输入正确的手机号码"
             android:textColor="@color/color_zhuce2"
             android:textColorHint="@color/color_zhuce3"
@@ -220,8 +219,9 @@
         android:layout_height="40dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:background="@drawable/bg_task_button"
+        android:background="@drawable/bg_zhuce"
         android:text="注册"
+        android:textColor="@color/color_zhuce2"
         android:textSize="18sp" />
 
 

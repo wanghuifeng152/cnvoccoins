@@ -88,25 +88,7 @@ public class RegistActivity extends BaseActivity {
                 delete.setVisibility(View.GONE);
             }
         });
-        //注册监听 根据两次输入密码是否一样进行判断注册
-        findViewById(R.id.btn_commit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                String password = pwd.getText().toString();
-//                String password_two = pwd_again.getText().toString();
-//                if (!password.equals(password_two)) {
-//                    ToastUtil.showToast("两次输入密码不一致");
-//                } else {
-                String psw = pwd.getText().toString();
-                if(psw.length() >= 6){
-                    setRegister();
-                }else{
-                    ToastUtil.showToast("密码输入错误");
-                }
 
-
-            }
-        });
 
         //点击返回上一个页面（登录页面）
         findViewById(R.id.tv_regist).setOnClickListener(new View.OnClickListener() {
@@ -154,51 +136,77 @@ public class RegistActivity extends BaseActivity {
     }
 
     private void initJudge() {
+        TextChange textChange=new TextChange();
+        mEtConfirm.addTextChangedListener(textChange);
+        et_phone.addTextChangedListener(textChange);
+        pwd.addTextChangedListener(textChange);
 
-        et_phone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String phone = et_phone.getText().toString();
-                if(phone != null){
-                    delete.setVisibility(View.VISIBLE);
-                }else{
-                    delete.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        pwd.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String psw = pwd.getText().toString();
-                if(psw .length() > 0 ){
-                    iv1.setVisibility(View.VISIBLE);
-                }else{
-                    iv1.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
+//设置edittext的输入监听
+    class TextChange implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String psw = pwd.getText().toString();
+            String phone = et_phone.getText().toString();
+            String met = mEtConfirm.getText().toString();
+            if(psw .length() > 0 ){
+                iv1.setVisibility(View.VISIBLE);
+            }else{
+                iv1.setVisibility(View.GONE);
+            }
+            if(phone != null){
+                delete.setVisibility(View.VISIBLE);
+            }else{
+                delete.setVisibility(View.GONE);
+            }
+           if(phone.length() == 11){
+                if(met.length() == 6){
+                    if(psw.length() >= 6){
+                        //注册监听 根据两次输入密码是否一样进行判断注册
+                        findViewById(R.id.btn_commit).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+//                String password = pwd.getText().toString();
+//                String password_two = pwd_again.getText().toString();
+//                if (!password.equals(password_two)) {
+//                    ToastUtil.showToast("两次输入密码不一致");
+//                } else {
+                                String psw = pwd.getText().toString();
+                                if(psw.length() >= 6){
+                                    setRegister();
+                                }else{
+                                    ToastUtil.showToast("密码输入错误");
+                                }
+                            }
+                        });
+                        findViewById(R.id.btn_commit).setSelected(true);
+
+                    }else{
+                        findViewById(R.id.btn_commit).setSelected(false);
+                        findViewById(R.id.btn_commit).setOnClickListener(null);
+                    }
+
+                }else{
+                    findViewById(R.id.btn_commit).setSelected(false);
+                    findViewById(R.id.btn_commit).setOnClickListener(null);
+                }
+           }else{
+               findViewById(R.id.btn_commit).setSelected(false);
+               findViewById(R.id.btn_commit).setOnClickListener(null);
+           }
+        }
+    }
     private void getConfirmCode() {
         //点击获取验证码
         mTvConfirm.setOnClickListener(new View.OnClickListener() {
