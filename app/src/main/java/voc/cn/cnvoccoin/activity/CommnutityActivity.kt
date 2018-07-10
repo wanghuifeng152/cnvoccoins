@@ -22,8 +22,16 @@ import voc.cn.cnvoccoin.entity.CommunityShequModel
 import voc.cn.cnvoccoin.entity.communityModel
 import android.R.attr.bitmap
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.TextWatcher
+import android.text.style.AbsoluteSizeSpan
 import com.github.dfqin.grantor.PermissionListener
 import com.github.dfqin.grantor.PermissionsUtil
+import com.ishumei.smantifraud.SmAntiFraud
+import kotlinx.android.synthetic.main.activity_get_code.*
 import voc.cn.cnvoccoin.entity.PermisionUtils
 import voc.cn.cnvoccoin.entity.PermisionUtils.verifyStoragePermissions
 import java.io.BufferedInputStream
@@ -46,7 +54,34 @@ open class CommnutityActivity:BaseActivity() {
         setContentView(getLayoutResId())
         setParams()
         initView()
+        val ss : SpannableString = SpannableString("请输入6位验证码")
+        val ass : AbsoluteSizeSpan = AbsoluteSizeSpan(15,true)
+        et_yanzhengma.setHintTextColor(Color.parseColor("#FFD1C9BA"))
+        ss.setSpan(ass,0,ss.length,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        et_yanzhengma.setHint(SpannableString(ss))
+        et_yanzhengma.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (et_yanzhengma.text.toString().length == 6){
+                    tv_confirm.setBackgroundResource(R.drawable.bg_task_button_true)
+                    tv_confirm.setTextColor(Color.parseColor("#99714D"))
+                }else{
+                    tv_confirm.setBackgroundResource(R.drawable.sq_btn_false)
+                    tv_confirm.setTextColor(Color.parseColor("#FFF6ED"))
+                }
+            }
+        })
+//        Thread(Runnable {
+//            run {
+//                Log.e("aaaaaaaaaaaaaaaaaaaaaaaaassss","&SmAntiFraud.getDeviceId()")
+
+//            }
+//        }).start()
         if (tag == JOIN_COMMUNTITY){
             getPicUrls()
         }
@@ -64,13 +99,14 @@ open class CommnutityActivity:BaseActivity() {
 
     private fun initView() {
         imsg = findViewById(R.id.iv_back)
-        tv_copy_into.setOnClickListener { copyImage() }
         tv_confirm.setOnClickListener { confirmTask() }
         iv_back.setOnClickListener { finish() }
+        iv_img.setOnClickListener { copyImage() }
     }
 
     private fun confirmTask() {
         val yanzhengma = et_yanzhengma.text.toString()
+
         if(yanzhengma.isEmpty())return
         val request = TaskRequest(yanzhengma, tag)
         val wrapper = RequestBodyWrapper(request)
@@ -171,11 +207,11 @@ open class CommnutityActivity:BaseActivity() {
                     if(model.data == null || model.data.isEmpty())return
                     val picUrl = model.data[0]
                     imgId = picUrl
-                    imsg!!.setImageBitmap(getBitmap(picUrl))
+                    iv_img!!.setImageBitmap(getBitmap(picUrl))
                     Log.i("picUrl",picUrl)
-//                    Glide.with(this@CommnutityActivity)
-//                            .load(picUrl)
-//                            .into(findViewById(R.id.iv_img))
+                    Glide.with(this@CommnutityActivity)
+                            .load(picUrl)
+                            .into(findViewById(R.id.iv_img))
                 }
             }
 

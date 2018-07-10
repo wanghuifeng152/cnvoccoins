@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.google.gson.Gson
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.json.JSONException
@@ -19,6 +20,7 @@ import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.VocApplication
 import voc.cn.cnvoccoin.activity.*
 import voc.cn.cnvoccoin.entity.MyCoinResponse
+import voc.cn.cnvoccoin.entity.TaskEntity
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
@@ -133,9 +135,46 @@ class UserFragment : Fragment() {
         //点击加入社区
         btn_join.setOnClickListener { startActivity(Intent(activity, CommnutityActivity::class.java)) }
         //点击关注公众号
-        btn_focus.setOnClickListener { startActivity(Intent(activity, FocusOfficalActivity::class.java)) }
-    }
+        btn_focus.setOnClickListener {
+            val token = PreferenceUtil.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()) {
+                activity.startActivity(Intent(activity, LoginActivityNew::class.java))
+            }else{
+                startActivity(Intent(activity, FocusOfficalActivity::class.java))
+            }
+        }
 
+            HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
+                override fun onError(t: Throwable?) {
+                    Log.e("ssss",t!!.message)
+                }
+                override fun onComplete() {
+                }
+                override fun onNext(t: String?) {
+                    val gson : TaskEntity? = Gson().fromJson(t, TaskEntity::class.java)
+                    if (gson!!.code == 1) {
+                        val data = gson.data
+                        for (datum in data) {
+                            if (datum.taskstatus == 1){
+                                btn_join.setImageResource(R.mipmap.task_unjoin1_true)
+                                btn_join.isEnabled = false
+                            }else{
+                                btn_join.setImageResource(R.mipmap.task_unjoin1)
+                                btn_join.isEnabled = true
+                            }
+                            if (datum.taskStatus == 1){
+                                btn_focus.setImageResource(R.mipmap.task_unfocus1_true)
+                                btn_focus.isEnabled = false
+                            }else{
+                                btn_focus.setImageResource(R.mipmap.task_unfocus1)
+                                btn_focus.isEnabled = true
+                            }
+                        }
+                    }
+                }
+            })
+
+    }
     override fun onResume() {
         super.onResume()
         isLogin()

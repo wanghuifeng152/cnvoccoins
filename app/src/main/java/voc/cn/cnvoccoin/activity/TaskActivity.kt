@@ -44,7 +44,7 @@ class TaskActivity:BaseActivity() {
 //        更新任务完成度
         HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
             override fun onNext(t: String?) {
-                var gson : TaskEntity? = Gson().fromJson(t,TaskEntity::class.java)
+                val gson : TaskEntity? = Gson().fromJson(t,TaskEntity::class.java)
                 if (gson!!.code == 1){
                     val data = gson.data
 //                    接口回调获取每个ImageView设置是否点击

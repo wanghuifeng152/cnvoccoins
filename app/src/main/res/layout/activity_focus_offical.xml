@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:background="@mipmap/she_qu_bg"
+    >
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <View
-        android:background="@color/black"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="23dp"/>
@@ -13,16 +19,16 @@
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/black"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_centerVertical="true"
             android:id="@+id/iv_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:paddingLeft="10dp"
-            android:src="@mipmap/back" />
+            android:src="@mipmap/retun" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,61 +42,70 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/bgc_user"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="30dp"
             android:text="@string/focus_text"
-            android:textColor="@color/color_c89158"
-            android:textSize="20sp" />
+            android:textColor="#F6D89F"
+            android:lineSpacingExtra="-12dp"
+            android:textStyle="bold"
+            android:textSize="27sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:layout_width="303.5dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:text="@string/focus_step"
-            android:textColor="@color/white"
+            android:textColor="#4E422B"
             android:textSize="15sp" />
     </LinearLayout>
-
+    <ImageView
+        android:layout_margin="10dp"
+        android:id="@+id/iv_img"
+        android:src="@mipmap/gongzhonghao"
+        android:layout_width="179dp"
+        android:layout_height="179dp" />
+        <TextView
+            android:textColor="#635D55"
+            android:text="@string/sq_ewm"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     <EditText
+        android:maxLength="6"
+        android:singleLine="true"
+        android:background="@null"
         android:id="@+id/et_yanzhengma"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="28dp"
+        android:hint="请输入6位验证码"
+        android:textColor="#757066"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColorHint="#D1C9BA"
         android:layout_gravity="center_horizontal" />
-
+        <TextView
+            android:textSize="18sp"
+            android:textColor="#FFF6ED"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_confirm"
+            android:layout_width="286dp"
+            android:layout_height="49dp"
+            android:background="@drawable/sq_btn_false"
+            android:gravity="center"
+            android:text="@string/sure" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/please_input"
         android:textSize="16sp" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_confirm"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_task_button"
-        android:gravity="center"
-        android:text="@string/sure" />
-
-    <ImageView
-        android:id="@+id/iv_img"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
-        android:src="@mipmap/gongzhonghao" />
-
-    <Button
-        android:id="@+id/tv_copy_into"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_task_button"
-        android:text="@string/copy_into"
-        android:textSize="10dp" />
-</LinearLayout>
+</ScrollView>
