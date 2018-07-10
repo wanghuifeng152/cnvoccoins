@@ -211,7 +211,8 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="54dp"
         android:text="登录"
-        android:background="@drawable/bg_task_button"
+        android:background="@drawable/bg_denglu"
+        android:textColor="@color/color_zhuce2"
         android:textSize="18sp" />
 
     <TextView
