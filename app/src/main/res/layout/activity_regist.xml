@@ -216,13 +216,11 @@
     <Button
         android:id="@+id/btn_commit"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:onClick="onClick"
-        android:background="@drawable/bg_zhuce_button"
+        android:background="@drawable/bg_task_button"
         android:text="注册"
-        android:textColor="@color/color_zhuce2"
         android:textSize="18sp" />
 
 
