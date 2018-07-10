@@ -23,6 +23,7 @@ import voc.cn.cnvoccoin.activity.VoiceActivityNew
 import voc.cn.cnvoccoin.activity.WalletActivity
 import java.util.ArrayList
 import android.content.Context.ACTIVITY_SERVICE
+import android.util.Log
 import com.ishumei.smantifraud.SmAntiFraud
 import com.ishumei.smantifraud.SmAntiFraud.option
 
@@ -82,8 +83,8 @@ class VocApplication : Application {
         option!!.setChannel("Voc")
         //渠道代码
         SmAntiFraud.create(this, option)
-
-
+//        val id = SmAntiFraud.getDeviceId()
+//        Log.i("log", "$id====================")
 
 
         /**

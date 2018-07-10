@@ -181,9 +181,9 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
                         } else {
                             ToastUtil.showToast(jsonObject.getString("msg"));
 //                            ToastUtil.showToast("新密码不能与近期用过密码相同");
-//                            edt.setText("");
-//                            edt.closeText();
-//                            finish();
+                            edt.setText("");
+                            edt.closeText();
+                            finish();
                         }
                     }
                 } catch (JSONException e) {
