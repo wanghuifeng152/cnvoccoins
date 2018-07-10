@@ -216,16 +216,16 @@ public class RegistActivity extends BaseActivity {
 
                     } else {
                         findViewById(R.id.btn_commit).setSelected(false);
-//                        findViewById(R.id.btn_commit).setOnClickListener(null);
+                        findViewById(R.id.btn_commit).setOnClickListener(null);
                     }
 
                 } else {
                     findViewById(R.id.btn_commit).setSelected(false);
-//                    findViewById(R.id.btn_commit).setOnClickListener(null);
+                    findViewById(R.id.btn_commit).setOnClickListener(null);
                 }
             } else {
                 findViewById(R.id.btn_commit).setSelected(false);
-//                findViewById(R.id.btn_commit).setOnClickListener(null);
+                findViewById(R.id.btn_commit).setOnClickListener(null);
             }
         }
     }
