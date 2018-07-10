@@ -74,7 +74,8 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:ellipsize="end"
-                    android:maxLength="43"
+                    android:maxLength="42"
+                    android:inputType="text"
                     android:hint="@string/Please_enter_the_remark"
                     android:textSize="12dp" />
             </LinearLayout>
@@ -107,6 +108,8 @@
                     android:background="@null"
                     android:hint="@string/Please_enter_the_address"
                     android:maxLength="42"
+                    android:maxLines="1"
+                    android:inputType="text"
                     android:textSize="12dp" />
             </LinearLayout>
 
