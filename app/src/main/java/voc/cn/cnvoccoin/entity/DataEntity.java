@@ -1,52 +1,6 @@
 package voc.cn.cnvoccoin.entity;
 
-public class NextDateEntity {
-    private String accessKey;
-    private String appId;
-    private String eventId;
-    private Data data;
-
-    public NextDateEntity(String accessKey, String appId, String eventId, Data data) {
-        this.accessKey = accessKey;
-        this.appId = appId;
-        this.eventId = eventId;
-        this.data = data;
-    }
-
-
-    public String getAccessKey() {
-        return accessKey;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(String eventId) {
-        this.eventId = eventId;
-    }
-
-    public Data getData() {
-        return data;
-    }
-
-    public void setData(Data data) {
-        this.data = data;
-    }
-
-    public static class Data {
+public class DataEntity {
         private String tokenId;
         private String deviceId;
         private String ip;
@@ -56,10 +10,10 @@ public class NextDateEntity {
         private String inviteTokenId;
         private String accountName;
 
-        public Data() {
+        public DataEntity() {
         }
 
-        public Data(String tokenId, String deviceId, String ip, long timestamp, String signupPlatform, String phone) {
+        public DataEntity(String tokenId, String deviceId, String ip, long timestamp, String signupPlatform, String phone) {
             this.tokenId = tokenId;
             this.deviceId = deviceId;
             this.ip = ip;
@@ -68,7 +22,7 @@ public class NextDateEntity {
             this.phone = phone;
         }
 
-        public Data(String tokenId, String deviceId, String ip, long timestamp, String signupPlatform, String phone, String inviteTokenId, String accountName) {
+        public DataEntity(String tokenId, String deviceId, String ip, long timestamp, String signupPlatform, String phone, String inviteTokenId, String accountName) {
             this.tokenId = tokenId;
             this.deviceId = deviceId;
             this.ip = ip;
@@ -79,7 +33,7 @@ public class NextDateEntity {
             this.accountName = accountName;
         }
 
-        public Data(String tokenId, String deviceId, String ip, long timestamp, String signupPlatform, String phone, String accountName) {
+        public DataEntity(String tokenId, String deviceId, String ip, long timestamp, String signupPlatform, String phone, String accountName) {
             this.tokenId = tokenId;
             this.deviceId = deviceId;
             this.ip = ip;
@@ -153,4 +107,3 @@ public class NextDateEntity {
             this.accountName = accountName;
         }
     }
-}

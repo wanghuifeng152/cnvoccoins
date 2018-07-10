@@ -44,7 +44,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import voc.cn.cnvoccoin.R;
-import voc.cn.cnvoccoin.entity.NextDateEntity;
+import voc.cn.cnvoccoin.entity.BaseShuMeiEntity;
+import voc.cn.cnvoccoin.entity.DataEntity;
 import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.Subscriber;
@@ -177,25 +178,6 @@ public class RegistActivity extends BaseActivity {
                 }
             }
         });*/
-    /**
-    *《---------------------------------------------==- 数美注册 -==---------------------------------------------》
-    */
-        Gson gson = new Gson();
-//        注意！！获取 deviceId，这个接口在需要使用 deviceId 时地方调用。
-        String deviceId = SmAntiFraud.getDeviceId();
-        String data = gson.toJson(new NextDateEntity("JAfaz1iOMMcUCAmZedUi", "voc.cn.cnvoccoin", "register",
-                new NextDateEntity.Data("15801338141",deviceId,OkHttpUtils.getInstens().getIP(),OkHttpUtils.getInstens().getTimer(),"phone","15801338141")));
-        OkHttpUtils.getInstens().postHttp("http://api.fengkongcloud.com/v2/event",data).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e("registerError",e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.e("registerSuccess",response.body().string().toString());
-            }
-        });
     }
 
     private void initJudge() {
@@ -329,6 +311,29 @@ public class RegistActivity extends BaseActivity {
                     if (code == 1) {
                         //处理事件
                         ToastUtil.showToast("注册成功");
+
+                        /**
+                         *《---------------------------------------------==- 数美注册 -==---------------------------------------------》
+                         */
+                        Gson gson = new Gson();
+//        注意！！获取 deviceId，这个接口在需要使用 deviceId 时地方调用。
+                        String deviceId = SmAntiFraud.getDeviceId();
+                        BaseShuMeiEntity baseShuMeiEntity = new BaseShuMeiEntity("JAfaz1iOMMcUCAmZedUi", "voc.cn.cnvoccoin", "register",
+                                new DataEntity(et_phone.getText().toString().trim(), deviceId, OkHttpUtils.getInstens().getIP(), OkHttpUtils.getInstens().getTimer(), "phone", et_phone.getText().toString().trim()));
+                        String data = gson.toJson(baseShuMeiEntity);
+                        OkHttpUtils.getInstens().postHttp("http://api.fengkongcloud.com/v2/event",data).enqueue(new Callback() {
+                            @Override
+                            public void onFailure(Call call, IOException e) {
+                                Log.e("registerError",e.getMessage());
+                            }
+
+                            @Override
+                            public void onResponse(Call call, Response response) throws IOException {
+                                Log.e("registerSuccess",response.body().string().toString());
+                            }
+                        });
+
+
                         startActivity(new Intent(RegistActivity.this, LoginActivityNew.class));
 //                    ToastUtil.showToast(jsonObject.getString("msg"))
                     }
