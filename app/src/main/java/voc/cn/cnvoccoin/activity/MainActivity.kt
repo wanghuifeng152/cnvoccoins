@@ -2,6 +2,7 @@ package voc.cn.cnvoccoin.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Notification
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
@@ -12,6 +13,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
+import android.support.v4.app.NotificationCompat.*
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.content.FileProvider
@@ -21,6 +23,11 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.widget.Toast
+import cn.jpush.android.api.BasicPushNotificationBuilder
+import cn.jpush.android.api.CustomPushNotificationBuilder
+import cn.jpush.android.api.JPushInterface
+import cn.jpush.android.api.MultiActionsNotificationBuilder
+import cn.jpush.android.data.JPushLocalNotification
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
@@ -67,7 +74,32 @@ class MainActivity : BaseActivity() {
         initRadioButton()
         requestPermission()
         checkVersion()
-
+        /**
+        *《---------------------------------------------==- 自定义极光 -==---------------------------------------------》
+        */
+//        自定义推送UI
+        val builder2 = CustomPushNotificationBuilder(this@MainActivity,
+                R.layout.customer_notitfication_layout,
+                R.id.icon,
+                R.id.title,
+                R.id.text)
+        // 指定定制的 Notification Layout
+        builder2.statusBarDrawable = R.drawable.ic_launcher
+        // 指定最顶层状态栏小图标
+        builder2.layoutIconDrawable = R.drawable.ic_launcher
+        // 指定下拉状态栏时显示的通知图标
+        JPushInterface.setPushNotificationBuilder(1, builder2)
+//        本地推送
+        val ln = JPushLocalNotification()
+        ln.builderId = 1
+        ln.content = "你好"
+        ln.title = "离线"
+        ln.notificationId = 11111111
+        ln.setBroadcastTime(2018,7,11,17,28,0)
+        val mBageMap = mutableMapOf("type" to "1")
+        val json = JSONObject(mBageMap)
+        ln.extras = json.toString()
+        JPushInterface.addLocalNotification(this@MainActivity, ln)
     }
 
 

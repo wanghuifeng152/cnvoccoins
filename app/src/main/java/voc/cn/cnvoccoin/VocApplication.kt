@@ -24,8 +24,14 @@ import voc.cn.cnvoccoin.activity.WalletActivity
 import java.util.ArrayList
 import android.content.Context.ACTIVITY_SERVICE
 import android.util.Log
+import cn.jpush.android.api.JPushInterface
+import cn.jpush.android.api.JPushInterface.*
 import com.ishumei.smantifraud.SmAntiFraud
 import com.ishumei.smantifraud.SmAntiFraud.option
+import voc.cn.cnvoccoin.activity.MainActivity
+import cn.jpush.android.api.CustomPushNotificationBuilder
+import cn.jpush.android.data.JPushLocalNotification
+import org.json.JSONObject
 
 
 /**
@@ -77,6 +83,11 @@ class VocApplication : Application {
         if (getCurProcessName(this).equals(this.getPackageName())) {
             option = SmAntiFraud.SmOption()
         }
+        /**
+        *《---------------------------------------------==- 极光推送 -==---------------------------------------------》
+        */
+        setDebugMode(true)
+        init(this)
         var DEBUG_ORG : String= "IpY1WdrvDKXFcTL80wcH"
         // organization 代码 不要传 AccessKey
         option!!.setOrganization(DEBUG_ORG)

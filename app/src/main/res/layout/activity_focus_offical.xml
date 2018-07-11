@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/she_qu_bg"
-    >
-    <LinearLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:background="@mipmap/she_qu_bg">
+
     <View
-        android:fitsSystemWindows="true"
+        android:id="@+id/zx"
         android:layout_width="match_parent"
-        android:layout_height="23dp"/>
+        android:layout_height="23dp"
+        android:fitsSystemWindows="true" />
+
     <RelativeLayout
+        android:layout_below="@id/zx"
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
+        android:background="#313131"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_centerVertical="true"
             android:id="@+id/iv_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_centerVertical="true"
             android:paddingLeft="10dp"
             android:src="@mipmap/retun" />
 
@@ -38,68 +35,85 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
     </RelativeLayout>
+    <ScrollView
+        android:layout_below="@id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="30dp"
-            android:text="@string/focus_text"
-            android:textColor="#F6D89F"
-            android:lineSpacingExtra="-12dp"
-            android:textStyle="bold"
-            android:textSize="27sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:lineSpacingExtra="-12dp"
+                android:text="@string/focus_text"
+                android:textColor="#F6D89F"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="303.5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/focus_step"
+                android:textColor="#4E422B"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_img"
+            android:layout_width="179dp"
+            android:layout_height="179dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/gongzhonghao" />
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="303.5dp"
-            android:layout_height="wrap_content"
-            android:text="@string/focus_step"
-            android:textColor="#4E422B"
-            android:textSize="15sp" />
-    </LinearLayout>
-    <ImageView
-        android:layout_margin="10dp"
-        android:id="@+id/iv_img"
-        android:src="@mipmap/gongzhonghao"
-        android:layout_width="179dp"
-        android:layout_height="179dp" />
-        <TextView
-            android:textColor="#635D55"
-            android:text="@string/sq_ewm"
-            android:textSize="12sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    <EditText
-        android:maxLength="6"
-        android:singleLine="true"
-        android:background="@drawable/bg_task_edit"
-        android:id="@+id/et_yanzhengma"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content"
-        android:hint="请输入6位验证码"
-        android:textColor="#757066"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:textColorHint="#D1C9BA"
-        android:layout_gravity="center_horizontal" />
+            android:layout_height="wrap_content"
+            android:text="@string/sq_ewm"
+            android:textColor="#635D55"
+            android:textSize="12sp" />
+
+        <EditText
+            android:id="@+id/et_yanzhengma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_task_edit"
+            android:gravity="center"
+            android:hint="请输入6位验证码"
+            android:maxLength="6"
+            android:singleLine="true"
+            android:textColor="#757066"
+            android:textColorHint="#D1C9BA"
+            android:textSize="20sp" />
+
         <TextView
-            android:textSize="18sp"
-            android:textColor="#FFF6ED"
-            android:layout_marginTop="10dp"
             android:id="@+id/tv_confirm"
             android:layout_width="286dp"
             android:layout_height="49dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/sq_btn_false"
             android:gravity="center"
-            android:text="@string/sure" />
+            android:text="@string/sure"
+            android:textColor="#FFF6ED"
+            android:textSize="18sp" />
     </LinearLayout>
+    </ScrollView>
 
-</ScrollView>
+</RelativeLayout>

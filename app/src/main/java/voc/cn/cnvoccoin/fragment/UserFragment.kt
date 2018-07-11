@@ -150,7 +150,9 @@ class UserFragment : Fragment() {
                 startActivity(Intent(activity, FocusOfficalActivity::class.java))
             }
         }
-
+/**
+*《---------------------------------------------==- 基础任务 -==---------------------------------------------》
+*/
             HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
                 override fun onError(t: Throwable?) {
                     Log.e("ssss",t!!.message)
