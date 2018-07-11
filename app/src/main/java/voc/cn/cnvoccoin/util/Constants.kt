@@ -50,6 +50,9 @@ data class TaskRequest(var code:String,var type:String)
 data class GetConfirmCodeRequest(var mobile:String)
 
 @Keep
+data class GetConfirmCodeRequest_sm(var mobile:String,var deviceId:String)
+
+@Keep
 data class add(var remarks:String,var address:String)
 
 @Keep
@@ -87,5 +90,3 @@ data class isHaveAddress(var token:String)
 //提币下限
 @Keep
 data class isNumber(var money : String)
-
-

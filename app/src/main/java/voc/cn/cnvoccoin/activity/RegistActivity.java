@@ -6,10 +6,14 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ishumei.smantifraud.SmAntiFraud;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +26,7 @@ import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.Subscriber;
 import voc.cn.cnvoccoin.util.GetConfirmCodeRequest;
+import voc.cn.cnvoccoin.util.GetConfirmCodeRequest_sm;
 import voc.cn.cnvoccoin.util.RegisterRequest;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
@@ -51,11 +56,11 @@ public class RegistActivity extends BaseActivity {
         setContentView(R.layout.activity_regist);
         initView();
         pwd = findViewById(R.id.pwd);
-    /*    pwd_again = findViewById(R.id.pwd_again);
-        yaoqingma = findViewById(R.id.yaoqingma);*/
         et_phone = findViewById(R.id.et_phone);
+        et_phone.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         mTvConfirm = findViewById(R.id.tv_get_confirm);
         mEtConfirm = findViewById(R.id.et_confirm_code);
+        mEtConfirm.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         iv1 = findViewById(R.id.hide);
 
         initJudge();
@@ -98,16 +103,33 @@ public class RegistActivity extends BaseActivity {
 //                    ToastUtil.showToast("两次输入密码不一致");
 //                } else {
                 String psw = pwd.getText().toString();
-                if(psw.length() >= 6){
+                if (psw.length() >= 6) {
                     setRegister();
-                }else{
+                } else {
                     ToastUtil.showToast("密码输入错误");
                 }
 
 
+                //final ImageView iv2 = findViewById(R.id.show);
+                //点击确认密码后面图标是否隐藏
+    /*    iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isshow2) {
+                    //密码隐藏
+                    isshow2 = false;
+                    iv2.setImageResource(R.mipmap.hide);
+                    pwd_again.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    //密码显示
+                    isshow2 = true;
+                    iv2.setImageResource(R.mipmap.show);
+                    pwd_again.setInputType(InputType.TYPE_CLASS_TEXT);
+                }
+            }
+        });*/
             }
         });
-
         //点击返回上一个页面（登录页面）
         findViewById(R.id.tv_regist).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,71 +154,80 @@ public class RegistActivity extends BaseActivity {
                 }
             }
         });
-        //final ImageView iv2 = findViewById(R.id.show);
-        //点击确认密码后面图标是否隐藏
-    /*    iv2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isshow2) {
-                    //密码隐藏
-                    isshow2 = false;
-                    iv2.setImageResource(R.mipmap.hide);
-                    pwd_again.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                } else {
-                    //密码显示
-                    isshow2 = true;
-                    iv2.setImageResource(R.mipmap.show);
-                    pwd_again.setInputType(InputType.TYPE_CLASS_TEXT);
-                }
-            }
-        });*/
-
     }
 
     private void initJudge() {
+        TextChange textChange = new TextChange();
+        mEtConfirm.addTextChangedListener(textChange);
+        et_phone.addTextChangedListener(textChange);
+        pwd.addTextChangedListener(textChange);
 
-        et_phone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+    }
+
+    //设置edittext的输入监听
+    class TextChange implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String psw = pwd.getText().toString();
+            String phone = et_phone.getText().toString();
+            String met = mEtConfirm.getText().toString();
+            if (psw.length() > 0) {
+                iv1.setVisibility(View.VISIBLE);
+            } else {
+                iv1.setVisibility(View.GONE);
             }
+            if (phone != null) {
+                delete.setVisibility(View.VISIBLE);
+            } else {
+                delete.setVisibility(View.GONE);
+            }
+            if (phone.length() == 11) {
+                if (met.length() == 6) {
+                    if (psw.length() >= 6) {
+                        //注册监听 根据两次输入密码是否一样进行判断注册
+                        findViewById(R.id.btn_commit).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+//                String password = pwd.getText().toString();
+//                String password_two = pwd_again.getText().toString();
+//                if (!password.equals(password_two)) {
+//                    ToastUtil.showToast("两次输入密码不一致");
+//                } else {
+                                String psw = pwd.getText().toString();
+                                if (psw.length() >= 6) {
+                                    setRegister();
+                                } else {
+                                    ToastUtil.showToast("密码输入错误");
+                                }
+                            }
+                        });
+                        findViewById(R.id.btn_commit).setSelected(true);
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String phone = et_phone.getText().toString();
-                if(phone != null){
-                    delete.setVisibility(View.VISIBLE);
-                }else{
-                    delete.setVisibility(View.GONE);
+                    } else {
+                        findViewById(R.id.btn_commit).setSelected(false);
+                        findViewById(R.id.btn_commit).setOnClickListener(null);
+                    }
+
+                } else {
+                    findViewById(R.id.btn_commit).setSelected(false);
+                    findViewById(R.id.btn_commit).setOnClickListener(null);
                 }
+            } else {
+                findViewById(R.id.btn_commit).setSelected(false);
+                findViewById(R.id.btn_commit).setOnClickListener(null);
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        pwd.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String psw = pwd.getText().toString();
-                if(psw .length() > 0 ){
-                    iv1.setVisibility(View.VISIBLE);
-                }else{
-                    iv1.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        }
     }
 
     private void getConfirmCode() {
@@ -211,8 +242,10 @@ public class RegistActivity extends BaseActivity {
                 }
                 final LoadingDialog loadingDialog = new LoadingDialog(RegistActivity.this, "");
                 loadingDialog.show();
-                GetConfirmCodeRequest request = new GetConfirmCodeRequest(mobile);
+
+                GetConfirmCodeRequest_sm request = new GetConfirmCodeRequest_sm(mobile,SmAntiFraud.getDeviceId());
                 RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
+//                UrlConstantsKt.MOBILE_CONFIRM_CODE
                 HttpManager.post(UrlConstantsKt.MOBILE_CONFIRM_CODE, wrapper).subscribe(new Subscriber<String>() {
                     @Override
                     public void onNext(String s) {
@@ -270,6 +303,7 @@ public class RegistActivity extends BaseActivity {
     }
 
     private void setRegister() {
+        String deviceId = SmAntiFraud.getDeviceId();
         RegisterRequest request = new RegisterRequest(et_phone.getText().toString(), pwd.getText().toString(), mEtConfirm.getText().toString());
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_REGISTER, wrapper).subscribe(new Subscriber<String>() {
@@ -319,4 +353,3 @@ public class RegistActivity extends BaseActivity {
         delete = (ImageView) findViewById(R.id.delete);
     }
 }
-

@@ -106,9 +106,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:maxLength="11"
+            android:maxLines="1"
+            android:inputType="text"
             android:background="@android:color/transparent"
             android:gravity="center"
-            android:singleLine="true"
             android:hint="请输入正确的手机号码"
             android:textColor="@color/color_zhuce2"
             android:textColorHint="@color/color_zhuce3"
@@ -147,6 +148,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40dp"
+            android:maxLines="1"
+            android:inputType="text"
             android:background="@android:color/transparent"
             android:hint="请输入语音验证码"
             android:maxLength="6"
@@ -186,6 +189,8 @@
             android:layout_marginLeft="40dp"
             android:background="@android:color/transparent"
             android:hint="请输入密码(至少6位数)"
+            android:maxLines="1"
+            android:maxLength="18"
             android:textColor="@color/color_zhuce2"
             android:textColorHint="@color/color_zhuce3"
             android:inputType="textPassword"
@@ -198,9 +203,8 @@
 
         <ImageView
             android:id="@+id/hide"
-            android:visibility="gone"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginRight="40dp"
             android:src="@mipmap/xianshi" />
 
@@ -217,11 +221,10 @@
     <Button
         android:id="@+id/btn_commit"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:onClick="onClick"
-        android:background="@drawable/bg_zhuce_button"
+        android:background="@drawable/bg_zhuce"
         android:text="注册"
         android:textColor="@color/color_zhuce2"
         android:textSize="18sp" />

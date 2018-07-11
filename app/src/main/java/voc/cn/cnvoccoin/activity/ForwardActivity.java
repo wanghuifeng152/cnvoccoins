@@ -575,7 +575,7 @@ public class ForwardActivity extends BaseActivity {
                                         isDialog = true;
                                         dialog.dismiss();
                                         dialog = null;
-                                        ToastUtil.showToast(msg);
+//                                        ToastUtil.showToast(msg);
                                     }
                                 }
                             } catch (JSONException e) {

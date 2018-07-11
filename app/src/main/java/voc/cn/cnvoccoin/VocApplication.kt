@@ -23,6 +23,7 @@ import voc.cn.cnvoccoin.activity.VoiceActivityNew
 import voc.cn.cnvoccoin.activity.WalletActivity
 import java.util.ArrayList
 import android.content.Context.ACTIVITY_SERVICE
+import android.util.Log
 import com.ishumei.smantifraud.SmAntiFraud
 import com.ishumei.smantifraud.SmAntiFraud.option
 
@@ -38,6 +39,7 @@ class VocApplication : Application {
     var pwd2 = ""
     var isResetPwd = false
     var istitle = false
+    var option : SmAntiFraud.SmOption? = null
     constructor() {
         sInstance = this
     }
@@ -72,18 +74,17 @@ class VocApplication : Application {
         *《---------------------------------------------==- 数美代码 -==---------------------------------------------》
         */
 //             如果 AndroidManifest.xml 中没有指定主进程名字，主进程名默认与 packagename 相同
-//        if (getCurProcessName(this).equals(this.getPackageName())) {
-//            val option : SmAntiFraud.SmOption  = SmAntiFraud.SmOption()
-//        };
-//        var DEBUG_ORG : String= "IpY1WdrvDKXFcTL80wcH"
-//        // organization 代码 不要传 AccessKey
-//        option.setOrganization(DEBUG_ORG)
-//        option.setChannel("Voc")
-//        //渠道代码
-//        SmAntiFraud.create(this, option)
-        // 注意！！获取 deviceId，这个接口在需要使用 deviceId 时地方调用。
-//        val deviceId = SmAntiFraud.getDeviceId()
-
+        if (getCurProcessName(this).equals(this.getPackageName())) {
+            option = SmAntiFraud.SmOption()
+        }
+        var DEBUG_ORG : String= "IpY1WdrvDKXFcTL80wcH"
+        // organization 代码 不要传 AccessKey
+        option!!.setOrganization(DEBUG_ORG)
+        option!!.setChannel("Voc")
+        //渠道代码
+        SmAntiFraud.create(this, option)
+//        val id = SmAntiFraud.getDeviceId()
+//        Log.i("log", "$id====================")
 
 
         /**

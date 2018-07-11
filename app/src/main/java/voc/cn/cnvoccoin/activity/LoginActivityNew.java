@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ishumei.smantifraud.SmAntiFraud;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,55 +98,86 @@ public class LoginActivityNew extends BaseActivity {
 
         //密码圆点变为*
         mEtPwd.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+        //EditView 监听
+        TextChange textChange = new TextChange();
+        mEtPhone.addTextChangedListener(textChange);
+        mEtPwd.addTextChangedListener(textChange);
 
-        //登录监听
-        mBtnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                判断当前登陆类型
-                if (isLoginType)
-
-                    /**
-                    * 密码登陆
-                    */
-                {
-//                    验证手机号码是否正确
-                    if (isMobileNO(mEtPhone.getText().toString().trim())){
-//                        是否输入验证码
-                        if ("".equals(mEtPwd.getText().toString().trim())){
-                            ToastUtil.showToast("请输入密码");
-                        }else {
-                            getLogin();
-                        }
-                    }else {
-                        ToastUtil.showToast("请输入正确手机号码");
-                    }
-                }
-
-                else
-
-                    /**
-                    * 验证码登陆
-                    */
-                {
-                    //  验证手机号码是否正确
-                    if (isMobileNO(mEtPhone.getText().toString().trim())){
-//                        是否输入密码
-                        if ("".equals(mEtPwd.getText().toString().trim())){
-                            ToastUtil.showToast("请输入验证码");
-                        }else {
-                            SMSLogin();
-                        }
-                    }else {
-                        ToastUtil.showToast("请输入正确手机号码");
-                    }
-                }
-//                getLogin();
-            }
-        });
-        mEtPwd.setOnEditorActionListener(listenerr);
     }
+    class TextChange implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String phone = mEtPhone.getText().toString();
+            String pwd = mEtPwd.getText().toString();
+            if(phone.length() == 11){
+               if(pwd.length() >= 6){
+                   //登录监听
+                   mBtnLogin.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View v) {
+//                判断当前登陆类型
+                           if (isLoginType)
+
+                           /**
+                            * 密码登陆
+                            */
+                           {
+//                    验证手机号码是否正确
+                               if (isMobileNO(mEtPhone.getText().toString().trim())){
+//                        是否输入验证码
+                                   if ("".equals(mEtPwd.getText().toString().trim())){
+                                       ToastUtil.showToast("请输入密码");
+                                   }else {
+                                       getLogin();
+                                   }
+                               }else {
+                                   ToastUtil.showToast("请输入正确手机号码");
+                               }
+                           }
+
+                           else
+
+                           /**
+                            * 验证码登陆
+                            */
+                           {
+                               //  验证手机号码是否正确
+                               if (isMobileNO(mEtPhone.getText().toString().trim())){
+//                        是否输入密码
+                                   if ("".equals(mEtPwd.getText().toString().trim())){
+                                       ToastUtil.showToast("请输入验证码");
+                                   }else {
+                                       SMSLogin();
+                                   }
+                               }else {
+                                   ToastUtil.showToast("请输入正确手机号码");
+                               }
+                           }
+//                getLogin();
+                       }
+                   });
+                   mEtPwd.setOnEditorActionListener(listenerr);
+                   mBtnLogin.setSelected(true);
+               }else{
+                   mBtnLogin.setSelected(false);
+                   mBtnLogin.setOnClickListener(null);
+               }
+           }else{
+                mBtnLogin.setSelected(false);
+                mBtnLogin.setOnClickListener(null);
+            }
+        }
+    }
     private TextView.OnEditorActionListener listenerr = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -201,8 +236,12 @@ public class LoginActivityNew extends BaseActivity {
     }
 
     private void getLogin() {
+        Log.i("SmAntiFraud2", SmAntiFraud.getDeviceId() + "----------------------------");
+
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
+        String deviceId = SmAntiFraud.getDeviceId();
+        Log.e("aaaaaaa",deviceId);
         if (username.isEmpty()) return;
         final LoadingDialog loadingDialog = new LoadingDialog(this, null);
         loadingDialog.show();
@@ -213,6 +252,8 @@ public class LoginActivityNew extends BaseActivity {
             @Override
             public void onNext(ResBaseModel<LoginResponse> model) {
                 loadingDialog.dismiss();
+                Log.i("SmAntiFraud", SmAntiFraud.getDeviceId() + "----------------------------");
+
                 if (model == null || model.data == null) return;
                 if (model.code != 1) return;
                 PreferenceUtil.Companion.getInstance().set(TOKEN, model.data.getToken());

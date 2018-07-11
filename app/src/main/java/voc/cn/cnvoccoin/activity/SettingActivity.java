@@ -1,12 +1,15 @@
 package voc.cn.cnvoccoin.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +42,18 @@ public class SettingActivity extends BaseActivity {
             }
         });
 
+        JSONObject json = new JSONObject();
+        JSONObject json2 = new JSONObject();
+        try {
+            json.put("accesskey","key");
+            json.put("id","id");
+            json2.put("name","zhangsan");
+            json2.put("add","beijing");
+            json.put("data",json2.toString());
+            Log.i("log",json.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -3,6 +3,7 @@ package voc.cn.cnvoccoin.activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import com.ishumei.smantifraud.SmAntiFraud
 import kotlinx.android.synthetic.main.activity_login.*
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
@@ -81,6 +82,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun setRegister() {
+        val deviceId = SmAntiFraud.getDeviceId()
         val request = RegisterRequest(et_input.text.toString(), et_password.text.toString(), "")
         var wrapper: RequestBodyWrapper = RequestBodyWrapper(request)
         HttpManager.post(URL_REGISTER, wrapper).subscribe(object : Subscriber<String> {
