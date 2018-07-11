@@ -133,7 +133,14 @@ class UserFragment : Fragment() {
             }
         }
         //点击加入社区
-        btn_join.setOnClickListener { startActivity(Intent(activity, CommnutityActivity::class.java)) }
+        btn_join.setOnClickListener {
+            val token = PreferenceUtil.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()) {
+                activity.startActivity(Intent(activity, LoginActivityNew::class.java))
+            }else {
+                startActivity(Intent(activity, CommnutityActivity::class.java))
+            }
+        }
         //点击关注公众号
         btn_focus.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)

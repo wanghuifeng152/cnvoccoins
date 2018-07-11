@@ -18,6 +18,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ishumei.smantifraud.SmAntiFraud;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -234,8 +236,12 @@ public class LoginActivityNew extends BaseActivity {
     }
 
     private void getLogin() {
+        Log.i("SmAntiFraud2", SmAntiFraud.getDeviceId() + "----------------------------");
+
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
+        String deviceId = SmAntiFraud.getDeviceId();
+        Log.e("aaaaaaa",deviceId);
         if (username.isEmpty()) return;
         final LoadingDialog loadingDialog = new LoadingDialog(this, null);
         loadingDialog.show();
@@ -246,6 +252,8 @@ public class LoginActivityNew extends BaseActivity {
             @Override
             public void onNext(ResBaseModel<LoginResponse> model) {
                 loadingDialog.dismiss();
+                Log.i("SmAntiFraud", SmAntiFraud.getDeviceId() + "----------------------------");
+
                 if (model == null || model.data == null) return;
                 if (model.code != 1) return;
                 PreferenceUtil.Companion.getInstance().set(TOKEN, model.data.getToken());

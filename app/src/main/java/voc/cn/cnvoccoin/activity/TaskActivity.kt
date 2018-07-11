@@ -15,6 +15,7 @@ import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.GET_TASK
 import voc.cn.cnvoccoin.util.ToastUtil
+import voc.cn.cnvoccoin.view.LoadingDialog
 
 /**
  * Created by shy on 2018/4/28.
@@ -41,11 +42,23 @@ class TaskActivity:BaseActivity() {
         val superAdapter = BasicAdapter(this, superImagmgList, SUPER_TASK)
         rv_basic_task.adapter = basicAdapter
         rv_super_task.adapter = superAdapter
-//        更新任务完成度
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getStatus()
+    }
+
+    fun getStatus(){
+        val loadingDialog = LoadingDialog(this, null)
+        loadingDialog.show()
+        //        更新任务完成度
         HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
             override fun onNext(t: String?) {
                 val gson : TaskEntity? = Gson().fromJson(t,TaskEntity::class.java)
                 if (gson!!.code == 1){
+                    loadingDialog.dismiss()
                     val data = gson.data
 //                    接口回调获取每个ImageView设置是否点击
                     basicAdapter!!.setOnClick(object : BasicAdapter.OnClicks{
@@ -66,7 +79,7 @@ class TaskActivity:BaseActivity() {
                                     }
                                     basicImagmgList.set(1,R.mipmap.task_unjoin1)
                                 }
-                                
+
                                 if (datum.taskStatus == 1){
 //                                    设置索引为2的ImageView不可点击
                                     if (position == 2){
@@ -89,13 +102,12 @@ class TaskActivity:BaseActivity() {
             }
 
             override fun onError(t: Throwable?) {
+                loadingDialog.dismiss()
             }
 
             override fun onComplete() {
             }
 
         })
-
-
     }
 }

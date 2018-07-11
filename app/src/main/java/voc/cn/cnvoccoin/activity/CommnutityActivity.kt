@@ -23,17 +23,22 @@ import voc.cn.cnvoccoin.entity.communityModel
 import android.R.attr.bitmap
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Handler
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.AbsoluteSizeSpan
+import android.view.View
+import android.view.WindowManager
+import android.widget.ScrollView
 import com.github.dfqin.grantor.PermissionListener
 import com.github.dfqin.grantor.PermissionsUtil
 import com.ishumei.smantifraud.SmAntiFraud
 import kotlinx.android.synthetic.main.activity_get_code.*
 import voc.cn.cnvoccoin.entity.PermisionUtils
 import voc.cn.cnvoccoin.entity.PermisionUtils.verifyStoragePermissions
+import voc.cn.cnvoccoin.view.AndroidBug5497Workaround
 import java.io.BufferedInputStream
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -52,6 +57,7 @@ open class CommnutityActivity:BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
+        AndroidBug5497Workaround.assistActivity(this)
         setParams()
         initView()
         val ss : SpannableString = SpannableString("请输入6位验证码")
