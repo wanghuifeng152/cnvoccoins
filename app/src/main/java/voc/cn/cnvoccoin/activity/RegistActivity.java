@@ -107,30 +107,6 @@ public class RegistActivity extends BaseActivity {
                 }
 
 
-                //点击返回上一个页面（登录页面）
-                findViewById(R.id.tv_regist).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
-                //点击输入密码后面图标显示密码是否隐藏
-                iv1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (isshow) {
-                            //密码隐藏
-                            isshow = false;
-                            iv1.setImageResource(R.mipmap.xianshi);
-                            pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                        } else {
-                            //密码显示
-                            isshow = true;
-                            iv1.setImageResource(R.mipmap.show);
-                            pwd.setInputType(InputType.TYPE_CLASS_TEXT);
-                        }
-                    }
-                });
                 //final ImageView iv2 = findViewById(R.id.show);
                 //点击确认密码后面图标是否隐藏
     /*    iv2.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +125,30 @@ public class RegistActivity extends BaseActivity {
                 }
             }
         });*/
+            }
+        });
+        //点击返回上一个页面（登录页面）
+        findViewById(R.id.tv_regist).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        //点击输入密码后面图标显示密码是否隐藏
+        iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isshow) {
+                    //密码隐藏
+                    isshow = false;
+                    iv1.setImageResource(R.mipmap.xianshi);
+                    pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                } else {
+                    //密码显示
+                    isshow = true;
+                    iv1.setImageResource(R.mipmap.show);
+                    pwd.setInputType(InputType.TYPE_CLASS_TEXT);
+                }
             }
         });
     }
