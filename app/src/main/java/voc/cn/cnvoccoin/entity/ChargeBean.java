@@ -11,7 +11,7 @@ public class ChargeBean {
 
     /**
      * code : 1
-     * msg : {"charge":1000,"uses":9709.210000000003,"use":9709.210000000003,"actual":-999}
+     * msg : {"charge":1000,"limit":"提现金额不能小于3500"}
      * data :
      */
 
@@ -46,15 +46,11 @@ public class ChargeBean {
     public static class MsgBean {
         /**
          * charge : 1000
-         * uses : 9709.210000000003
-         * use : 9709.210000000003
-         * actual : -999
+         * limit : 提现金额不能小于3500
          */
 
         private int charge;
-        private double uses;
-        private double use;
-        private double actual;
+        private String limit;
 
         public int getCharge() {
             return charge;
@@ -64,28 +60,12 @@ public class ChargeBean {
             this.charge = charge;
         }
 
-        public double getUses() {
-            return uses;
+        public String getLimit() {
+            return limit;
         }
 
-        public void setUses(double uses) {
-            this.uses = uses;
-        }
-
-        public double getUse() {
-            return use;
-        }
-
-        public void setUse(double use) {
-            this.use = use;
-        }
-
-        public double getActual() {
-            return actual;
-        }
-
-        public void setActual(double actual) {
-            this.actual = actual;
+        public void setLimit(String limit) {
+            this.limit = limit;
         }
     }
 }

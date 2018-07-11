@@ -410,7 +410,7 @@ public class VoiceActivityNew extends BaseActivity {
                             BigDecimal b2 = new BigDecimal(
                                     Double.valueOf(uploadVoiceBeanResBaseModel.data.getNext().getVoc_coin()));
                             //数据格式化为小数点后两位
-                            decimalFormat = new DecimalFormat("#.00");
+                            decimalFormat = new DecimalFormat("0.00");
                             //高精度计算
                             //voiceCoin = b1.add(b2).setScale(2, RoundingMode.DOWN).doubleValue();
 

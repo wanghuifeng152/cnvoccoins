@@ -48,6 +48,7 @@ import butterknife.ButterKnife;
 import voc.cn.cnvoccoin.VocApplication;
 import voc.cn.cnvoccoin.entity.WalletClass;
 import voc.cn.cnvoccoin.util.isNumber;
+import voc.cn.cnvoccoin.util.list;
 import voc.cn.cnvoccoin.view.PasswordInputEdt;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.ChargeBean;
@@ -98,6 +99,8 @@ public class ForwardActivity extends BaseActivity {
     private double use1;
     private int startTwo;
     private String mwallet;
+    private double charge;
+    private double a ;
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,7 @@ public class ForwardActivity extends BaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_forward);
         ButterKnife.bind(this);
+
         addressSnmd.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         addressSnmd.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -122,82 +126,31 @@ public class ForwardActivity extends BaseActivity {
         inputFilters = new ArrayList<>();
         Intent intent = getIntent();
         moeny = intent.getDoubleExtra("moeny", 0.0);
+        //上下限接口
+
+//点击事件
         initData();
-
-        initNumber();
-
+        initCharge();
 
         //获取备注，钱包地址
 //        initHuoQu();
     }
 
+    private void initCharge() {
+        Log.e("TAG", "initCharge: --------------666666666666---->" );
+        list list = new list("1");
+        RequestBodyWrapper wrapper = new RequestBodyWrapper(list);
+        HttpManager.post(UrlConstantsKt.POST_CHARGE,wrapper).subscribe(new Subscriber<String>(){
 
-    private void initNumber() {
-        String trim = addressSnmd.getText().toString().trim();
-
-        isNumber isNumber = new isNumber(trim);
-        RequestBodyWrapper bodyWrapper = new RequestBodyWrapper(isNumber);
-       HttpManager.post(UrlConstantsKt.POST_NUMBER,bodyWrapper).subscribe(new Subscriber<String>() {
-           @Override
-           public void onNext(String o) {
-
-              Log.e("TAG", "onNext: -------2222222222222222222--->"+o.toString() );
-
-               if ( o == null || o.isEmpty()) return;
-               JSONObject jsonObject = null;
-               try {
-                   jsonObject = new JSONObject(o);
-                   int code = jsonObject.getInt("code");
-                   if (code==1) {
-                       String msg = jsonObject.getString("msg");
-                       addressSnmd.setHint(msg + "");
-                   }
-//                       if (msg.equals("提现金额不能小于3500")){
-//                           Toast.makeText(ForwardActivity.this, "提现金额不能小于3500", Toast.LENGTH_SHORT).show();
-//                       }else if (msg.equals("0")){
-//                           addressSnmd.setHint(0+"");
-//                       }else {
-//
-//                       }
-//
-//
-//                   }
-               } catch (Exception e) {
-                   e.printStackTrace();
-               }
-
-           }
-
-           @Override
-           public void onError(Throwable t) {
-
-           }
-
-           @Override
-           public void onComplete() {
-
-           }
-       });
-
-    }
-
-
-    private void initQingqiu() {
-
-        String trim = addressSnmd.getText().toString().trim();
-        Forwardid request = new Forwardid(trim);
-        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
-        HttpManager.post(UrlConstantsKt.POST_PASSWORD, wrapper).subscribe(new Subscriber<String>() {
             @Override
-            public void onNext(String str) {
-                ChargeBean chargeBean = new Gson().fromJson(str, ChargeBean.class);
+            public void onNext(String o) {
+                ChargeBean chargeBean = new Gson().fromJson(o, ChargeBean.class);
                 ChargeBean.MsgBean msgBean = chargeBean.getMsg();
-                int charge = msgBean.getCharge();
-                double actual = msgBean.getActual();
-                use = msgBean.getUse();
-                tvTxian.setText(use + "");
-                tvCharge.setText(charge + "");
-                tvAssets.setText(actual + "");
+                charge = msgBean.getCharge();
+                String limit = msgBean.getLimit();
+                addressSnmd.setHint(limit+"");
+                tvCharge.setText(charge +"");
+
 
             }
 
@@ -209,11 +162,118 @@ public class ForwardActivity extends BaseActivity {
             @Override
             public void onComplete() {
 
-
             }
         });
 
+
     }
+
+
+    //上下限接口
+    private void initNumber() {
+        String trim = addressSnmd.getText().toString().trim();
+
+        isNumber isNumber = new isNumber(trim);
+        RequestBodyWrapper bodyWrapper = new RequestBodyWrapper(isNumber);
+       HttpManager.post(UrlConstantsKt.POST_NUMBER,bodyWrapper).subscribe(new Subscriber<String>() {
+           @Override
+           public void onNext(String o) {
+
+
+               if ( o == null || o.isEmpty()) return;
+               JSONObject jsonObject = null;
+               try {
+                   jsonObject = new JSONObject(o);
+                   int code = jsonObject.getInt("code");
+                   if (code==1) {
+                       String msg = jsonObject.getString("msg");
+                       if (msg.equals("提现金额不能小于3500")){
+                           Toast.makeText(ForwardActivity.this, "提现金额不能小于3500", Toast.LENGTH_SHORT).show();
+                       }else if (msg.equals("正确")){
+                           mwallet = addressSnmd.getText().toString().trim();
+
+                           showPayDialog(mwallet);
+//                           //提币输入数量
+//
+//                           //判断它不为空
+//                           if (!TextUtils.isEmpty(mwallet) && !mwallet.equals("")) {
+//                               wallet = Double.parseDouble(mwallet);
+//                           }else{
+//                               ToastUtil.showToast("提现金额不能为空");
+//                           }
+
+                       }
+                   }
+
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+
+           }
+
+           @Override
+           public void onError(Throwable t) {
+           }
+
+           @Override
+           public void onComplete() {
+
+           }
+       });
+
+    }
+
+//提现获取到账的金额
+//    private void initQingqiu() {
+//
+//        String trim = addressSnmd.getText().toString().trim();
+//        Forwardid request = new Forwardid(trim);
+//        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
+//        HttpManager.post(UrlConstantsKt.POST_PASSWORD, wrapper).subscribe(new Subscriber<String>() {
+//            @Override
+//            public void onNext(String str) {
+//                 if ( str == null || str.isEmpty()) return;
+//                JSONObject jsonObject = null;
+//                try {
+//                    jsonObject = new JSONObject(str);
+//                    int code = jsonObject.getInt("code");
+//                    if (code==1) {
+//
+//                        String msg = jsonObject.getString("msg");
+//                        if (msg.equals("输入提币金额不能小于手续费")){
+//                            Toast.makeText(ForwardActivity.this, "输入提币金额不能小于手续费,请重新输入", Toast.LENGTH_SHORT).show();
+//                        }else {
+//
+//                            ChargeBean chargeBean = new Gson().fromJson(str, ChargeBean.class);
+//                            ChargeBean.MsgBean msgBean = chargeBean.getMsg();
+//                            int charge = msgBean.getCharge();
+//                            double actual = msgBean.getActual();
+//                            use = msgBean.getUse();
+//                            tvTxian.setText(use + "");
+//                            tvCharge.setText(charge + "");
+//                            tvAssets.setText(actual + "");
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onError(Throwable t) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//
+//            }
+//        });
+//
+//    }
 
     private String mWallet;
 
@@ -270,17 +330,7 @@ public class ForwardActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                //提币输入数量
-                mwallet = addressSnmd.getText().toString().trim();
-                double wallet = 0;
-                //判断它不为空
-                if (!TextUtils.isEmpty(mwallet) && !mwallet.equals("")) {
-                    wallet = Double.parseDouble(mwallet);
-                    showPayDialog(mwallet);
-                    initQingqiu() ;
-                }else{
-                    ToastUtil.showToast("提现金额不能为空");
-                }
+                initNumber();
 
 //                //判断不能小于10000
 //                if (wallet < 3500) {
@@ -298,6 +348,9 @@ public class ForwardActivity extends BaseActivity {
         });
 //提币数量输入框
         addressSnmd.addTextChangedListener(new TextWatcher() {
+
+            private String moneyNum;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -308,7 +361,7 @@ public class ForwardActivity extends BaseActivity {
 //                    addressSnmd.setText("");
 //                }
 
-                String moneyNum = addressSnmd.getText().toString().trim();
+                moneyNum = addressSnmd.getText().toString().trim();
                 if (addressSnmd.getText().toString().trim().matches("^0")) {//判断当前的输入第一个数是不是为0
                     addressSnmd.setText("");
                 }
@@ -343,7 +396,11 @@ public class ForwardActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                initNumber();
+                if (moneyNum.equals("") || TextUtils.isEmpty(moneyNum)){
+                    return;
+                }
+                a = Double.parseDouble(moneyNum)-charge;
+                tvAssets.setText(a+"");
             }
         });
 
