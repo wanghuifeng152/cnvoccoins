@@ -63,7 +63,7 @@ public class RegistActivity extends BaseActivity {
         mEtConfirm.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         iv1 = findViewById(R.id.hide);
 
-//        initJudge();
+        initJudge();
         /*yaoqingma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
