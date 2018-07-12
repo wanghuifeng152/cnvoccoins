@@ -49,6 +49,9 @@ import java.util.concurrent.TimeUnit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -69,9 +72,7 @@ import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.ResBaseModel;
 import voc.cn.cnvoccoin.network.Subscriber;
-import voc.cn.cnvoccoin.service.PageService;
 import voc.cn.cnvoccoin.util.AppUtils;
-import voc.cn.cnvoccoin.util.RetrofitUtils;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UploadCoinRequestVoc;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
@@ -441,6 +442,7 @@ public class VoiceActivityNew extends BaseActivity {
                         tvHaveCoin.setText(new DecimalFormat("0.00").format(voiceCoin) + "");
                         sign = uploadVoiceBeanResBaseModel.data.getSign();
                         hasVoice = false;
+
                     }
 
                     @Override
@@ -532,7 +534,6 @@ public class VoiceActivityNew extends BaseActivity {
         isreodering = false;
         hasVoice = false;
         viewWave.clearDraw();
-
         super.onPause();
     }
 
