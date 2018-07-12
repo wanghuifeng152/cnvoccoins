@@ -1,56 +1,30 @@
 package voc.cn.cnvoccoin.activity
 
-import android.content.res.TypedArray
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_join_community.*
 import voc.cn.cnvoccoin.R
-import voc.cn.cnvoccoin.activity.Constant.IS_GRANTED_PERMISSION
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
-import android.R.array
 import android.app.Activity
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import voc.cn.cnvoccoin.entity.CommunityShequModel
-import voc.cn.cnvoccoin.entity.communityModel
-import android.R.attr.bitmap
-import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.Rect
-import android.os.Handler
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.AbsoluteSizeSpan
 import android.util.DisplayMetrics
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewTreeObserver
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.ScrollView
-import android.widget.TextView
-import cn.jpush.android.api.JPushInterface
 import com.github.dfqin.grantor.PermissionListener
 import com.github.dfqin.grantor.PermissionsUtil
-import com.ishumei.smantifraud.SmAntiFraud
-import kotlinx.android.synthetic.main.activity_get_code.*
-import org.json.JSONObject
-import org.w3c.dom.Text
-import voc.cn.cnvoccoin.entity.PermisionUtils
-import voc.cn.cnvoccoin.entity.PermisionUtils.verifyStoragePermissions
-import voc.cn.cnvoccoin.view.AndroidBug5497Workaround
 import java.io.BufferedInputStream
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -69,18 +43,18 @@ open class CommnutityActivity:BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
-        AndroidBug5497Workaround.assistActivity(this)
+//        AndroidBug5497Workaround.assistActivity(this)
         setParams()
         initView()
         //布局位于软键盘上方
-        sv.setOnTouchListener(object : View.OnTouchListener{
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(v!!.getWindowToken(), 0)
-//                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-                return false
-            }
-        })
+//        sv.setOnTouchListener(object : View.OnTouchListener{
+//            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+//                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                imm.hideSoftInputFromWindow(v!!.getWindowToken(), 0)
+////                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+//                return false
+//            }
+//        })
 //        root.viewTreeObserver.addOnGlobalLayoutListener {
 //            object : ViewTreeObserver.OnGlobalLayoutListener{
 //                override fun onGlobalLayout() {
