@@ -28,6 +28,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import com.ishumei.smantifraud.SmAntiFraud;
 import com.lqr.audio.AudioRecordManager;
 import com.lqr.audio.IAudioRecordListener;
 import com.lzy.okgo.OkGo;
@@ -44,6 +45,9 @@ import java.text.DecimalFormat;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.UploadVoiceBean;
 import voc.cn.cnvoccoin.network.HttpManager;
@@ -375,8 +379,10 @@ public class VoiceActivityNew extends BaseActivity {
 //    UrlConstantsKt.UPLOAD_COIN
     private void getReadCoin() {
         //参数转换
-//        Log.i("msg","!!!!!!!!!!!!!11"+sign);
-        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id),StrVersion ,"Android");
+        String DID = SmAntiFraud.getDeviceId();
+        Log.i("log","~~~~~~~~~~~~`"+DID);
+
+        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id),StrVersion ,"Android",DID);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
                 .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {
@@ -414,6 +420,7 @@ public class VoiceActivityNew extends BaseActivity {
                     @Override
                     public void onError(Throwable t) {
                         //失败
+                        Log.e("aa",t.getMessage());
                     }
 
                     @Override

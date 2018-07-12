@@ -242,8 +242,9 @@ public class RegistActivity extends BaseActivity {
                 }
                 final LoadingDialog loadingDialog = new LoadingDialog(RegistActivity.this, "");
                 loadingDialog.show();
-
-                GetConfirmCodeRequest_sm request = new GetConfirmCodeRequest_sm(mobile,SmAntiFraud.getDeviceId());
+                String DID = SmAntiFraud.getDeviceId();
+                Log.i("log","~~~~~~~~~~~~`"+DID);
+                GetConfirmCodeRequest_sm request = new GetConfirmCodeRequest_sm(mobile,DID);
                 RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
 //                UrlConstantsKt.MOBILE_CONFIRM_CODE
                 HttpManager.post(UrlConstantsKt.MOBILE_CONFIRM_CODE, wrapper).subscribe(new Subscriber<String>() {
