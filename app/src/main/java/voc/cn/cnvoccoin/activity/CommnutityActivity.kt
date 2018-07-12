@@ -21,21 +21,33 @@ import com.bumptech.glide.Glide
 import voc.cn.cnvoccoin.entity.CommunityShequModel
 import voc.cn.cnvoccoin.entity.communityModel
 import android.R.attr.bitmap
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.Rect
 import android.os.Handler
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.AbsoluteSizeSpan
+import android.util.DisplayMetrics
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ScrollView
+import android.widget.TextView
+import cn.jpush.android.api.JPushInterface
 import com.github.dfqin.grantor.PermissionListener
 import com.github.dfqin.grantor.PermissionsUtil
 import com.ishumei.smantifraud.SmAntiFraud
 import kotlinx.android.synthetic.main.activity_get_code.*
+import org.json.JSONObject
+import org.w3c.dom.Text
 import voc.cn.cnvoccoin.entity.PermisionUtils
 import voc.cn.cnvoccoin.entity.PermisionUtils.verifyStoragePermissions
 import voc.cn.cnvoccoin.view.AndroidBug5497Workaround
@@ -60,6 +72,37 @@ open class CommnutityActivity:BaseActivity() {
         AndroidBug5497Workaround.assistActivity(this)
         setParams()
         initView()
+        //布局位于软键盘上方
+        sv.setOnTouchListener(object : View.OnTouchListener{
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(v!!.getWindowToken(), 0)
+//                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                return false
+            }
+        })
+//        root.viewTreeObserver.addOnGlobalLayoutListener {
+//            object : ViewTreeObserver.OnGlobalLayoutListener{
+//                override fun onGlobalLayout() {
+//                    val focus : View = root.findFocus()
+//                val sv : ScrollView = findViewById(R.id.sv)
+//                sv.fullScroll(ScrollView.FOCUS_DOWN)
+//
+//                if (focus != null && focus is TextView) {//保证滑动之后 焦点依然未变
+//                    focus.requestFocus()
+//                }
+//
+//                val loc : IntArray = IntArray(2)
+//                val view : View = findViewById(R.id.msubit);
+//                view.getLocationOnScreen(loc);
+//                if (getScreenHeight(this@CommnutityActivity) - loc[1] < Math.abs(getScreenHeight(this@CommnutityActivity) / 2 - loc[1])) {//无压缩状态
+//                    view.setVisibility(View.VISIBLE);
+//                } else {
+//                    view.setVisibility(View.INVISIBLE);
+//                }
+//                }
+//            }
+//        }
         val ss : SpannableString = SpannableString("请输入6位验证码")
         val ass : AbsoluteSizeSpan = AbsoluteSizeSpan(15,true)
         et_yanzhengma.setHintTextColor(Color.parseColor("#FFD1C9BA"))
@@ -93,6 +136,11 @@ open class CommnutityActivity:BaseActivity() {
         }
     }
 
+    fun getScreenHeight(activity: Activity): Int {
+        val dm = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(dm)
+        return dm.heightPixels
+    }
     open fun setParams() {
         tag = JOIN_COMMUNTITY
 //        imgId = R.mipmap.ic_group
@@ -273,4 +321,5 @@ open class CommnutityActivity:BaseActivity() {
 
         return decodeStream
     }
+
 }

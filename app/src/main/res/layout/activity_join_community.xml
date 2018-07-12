@@ -3,46 +3,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/she_qu_bg"
+    android:orientation="vertical"
     >
-    <ScrollView
-        android:id="@+id/scrollView_s"
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="20dp"/>
+    <RelativeLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:background="#313131"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/retun" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/join_community"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <ScrollView
+        android:scrollbars="none"
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/root"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-            <RelativeLayout
-                android:id="@+id/ll_title"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/iv_back"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:paddingLeft="10dp"
-                    android:src="@mipmap/retun" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/join_community"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,7 +110,8 @@
                 android:gravity="center"
                 android:text="@string/sure" />
             <TextView
-                android:layout_marginBottom="40dp"
+                android:paddingBottom="40dp"
+                android:id="@+id/msubit"
                 android:layout_marginTop="5dp"
                 android:textColor="#A3A1A1"
                 android:textSize="12sp"
