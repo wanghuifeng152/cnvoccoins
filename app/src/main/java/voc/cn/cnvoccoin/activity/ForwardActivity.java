@@ -172,14 +172,11 @@ public class ForwardActivity extends BaseActivity {
     //上下限接口
     private void initNumber() {
         String trim = addressSnmd.getText().toString().trim();
-
         isNumber isNumber = new isNumber(trim);
         RequestBodyWrapper bodyWrapper = new RequestBodyWrapper(isNumber);
        HttpManager.post(UrlConstantsKt.POST_NUMBER,bodyWrapper).subscribe(new Subscriber<String>() {
            @Override
            public void onNext(String o) {
-
-
                if ( o == null || o.isEmpty()) return;
                JSONObject jsonObject = null;
                try {
@@ -189,7 +186,10 @@ public class ForwardActivity extends BaseActivity {
                        String msg = jsonObject.getString("msg");
                        if (msg.equals("提现金额不能小于3500")){
                            Toast.makeText(ForwardActivity.this, "提现金额不能小于3500", Toast.LENGTH_SHORT).show();
-                       }else if (msg.equals("正确")){
+                       }else if (msg.equals("提现金额不能小于0")){
+                           mwallet = addressSnmd.getText().toString().trim();
+                           showPayDialog(mwallet);
+                       } else if (msg.equals("正确")){
                            mwallet = addressSnmd.getText().toString().trim();
 
                            showPayDialog(mwallet);
