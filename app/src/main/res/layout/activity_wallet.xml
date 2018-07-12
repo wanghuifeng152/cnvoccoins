@@ -166,7 +166,7 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/processBar"
+        android:id="@+id/processBasr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

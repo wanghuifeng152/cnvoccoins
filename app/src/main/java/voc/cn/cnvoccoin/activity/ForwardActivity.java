@@ -191,7 +191,6 @@ public class ForwardActivity extends BaseActivity {
                            Toast.makeText(ForwardActivity.this, "提现金额不能小于3500", Toast.LENGTH_SHORT).show();
                        }else if (msg.equals("正确")){
                            mwallet = addressSnmd.getText().toString().trim();
-
                            showPayDialog(mwallet);
 //                           //提币输入数量
 //
@@ -213,6 +212,7 @@ public class ForwardActivity extends BaseActivity {
 
            @Override
            public void onError(Throwable t) {
+               Log.e("aaa",t.getMessage());
            }
 
            @Override
