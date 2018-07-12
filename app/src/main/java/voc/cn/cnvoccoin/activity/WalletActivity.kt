@@ -10,8 +10,13 @@ import android.util.Log
 import android.view.*
 import android.widget.PopupWindow
 import com.google.gson.Gson
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_wallet.*
 import kotlinx.android.synthetic.main.pop_filter.view.*
+import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import voc.cn.cnvoccoin.R
@@ -20,8 +25,8 @@ import voc.cn.cnvoccoin.entity.WalletClass
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.Subscriber
+import voc.cn.cnvoccoin.service.PageService
 import voc.cn.cnvoccoin.util.*
-import voc.cn.cnvoccoin.view.LoadingDialog
 
 
 /**
@@ -84,13 +89,13 @@ class WalletActivity : Activity() {
 
     private fun postIsHavePwd() {
         //  val loadingDialog = LoadingDialog(this, null)
-        processBar.setVisibility(View.VISIBLE);
+        processBasr.setVisibility(View.VISIBLE)
         val request = postId("11")
         val wrapper = RequestBodyWrapper(request)
         HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
 
             override fun onNext(s: String) {
-                processBar.setVisibility(View.GONE);
+                processBasr.setVisibility(View.GONE);
                 if (s == null || s.isEmpty()) return
                 var jsonObject: JSONObject? = null
                 try {
@@ -114,20 +119,42 @@ class WalletActivity : Activity() {
             }
 
             override fun onError(t: Throwable) {
-                processBar.setVisibility(View.GONE);
+                processBasr.setVisibility(View.GONE);
             }
 
             override fun onComplete() {
-                processBar.setVisibility(View.GONE);
+                processBasr.setVisibility(View.GONE);
             }
         })
     }
 
-    private fun getData() {
+    private fun getData(){
 
         //可提现，锁定，数据
         /*val request = list("1")
         val wrapper = RequestBodyWrapper(request)*/
+        RetrofitUtils.getInstance().getService(PageService::class.java)
+                .getMon("")
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<ResponseBody> {
+                    override fun onComplete() {
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+
+                    override fun onNext(t: ResponseBody) {
+                        Log.e("aaa",t.string().toString());
+                    }
+
+                    override fun onError(e: Throwable) {
+                        Log.e("aaa",e.message);
+
+                    }
+
+                })
 
         var requestR: RequestBodyWrapper? = RequestBodyWrapper(null)
         HttpManager.post(ZI_CHAN, requestR).subscribe(object : Subscriber<String> {

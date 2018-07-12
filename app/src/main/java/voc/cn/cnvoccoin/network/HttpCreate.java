@@ -122,6 +122,7 @@ public abstract class HttpCreate<T> implements Publisher {
                         }
                     }
                 } catch (Exception e) {
+                    ToastUtil.showToast(e.getMessage());
                     e.printStackTrace();
                     sub.onError(new ErrorCodeThrowable(-1, DEFAULT_ERR_MSG));
                     sub.onComplete();
@@ -216,6 +217,7 @@ public abstract class HttpCreate<T> implements Publisher {
                 code = jsonObject.has("code") ? jsonObject.getInt("code") : -1;
             }
         } catch (Exception e) {
+            Log.e("aaa",e.getMessage());
             e.printStackTrace();
             sub.onError(new ErrorCodeThrowable(-1, DEFAULT_ERR_MSG));
             sub.onComplete();
@@ -242,7 +244,7 @@ public abstract class HttpCreate<T> implements Publisher {
         if (needIntercepter(code) || intercepter) {
             sub.onError(new ErrorCodeThrowable(code, message));
             sub.onComplete();
-         /*   if (isShowTaost) {
+            /*   if (isShowTaost) {
                 ToastUtil.showToast(message);
             }*/
             return false;

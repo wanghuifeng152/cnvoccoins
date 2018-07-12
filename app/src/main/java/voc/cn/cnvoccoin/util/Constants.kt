@@ -41,7 +41,7 @@ data class VersionResponse(var isUpdate:Int,var platform:String,var version:Stri
 data class UploadCoinRequest(var id:String)
 
 @Keep
-data class UploadCoinRequestVoc(var id:String,var version:String ,var platform:String)
+data class UploadCoinRequestVoc(var id:String,var version:String ,var platform:String,var deviceId:String)
 
 @Keep
 data class TaskRequest(var code:String,var type:String)

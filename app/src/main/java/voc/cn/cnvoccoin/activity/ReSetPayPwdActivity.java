@@ -136,7 +136,6 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
                         edt.setRectNormalColor(getResources().getColor(R.color.qlColorTextRed));
                         edt.setRectChooseColor(getResources().getColor(R.color.qlColorTextRed));
                     }
-                    pwd = "";
                 } else {
 //                    Toast.makeText(this, "请输入正确的密码" + pwd, Toast.LENGTH_LONG).show();
                     ToastUtil.showToast("请输入正确的密码");

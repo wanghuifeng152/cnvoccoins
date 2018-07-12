@@ -2,6 +2,7 @@ package voc.cn.cnvoccoin
 
 import android.app.ActivityManager
 import android.app.Application
+import android.app.Notification.VISIBILITY_PUBLIC
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
@@ -46,6 +47,7 @@ class VocApplication : Application {
     var isResetPwd = false
     var istitle = false
     var option : SmAntiFraud.SmOption? = null
+    var context = this
     constructor() {
         sInstance = this
     }
@@ -86,6 +88,7 @@ class VocApplication : Application {
         /**
         *《---------------------------------------------==- 极光推送 -==---------------------------------------------》
         */
+        requestPermission(this)
         setDebugMode(true)
         init(this)
         var DEBUG_ORG : String= "IpY1WdrvDKXFcTL80wcH"

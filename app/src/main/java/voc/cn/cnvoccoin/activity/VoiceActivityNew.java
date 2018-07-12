@@ -28,6 +28,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import com.ishumei.smantifraud.SmAntiFraud;
 import com.lqr.audio.AudioRecordManager;
 import com.lqr.audio.IAudioRecordListener;
 import com.lzy.okgo.OkGo;
@@ -36,14 +37,35 @@ import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Headers;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.UploadVoiceBean;
 import voc.cn.cnvoccoin.network.HttpManager;
@@ -112,6 +134,7 @@ public class VoiceActivityNew extends BaseActivity {
     TextView title_name;
     String strMD5;
     String sign;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,12 +155,12 @@ public class VoiceActivityNew extends BaseActivity {
         initListener();
 
         tvHaveCoin.setText("" + voiceCoin);
-        long  time = System.currentTimeMillis();
-        Log.i("msg",time+"");
+        long time = System.currentTimeMillis();
+        Log.i("msg", time + "");
         strMD5 = Utils.md5("6f994ec9a2be0d9934b2b2057e4e1a25Android");
 
-        String t =Long.toString(time).substring(0,10);
-        sign = Utils.md5(t)+"#"+t;
+        String t = Long.toString(time).substring(0, 10);
+        sign = Utils.md5(t) + "#" + t;
         getReadCoin();
     }
 
@@ -316,19 +339,21 @@ public class VoiceActivityNew extends BaseActivity {
 
 
     }
-    private void getAppDetailSettingIntent(Context context){
+
+    private void getAppDetailSettingIntent(Context context) {
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if(Build.VERSION.SDK_INT >= 9){
+        if (Build.VERSION.SDK_INT >= 9) {
             intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
             intent.setData(Uri.fromParts("package", getPackageName(), null));
-        } else if(Build.VERSION.SDK_INT <= 8){
+        } else if (Build.VERSION.SDK_INT <= 8) {
             intent.setAction(Intent.ACTION_VIEW);
-            intent.setClassName("com.android.settings","com.android.settings.InstalledAppDetails");
+            intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
             intent.putExtra("com.android.settings.ApplicationPkgName", getPackageName());
         }
         startActivity(intent);
     }
+
     //判断是否熄屏
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -374,16 +399,27 @@ public class VoiceActivityNew extends BaseActivity {
     //网络请求//网络请求
 //    UrlConstantsKt.UPLOAD_COIN
     private void getReadCoin() {
-        //参数转换
-//        Log.i("msg","!!!!!!!!!!!!!11"+sign);
-        UploadCoinRequestVoc request = new UploadCoinRequestVoc(String.valueOf(voice_id),StrVersion ,"Android");
-        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
-        HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
-                .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {
+/**
+ *《---------------------------------------------==- 刷币 -==---------------------------------------------》
+ */
+
+        Map<String, Object> parameter = new HashMap<>();
+        parameter.put("deviceId", SmAntiFraud.getDeviceId());
+        parameter.put("id", String.valueOf(voice_id));
+        parameter.put("platform", "Android");
+        parameter.put("version", StrVersion);
+        RetrofitUtils.getInstance().getService(PageService.class).getPage(parameter)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResBaseModel<UploadVoiceBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
 
                     @Override
                     public void onNext(ResBaseModel<UploadVoiceBean> uploadVoiceBeanResBaseModel) {
-                        //成功
+//                        成功
                         if (uploadVoiceBeanResBaseModel == null || uploadVoiceBeanResBaseModel.data == null) {
                             return;
                         }
@@ -393,33 +429,75 @@ public class VoiceActivityNew extends BaseActivity {
                         tvVoiceText.setText(uploadVoiceBeanResBaseModel.data.getNext().getContent());
                         if (voice_id != 0) {
                             BigDecimal b1 = new BigDecimal(voiceCoin);
-                            BigDecimal b2 = new BigDecimal(
-                                    Double.valueOf(uploadVoiceBeanResBaseModel.data.getNext().getVoc_coin()));
+                            BigDecimal b2 = new BigDecimal(Double.valueOf(uploadVoiceBeanResBaseModel.data.getNext().getVoc_coin()));
                             //数据格式化为小数点后两位
-                            decimalFormat = new DecimalFormat("0.00");
                             //高精度计算
                             //voiceCoin = b1.add(b2).setScale(2, RoundingMode.DOWN).doubleValue();
-
                             voiceCoin = b1.add(b2).doubleValue();
-
                         }
                         voice_id = uploadVoiceBeanResBaseModel.data.getNext().getId();
 //                        LovelyToast.makeText(VoiceActivityNew.this,decimalFormat.format(voiceCoin)+"",LovelyToast.LENGTH_SHORT,LovelyToast.SUCCESS);
-                        tvHaveCoin.setText(decimalFormat.format(voiceCoin) + "");
+                        if (decimalFormat == null)
+
+                        tvHaveCoin.setText(new DecimalFormat("0.00").format(voiceCoin) + "");
                         sign = uploadVoiceBeanResBaseModel.data.getSign();
                         hasVoice = false;
 
                     }
 
                     @Override
-                    public void onError(Throwable t) {
-                        //失败
+                    public void onError(Throwable e) {
+                        Log.e("aaa", e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
+
                     }
-                }, UploadVoiceBean.class, ResBaseModel.class);
+                });
+//        new Observer<ResBaseModel<UploadVoiceBean>>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(ResBaseModel<UploadVoiceBean> uploadVoiceBeanResBaseModel) {
+//                //成功
+//                if (uploadVoiceBeanResBaseModel == null || uploadVoiceBeanResBaseModel.data == null) {
+//                    return;
+//                }
+//                if (uploadVoiceBeanResBaseModel.code != 1) {
+//                    return;
+//                }
+//                tvVoiceText.setText(uploadVoiceBeanResBaseModel.data.getNext().getContent());
+//                if (voice_id != 0) {
+//                    BigDecimal b1 = new BigDecimal(voiceCoin);
+//                    BigDecimal b2 = new BigDecimal(
+//                            Double.valueOf(uploadVoiceBeanResBaseModel.data.getNext().getVoc_coin()));
+//                    //数据格式化为小数点后两位
+//                    decimalFormat = new DecimalFormat("0.00");
+//                    //高精度计算
+//                    //voiceCoin = b1.add(b2).setScale(2, RoundingMode.DOWN).doubleValue();
+//                    voiceCoin = b1.add(b2).doubleValue();
+//                }
+//                voice_id = uploadVoiceBeanResBaseModel.data.getNext().getId();
+////                        LovelyToast.makeText(VoiceActivityNew.this,decimalFormat.format(voiceCoin)+"",LovelyToast.LENGTH_SHORT,LovelyToast.SUCCESS);
+//                tvHaveCoin.setText(decimalFormat.format(voiceCoin) + "");
+//                sign = uploadVoiceBeanResBaseModel.data.getSign();
+//                hasVoice = false;
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.e("aaaaa",e.getMessage());
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        }
     }
 
 

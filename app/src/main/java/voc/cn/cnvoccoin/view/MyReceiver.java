@@ -1,19 +1,27 @@
 package voc.cn.cnvoccoin.view;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
 
 import cn.jpush.android.api.JPushInterface;
+import voc.cn.cnvoccoin.R;
+import voc.cn.cnvoccoin.VocApplication;
 import voc.cn.cnvoccoin.activity.CommnutityActivity;
 import voc.cn.cnvoccoin.activity.LoginActivity;
 import voc.cn.cnvoccoin.activity.LoginActivityNew;
+import voc.cn.cnvoccoin.activity.MainActivity;
+import voc.cn.cnvoccoin.util.NotifyUtil;
 
 public class MyReceiver extends BroadcastReceiver {
     private static final String TAG = "MyReceiver";
@@ -75,4 +83,5 @@ public class MyReceiver extends BroadcastReceiver {
             context.startActivity(mIntent);
         }
     }
+
 }
