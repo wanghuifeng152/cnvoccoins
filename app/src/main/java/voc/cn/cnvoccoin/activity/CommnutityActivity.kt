@@ -1,5 +1,6 @@
 package voc.cn.cnvoccoin.activity
 
+import android.Manifest
 import android.content.res.TypedArray
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -178,7 +179,7 @@ open class CommnutityActivity:BaseActivity() {
 //                Toast.makeText(this@CommnutityActivity,"已拒绝",Toast.LENGTH_SHORT).show()
             }
 
-        },android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //            if (PreferenceUtil.instance?.getBoolean(IS_GRANTED_PERMISSION, false) == true) {
 //                PermisionUtils.verifyStoragePermissions(this);

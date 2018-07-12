@@ -3,8 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/color_zhuce">
+    android:background="@color/color_zhuce"
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/rl_top"
@@ -60,12 +60,12 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_centerVertical="true"
             android:id="@+id/rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/re"
+            android:layout_centerVertical="true"
 
             android:gravity="bottom">
 
@@ -113,22 +113,23 @@
 
             <ImageView
                 android:id="@+id/login_delete_name"
-                android:layout_marginTop="5dp"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
                 android:src="@mipmap/psw_delete" />
         </RelativeLayout>
     </RelativeLayout>
+
     <ImageView
         android:id="@+id/line1"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/rl_top"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="35dp"
         android:layout_marginRight="35dp"
+        android:layout_marginTop="10dp"
         android:src="@mipmap/lll"
 
         />
@@ -138,14 +139,14 @@
         android:id="@+id/et_login_pwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
         android:layout_below="@+id/line1"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="30dp"
-        android:password="true"
-        android:singleLine="true"
         android:background="@android:color/transparent"
         android:hint="@string/login_psw_hint"
+        android:password="true"
+        android:singleLine="true"
         android:textColor="#c89158"
         android:textColorHint="@color/color_zhuce3"
         android:textSize="18sp" />
@@ -157,15 +158,16 @@
         android:layout_alignBottom="@+id/et_login_pwd"
         android:layout_alignEnd="@+id/et_login_pwd"
         android:background="@mipmap/visible_true" />
+
     <TextView
         android:id="@+id/code_time"
-        android:textSize="16sp"
-        android:visibility="gone"
-        android:textColor="#FFF6D89F"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/et_login_pwd"
         android:layout_alignEnd="@+id/et_login_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textColor="#FFF6D89F"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <ImageView
 
@@ -182,24 +184,24 @@
 
     <TextView
         android:id="@+id/verification_code_login"
-        android:textSize="13sp"
-        android:textColor="#FFF0EADF"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="15dp"
-        android:layout_alignLeft="@+id/line2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/line2"
         android:layout_below="@+id/line2"
-        android:text="@string/login_code" />
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/login_code"
+        android:textColor="#FFF0EADF"
+        android:textSize="13sp" />
+
     <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_alignTop="@+id/verification_code_login"
         android:layout_marginLeft="4dp"
-        android:src="@mipmap/return_one"
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@+id/verification_code_login"
-        android:layout_alignTop="@+id/verification_code_login"
-        android:layout_width="14dp"
-        android:layout_height="14dp" />
-
+        android:src="@mipmap/return_one" />
 
 
     <Button
@@ -207,11 +209,11 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="54dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="54dp"
-        android:text="登录"
         android:background="@drawable/bg_denglu"
+        android:text="登录"
         android:textColor="@color/color_zhuce2"
         android:textSize="18sp" />
 
@@ -233,14 +235,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:textSize="10dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
         android:text="请务必牢记账号和密码否则将无法找回账户与挖币数据"
-        android:textColor="#d5d5d5" />
+        android:textColor="#d5d5d5"
+        android:textSize="10dp" />
 
+    <ProgressBar
+        android:id="@+id/processBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:indeterminateTint="@color/color_c89158" />
 
 </RelativeLayout>

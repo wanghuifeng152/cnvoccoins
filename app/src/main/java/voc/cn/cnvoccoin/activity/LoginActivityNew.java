@@ -16,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ishumei.smantifraud.SmAntiFraud;
@@ -65,6 +66,8 @@ public class LoginActivityNew extends BaseActivity {
     ImageView loginPswHide;
     private boolean isVisible = true;
     private boolean isLoginType = true;
+    @BindView(R.id.processBar)
+    ProgressBar mProcessBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,6 +107,7 @@ public class LoginActivityNew extends BaseActivity {
         mEtPwd.addTextChangedListener(textChange);
 
     }
+
     class TextChange implements TextWatcher {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -119,65 +123,62 @@ public class LoginActivityNew extends BaseActivity {
         public void afterTextChanged(Editable s) {
             String phone = mEtPhone.getText().toString();
             String pwd = mEtPwd.getText().toString();
-            if(phone.length() == 11){
-               if(pwd.length() >= 6){
-                   //登录监听
-                   mBtnLogin.setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View v) {
+            if (phone.length() == 11) {
+                if (pwd.length() >= 6) {
+                    //登录监听
+                    mBtnLogin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 //                判断当前登陆类型
-                           if (isLoginType)
+                            if (isLoginType)
 
-                           /**
-                            * 密码登陆
-                            */
-                           {
+                            /**
+                             * 密码登陆
+                             */ {
 //                    验证手机号码是否正确
-                               if (isMobileNO(mEtPhone.getText().toString().trim())){
+                                if (isMobileNO(mEtPhone.getText().toString().trim())) {
 //                        是否输入验证码
-                                   if ("".equals(mEtPwd.getText().toString().trim())){
-                                       ToastUtil.showToast("请输入密码");
-                                   }else {
-                                       getLogin();
-                                   }
-                               }else {
-                                   ToastUtil.showToast("请输入正确手机号码");
-                               }
-                           }
+                                    if ("".equals(mEtPwd.getText().toString().trim())) {
+                                        ToastUtil.showToast("请输入密码");
+                                    } else {
+                                        getLogin();
+                                    }
+                                } else {
+                                    ToastUtil.showToast("请输入正确手机号码");
+                                }
+                            } else
 
-                           else
-
-                           /**
-                            * 验证码登陆
-                            */
-                           {
-                               //  验证手机号码是否正确
-                               if (isMobileNO(mEtPhone.getText().toString().trim())){
+                            /**
+                             * 验证码登陆
+                             */ {
+                                //  验证手机号码是否正确
+                                if (isMobileNO(mEtPhone.getText().toString().trim())) {
 //                        是否输入密码
-                                   if ("".equals(mEtPwd.getText().toString().trim())){
-                                       ToastUtil.showToast("请输入验证码");
-                                   }else {
-                                       SMSLogin();
-                                   }
-                               }else {
-                                   ToastUtil.showToast("请输入正确手机号码");
-                               }
-                           }
+                                    if ("".equals(mEtPwd.getText().toString().trim())) {
+                                        ToastUtil.showToast("请输入验证码");
+                                    } else {
+                                        SMSLogin();
+                                    }
+                                } else {
+                                    ToastUtil.showToast("请输入正确手机号码");
+                                }
+                            }
 //                getLogin();
-                       }
-                   });
-                   mEtPwd.setOnEditorActionListener(listenerr);
-                   mBtnLogin.setSelected(true);
-               }else{
-                   mBtnLogin.setSelected(false);
-                   mBtnLogin.setOnClickListener(null);
-               }
-           }else{
+                        }
+                    });
+                    mEtPwd.setOnEditorActionListener(listenerr);
+                    mBtnLogin.setSelected(true);
+                } else {
+                    mBtnLogin.setSelected(false);
+                    mBtnLogin.setOnClickListener(null);
+                }
+            } else {
                 mBtnLogin.setSelected(false);
                 mBtnLogin.setOnClickListener(null);
             }
         }
     }
+
     private TextView.OnEditorActionListener listenerr = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -193,22 +194,25 @@ public class LoginActivityNew extends BaseActivity {
             return false;
         }
     };
-/**
-*《---------------------------------------------==- 验证码登陆 -==---------------------------------------------》
-*/
+
+    /**
+     * 《---------------------------------------------==- 验证码登陆 -==---------------------------------------------》
+     */
     private void SMSLogin() {
         final String username = mEtPhone.getText().toString();
         final String SMScode = mEtPwd.getText().toString();
         if (username.isEmpty()) return;
-        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
-        loadingDialog.show();
+        // final LoadingDialog loadingDialog = new LoadingDialog(this, null);
+        //loadingDialog.show();
+        mProcessBar.setVisibility(View.VISIBLE);
+
         SMSLogin request = new SMSLogin(username, SMScode, "android");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.SMS_URL_LOGIN, wrapper).subscribe(new Subscriber<ResBaseModel<LoginResponse>>() {
 
             @Override
             public void onNext(ResBaseModel<LoginResponse> model) {
-                loadingDialog.dismiss();
+                mProcessBar.setVisibility(View.GONE);
                 if (model == null || model.data == null) return;
                 if (model.code != 1) return;
                 PreferenceUtil.Companion.getInstance().set(TOKEN, model.data.getToken());
@@ -225,7 +229,7 @@ public class LoginActivityNew extends BaseActivity {
             @Override
             public void onError(Throwable t) {
                 ToastUtil.showToast("验证码有误");
-                loadingDialog.dismiss();
+                mProcessBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -241,17 +245,19 @@ public class LoginActivityNew extends BaseActivity {
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
         String deviceId = SmAntiFraud.getDeviceId();
-        Log.e("aaaaaaa",deviceId);
+        Log.e("aaaaaaa", deviceId);
         if (username.isEmpty()) return;
-        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
-        loadingDialog.show();
+        // final LoadingDialog loadingDialog = new LoadingDialog(this, null);
+        //loadingDialog.show();
+
+
         LoginRequest request = new LoginRequest(username, password, "android");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_LOGIN, wrapper).subscribe(new Subscriber<ResBaseModel<LoginResponse>>() {
 
             @Override
             public void onNext(ResBaseModel<LoginResponse> model) {
-                loadingDialog.dismiss();
+                mProcessBar.setVisibility(View.GONE);
                 Log.i("SmAntiFraud", SmAntiFraud.getDeviceId() + "----------------------------");
 
                 if (model == null || model.data == null) return;
@@ -269,7 +275,7 @@ public class LoginActivityNew extends BaseActivity {
 
             @Override
             public void onError(Throwable t) {
-                loadingDialog.dismiss();
+                mProcessBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -279,7 +285,7 @@ public class LoginActivityNew extends BaseActivity {
         }, LoginResponse.class, ResBaseModel.class);
     }
 
-    @OnClick({R.id.login_delete_name, R.id.et_login_pwd, R.id.login_psw_hide, R.id.verification_code_login,R.id.code_time})
+    @OnClick({R.id.login_delete_name, R.id.et_login_pwd, R.id.login_psw_hide, R.id.verification_code_login, R.id.code_time})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 //            账号删除按钮
@@ -334,12 +340,12 @@ public class LoginActivityNew extends BaseActivity {
                 break;
 //                获取验证码
             case R.id.code_time:
-                if (isMobileNO(mEtPhone.getText().toString().trim())){
+                if (isMobileNO(mEtPhone.getText().toString().trim())) {
 
                     //获取验证码
                     getMessage();
 
-                }else {
+                } else {
                     ToastUtil.showToast("请输入正确手机号码");
                 }
                 break;
@@ -348,6 +354,7 @@ public class LoginActivityNew extends BaseActivity {
 
     /**
      * 取消倒计时
+     *
      * @param v
      */
     public void oncancel(View v) {
@@ -356,6 +363,7 @@ public class LoginActivityNew extends BaseActivity {
 
     /**
      * 开始倒计时
+     *
      * @param v
      */
     public void restart(View v) {
@@ -404,9 +412,10 @@ public class LoginActivityNew extends BaseActivity {
             }
         });
     }
+
     /**
      * 发送验证码验证
-//     * @param code
+     * //     * @param code
      */
 //    public void postMessage(String code){
 //        UploadCoinRequest3 request = new UploadCoinRequest3(mEtPhone.getText().toString().trim(),code);

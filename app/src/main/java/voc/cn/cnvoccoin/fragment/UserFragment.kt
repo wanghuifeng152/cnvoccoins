@@ -13,10 +13,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
-import kotlinx.android.synthetic.main.fragment_user.*
 import org.json.JSONException
 import org.json.JSONObject
 import voc.cn.cnvoccoin.R
+import voc.cn.cnvoccoin.R.id.*
 import voc.cn.cnvoccoin.VocApplication
 import voc.cn.cnvoccoin.activity.*
 import voc.cn.cnvoccoin.entity.MyCoinResponse
@@ -27,7 +27,7 @@ import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
 import voc.cn.cnvoccoin.view.LoadingDialog
-
+import kotlinx.android.synthetic.main.fragment_user.*
 /**
  * Created by shy on 2018/3/24.
  */

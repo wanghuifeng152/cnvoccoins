@@ -28,8 +28,9 @@ import voc.cn.cnvoccoin.view.LoadingDialog
  * 我的资产
  */
 class WalletActivity : Activity() {
-    private var voc_coin : Double ? = null
-    private var use : Double ? = null
+    private var voc_coin: Double? = null
+    private var use: Double? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallet)
@@ -57,10 +58,11 @@ class WalletActivity : Activity() {
         })
 
         tv_forward!!.setOnClickListener {
-//            tv_forward.isClickable = false
+            //            tv_forward.isClickable = false
             postIsHavePwd()
         }
     }
+
     private fun hideStatusBar() {
         if (Build.VERSION.SDK_INT >= 24) {
             var window = getWindow()
@@ -79,28 +81,29 @@ class WalletActivity : Activity() {
         getData()
         super.onResume()
     }
-    private fun postIsHavePwd(){
-        val loadingDialog = LoadingDialog(this, null)
-        loadingDialog.show()
+
+    private fun postIsHavePwd() {
+        //  val loadingDialog = LoadingDialog(this, null)
+        processBar.setVisibility(View.VISIBLE);
         val request = postId("11")
         val wrapper = RequestBodyWrapper(request)
         HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
 
             override fun onNext(s: String) {
-                loadingDialog.dismiss()
+                processBar.setVisibility(View.GONE);
                 if (s == null || s.isEmpty()) return
                 var jsonObject: JSONObject? = null
                 try {
                     jsonObject = JSONObject(s)
                     val code = jsonObject.getInt("code")
                     if (code == 1) {
-                        if (jsonObject.getString("msg").equals("还没有支付密码")){
+                        if (jsonObject.getString("msg").equals("还没有支付密码")) {
                             VocApplication.getInstance().message_flag = true;
                             startActivity(Intent(this@WalletActivity, MessageCodeActivity::class.java))
-                        }else{
+                        } else {
 //                            跳转到提现
                             var intents = Intent(this@WalletActivity, ForwardActivity::class.java)
-                            intents.putExtra("moeny",use);
+                            intents.putExtra("moeny", use);
                             startActivity(intents)
 //                            tv_forward.isClickable = true
                         }
@@ -111,23 +114,23 @@ class WalletActivity : Activity() {
             }
 
             override fun onError(t: Throwable) {
-                loadingDialog.dismiss()
+                processBar.setVisibility(View.GONE);
             }
 
             override fun onComplete() {
-                loadingDialog.dismiss()
+                processBar.setVisibility(View.GONE);
             }
         })
     }
 
-    private fun getData(){
+    private fun getData() {
 
         //可提现，锁定，数据
         /*val request = list("1")
         val wrapper = RequestBodyWrapper(request)*/
 
-        var requestR : RequestBodyWrapper? = RequestBodyWrapper(null)
-        HttpManager.post(ZI_CHAN,requestR).subscribe(object : Subscriber<String> {
+        var requestR: RequestBodyWrapper? = RequestBodyWrapper(null)
+        HttpManager.post(ZI_CHAN, requestR).subscribe(object : Subscriber<String> {
             override fun onComplete() {
             }
 

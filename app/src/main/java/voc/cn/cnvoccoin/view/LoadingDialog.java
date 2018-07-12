@@ -2,9 +2,11 @@ package voc.cn.cnvoccoin.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import voc.cn.cnvoccoin.R;
@@ -16,18 +18,20 @@ import voc.cn.cnvoccoin.util.SystemUIUtils;
  */
 
 public class LoadingDialog extends Dialog {
-    private TextView mTvLoaidng;
+      private TextView mTvLoaidng;
     private Context mContext;
-    private GifView mGif;
+    private ProgressBar mGif;
 
     public LoadingDialog(Context context, String msg) {
         super(context, R.style.loading_dialog);
-        mContext=context;
+        mContext = context;
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.dialog_loading, null);
+
         setContentView(v);
-        mGif = (GifView)v.findViewById(R.id.gif);
-        mGif.setMovieResource(R.raw.loading);
+        getWindow().setDimAmount(0f);
+        mGif = (ProgressBar) v.findViewById(R.id.gif);
+          //mGif.setMovieResource(R.raw.loading);
         mTvLoaidng = (TextView)v.findViewById(R.id.tv_login_text);
         if(TextUtils.isEmpty(msg)){
             mTvLoaidng.setVisibility(View.GONE);
@@ -35,8 +39,7 @@ public class LoadingDialog extends Dialog {
             mTvLoaidng.setVisibility(View.VISIBLE);
             mTvLoaidng.setText(msg);
         }
-
         setCanceledOnTouchOutside(false);
-//        SystemUIUtils.setStickFullScreen(getWindow().getDecorView());
+        SystemUIUtils.setStickFullScreen(getWindow().getDecorView());
     }
 }
