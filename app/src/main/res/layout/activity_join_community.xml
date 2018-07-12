@@ -1,125 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<github.ll.view.FloatOnKeyboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/she_qu_bg"
+    android:orientation="vertical"
     >
-    <ScrollView
-        android:id="@+id/scrollView_s"
+    <RelativeLayout
+        android:background="@mipmap/she_qu_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
+    <View
+        android:id="@+id/as"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+    <RelativeLayout
+        android:layout_below="@id/as"
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:background="#313131"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/iv_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/retun" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp"/>
-            <RelativeLayout
-                android:id="@+id/ll_title"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:id="@+id/iv_back"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:paddingLeft="10dp"
-                    android:src="@mipmap/retun" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/join_community"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </RelativeLayout>
-
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/join_community"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_below="@id/ll_title"
+        android:scrollbars="none"
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/root"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:lineSpacingExtra="-12dp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="@string/community_text"
+                        android:textColor="#F6D89F"
+                        android:textSize="27sp" />
+
+                    <TextView
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/join_step"
+                        android:textColor="#4E422B"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_margin="10dp"
+                    android:id="@+id/iv_img"
+                    android:layout_width="179dp"
+                    android:layout_height="179dp" />
 
                 <TextView
-                    android:lineSpacingExtra="-12dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"
+                    android:textColor="#635D55"
+                    android:text="@string/sq_ewm"
+                    android:textSize="12sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:text="@string/community_text"
-                    android:textColor="#F6D89F"
-                    android:textSize="27sp" />
+                    android:layout_height="wrap_content" />
 
-                <TextView
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="30dp"
+                <EditText
+                    android:gravity="center"
+                    android:maxLength="6"
+                    android:singleLine="true"
+                    android:textColor="#FF757066"
+                    android:background="@drawable/bg_task_edit"
+                    android:textColorHint="#FFD1C9BA"
+                    android:hint="@string/please_input"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/et_yanzhengma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/join_step"
-                    android:textColor="#4E422B"
-                    android:textSize="15sp" />
+                    android:layout_gravity="center_horizontal" />
+                <TextView
+                    android:textSize="18sp"
+                    android:textColor="#FFF6ED"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/tv_confirm"
+                    android:layout_width="286dp"
+                    android:layout_height="49dp"
+                    android:background="@drawable/sq_btn_false"
+                    android:gravity="center"
+                    android:text="@string/sure" />
+                <TextView
+                    android:id="@+id/msubit"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#A3A1A1"
+                    android:textSize="12sp"
+                    android:text="*注：每人仅有一次机会"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <!--<ImageView-->
+                <!--android:id="@+id/iv_img"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_margin="10dp" />-->
             </LinearLayout>
-            <ImageView
-                android:layout_margin="10dp"
-                android:id="@+id/iv_img"
-                android:layout_width="179dp"
-                android:layout_height="179dp" />
 
-            <TextView
-                android:textColor="#635D55"
-                android:text="@string/sq_ewm"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:gravity="center"
-                android:maxLength="6"
-                android:singleLine="true"
-                android:textColor="#FF757066"
-                android:background="@drawable/bg_task_edit"
-                android:textColorHint="#FFD1C9BA"
-                android:hint="@string/please_input"
-                android:layout_marginTop="10dp"
-                android:id="@+id/et_yanzhengma"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
-            <TextView
-                android:textSize="18sp"
-                android:textColor="#FFF6ED"
-                android:layout_marginTop="10dp"
-                android:id="@+id/tv_confirm"
-                android:layout_width="286dp"
-                android:layout_height="49dp"
-                android:background="@drawable/sq_btn_false"
-                android:gravity="center"
-                android:text="@string/sure" />
-            <TextView
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="5dp"
-                android:textColor="#A3A1A1"
-                android:textSize="12sp"
-                android:text="*注：每人仅有一次机会"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <!--<ImageView-->
-            <!--android:id="@+id/iv_img"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="100dp"-->
-            <!--android:layout_margin="10dp" />-->
-        </LinearLayout>
     </ScrollView>
+    </RelativeLayout>
 
-</LinearLayout>
+</github.ll.view.FloatOnKeyboardLayout>

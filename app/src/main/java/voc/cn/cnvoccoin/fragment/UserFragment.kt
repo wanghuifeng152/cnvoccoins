@@ -125,7 +125,7 @@ class UserFragment : Fragment() {
                 val uid = PreferenceUtil.instance?.getInt(USER_ID)
 ////                            val uid = "haha"
                 Log.d("9999999999999", "uuuuuu" + uid)
-                val mClipData = ClipData.newPlainText("Label", "2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，6月28日上所。注册即送3000VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=" + uid)
+                val mClipData = ClipData.newPlainText("Label", activity.getString(R.string.str_yaoqing) + uid)
                 // 将ClipData内容放到系统剪贴板里。
                 cm.primaryClip = mClipData
                 ToastUtil.showToast("邀请链接已复制到剪贴板\n快去分享给你的朋友吧~")
@@ -150,7 +150,9 @@ class UserFragment : Fragment() {
                 startActivity(Intent(activity, FocusOfficalActivity::class.java))
             }
         }
-
+/**
+*《---------------------------------------------==- 基础任务 -==---------------------------------------------》
+*/
             HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
                 override fun onError(t: Throwable?) {
                     Log.e("ssss",t!!.message)
@@ -180,7 +182,6 @@ class UserFragment : Fragment() {
                     }
                 }
             })
-
     }
     override fun onResume() {
         super.onResume()
