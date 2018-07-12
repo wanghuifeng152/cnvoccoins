@@ -4,6 +4,7 @@ package voc.cn.cnvoccoin.network;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -98,7 +99,7 @@ public abstract class HttpCreate<T> implements Publisher {
 
             @Override
             public void _onNext(String s) throws JSONException {
-                YHLog.i("---response666---> " + s);
+                YHLog.e("---response666---> " + s);
                 if (s == null) {
                     sub.onError(new ErrorCodeThrowable(-1,"response is null"));
                     return;
@@ -125,7 +126,9 @@ public abstract class HttpCreate<T> implements Publisher {
                     sub.onError(new ErrorCodeThrowable(-1, DEFAULT_ERR_MSG));
                     sub.onComplete();
                     if (isShowToast) {
-                        ToastUtil.showToast(DEFAULT_ERR_MSG);
+//                        ToastUtil.showToast(DEFAULT_ERR_MSG);
+                        ToastUtil.showToast(e.toString());
+                        Log.e("TAG","----错误信息="+e.toString());
                     }
                 }
 

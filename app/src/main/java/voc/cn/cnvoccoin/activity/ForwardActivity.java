@@ -173,7 +173,10 @@ public class ForwardActivity extends BaseActivity {
     private void initNumber() {
         String trim = addressSnmd.getText().toString().trim();
 
+        Log.e("TAG","提交金额="+trim);
+
         isNumber isNumber = new isNumber(trim);
+        Log.e("TAG","打印信息="+isNumber.toString());
         RequestBodyWrapper bodyWrapper = new RequestBodyWrapper(isNumber);
        HttpManager.post(UrlConstantsKt.POST_NUMBER,bodyWrapper).subscribe(new Subscriber<String>() {
            @Override
@@ -189,6 +192,9 @@ public class ForwardActivity extends BaseActivity {
                        String msg = jsonObject.getString("msg");
                        if (msg.equals("提现金额不能小于3500")){
                            Toast.makeText(ForwardActivity.this, "提现金额不能小于3500", Toast.LENGTH_SHORT).show();
+                       }else if (msg.equals("提现金额不能小于0")){
+                           mwallet = addressSnmd.getText().toString().trim();
+                           showPayDialog(mwallet);
                        }else if (msg.equals("正确")){
                            mwallet = addressSnmd.getText().toString().trim();
 
@@ -213,6 +219,8 @@ public class ForwardActivity extends BaseActivity {
 
            @Override
            public void onError(Throwable t) {
+               Log.e("TAG","------"+t.toString());
+               Log.e("TAG","------"+t.getMessage());
            }
 
            @Override
