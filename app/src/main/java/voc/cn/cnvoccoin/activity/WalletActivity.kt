@@ -133,28 +133,6 @@ class WalletActivity : Activity() {
         //可提现，锁定，数据
         /*val request = list("1")
         val wrapper = RequestBodyWrapper(request)*/
-        RetrofitUtils.getInstance().getService(PageService::class.java)
-                .getMon("")
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Observer<ResponseBody> {
-                    override fun onComplete() {
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-
-                    }
-
-                    override fun onNext(t: ResponseBody) {
-                        Log.e("aaa",t.string().toString());
-                    }
-
-                    override fun onError(e: Throwable) {
-                        Log.e("aaa",e.message);
-
-                    }
-
-                })
 
         var requestR: RequestBodyWrapper? = RequestBodyWrapper(null)
         HttpManager.post(ZI_CHAN, requestR).subscribe(object : Subscriber<String> {

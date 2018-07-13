@@ -56,26 +56,17 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.Headers;
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.entity.UploadVoiceBean;
 import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.ResBaseModel;
 import voc.cn.cnvoccoin.network.Subscriber;
+import voc.cn.cnvoccoin.service.PageService;
 import voc.cn.cnvoccoin.util.AppUtils;
+import voc.cn.cnvoccoin.util.RetrofitUtils;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UploadCoinRequestVoc;
-import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.util.Utils;
 import voc.cn.cnvoccoin.view.WaveLineView;
 
@@ -448,6 +439,46 @@ public class VoiceActivityNew extends BaseActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.e("aaa", e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        UploadCoinRequestVoc android = new UploadCoinRequestVoc(String.valueOf(voice_id), StrVersion, "Android", SmAntiFraud.getDeviceId());
+        RequestBodyWrapper wrapper = new RequestBodyWrapper(android);
+        HttpManager.post("http://172.11.20.162/voc/public/api/portal/voc/uploadVocCoinV2",wrapper)
+                .subscribe(new Subscriber<ResBaseModel<UploadVoiceBean>>() {
+                    @Override
+                    public void onNext(ResBaseModel<UploadVoiceBean> uploadVoiceBeanResBaseModel) {
+                        //                        成功
+                        if (uploadVoiceBeanResBaseModel == null || uploadVoiceBeanResBaseModel.data == null) {
+                            return;
+                        }
+                        if (uploadVoiceBeanResBaseModel.code != 1) {
+                            return;
+                        }
+                        tvVoiceText.setText(uploadVoiceBeanResBaseModel.data.getNext().getContent());
+                        if (voice_id != 0) {
+                            BigDecimal b1 = new BigDecimal(voiceCoin);
+                            BigDecimal b2 = new BigDecimal(Double.valueOf(uploadVoiceBeanResBaseModel.data.getNext().getVoc_coin()));
+                            //数据格式化为小数点后两位
+                            //高精度计算
+                            //voiceCoin = b1.add(b2).setScale(2, RoundingMode.DOWN).doubleValue();
+                            voiceCoin = b1.add(b2).doubleValue();
+                        }
+                        voice_id = uploadVoiceBeanResBaseModel.data.getNext().getId();
+//                        LovelyToast.makeText(VoiceActivityNew.this,decimalFormat.format(voiceCoin)+"",LovelyToast.LENGTH_SHORT,LovelyToast.SUCCESS);
+                        if (decimalFormat == null)
+
+                            tvHaveCoin.setText(new DecimalFormat("0.00").format(voiceCoin) + "");
+                        sign = uploadVoiceBeanResBaseModel.data.getSign();
+                        hasVoice = false;
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
                     }
 
                     @Override

@@ -10,7 +10,7 @@ public class RetrofitUtils {
 //    使用单利模式写的Retrofit工具类
     private static Retrofit retrofit;
     public RetrofitUtils() {
-        retrofit = new Retrofit.Builder().baseUrl("http://172.11.21.215/voc/public/")
+        retrofit = new Retrofit.Builder().baseUrl("http://172.11.20.162/voc/public/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

@@ -382,13 +382,13 @@ public class UploadVoiceBean implements Serializable,KeepAttr {
          * voc_coin : 0
          */
 
-        private int voc_coin;
+        private double voc_coin;
 
-        public int getVoc_coin() {
+        public double getVoc_coin() {
             return voc_coin;
         }
 
-        public void setVoc_coin(int voc_coin) {
+        public void setVoc_coin(double voc_coin) {
             this.voc_coin = voc_coin;
         }
     }
