@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.ishumei.smantifraud.SmAntiFraud;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -493,7 +494,8 @@ public class ForwardActivity extends BaseActivity {
                     edt.setEnabled(false);
                     String sunm = addressSnmd.getText().toString();//voc
                     String remarks = addressRemarks.getText().toString();
-                    ResetPwd3 pwd3 = new ResetPwd3(remarks, sunm, text);
+                    String DeviceId = SmAntiFraud.getDeviceId();
+                    ResetPwd3 pwd3 = new ResetPwd3(remarks, sunm, text,DeviceId);
                     RequestBodyWrapper wrapper = new RequestBodyWrapper(pwd3);
                     HttpManager.post(UrlConstantsKt.POST_RESET_THREE, wrapper).subscribe(new Subscriber<String>() {
                         @Override
