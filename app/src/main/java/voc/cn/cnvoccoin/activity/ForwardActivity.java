@@ -560,11 +560,11 @@ public class ForwardActivity extends BaseActivity {
                                         Toast.makeText(ForwardActivity.this, "提现数量低于最低下限", Toast.LENGTH_SHORT).show();
 //                                        showPayDialog(mwallet);
 
-                                    }else  if (msg.equals("同一个地址十天之内只能提现一次")){
+                                    }else  if (msg.equals("该账号十天之内不能多次交易")){
                                         isDialog = true;
                                         dialog.dismiss();
                                         dialog = null;
-                                        Toast.makeText(ForwardActivity.this, "同一个地址十天之内只能提现一次", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ForwardActivity.this, "该账号十天之内不能多次交易", Toast.LENGTH_SHORT).show();
 //                                        showPayDialog(mwallet);
 
                                     }else if (msg.equals("地址已被他人绑定")){
