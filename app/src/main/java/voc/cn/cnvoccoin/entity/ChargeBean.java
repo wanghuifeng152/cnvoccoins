@@ -11,7 +11,7 @@ public class ChargeBean {
 
     /**
      * code : 1
-     * msg : {"charge":1000,"limit":"提现金额不能小于3500"}
+     * msg : {"charge":0,"limit":"提现金额不能小于0"}
      * data :
      */
 
@@ -45,8 +45,8 @@ public class ChargeBean {
 
     public static class MsgBean {
         /**
-         * charge : 1000
-         * limit : 提现金额不能小于3500
+         * charge : 0
+         * limit : 提现金额不能小于0
          */
 
         private int charge;
