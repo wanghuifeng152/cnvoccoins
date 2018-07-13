@@ -30,7 +30,6 @@ const val POST_RESET_THREE = "/api/user/Verification_code/verifiPass"//支付密
 const val POST_NUMBER = "/api/user/Verification_code/standardes"//提币下限
 const val GET_TASK =  "/api/user/public/taskstatus"//任务完成状态
 const val POST_CHARGE =  "/api/user/Verification_code/charge"//任务完成状态
-
-
+const val SUO_DING = "/api/user/Verification_code/locak_wen"//锁定PopupWindow
 
 

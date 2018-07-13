@@ -10,22 +10,17 @@ import android.util.Log
 import android.view.*
 import android.widget.PopupWindow
 import com.google.gson.Gson
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_wallet.*
 import kotlinx.android.synthetic.main.pop_filter.view.*
-import okhttp3.ResponseBody
 import org.json.JSONException
 import org.json.JSONObject
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.VocApplication
+import voc.cn.cnvoccoin.entity.PopuWindowClass
 import voc.cn.cnvoccoin.entity.WalletClass
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.Subscriber
-import voc.cn.cnvoccoin.service.PageService
 import voc.cn.cnvoccoin.util.*
 
 
@@ -59,6 +54,32 @@ class WalletActivity : Activity() {
             popup!!.showAtLocation(popupView, Gravity.CENTER, 0, 0);
             popupView.guanbi!!.setOnClickListener({
                 popup!!.dismiss()
+            })
+
+            //锁定的PopupWindow
+            var requestR: RequestBodyWrapper? = RequestBodyWrapper(null)
+            HttpManager.post(SUO_DING, requestR).subscribe(object : Subscriber<String> {
+                override fun onComplete() {
+                }
+
+                override fun onNext(t: String?) {
+                    Log.e("锁定的PopupWindow+++", t)
+                    if (t == null) return
+                    val gson = Gson()
+                    val wallet = gson.fromJson(t, PopuWindowClass::class.java) ?: return
+
+                    if (wallet.code == 1) {
+                        val msg = wallet.msg
+                        val code = msg.code
+                        val codes = msg.codes
+                        popupView.wallet_content!!.text = code.toString()
+                        popupView.wallet2_content!!.text = codes.toString()
+
+                    }
+                }
+
+                override fun onError(t: Throwable?) {
+                }
             })
         })
 

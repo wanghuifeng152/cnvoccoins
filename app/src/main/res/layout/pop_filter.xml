@@ -41,10 +41,19 @@
         android:layout_marginRight="20dp"
         android:layout_height="1dp"/>
     <TextView
-        android:text="@string/shuo_ming"
+        android:id="@+id/wallet_content"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:textSize="16dp"
         android:textColor="@color/light_black"
         android:layout_width="match_parent"
-        android:layout_height="80dp" />
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/wallet2_content"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/light_black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
