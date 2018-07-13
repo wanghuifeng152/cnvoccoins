@@ -51,9 +51,5 @@ public class ForwardTwoActivity extends BaseActivity {
         startActivity(new Intent(ForwardTwoActivity.this,WalletActivity.class));
         return super.onKeyDown(keyCode, event);
 
-               
-
-    };
-
-
+    }
 }

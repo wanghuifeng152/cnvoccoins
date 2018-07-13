@@ -63,6 +63,7 @@ public class RegistActivity extends BaseActivity {
         mEtConfirm.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         iv1 = findViewById(R.id.hide);
 
+        //输入监听
         initJudge();
         /*yaoqingma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -305,7 +306,7 @@ public class RegistActivity extends BaseActivity {
 
     private void setRegister() {
         String deviceId = SmAntiFraud.getDeviceId();
-        RegisterRequest request = new RegisterRequest(et_phone.getText().toString(), pwd.getText().toString(), mEtConfirm.getText().toString());
+        RegisterRequest request = new RegisterRequest(et_phone.getText().toString(), pwd.getText().toString(), mEtConfirm.getText().toString(),deviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_REGISTER, wrapper).subscribe(new Subscriber<String>() {
             @Override

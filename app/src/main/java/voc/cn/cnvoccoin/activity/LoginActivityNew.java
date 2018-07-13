@@ -199,6 +199,7 @@ public class LoginActivityNew extends BaseActivity {
      * 《---------------------------------------------==- 验证码登陆 -==---------------------------------------------》
      */
     private void SMSLogin() {
+        String DeviceId = SmAntiFraud.getDeviceId();
         final String username = mEtPhone.getText().toString();
         final String SMScode = mEtPwd.getText().toString();
         if (username.isEmpty()) return;
@@ -206,7 +207,7 @@ public class LoginActivityNew extends BaseActivity {
         //loadingDialog.show();
         mProcessBar.setVisibility(View.VISIBLE);
 
-        SMSLogin request = new SMSLogin(username, SMScode, "android");
+        SMSLogin request = new SMSLogin(username, SMScode, "android",DeviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.SMS_URL_LOGIN, wrapper).subscribe(new Subscriber<ResBaseModel<LoginResponse>>() {
 
@@ -241,17 +242,15 @@ public class LoginActivityNew extends BaseActivity {
 
     private void getLogin() {
         Log.i("SmAntiFraud2", SmAntiFraud.getDeviceId() + "----------------------------");
-
+        String DeviceId = SmAntiFraud.getDeviceId();
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
-        String deviceId = SmAntiFraud.getDeviceId();
-        Log.e("aaaaaaa", deviceId);
         if (username.isEmpty()) return;
         // final LoadingDialog loadingDialog = new LoadingDialog(this, null);
         //loadingDialog.show();
 
 
-        LoginRequest request = new LoginRequest(username, password, "android");
+        LoginRequest request = new LoginRequest(username, password, "android",DeviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_LOGIN, wrapper).subscribe(new Subscriber<ResBaseModel<LoginResponse>>() {
 
@@ -389,9 +388,10 @@ public class LoginActivityNew extends BaseActivity {
      * 获取验证码
      */
     public void getMessage() {
+        String deviceId = SmAntiFraud.getDeviceId();
         final LoadingDialog loadingDialog = new LoadingDialog(this, null);
         loadingDialog.show();
-        GetConfirmCodeRequest request = new GetConfirmCodeRequest(mEtPhone.getText().toString().trim());
+        GetConfirmCodeRequest request = new GetConfirmCodeRequest(mEtPhone.getText().toString().trim(),deviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.GET_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
             @Override

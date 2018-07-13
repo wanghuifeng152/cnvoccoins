@@ -23,11 +23,11 @@ class LoginEvent(var flag:Int,var number:String)
 
 //-------------------------url request response------------------------------//
 @Keep
-data class RegisterRequest(var username:String,var password:String,var code:String):Serializable
+data class RegisterRequest(var username:String,var password:String,var code:String,var deviceId:String):Serializable
 @Keep
-data class LoginRequest(var username:String,var password:String,var device_type:String):Serializable
+data class LoginRequest(var username:String,var password:String,var device_type:String,var deviceId:String):Serializable
 @Keep
-data class SMSLogin(var mobile:String,var code:String,var device_type:String):Serializable
+data class SMSLogin(var mobile:String,var code:String,var device_type:String,var deviceId:String):Serializable
 @Keep
 data class LoginResponse(var token:String,var user:UserBean):Serializable
 @Keep
@@ -47,7 +47,7 @@ data class UploadCoinRequestVoc(var id:String,var version:String ,var platform:S
 data class TaskRequest(var code:String,var type:String)
 
 @Keep
-data class GetConfirmCodeRequest(var mobile:String)
+data class GetConfirmCodeRequest(var mobile:String,var deviceId:String)
 
 @Keep
 data class GetConfirmCodeRequest_sm(var mobile:String,var deviceId:String)
@@ -82,7 +82,7 @@ data class ResetPwd1(var code:String,var mobile:String,var token:String)
 data class ResetPwd2(var password:String,var token:String)
 //支付密码接口
 @Keep
-data class ResetPwd3(var address:String,var voc :String,var password: String)
+data class ResetPwd3(var address:String,var voc :String,var password: String,var deviceId:String)
 
 @Keep
 data class isHaveAddress(var token:String)
