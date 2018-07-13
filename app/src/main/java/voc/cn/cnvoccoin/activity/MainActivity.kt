@@ -30,6 +30,7 @@ import cn.jpush.android.api.MultiActionsNotificationBuilder
 import cn.jpush.android.data.JPushLocalNotification
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.ishumei.smantifraud.SmAntiFraud
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -300,8 +301,8 @@ class MainActivity : BaseActivity() {
 
         val loadingDialog = LoadingDialog(this, null)
         loadingDialog.show()
-
-        val request = LoginRequest(username, password, "android")
+        val DeviceId = SmAntiFraud.getDeviceId()
+        val request = LoginRequest(username, password, "android",DeviceId)
         var wrapper: RequestBodyWrapper = RequestBodyWrapper(request)
         HttpManager.post(URL_LOGIN, wrapper).subscribe(object : Subscriber<ResBaseModel<LoginResponse>> {
             override fun onComplete() {

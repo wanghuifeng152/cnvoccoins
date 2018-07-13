@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ishumei.smantifraud.SmAntiFraud;
+
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -144,9 +146,9 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
      * 请求获取验证码
      */
     public void getMessage() {
-
+        String deviceId = SmAntiFraud.getDeviceId();
         String phone = et_phone.getText().toString().trim();
-        GetConfirmCodeRequest request = new GetConfirmCodeRequest(phone);
+        GetConfirmCodeRequest request = new GetConfirmCodeRequest(phone,deviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.GET_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
             @Override

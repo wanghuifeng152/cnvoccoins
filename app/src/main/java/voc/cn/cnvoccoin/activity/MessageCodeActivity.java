@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ishumei.smantifraud.SmAntiFraud;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -109,7 +111,8 @@ public class MessageCodeActivity extends BaseActivity implements View.OnClickLis
      * 请求获取验证码
      */
         public void getMessage() {
-            GetConfirmCodeRequest request = new GetConfirmCodeRequest(phone);
+            String DeviceId = SmAntiFraud.getDeviceId();
+            GetConfirmCodeRequest request = new GetConfirmCodeRequest(phone,DeviceId);
             RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
             HttpManager.post(UrlConstantsKt.GET_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
                 @Override
