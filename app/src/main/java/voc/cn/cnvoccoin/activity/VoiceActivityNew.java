@@ -1,6 +1,7 @@
 package voc.cn.cnvoccoin.activity;
 
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -259,7 +260,12 @@ public class VoiceActivityNew extends BaseActivity {
                 } else {
 //                    Toast.makeText(VoiceActivityNew.this, "没有录音权限", Toast.LENGTH_SHORT).show();
                     ToastUtil.showToast("没有录音权限");
-                    String[] perms = {"android.permission.RECORD_AUDIO"};
+                    String[] perms = {
+                            Manifest.permission.RECORD_AUDIO,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION};
                     ActivityCompat.requestPermissions(VoiceActivityNew.this, perms, 1);
                 }
                 return true;
