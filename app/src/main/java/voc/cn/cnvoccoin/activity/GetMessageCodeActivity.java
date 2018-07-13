@@ -126,7 +126,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
                 if(et_phone.getText().toString().trim().length() == 11 ){
                     String token = PreferenceUtil.Companion.getInstance().getString("USER_MOBILE");
                     if(token.equals(et_phone.getText().toString().trim())){
-                        restart(tv_message);
+
                         getMessage();
                     }else{
                         ToastUtil.showToast("手机号码错误~");
@@ -154,7 +154,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
             @Override
             public void onNext(String s)
             {
-
+                restart(tv_message);
                 ToastUtil.showToast("验证码发送成功");
 
             }

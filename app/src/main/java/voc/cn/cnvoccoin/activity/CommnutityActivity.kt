@@ -57,7 +57,6 @@ open class CommnutityActivity:BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutResId())
-        AndroidBug5497Workaround.assistActivity(this)
         setParams()
         initView()
         val ss : SpannableString = SpannableString("请输入6位验证码")
