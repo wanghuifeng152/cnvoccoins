@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ import kotlinx.android.synthetic.main.fragment_user.*
  * Created by shy on 2018/3/24.
  */
 class UserFragment : Fragment() {
+    private var jqString : String? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_user, null)
         return view
@@ -125,7 +127,12 @@ class UserFragment : Fragment() {
                 val uid = PreferenceUtil.instance?.getInt(USER_ID)
 ////                            val uid = "haha"
                 Log.d("9999999999999", "uuuuuu" + uid)
-                val mClipData = ClipData.newPlainText("Label", activity.getString(R.string.str_yaoqing) + uid)
+                var mClipData : ClipData ? = null
+                if (jqString != null && !TextUtils.isEmpty(jqString)) {
+                    mClipData = ClipData.newPlainText("Label", jqString)
+                }else{
+                    mClipData = ClipData.newPlainText("Label", activity.resources.getString(R.string.str_yaoqing)+uid)
+                }
                 // 将ClipData内容放到系统剪贴板里。
                 cm.primaryClip = mClipData
                 ToastUtil.showToast("邀请链接已复制到剪贴板\n快去分享给你的朋友吧~")
@@ -137,7 +144,7 @@ class UserFragment : Fragment() {
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 activity.startActivity(Intent(activity, LoginActivityNew::class.java))
-            }else {
+            }else{
                 startActivity(Intent(activity, CommnutityActivity::class.java))
             }
         }
@@ -153,39 +160,50 @@ class UserFragment : Fragment() {
 /**
 *《---------------------------------------------==- 基础任务 -==---------------------------------------------》
 */
-            HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
-                override fun onError(t: Throwable?) {
-                    Log.e("ssss",t!!.message)
-                }
-                override fun onComplete() {
-                }
-                override fun onNext(t: String?) {
-                    val gson : TaskEntity? = Gson().fromJson(t, TaskEntity::class.java)
-                    if (gson!!.code == 1) {
-                        val data = gson.data
-                        for (datum in data) {
-                            if (datum.taskstatus == 1){
+
+    }
+    private fun getTask(){
+        HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
+            override fun onError(t: Throwable?) {
+                Log.e("ssss",t!!.message)
+            }
+            override fun onComplete() {
+            }
+            override fun onNext(t: String?) {
+                val gson : TaskEntity? = Gson().fromJson(t, TaskEntity::class.java)
+                if (gson!!.code == 1) {
+                    val data = gson.data
+                    for (datum in data) {
+                        if (datum.task == "加入群组"){
+                            if (datum.taskStatus == 1) {
                                 btn_join.setImageResource(R.mipmap.task_unjoin1_true)
                                 btn_join.isEnabled = false
                             }else{
                                 btn_join.setImageResource(R.mipmap.task_unjoin1)
                                 btn_join.isEnabled = true
                             }
-                            if (datum.taskStatus == 1){
+                            jqString = datum.string
+                        }
+                        if (datum.task == "关注公众号"){
+                            if (datum.taskStatus == 1) {
                                 btn_focus.setImageResource(R.mipmap.task_unfocus1_true)
                                 btn_focus.isEnabled = false
                             }else{
                                 btn_focus.setImageResource(R.mipmap.task_unfocus1)
                                 btn_focus.isEnabled = true
                             }
+                            jqString = datum.string
                         }
                     }
                 }
-            })
+            }
+        })
     }
     override fun onResume() {
         super.onResume()
+        Log.e("aa","onResume")
         isLogin()
+        getTask()
         getCoin()
     }
 

@@ -90,16 +90,16 @@ class MainActivity : BaseActivity() {
         // 指定下拉状态栏时显示的通知图标
         JPushInterface.setPushNotificationBuilder(1, builder2)
 //        本地推送
-        val ln = JPushLocalNotification()
-        ln.builderId = 1
-        ln.content = "你好"
-        ln.title = "离线"
-        ln.notificationId = 11111111
-        ln.setBroadcastTime(2018,7,11,17,28,0)
-        val mBageMap = mutableMapOf("type" to "1")
-        val json = JSONObject(mBageMap)
-        ln.extras = json.toString()
-        JPushInterface.addLocalNotification(this@MainActivity, ln)
+//        val ln = JPushLocalNotification()
+//        ln.builderId = 1
+//        ln.content = "你好"
+//        ln.title = "离线"
+//        ln.notificationId = 11111111
+//        ln.setBroadcastTime(2018,7,11,17,28,0)
+//        val mBageMap = mutableMapOf("type" to "1")
+//        val json = JSONObject(mBageMap)
+//        ln.extras = json.toString()
+//        JPushInterface.addLocalNotification(this@MainActivity, ln)
     }
 
 

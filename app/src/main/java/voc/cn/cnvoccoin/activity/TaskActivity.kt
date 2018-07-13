@@ -2,6 +2,7 @@ package voc.cn.cnvoccoin.activity
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.text.TextUtils
 import android.view.View
 import android.widget.BaseAdapter
 import android.widget.ImageView
@@ -26,6 +27,7 @@ class TaskActivity:BaseActivity() {
     var basicImagmgList = arrayListOf<Int>(R.mipmap.task_uninvite1,R.mipmap.task_unjoin1,R.mipmap.task_unfocus1,R.mipmap.task_login1)
    var superImagmgList = arrayListOf<Int>(R.mipmap.task_unrank1)
     var basicAdapter : BasicAdapter? =null
+    var jqString : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
@@ -37,7 +39,9 @@ class TaskActivity:BaseActivity() {
         iv_back.setOnClickListener { finish() }
         rv_basic_task.layoutManager = GridLayoutManager(this,3)
         rv_super_task.layoutManager = GridLayoutManager(this,3)
-
+        if (jqString != null && !TextUtils.isEmpty(jqString)){
+            basicAdapter = BasicAdapter(this,basicImagmgList, BASIC_TASK)
+        }
         basicAdapter = BasicAdapter(this,basicImagmgList, BASIC_TASK)
         val superAdapter = BasicAdapter(this, superImagmgList, SUPER_TASK)
         rv_basic_task.adapter = basicAdapter
@@ -64,35 +68,39 @@ class TaskActivity:BaseActivity() {
                     basicAdapter!!.setOnClick(object : BasicAdapter.OnClicks{
                         override fun OnClickItem(v: View, position: Int) {
                             for (datum in data) {
-
-                                if (datum.taskstatus == 1){
-                                    basicImagmgList.set(1,R.mipmap.task_unjoin1_true)
+                                if (datum.task == "加入群组") {
+                                    if (datum.taskStatus == 1) {
+                                        basicImagmgList.set(1, R.mipmap.task_unjoin1_true)
 //                                    设置索引为1的ImageViw不可点击
-                                    if (position == 1){
-                                        val img : ImageView = v as ImageView
-                                        img.isEnabled = false
+                                        if (position == 1) {
+                                            val img: ImageView = v as ImageView
+                                            img.isEnabled = false
+                                        }
+                                    } else {
+                                        if (position == 1) {
+                                            val img: ImageView = v as ImageView
+                                            img.isEnabled = true
+                                        }
+                                        basicImagmgList.set(1, R.mipmap.task_unjoin1)
                                     }
-                                }else{
-                                    if (position == 1){
-                                        val img : ImageView = v as ImageView
-                                        img.isEnabled = true
-                                    }
-                                    basicImagmgList.set(1,R.mipmap.task_unjoin1)
+                                    jqString = datum.string
                                 }
-
-                                if (datum.taskStatus == 1){
+                                if (datum.task == "关注公众号") {
+                                    if (datum.taskStatus == 1) {
 //                                    设置索引为2的ImageView不可点击
-                                    if (position == 2){
-                                        val img : ImageView = v as ImageView
-                                        img.isEnabled = false
+                                        if (position == 2) {
+                                            val img: ImageView = v as ImageView
+                                            img.isEnabled = false
+                                        }
+                                        basicImagmgList.set(2, R.mipmap.task_unfocus1_true)
+                                    } else {
+                                        if (position == 2) {
+                                            val img: ImageView = v as ImageView
+                                            img.isEnabled = true
+                                        }
+                                        basicImagmgList.set(2, R.mipmap.task_unfocus1)
                                     }
-                                    basicImagmgList.set(2,R.mipmap.task_unfocus1_true)
-                                }else{
-                                    if (position == 2){
-                                        val img : ImageView = v as ImageView
-                                        img.isEnabled = true
-                                    }
-                                    basicImagmgList.set(2,R.mipmap.task_unfocus1)
+                                    jqString = datum.string
                                 }
                             }
                         }

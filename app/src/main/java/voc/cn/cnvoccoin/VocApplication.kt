@@ -88,17 +88,17 @@ class VocApplication : Application {
         /**
         *《---------------------------------------------==- 极光推送 -==---------------------------------------------》
         */
-        requestPermission(this)
-        setDebugMode(true)
-        init(this)
-        var DEBUG_ORG : String= "IpY1WdrvDKXFcTL80wcH"
-        // organization 代码 不要传 AccessKey
-        option!!.setOrganization(DEBUG_ORG)
-        option!!.setChannel("Voc")
-        //渠道代码
-        SmAntiFraud.create(this, option)
-//        val id = SmAntiFraud.getDeviceId()
-//        Log.i("log", "$id====================")
+//        requestPermission(this)
+//        setDebugMode(true)
+//        init(this)
+//        var DEBUG_ORG : String= "IpY1WdrvDKXFcTL80wcH"
+//        // organization 代码 不要传 AccessKey
+//        option!!.setOrganization(DEBUG_ORG)
+//        option!!.setChannel("Voc")
+//        //渠道代码
+//        SmAntiFraud.create(this, option)
+////        val id = SmAntiFraud.getDeviceId()
+////        Log.i("log", "$id====================")
 
 
         /**

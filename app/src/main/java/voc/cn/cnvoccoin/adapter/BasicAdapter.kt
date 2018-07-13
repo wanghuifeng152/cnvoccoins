@@ -7,23 +7,27 @@ import android.content.Intent
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.google.gson.Gson
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.activity.*
-import voc.cn.cnvoccoin.util.PreferenceUtil
-import voc.cn.cnvoccoin.util.TOKEN
-import voc.cn.cnvoccoin.util.ToastUtil
-import voc.cn.cnvoccoin.util.USER_ID
+import voc.cn.cnvoccoin.entity.TaskEntity
+import voc.cn.cnvoccoin.network.HttpManager
+import voc.cn.cnvoccoin.network.Subscriber
+import voc.cn.cnvoccoin.util.*
 
 class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int) : RecyclerView.Adapter<BasicAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(mContext).inflate(R.layout.item_task, parent, false)
         return ViewHolder(view)
     }
+
+    var jqString : String ?= null
 
     override fun getItemCount(): Int {
         return data.size
@@ -34,6 +38,21 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
         holder?.mImg?.setImageResource(data[position])
         if (onClick != null)
             onClick!!.OnClickItem(holder?.mImg!!,position)
+        HttpManager.get(GET_TASK).subscribe(object : Subscriber<String> {
+            override fun onNext(t: String?) {
+                val gson : TaskEntity? = Gson().fromJson(t, TaskEntity::class.java)
+                if (gson!!.code == 1){
+                    jqString = gson.data.get(0).string
+                }
+            }
+
+            override fun onError(t: Throwable?) {
+            }
+
+            override fun onComplete() {
+            }
+
+        })
         holder?.mImg?.setOnClickListener {
             when (tag) {
                 BASIC_TASK -> {
@@ -47,7 +66,12 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
                             val uid = PreferenceUtil.instance?.getInt(USER_ID)
 ////                            val uid = "haha"
                             Log.d("9999999999999","uuuuuu"+uid)
-                            val mClipData = ClipData.newPlainText("Label", mContext.resources.getString(R.string.str_yaoqing)+uid)
+                            var mClipData : ClipData ? = null
+                            if (jqString != null && TextUtils.isEmpty(jqString)) {
+                                mClipData = ClipData.newPlainText("Label", jqString)
+                            }else{
+                                mClipData = ClipData.newPlainText("Label", mContext.resources.getString(R.string.str_yaoqing) + uid)
+                            }
                             // 将ClipData内容放到系统剪贴板里。
                             cm.primaryClip = mClipData
                             ToastUtil.showToast("邀请链接已复制到剪贴板\n快去分享给你的朋友吧~")

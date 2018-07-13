@@ -1,15 +1,14 @@
 package voc.cn.cnvoccoin.entity;
 
-import android.view.View;
-
 import java.util.List;
 
 public class TaskEntity {
 
+
     /**
      * code : 1
-     * msg : 靖求成功
-     * data : [{"taskstatus":0,"task":"加入群組"},{"taskStatus":1,"task":"美注公僉号"}]
+     * msg : 请求成功
+     * data : [{"taskStatus":0,"task":"加入群组","task_id":2,"string":"2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，注册即送1350VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=45283"},{"taskStatus":1,"task":"关注公众号","task_id":3,"string":"2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，注册即送1350VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=45283"}]
      */
 
     private int code;
@@ -42,21 +41,23 @@ public class TaskEntity {
 
     public static class DataBean {
         /**
-         * taskstatus : 0
-         * task : 加入群組
-         * taskStatus : 1
+         * taskStatus : 0
+         * task : 加入群组
+         * task_id : 2
+         * string : 2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，注册即送1350VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=45283
          */
 
-        private int taskstatus;
-        private String task;
         private int taskStatus;
+        private String task;
+        private int task_id;
+        private String string;
 
-        public int getTaskstatus() {
-            return taskstatus;
+        public int getTaskStatus() {
+            return taskStatus;
         }
 
-        public void setTaskstatus(int taskstatus) {
-            this.taskstatus = taskstatus;
+        public void setTaskStatus(int taskStatus) {
+            this.taskStatus = taskStatus;
         }
 
         public String getTask() {
@@ -67,12 +68,20 @@ public class TaskEntity {
             this.task = task;
         }
 
-        public int getTaskStatus() {
-            return taskStatus;
+        public int getTask_id() {
+            return task_id;
         }
 
-        public void setTaskStatus(int taskStatus) {
-            this.taskStatus = taskStatus;
+        public void setTask_id(int task_id) {
+            this.task_id = task_id;
+        }
+
+        public String getString() {
+            return string;
+        }
+
+        public void setString(String string) {
+            this.string = string;
         }
     }
 }
