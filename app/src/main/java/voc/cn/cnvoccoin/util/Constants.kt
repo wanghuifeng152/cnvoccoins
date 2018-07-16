@@ -1,7 +1,6 @@
 package voc.cn.cnvoccoin.util
 
 import android.support.annotation.Keep
-import android.widget.TextView
 import java.io.Serializable
 
 /**
@@ -23,7 +22,7 @@ class LoginEvent(var flag:Int,var number:String)
 
 //-------------------------url request response------------------------------//
 @Keep
-data class RegisterRequest(var username:String,var password:String,var code:String,var deviceId:String):Serializable
+data class RegisterRequest(var username: String, var password: String, var code: String):Serializable
 @Keep
 data class LoginRequest(var username:String,var password:String,var device_type:String,var deviceId:String):Serializable
 @Keep

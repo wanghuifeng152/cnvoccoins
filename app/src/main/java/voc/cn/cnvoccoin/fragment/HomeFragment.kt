@@ -91,24 +91,31 @@ class HomeFragment : Fragment() {
 
         //语言挖矿按钮点击判断是否已经登录
         mBtnVoice?.setOnClickListener {
+          processBar.setVisibility(View.VISIBLE)
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 //没有登录跳转到登录页面
                 startActivity(Intent(activity, LoginActivityNew::class.java))
+                processBar.setVisibility(View.GONE)
             } else {
                 //已经登录跳转到挖矿页面
                 startActivity(Intent(activity, VoiceActivityNew::class.java))
+                processBar.setVisibility(View.GONE)
             }
         }
         //任务挖矿点击判断是否已经登录
         mBtnTask?.setOnClickListener {
+            processBar.setVisibility(View.VISIBLE)
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 //未登录跳转登陆页面
+
                 startActivity(Intent(activity, LoginActivityNew::class.java))
+                processBar.setVisibility(View.GONE)
             } else {
                 //已经登录跳转任务挖矿
                 startActivity(Intent(activity, TaskActivity::class.java))
+                processBar.setVisibility(View.GONE)
             }
         }
         //资产数目 判断是否登录
@@ -127,13 +134,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //点击条目跳转到怎样快速挖币
+
         rl_news1.setOnClickListener {
+            processBar.setVisibility(View.GONE)
             val intent = Intent(activity, NewsActivity::class.java)
             intent.putExtra(TAG, 1)
             startActivity(intent)
         }
 //点击跳转到voc语音连
         rl_news2.setOnClickListener {
+            processBar.setVisibility(View.GONE)
             val intent = Intent(activity, NewsActivity::class.java)
             intent.putExtra(TAG, 2)
             startActivity(intent)

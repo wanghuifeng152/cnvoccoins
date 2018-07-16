@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
 import android.view.View
-import android.widget.BaseAdapter
 import android.widget.ImageView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_task.*
@@ -12,11 +11,9 @@ import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.adapter.BasicAdapter
 import voc.cn.cnvoccoin.entity.TaskEntity
 import voc.cn.cnvoccoin.network.HttpManager
-import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.GET_TASK
-import voc.cn.cnvoccoin.util.ToastUtil
-import voc.cn.cnvoccoin.view.LoadingDialog
+
 
 /**
  * Created by shy on 2018/4/28.
@@ -55,14 +52,13 @@ class TaskActivity:BaseActivity() {
     }
 
     fun getStatus(){
-        val loadingDialog = LoadingDialog(this, null)
-        loadingDialog.show()
+        processBasr.setVisibility(View.VISIBLE)
         //        更新任务完成度
         HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
             override fun onNext(t: String?) {
                 val gson : TaskEntity? = Gson().fromJson(t,TaskEntity::class.java)
                 if (gson!!.code == 1){
-                    loadingDialog.dismiss()
+                    processBasr.setVisibility(View.GONE)
                     val data = gson.data
 //                    接口回调获取每个ImageView设置是否点击
                     basicAdapter!!.setOnClick(object : BasicAdapter.OnClicks{
@@ -110,7 +106,7 @@ class TaskActivity:BaseActivity() {
             }
 
             override fun onError(t: Throwable?) {
-                loadingDialog.dismiss()
+                processBasr.setVisibility(View.GONE)
             }
 
             override fun onComplete() {

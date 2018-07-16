@@ -109,7 +109,7 @@ class WalletActivity : Activity() {
     }
 
     private fun postIsHavePwd() {
-        //  val loadingDialog = LoadingDialog(this, null)
+
         processBasr.setVisibility(View.VISIBLE)
         val request = postId("11")
         val wrapper = RequestBodyWrapper(request)
