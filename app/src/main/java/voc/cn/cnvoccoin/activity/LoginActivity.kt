@@ -83,7 +83,7 @@ class LoginActivity : BaseActivity() {
 
     private fun setRegister() {
         val deviceId = SmAntiFraud.getDeviceId()
-        val request = RegisterRequest(et_input.text.toString(), et_password.text.toString(), "")
+        val request = RegisterRequest(et_input.text.toString(), et_password.text.toString(), "",deviceId)
         var wrapper: RequestBodyWrapper = RequestBodyWrapper(request)
         HttpManager.post(URL_REGISTER, wrapper).subscribe(object : Subscriber<String> {
             override fun onNext(s: String?) {

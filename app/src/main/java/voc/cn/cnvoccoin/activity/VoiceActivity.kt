@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.util.Log
 import android.view.MotionEvent
+import com.ishumei.smantifraud.SmAntiFraud
 import kotlinx.android.synthetic.main.activity_voice.*
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.entity.UploadVoiceBean
@@ -93,7 +94,8 @@ class VoiceActivity : BaseActivity() {
         private fun getReadCoin() {
             /* val loadingDialog = LoadingDialog(this, "")
              loadingDialog.show()*/
-            val request = UploadCoinRequest(voice_id.toString())
+            val deviceId = SmAntiFraud.getDeviceId()
+            val request = UploadCoinRequest(voice_id.toString(),deviceId)
             val wrapper = RequestBodyWrapper(request)
             HttpManager.post(UPLOAD_COIN, wrapper).subscribe(object : Subscriber<ResBaseModel<UploadVoiceBean>> {
                 override fun onNext(model: ResBaseModel<UploadVoiceBean>?) {

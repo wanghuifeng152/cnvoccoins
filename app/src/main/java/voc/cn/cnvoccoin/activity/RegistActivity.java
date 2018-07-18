@@ -314,7 +314,7 @@ public class RegistActivity extends BaseActivity {
         String pwad = pwd.getText().toString();
         String mEtcon = mEtConfirm.getText().toString();
         processBar.setVisibility(View.VISIBLE);
-        RegisterRequest request = new RegisterRequest(edphone, pwad, mEtcon);
+        RegisterRequest request = new RegisterRequest(edphone, pwad, mEtcon,deviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_REGISTER, wrapper).subscribe(new Subscriber<String>() {
             @Override

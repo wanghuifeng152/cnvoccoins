@@ -241,7 +241,7 @@ public class LoginActivityNew extends BaseActivity {
     }
 
     private void getLogin() {
-        Log.i("SmAntiFraud2", SmAntiFraud.getDeviceId() + "----------------------------");
+//        Log.i("SmAntiFraud2", SmAntiFraud.getDeviceId() + "----------------------------");
         String DeviceId = SmAntiFraud.getDeviceId();
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
@@ -257,8 +257,6 @@ public class LoginActivityNew extends BaseActivity {
             @Override
             public void onNext(ResBaseModel<LoginResponse> model) {
                 mProcessBar.setVisibility(View.GONE);
-                Log.i("SmAntiFraud", SmAntiFraud.getDeviceId() + "----------------------------");
-
                 if (model == null || model.data == null) return;
                 if (model.code != 1) return;
                 PreferenceUtil.Companion.getInstance().set(TOKEN, model.data.getToken());

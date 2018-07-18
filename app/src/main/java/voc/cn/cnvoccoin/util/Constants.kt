@@ -22,7 +22,7 @@ class LoginEvent(var flag:Int,var number:String)
 
 //-------------------------url request response------------------------------//
 @Keep
-data class RegisterRequest(var username: String, var password: String, var code: String):Serializable
+data class RegisterRequest(var username: String, var password: String, var code: String,var deviceId:String):Serializable
 @Keep
 data class LoginRequest(var username:String,var password:String,var device_type:String,var deviceId:String):Serializable
 @Keep
@@ -37,7 +37,7 @@ data class UserBean(var id:Int,var user_type:Int,var sex:Int,var birthday:Int,va
 data class VersionResponse(var isUpdate:Int,var platform:String,var version:String,var url:String,var content:String):Serializable
 
 @Keep
-data class UploadCoinRequest(var id:String)
+data class UploadCoinRequest(var id:String,var deviceId:String)
 
 @Keep
 data class UploadCoinRequestVoc(var id:String,var version:String ,var platform:String,var deviceId:String)
@@ -58,7 +58,7 @@ data class add(var remarks:String,var address:String)
 data class UploadCoinRequest2(var mobile:String)
 
 @Keep
-data class UploadCoinRequest3(var mobile:String,var code:String)
+data class UploadCoinRequest3(var mobile:String,var code:String,var deviceId:String)
 
 @Keep
 data class Forwardid(var money: String)
