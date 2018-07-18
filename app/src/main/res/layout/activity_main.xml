@@ -36,10 +36,10 @@
             android:gravity="center"/>
 
         <View
-            android:layout_width="1dp"
+            android:layout_width="0.5dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
             android:background="@color/color_b9854f"/>
         <RadioButton
             android:id="@+id/radioButton_voice"
