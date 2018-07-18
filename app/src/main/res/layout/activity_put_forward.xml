@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="voc.cn.cnvoccoin.activity.Put_forwardActivity">
 
-    <TextView
-        android:text="asdasdasdasd"
+    <WebView
+        android:id="@+id/web_put"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"></WebView>
 </android.support.constraint.ConstraintLayout>
