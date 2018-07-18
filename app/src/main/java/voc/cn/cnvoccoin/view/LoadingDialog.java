@@ -27,9 +27,8 @@ public class LoadingDialog extends Dialog {
         mContext = context;
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.dialog_loading, null);
-
         setContentView(v);
-        getWindow().setDimAmount(0f);
+        v.getBackground().setAlpha(255);
         mGif = (ProgressBar) v.findViewById(R.id.gif);
           //mGif.setMovieResource(R.raw.loading);
         mTvLoaidng = (TextView)v.findViewById(R.id.tv_login_text);

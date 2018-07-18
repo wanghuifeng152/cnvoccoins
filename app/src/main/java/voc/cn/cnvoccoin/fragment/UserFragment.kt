@@ -27,8 +27,10 @@ import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.ResBaseModel
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
-import voc.cn.cnvoccoin.view.LoadingDialog
+
 import kotlinx.android.synthetic.main.fragment_user.*
+
+
 /**
  * Created by shy on 2018/3/24.
  */
@@ -42,14 +44,21 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         //点击更多按钮跳转到更多页面
         tv_more.setOnClickListener {
+
+            processBasr.setVisibility(View.VISIBLE)
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 Logger.t("token").e(token + "")
+
+                processBasr.setVisibility(View.GONE)
                 //如果没有登录跳转到登录页面
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             } else {
+
+                processBasr.setVisibility(View.GONE)
                 //已经登录跳转到更多页面
                 startActivity(Intent(activity, TaskActivity::class.java))
             }
@@ -57,19 +66,28 @@ class UserFragment : Fragment() {
         //点击底部图片跳转到官网
         jump_img.setOnClickListener({
 
+            processBasr.setVisibility(View.VISIBLE)
             val token = PreferenceUtil!!.instance?.getString(TOKEN)
             if (token == null){
+
+                processBasr.setVisibility(View.GONE)
                 //没有登录将跳转到登录页面
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
+
+                processBasr.setVisibility(View.GONE)
                 //已经登录跳转到官网
                 startActivity(Intent(activity,VocOfficialActivity::class.java))
             }
         })
         //点击体现按钮
         tv_se!!.setOnClickListener({
+
+            processBasr.setVisibility(View.VISIBLE)
             val token = PreferenceUtil!!.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
+
+                processBasr.setVisibility(View.GONE)
                 //没有登录跳转到登录页面
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             } else {
@@ -81,6 +99,7 @@ class UserFragment : Fragment() {
 //                    startActivity(Intent(activity, MessageCodeActivity::class.java))
 //                }else{
                     startActivity(Intent(activity, WalletActivity::class.java))
+                processBasr.setVisibility(View.GONE)
 //                }
             }
 
@@ -256,14 +275,15 @@ class UserFragment : Fragment() {
 
 
     private fun postIsHavePwd(){
-        val loadingDialog = LoadingDialog(activity, null)
-        loadingDialog.show()
+
+        processBasr.setVisibility(View.VISIBLE)
         val request = postId("11")
         val wrapper = RequestBodyWrapper(request)
         HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
 
             override fun onNext(s: String) {
-                loadingDialog.dismiss();
+
+                processBasr.setVisibility(View.GONE)
                 if (s == null || s.isEmpty()) return
                 var jsonObject: JSONObject? = null
                 try {
@@ -292,11 +312,13 @@ class UserFragment : Fragment() {
             }
 
             override fun onError(t: Throwable) {
-                loadingDialog.dismiss()
+
+                processBasr.setVisibility(View.GONE)
             }
 
             override fun onComplete() {
 
+                processBasr.setVisibility(View.GONE)
             }
         })
     }

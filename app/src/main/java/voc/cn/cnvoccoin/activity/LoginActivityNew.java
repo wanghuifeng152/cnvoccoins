@@ -207,7 +207,7 @@ public class LoginActivityNew extends BaseActivity {
         //loadingDialog.show();
         mProcessBar.setVisibility(View.VISIBLE);
 
-        SMSLogin request = new SMSLogin(username, SMScode, "android",DeviceId);
+        SMSLogin request = new SMSLogin(username, SMScode, "android", DeviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.SMS_URL_LOGIN, wrapper).subscribe(new Subscriber<ResBaseModel<LoginResponse>>() {
 
@@ -241,7 +241,7 @@ public class LoginActivityNew extends BaseActivity {
     }
 
     private void getLogin() {
-        Log.i("SmAntiFraud2", SmAntiFraud.getDeviceId() + "----------------------------");
+//        Log.i("SmAntiFraud2", SmAntiFraud.getDeviceId() + "----------------------------");
         String DeviceId = SmAntiFraud.getDeviceId();
         final String username = mEtPhone.getText().toString();
         final String password = mEtPwd.getText().toString();
@@ -249,16 +249,14 @@ public class LoginActivityNew extends BaseActivity {
         // final LoadingDialog loadingDialog = new LoadingDialog(this, null);
         //loadingDialog.show();
 
-
-        LoginRequest request = new LoginRequest(username, password, "android",DeviceId);
+        mProcessBar.setVisibility(View.VISIBLE);
+        LoginRequest request = new LoginRequest(username, password, "android", DeviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_LOGIN, wrapper).subscribe(new Subscriber<ResBaseModel<LoginResponse>>() {
 
             @Override
             public void onNext(ResBaseModel<LoginResponse> model) {
                 mProcessBar.setVisibility(View.GONE);
-                Log.i("SmAntiFraud", SmAntiFraud.getDeviceId() + "----------------------------");
-
                 if (model == null || model.data == null) return;
                 if (model.code != 1) return;
                 PreferenceUtil.Companion.getInstance().set(TOKEN, model.data.getToken());
@@ -389,21 +387,20 @@ public class LoginActivityNew extends BaseActivity {
      */
     public void getMessage() {
         String deviceId = SmAntiFraud.getDeviceId();
-        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
-        loadingDialog.show();
-        GetConfirmCodeRequest request = new GetConfirmCodeRequest(mEtPhone.getText().toString().trim(),deviceId);
+        mProcessBar.setVisibility(View.VISIBLE);
+        GetConfirmCodeRequest request = new GetConfirmCodeRequest(mEtPhone.getText().toString().trim(), deviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.GET_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
             @Override
             public void onNext(String s) {
-                loadingDialog.dismiss();
+                mProcessBar.setVisibility(View.GONE);
                 restart(codeTime);
                 ToastUtil.showToast("验证码发送成功");
             }
 
             @Override
             public void onError(Throwable t) {
-                loadingDialog.dismiss();
+                mProcessBar.setVisibility(View.GONE);
             }
 
             @Override

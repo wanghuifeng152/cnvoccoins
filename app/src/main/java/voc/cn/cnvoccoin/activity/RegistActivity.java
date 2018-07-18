@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ishumei.smantifraud.SmAntiFraud;
@@ -21,11 +22,12 @@ import org.json.JSONObject;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.Subscriber;
-import voc.cn.cnvoccoin.util.GetConfirmCodeRequest;
 import voc.cn.cnvoccoin.util.GetConfirmCodeRequest_sm;
 import voc.cn.cnvoccoin.util.RegisterRequest;
 import voc.cn.cnvoccoin.util.ToastUtil;
@@ -44,6 +46,8 @@ public class RegistActivity extends BaseActivity {
     TextView mTvConfirm;
     EditText mEtConfirm;
     Timer timer;
+    @BindView(R.id.processBar)
+    ProgressBar processBar;
     private boolean isshow = false;
     private boolean isshow2 = false;
     int time = 60;
@@ -54,6 +58,7 @@ public class RegistActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
+        ButterKnife.bind(this);
         initView();
         pwd = findViewById(R.id.pwd);
         et_phone = findViewById(R.id.et_phone);
@@ -63,7 +68,6 @@ public class RegistActivity extends BaseActivity {
         mEtConfirm.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         iv1 = findViewById(R.id.hide);
 
-        //输入监听
         initJudge();
         /*yaoqingma.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -241,16 +245,16 @@ public class RegistActivity extends BaseActivity {
                     ToastUtil.showToast("请输入手机号");
                     return;
                 }
-                final LoadingDialog loadingDialog = new LoadingDialog(RegistActivity.this, "");
-                loadingDialog.show();
+                processBar.setVisibility(View.VISIBLE);
                 String DID = SmAntiFraud.getDeviceId();
-                Log.i("log","~~~~~~~~~~~~`"+DID);
-                GetConfirmCodeRequest_sm request = new GetConfirmCodeRequest_sm(mobile,DID);
+                Log.i("log", "~~~~~~~~~~~~`" + DID);
+                GetConfirmCodeRequest_sm request = new GetConfirmCodeRequest_sm(mobile, DID);
                 RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
 //                UrlConstantsKt.MOBILE_CONFIRM_CODE
                 HttpManager.post(UrlConstantsKt.MOBILE_CONFIRM_CODE, wrapper).subscribe(new Subscriber<String>() {
                     @Override
                     public void onNext(String s) {
+                        processBar.setVisibility(View.GONE);
                         if (s == null || s.isEmpty()) return;
                         JSONObject jsonObject = null;
                         try {
@@ -267,12 +271,12 @@ public class RegistActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable t) {
-
+                        processBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onComplete() {
-                        loadingDialog.dismiss();
+                        processBar.setVisibility(View.GONE);
                     }
                 });
             }
@@ -306,11 +310,16 @@ public class RegistActivity extends BaseActivity {
 
     private void setRegister() {
         String deviceId = SmAntiFraud.getDeviceId();
-        RegisterRequest request = new RegisterRequest(et_phone.getText().toString(), pwd.getText().toString(), mEtConfirm.getText().toString(),deviceId);
+        String edphone = et_phone.getText().toString();
+        String pwad = pwd.getText().toString();
+        String mEtcon = mEtConfirm.getText().toString();
+        processBar.setVisibility(View.VISIBLE);
+        RegisterRequest request = new RegisterRequest(edphone, pwad, mEtcon,deviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.URL_REGISTER, wrapper).subscribe(new Subscriber<String>() {
             @Override
             public void onNext(final String s) {
+                processBar.setVisibility(View.GONE);
                 if (s == null || s.isEmpty())
                     return;
                 JSONObject jsonObject = null;
@@ -332,12 +341,12 @@ public class RegistActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable t) {
-
+                processBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onComplete() {
-
+                processBar.setVisibility(View.GONE);
             }
         });
     }

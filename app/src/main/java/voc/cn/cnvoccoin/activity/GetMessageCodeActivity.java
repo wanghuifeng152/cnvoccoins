@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ishumei.smantifraud.SmAntiFraud;
 
@@ -35,17 +35,19 @@ import static voc.cn.cnvoccoin.util.UrlConstantsKt.POST_RESET_PWD;
 /**
  * 重置密码获取验证码
  */
-public class GetMessageCodeActivity extends BaseActivity implements View.OnClickListener{
+public class GetMessageCodeActivity extends BaseActivity implements View.OnClickListener {
     Button btn_ok;
-    TextView title_name,tv_message;
-    EditText et_phone,et_code;
+    TextView title_name, tv_message;
+    EditText et_phone, et_code;
     LinearLayout ll_send;
     ImageView iv_back;
+    private ProgressBar processBasr;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_code);
+        initView();
         btn_ok = findViewById(R.id.btn_ok);
         btn_ok.setOnClickListener(this);
         title_name = findViewById(R.id.title_name);
@@ -62,31 +64,30 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
         et_code.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
     }
 
-    public void postMessage(){
-        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
-        loadingDialog.show();
+    public void postMessage() {
+      processBasr.setVisibility(View.VISIBLE);
         String code = et_code.getText().toString().trim();
         String mobile = et_phone.getText().toString().trim();
-        ResetPwd1 request = new ResetPwd1(code,mobile,"1");
+        ResetPwd1 request = new ResetPwd1(code, mobile, "1");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
-        HttpManager.post(POST_RESET_PWD,wrapper).subscribe(new Subscriber<String>(){
+        HttpManager.post(POST_RESET_PWD, wrapper).subscribe(new Subscriber<String>() {
 
             @Override
             public void onNext(String s) {
-                loadingDialog.dismiss();
+                processBasr.setVisibility(View.GONE);
                 if (s == null || s.isEmpty()) return;
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(s);
                     int code = jsonObject.getInt("code");
                     if (code == 1) {
-                        if(jsonObject.getString("msg").equals("验证码正确")){
+                        if (jsonObject.getString("msg").equals("验证码正确")) {
                             VocApplication.Companion.getInstance().setMessage_flag(true);
-                            PreferenceUtil.Companion.getInstance().set("istitle","2");
-                            Intent in = new Intent(GetMessageCodeActivity.this,SetPayPwdActivity.class);
+                            PreferenceUtil.Companion.getInstance().set("istitle", "2");
+                            Intent in = new Intent(GetMessageCodeActivity.this, SetPayPwdActivity.class);
                             startActivity(in);
                             finish();
-                        }else{
+                        } else {
                             ToastUtil.showToast(jsonObject.getString("msg"));
                         }
 
@@ -99,7 +100,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onError(Throwable t) {
-                loadingDialog.dismiss();
+               processBasr.setVisibility(View.GONE);
             }
 
             @Override
@@ -109,13 +110,15 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
         });
 
     }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_ok:
-                if(et_phone.getText().toString().trim().length() == 11 && et_code.getText().toString().length() == 6){
-                    postMessage();;
-                }else{
+                if (et_phone.getText().toString().trim().length() == 11 && et_code.getText().toString().length() == 6) {
+                    postMessage();
+                    ;
+                } else {
 //                    Toast.makeText(this,"请输入正确的手机号和验证码",Toast.LENGTH_LONG).show();
                     ToastUtil.showToast("请输入正确的手机号和验证码");
 
@@ -123,16 +126,16 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
 
                 break;
             case R.id.ll_send:
-                if(et_phone.getText().toString().trim().length() == 11 ){
+                if (et_phone.getText().toString().trim().length() == 11) {
                     String token = PreferenceUtil.Companion.getInstance().getString("USER_MOBILE");
-                    if(token.equals(et_phone.getText().toString().trim())){
+                    if (token.equals(et_phone.getText().toString().trim())) {
 
                         getMessage();
-                    }else{
+                    } else {
                         ToastUtil.showToast("手机号码错误~");
                     }
 
-                }else{
+                } else {
                     ToastUtil.showToast("请输入正确的手机号");
                 }
                 break;
@@ -148,25 +151,26 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
     public void getMessage() {
         String deviceId = SmAntiFraud.getDeviceId();
         String phone = et_phone.getText().toString().trim();
-        GetConfirmCodeRequest request = new GetConfirmCodeRequest(phone,deviceId);
+        processBasr.setVisibility(View.VISIBLE);
+        GetConfirmCodeRequest request = new GetConfirmCodeRequest(phone, deviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.GET_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
             @Override
-            public void onNext(String s)
-            {
+            public void onNext(String s) {
                 restart(tv_message);
                 ToastUtil.showToast("验证码发送成功");
+                processBasr.setVisibility(View.GONE);
 
             }
 
             @Override
             public void onError(Throwable t) {
-
+processBasr.setVisibility(View.GONE);
             }
 
             @Override
             public void onComplete() {
-
+processBasr.setVisibility(View.GONE);
             }
         });
     }
@@ -174,6 +178,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
 
     /**
      * 取消倒计时
+     *
      * @param v
      */
     public void oncancel(View v) {
@@ -182,6 +187,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
 
     /**
      * 开始倒计时
+     *
      * @param v
      */
     public void restart(View v) {
@@ -203,4 +209,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
         }
     };
 
+    private void initView() {
+        processBasr = (ProgressBar) findViewById(R.id.processBasr);
+    }
 }

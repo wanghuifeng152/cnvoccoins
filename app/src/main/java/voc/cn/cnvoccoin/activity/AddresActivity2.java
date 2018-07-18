@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -26,9 +27,9 @@ import voc.cn.cnvoccoin.entity.AddresClass;
 import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.Subscriber;
-import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.util.list;
+import voc.cn.cnvoccoin.view.LoadingDialog;
 
 /**
  * 地址列表页面
@@ -41,11 +42,14 @@ public class AddresActivity2 extends AppCompatActivity {
     ListView address2Lv;
     @BindView(R.id.identity_confirm)
     TextView identityConfirm;
+    @BindView(R.id.processBasr)
+    ProgressBar processBasr;
 
     private DetailedAdapter detailedAdapter;
     private List<AddresClass.MsgBean> addresClassMsg;
     private int i;
     private Intent intent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,7 @@ public class AddresActivity2 extends AppCompatActivity {
 
             @Override
             public void onNext(String s) {
+
                 Log.d("TAG", "onNext() returned:++++++++++++++++ " + s);
                 AddresClass addresClass = new Gson().fromJson(s, AddresClass.class);
                 addresClassMsg = addresClass.getMsg();
@@ -108,6 +113,7 @@ public class AddresActivity2 extends AppCompatActivity {
     }
 
     private void initListener(final List<AddresClass.MsgBean> addresClassMsgList) {
+
         identityBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,11 +137,13 @@ public class AddresActivity2 extends AppCompatActivity {
                 finish();
             }
         });
+
         identityConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddresActivity2.this, AddresActivity.class);
                 startActivityForResult(intent, 100);
+
             }
         });
     }

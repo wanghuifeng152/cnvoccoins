@@ -9,18 +9,16 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.http.HEAD;
 import voc.cn.cnvoccoin.R;
 import voc.cn.cnvoccoin.VocApplication;
 import voc.cn.cnvoccoin.network.HttpManager;
@@ -47,10 +45,13 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
     String pwd;
     ImageView iv_back;
     String pwdIntentFlag;
+    private ProgressBar processBasr;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_pwd);
+        initView();
         title_name = findViewById(R.id.title_name);
         if (!CacheActivity.activityList.contains(ReSetPayPwdActivity.this)) {
             CacheActivity.addActivity(ReSetPayPwdActivity.this);
@@ -58,7 +59,7 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
         Intent intent = getIntent();
         int isTitle = intent.getIntExtra("isTitle", -1);
         String istitle = PreferenceUtil.Companion.getInstance().getString("istitle");
-       pwdIntentFlag = PreferenceUtil.Companion.getInstance().getString("pwdFlag");
+        pwdIntentFlag = PreferenceUtil.Companion.getInstance().getString("pwdFlag");
 
         if (istitle.equals("1")) {
             title_name.setText("确认密码");
@@ -149,15 +150,14 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
      * 重置密码接口
      */
     public void postResetPwd() {
-        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
-        loadingDialog.show();
+        processBasr.setVisibility(View.VISIBLE);
         ResetPwd2 request = new ResetPwd2(pwd, "2");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(POST_RESET_PWD, wrapper).subscribe(new Subscriber<String>() {
 
             @Override
             public void onNext(String s) {
-                loadingDialog.dismiss();
+               processBasr.setVisibility(View.GONE);
                 if (s == null || s.isEmpty()) return;
                 JSONObject jsonObject = null;
                 try {
@@ -169,12 +169,11 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
                             ToastUtil.showToast("重置成功");
                             CacheActivity.finishActivity();
                             VocApplication.Companion.getInstance().setMessage_flag(true);
-                            if(pwdIntentFlag.equals("1")){
+                            if (pwdIntentFlag.equals("1")) {
                                 Intent in = new Intent(ReSetPayPwdActivity.this, MainActivity.class);
                                 startActivity(in);
                             }
                             CacheActivity.finishActivity();
-
 
 
                         } else {
@@ -193,12 +192,12 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onError(Throwable t) {
-                loadingDialog.dismiss();
+               processBasr.setVisibility(View.GONE);
             }
 
             @Override
             public void onComplete() {
-
+                processBasr.setVisibility(View.GONE);
             }
         });
     }
@@ -208,8 +207,7 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
      * 设置支付密码
      */
     public void postPayPwd() {
-        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
-        loadingDialog.show();
+        processBasr.setVisibility(View.VISIBLE);
         postPayPwd request = new postPayPwd(pwd);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(POST_PAY_PWD, wrapper).subscribe(new Subscriber<String>() {
@@ -217,7 +215,7 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onNext(String s) {
-                loadingDialog.dismiss();
+              processBasr.setVisibility(View.GONE);
                 if (s == null || s.isEmpty()) return;
                 JSONObject jsonObject = null;
                 try {
@@ -241,12 +239,12 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onError(Throwable t) {
-                loadingDialog.dismiss();
+               processBasr.setVisibility(View.GONE);
             }
 
             @Override
             public void onComplete() {
-
+                processBasr.setVisibility(View.GONE);
             }
         });
     }
@@ -262,6 +260,10 @@ public class ReSetPayPwdActivity extends BaseActivity implements View.OnClickLis
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             }
         }, 50);
+    }
+
+    private void initView() {
+        processBasr = (ProgressBar) findViewById(R.id.processBasr);
     }
 
 //    @Override

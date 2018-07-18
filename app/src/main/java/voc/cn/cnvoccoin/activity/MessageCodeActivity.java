@@ -77,7 +77,8 @@ public class MessageCodeActivity extends BaseActivity implements View.OnClickLis
      * @param code
      */
     public void postMessage(String code){
-        UploadCoinRequest3 request = new UploadCoinRequest3(phone,code);
+        String DeviceId = SmAntiFraud.getDeviceId();
+        UploadCoinRequest3 request = new UploadCoinRequest3(phone,code,DeviceId);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.POST_MESSAGE_CODE, wrapper).subscribe(new Subscriber<String>() {
             @Override

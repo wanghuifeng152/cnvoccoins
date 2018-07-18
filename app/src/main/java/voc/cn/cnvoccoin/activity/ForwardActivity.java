@@ -26,6 +26,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,8 +37,6 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -46,29 +45,30 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import voc.cn.cnvoccoin.VocApplication;
-import voc.cn.cnvoccoin.entity.WalletClass;
-import voc.cn.cnvoccoin.util.isNumber;
-import voc.cn.cnvoccoin.util.list;
-import voc.cn.cnvoccoin.view.PasswordInputEdt;
 import voc.cn.cnvoccoin.R;
+import voc.cn.cnvoccoin.VocApplication;
 import voc.cn.cnvoccoin.entity.ChargeBean;
+import voc.cn.cnvoccoin.entity.WalletClass;
 import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.Subscriber;
-import voc.cn.cnvoccoin.util.Forwardid;
 import voc.cn.cnvoccoin.util.PreferenceUtil;
 import voc.cn.cnvoccoin.util.ResetPwd3;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
 import voc.cn.cnvoccoin.util.isHaveAddress;
+import voc.cn.cnvoccoin.util.isNumber;
+import voc.cn.cnvoccoin.util.list;
 import voc.cn.cnvoccoin.view.LoadingDialog;
+import voc.cn.cnvoccoin.view.PasswordInputEdt;
 
 import static voc.cn.cnvoccoin.util.UrlConstantsKt.SECCE_SS;
 
 public class ForwardActivity extends BaseActivity {
 
 
+    @BindView(R.id.processBasr)
+    ProgressBar processBasr;
     private String qbUrl = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{42}$";
     @BindView(R.id.address_back)
     ImageView addressBack;
@@ -101,7 +101,8 @@ public class ForwardActivity extends BaseActivity {
     private int startTwo;
     private String mwallet;
     private double charge;
-    private double a ;
+    private double a;
+
     @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,10 +115,9 @@ public class ForwardActivity extends BaseActivity {
         addressSnmd.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_DEL)
-                {
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
                     addressSnmd.getText().toString().trim();
-                    if (addressSnmd.getText().toString().trim().startsWith("0") || addressSnmd.getText().toString().trim().startsWith(".")){
+                    if (addressSnmd.getText().toString().trim().startsWith("0") || addressSnmd.getText().toString().trim().startsWith(".")) {
                         addressSnmd.setText("");
                     }
                 }
@@ -138,10 +138,10 @@ public class ForwardActivity extends BaseActivity {
     }
 
     private void initCharge() {
-        Log.e("TAG", "initCharge: --------------666666666666---->" );
+        Log.e("TAG", "initCharge: --------------666666666666---->");
         list list = new list("1");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(list);
-        HttpManager.post(UrlConstantsKt.POST_CHARGE,wrapper).subscribe(new Subscriber<String>(){
+        HttpManager.post(UrlConstantsKt.POST_CHARGE, wrapper).subscribe(new Subscriber<String>() {
 
             @Override
             public void onNext(String o) {
@@ -149,8 +149,8 @@ public class ForwardActivity extends BaseActivity {
                 ChargeBean.MsgBean msgBean = chargeBean.getMsg();
                 charge = msgBean.getCharge();
                 String limit = msgBean.getLimit();
-                addressSnmd.setHint(limit+"");
-                tvCharge.setText(charge +"");
+                addressSnmd.setHint(limit + "");
+                tvCharge.setText(charge + "");
 
 
             }
@@ -172,28 +172,30 @@ public class ForwardActivity extends BaseActivity {
 
     //上下限接口
     private void initNumber() {
+        processBasr.setVisibility(View.VISIBLE);
         String trim = addressSnmd.getText().toString().trim();
         isNumber isNumber = new isNumber(trim);
         RequestBodyWrapper bodyWrapper = new RequestBodyWrapper(isNumber);
-       HttpManager.post(UrlConstantsKt.POST_NUMBER,bodyWrapper).subscribe(new Subscriber<String>() {
-           @Override
-           public void onNext(String o) {
-               if ( o == null || o.isEmpty()) return;
-               JSONObject jsonObject = null;
-               try {
-                   jsonObject = new JSONObject(o);
-                   int code = jsonObject.getInt("code");
-                   if (code==1) {
-                       String msg = jsonObject.getString("msg");
-                       if (msg.equals("提现金额不能小于3500")){
-                           Toast.makeText(ForwardActivity.this, "提现金额不能小于3500", Toast.LENGTH_SHORT).show();
-                       }else if (msg.equals("提现金额不能小于0")){
-                           mwallet = addressSnmd.getText().toString().trim();
-                           showPayDialog(mwallet);
-                       } else if (msg.equals("正确")){
-                           mwallet = addressSnmd.getText().toString().trim();
+        HttpManager.post(UrlConstantsKt.POST_NUMBER, bodyWrapper).subscribe(new Subscriber<String>() {
+            @Override
+            public void onNext(String o) {
+                processBasr.setVisibility(View.GONE);
+                if (o == null || o.isEmpty()) return;
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(o);
+                    int code = jsonObject.getInt("code");
+                    if (code == 1) {
+                        String msg = jsonObject.getString("msg");
+                        if (msg.equals("提现金额不能小于3500")) {
+                            Toast.makeText(ForwardActivity.this, "提现金额不能小于3500", Toast.LENGTH_SHORT).show();
+                        } else if (msg.equals("提现金额不能小于0")) {
+                            mwallet = addressSnmd.getText().toString().trim();
+                            showPayDialog(mwallet);
+                        } else if (msg.equals("正确")) {
+                            mwallet = addressSnmd.getText().toString().trim();
 
-                           showPayDialog(mwallet);
+                            showPayDialog(mwallet);
 //                           //提币输入数量
 //
 //                           //判断它不为空
@@ -203,24 +205,25 @@ public class ForwardActivity extends BaseActivity {
 //                               ToastUtil.showToast("提现金额不能为空");
 //                           }
 
-                       }
-                   }
+                        }
+                    }
 
-               } catch (Exception e) {
-                   e.printStackTrace();
-               }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-           }
+            }
 
-           @Override
-           public void onError(Throwable t) {
-           }
+            @Override
+            public void onError(Throwable t) {
+                processBasr.setVisibility(View.GONE);
+            }
 
-           @Override
-           public void onComplete() {
-
-           }
-       });
+            @Override
+            public void onComplete() {
+processBasr.setVisibility(View.GONE);
+            }
+        });
 
     }
 
@@ -285,6 +288,8 @@ public class ForwardActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                processBasr.setVisibility(View.GONE);
+
             }
         });
 
@@ -313,16 +318,15 @@ public class ForwardActivity extends BaseActivity {
 //                DecimalFormat df=new DecimalFormat(".########");
 //                Double aDouble = Double.valueOf(df.format(use1));
                 int numberDecimalDigits = getNumberDecimalDigits(use1);
-                if (numberDecimalDigits > 8){
+                if (numberDecimalDigits > 8) {
                     String substring = (use1 + "").substring(0, (use1 + "").indexOf(".") + 9);
-                    addressSnmd.setText(substring+"");
+                    addressSnmd.setText(substring + "");
                     return;
                 }
-                addressSnmd.setText(use1+"");
+                addressSnmd.setText(use1 + "");
             }
 
         });
-
 
 
         //确定按钮
@@ -388,7 +392,7 @@ public class ForwardActivity extends BaseActivity {
                         addressSnmd.setText("");
                         tvAssets.setText("0");
                     }
-                }else {
+                } else {
                     tvAssets.setText("0");
                 }
 
@@ -397,11 +401,11 @@ public class ForwardActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (moneyNum.equals("") || TextUtils.isEmpty(moneyNum)){
+                if (moneyNum.equals("") || TextUtils.isEmpty(moneyNum)) {
                     return;
                 }
-                a = Double.parseDouble(moneyNum)-charge;
-                tvAssets.setText(a+"");
+                a = Double.parseDouble(moneyNum) - charge;
+                tvAssets.setText(a + "");
             }
         });
 
@@ -440,12 +444,15 @@ public class ForwardActivity extends BaseActivity {
         });
 
     }
+
     public void setMaxmumFilter(double maxmum, int numOfDecimal) {
         inputFilters.add(new MaxmumFilter(0, maxmum, numOfDecimal));
         addressSnmd.setFilters(inputFilters.toArray(new InputFilter[inputFilters.size()]));
     }
+
     private boolean isDialog = true;
-//支付密码页面
+
+    //支付密码页面
     private void showPayDialog(String wallet) {
         dialog = new Dialog(ForwardActivity.this);
         //支付密码页面
@@ -482,7 +489,7 @@ public class ForwardActivity extends BaseActivity {
         edt.setOnInputOverListener(new PasswordInputEdt.onInputOverListenerss() {
             @Override
             public void onInputOver(String text) {
-                if (!isEdit){
+                if (!isEdit) {
                     if ("".equals(text)) {
                         isEdit = !isEdit;
                         return;
@@ -495,7 +502,7 @@ public class ForwardActivity extends BaseActivity {
                     String sunm = addressSnmd.getText().toString();//voc
                     String remarks = addressRemarks.getText().toString();
                     String DeviceId = SmAntiFraud.getDeviceId();
-                    ResetPwd3 pwd3 = new ResetPwd3(remarks, sunm, text,DeviceId);
+                    ResetPwd3 pwd3 = new ResetPwd3(remarks, sunm, text, DeviceId);
                     RequestBodyWrapper wrapper = new RequestBodyWrapper(pwd3);
                     HttpManager.post(UrlConstantsKt.POST_RESET_THREE, wrapper).subscribe(new Subscriber<String>() {
                         @Override
@@ -554,26 +561,26 @@ public class ForwardActivity extends BaseActivity {
                                         dialogr.setCanceledOnTouchOutside(false);
                                         dialogr.setCancelable(false);
 
-                                    } else if (msg.equals("提现数量低于下限")){
+                                    } else if (msg.equals("提现数量低于下限")) {
                                         isDialog = true;
                                         dialog.dismiss();
                                         Toast.makeText(ForwardActivity.this, "提现数量低于最低下限", Toast.LENGTH_SHORT).show();
 //                                        showPayDialog(mwallet);
 
-                                    }else  if (msg.equals("该账号十天之内不能多次交易")){
+                                    } else if (msg.equals("该账号十天之内不能多次交易")) {
                                         isDialog = true;
                                         dialog.dismiss();
                                         dialog = null;
                                         Toast.makeText(ForwardActivity.this, "该账号十天之内不能多次交易", Toast.LENGTH_SHORT).show();
 //                                        showPayDialog(mwallet);
 
-                                    }else if (msg.equals("地址已被他人绑定")){
+                                    } else if (msg.equals("地址已被他人绑定")) {
                                         isDialog = true;
                                         dialog.dismiss();
                                         Toast.makeText(ForwardActivity.this, "地址已被他人绑定", Toast.LENGTH_SHORT).show();
 
 
-                                    }else {
+                                    } else {
                                         isDialog = true;
                                         dialog.dismiss();
                                         dialog = null;
@@ -651,56 +658,60 @@ public class ForwardActivity extends BaseActivity {
         res.updateConfiguration(config, res.getDisplayMetrics());
         return res;
     }
+
     /**
      * 判断是否有地址
      */
-    public void postResetPwd(){
-        final LoadingDialog loadingDialog = new LoadingDialog(this, null);
-        loadingDialog.show();
+    public void postResetPwd() {
+
+        processBasr.setVisibility(View.VISIBLE);
         String token = PreferenceUtil.Companion.getInstance().getString("TOKEN");
         isHaveAddress request = new isHaveAddress(token);
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
-        HttpManager.post(SECCE_SS,wrapper).subscribe(new Subscriber<String>(){
+        HttpManager.post(SECCE_SS, wrapper).subscribe(new Subscriber<String>() {
             @Override
             public void onNext(String s) {
-                loadingDialog.dismiss();
+               processBasr.setVisibility(View.GONE);
                 if (s == null || s.isEmpty()) return;
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(s);
                     int code = jsonObject.getInt("code");
                     if (code == 1) {
-                        if("用户还没有钱包地址".equals(jsonObject.getString("msg"))){
+                        if ("用户还没有钱包地址".equals(jsonObject.getString("msg"))) {
                             startActivity(new Intent(ForwardActivity.this, AddresActivity.class));
-                        }else{
+                        } else {
                             Intent intent = new Intent(ForwardActivity.this, AddresActivity2.class);
 //                            setResult(200,intent);
-                            intent.putExtra("position",position);
-                            startActivityForResult(intent,200);
+                            intent.putExtra("position", position);
+                            startActivityForResult(intent, 200);
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onError(Throwable t) {
-                loadingDialog.dismiss();
+                processBasr.setVisibility(View.GONE);
             }
+
             @Override
             public void onComplete() {
 
-                loadingDialog.dismiss();
+                processBasr.setVisibility(View.GONE);
             }
         });
     }
-    public void Openkeybord (final EditText edt){
+
+    public void Openkeybord(final EditText edt) {
         edt.requestFocus();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(edt, InputMethodManager.RESULT_SHOWN);
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
             }
@@ -710,9 +721,9 @@ public class ForwardActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 200 && resultCode == 200){
+        if (requestCode == 200 && resultCode == 200) {
             String addres = data.getStringExtra("addres");
-            position = data.getIntExtra("position",0);
+            position = data.getIntExtra("position", 0);
             if (addres != null)
                 addressRemarks.setText(addres);
         }
@@ -767,13 +778,14 @@ public class ForwardActivity extends BaseActivity {
             return source;
         }
     }
-//    直接对double进行处理，进行计算通过计算后的结果进行取模操作获取小数位数
+
+    //    直接对double进行处理，进行计算通过计算后的结果进行取模操作获取小数位数
     public int getNumberDecimalDigits(double number) {
-        if (number == (long)number) {
+        if (number == (long) number) {
             return 0;
         }
         int i = 0;
-        while (true){
+        while (true) {
             i++;
             if (number * Math.pow(10, i) % 1 == 0) {
                 return i;
@@ -782,9 +794,9 @@ public class ForwardActivity extends BaseActivity {
     }
 
 
-    private void getMoeny(){
+    private void getMoeny() {
         RequestBodyWrapper requestBodyWrapper = new RequestBodyWrapper(null);
-        HttpManager.post(UrlConstantsKt.ZI_CHAN,requestBodyWrapper)
+        HttpManager.post(UrlConstantsKt.ZI_CHAN, requestBodyWrapper)
                 .subscribe(new Subscriber<String>() {
 
                     @Override
@@ -793,11 +805,11 @@ public class ForwardActivity extends BaseActivity {
                             return;
                         Gson gson = new Gson();
                         WalletClass walletClass = gson.fromJson(s, WalletClass.class);
-                        if (walletClass.getCode() == 1){
+                        if (walletClass.getCode() == 1) {
                             WalletClass.MsgBean msg = walletClass.getMsg();
                             use1 = msg.getUse();
-                            setMaxmumFilter(use1,8);
-                            tvTxian.setText(use1+"");
+                            setMaxmumFilter(use1, 8);
+                            tvTxian.setText(use1 + "");
                         }
 //                        val wallet = gson.fromJson(t, WalletClass::class.java) ?: return
 //                        if (wallet.code == 1) {
@@ -822,7 +834,6 @@ public class ForwardActivity extends BaseActivity {
                     }
                 });
     }
-
 
 
 }
