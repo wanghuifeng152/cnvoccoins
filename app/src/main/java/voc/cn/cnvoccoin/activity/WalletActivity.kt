@@ -1,6 +1,7 @@
 package voc.cn.cnvoccoin.activity
 
 import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -23,7 +24,6 @@ import voc.cn.cnvoccoin.network.RequestBodyWrapper
 import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
 
-
 /**
  * 我的资产
  */
@@ -41,18 +41,22 @@ class WalletActivity : Activity() {
         mingxi!!.setOnClickListener({
             startActivity(Intent(this@WalletActivity, DetailedActivity::class.java))
         })
+        //提现规则
+        tixian_guize!!.setOnClickListener({
+            startActivity(Intent(this@WalletActivity, Put_forwardActivity::class.java))
+        })
         //锁定弹出PopupWindow
-
         suo_ding!!.setOnClickListener({
             val popupView = LayoutInflater.from(this).inflate(R.layout.pop_filter, null)
-
             val popup = PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT
                     , ViewGroup.LayoutParams.WRAP_CONTENT)
-            popup.setBackgroundDrawable(ColorDrawable(0x00000000))
+            popup.setBackgroundDrawable(ColorDrawable(0xfffffff))
             popup!!.isFocusable = true
             popup!!.isOutsideTouchable = true   //点击外部popueWindow消失
             popup!!.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+            backgroundAlpha(0.3f)
             popupView.guanbi!!.setOnClickListener({
+                backgroundAlpha(1.0f)
                 popup!!.dismiss()
             })
 
@@ -89,6 +93,22 @@ class WalletActivity : Activity() {
         }
     }
 
+    /**
+     * popupWindow设置半透明背景
+     * @param bgAlpha 透明值 0.0 - 1.0
+     */
+    fun backgroundAlpha(bgAlpha: Float) {
+        val lp = this.getWindow().getAttributes()
+        lp.alpha = bgAlpha
+        if (bgAlpha == 1f) {
+            //不移除该Flag的话,在有视频的页面上的视频会出现黑屏的bug
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        } else {
+            //此行代码主要是解决在华为手机上半透明效果无效的bug
+            this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        }
+        this.getWindow().setAttributes(lp)
+    }
     private fun hideStatusBar() {
         if (Build.VERSION.SDK_INT >= 24) {
             var window = getWindow()

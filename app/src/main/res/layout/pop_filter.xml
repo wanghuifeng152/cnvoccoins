@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="184.5dp"
+    android:layout_marginLeft="35.5dp"
+    android:layout_marginRight="35.5dp"
     android:background="@drawable/bg_white"
     android:gravity="center"
-    android:layout_marginRight="20dp"
-    android:layout_marginLeft="20dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -18,42 +18,53 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="锁定说明"
-                android:textSize="20dp"
-                android:textColor="@color/light_black"
-                android:gravity="center"
-                android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="锁定说明"
+                android:textColor="@color/light_black"
+                android:textSize="20dp" />
+
             <ImageView
                 android:id="@+id/guanbi"
-                android:src="@mipmap/icon_down"
                 android:layout_width="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="20dp"
                 android:layout_gravity="right|center"
-                android:layout_marginRight="20dp"
-                android:layout_height="20dp" />
+                android:layout_marginRight="28.5dp"
+                android:src="@mipmap/icon_down" />
         </FrameLayout>
     </LinearLayout>
+
     <View
-        android:background="@color/color_FFC3C1C1"
         android:layout_width="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="17dp"
+        android:background="@color/color_FFC3C1C1" />
+
     <TextView
         android:id="@+id/wallet_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:textSize="16dp"
-        android:textColor="@color/light_black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="41.5dp"
+        android:layout_marginRight="39.5dp"
+        android:layout_marginTop="22dp"
+        android:gravity="center"
+        android:textColor="@color/light_black"
+        android:textSize="16dp" />
+
     <TextView
         android:id="@+id/wallet2_content"
-        android:gravity="center"
-        android:textSize="16dp"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/light_black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="17dp"
+        android:layout_marginLeft="41.5dp"
+        android:layout_marginRight="39.5dp"
+        android:gravity="center"
+        android:textColor="@color/light_black"
+        android:textSize="16dp" />
 </LinearLayout>
