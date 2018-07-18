@@ -1,235 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent" android:background="#f0f0f0"
-  android:layout_height="match_parent">
-  <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f2"
-    android:orientation="vertical">
+    android:background="#f0f0f0">
 
     <RelativeLayout
-        android:paddingTop="20dp"
-      android:layout_width="match_parent"
-      android:layout_height="280dp"
-      android:background="@mipmap/bgc_home">
-
-      <TextView
-
-        android:id="@+id/tv_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:padding="10dp"
-        android:text="@string/info_coin"
-        android:textColor="@color/color_654c34"/>
-
-      <TextView
-        android:id="@+id/tv_my"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_below="@id/tv_info"
-        android:layout_centerHorizontal="true"
-        android:text="@string/my_own"
-        android:textColor="@color/color_654c34"/>
-
-      <TextView
-        android:id="@+id/tv_my_coin"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_my"
-        android:layout_centerHorizontal="true"
-          android:layout_marginTop="3dip"
-        android:textColor="@color/color_c89158"
-        android:textSize="22sp"/>
-
-      <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginBottom="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-        <Button
-          android:id="@+id/btn_voice"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:paddingLeft="26dp"
-          android:paddingRight="26dp"
-          android:background="@drawable/bg_orange"
-          android:drawableLeft="@mipmap/icon_talk"
-          android:text="@string/voice_coin"
-          android:textColor="@color/white"/>
-        <Button
-          android:id="@+id/btn_task"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="20dp"
-          android:paddingLeft="26dp"
-          android:paddingRight="26dp"
-          android:background="@drawable/bg_task_button"
-          android:drawableLeft="@mipmap/icon_renwuwak"
-          android:text="@string/task_coin"
-          android:textColor="@color/white"/>
-      </LinearLayout>
-
-    </RelativeLayout>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
-
-      <LinearLayout
-        android:id="@+id/ll_news"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:paddingBottom="20dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="20dp"
-        android:background="@drawable/bg_white"
+        android:layout_height="match_parent"
+        android:background="@color/color_f2"
         android:orientation="vertical">
 
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:paddingBottom="10dp"
-          android:text="@string/news"
-          android:textSize="14sp"
-          android:textColor="@color/color_454545"/>
-
         <RelativeLayout
-          android:id="@+id/rl_news1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@mipmap/bgc_home"
+            android:paddingTop="20dp">
 
-          <ImageView
-            android:id="@+id/iv_news"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/zixun_two"/>
+            <ImageView
+                android:id="@+id/tv_info"
+                android:layout_width="70.5dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/wabi" />
 
-          <TextView
-            android:id="@+id/tv_info_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_news"
-            android:singleLine="true"
-            android:text="怎样最快速度挖币？"
-            android:textColor="@color/light_black"
-            android:textSize="15sp"/>
+            <LinearLayout
+                android:id="@+id/tv_my"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38.5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_info_title"
-            android:layout_toRightOf="@id/iv_news"
-            android:singleLine="true"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/color_gray2"
-            android:text="通过语音链奖励机制，迅速获得大量代币"
-            android:textSize="11sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_info"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/my_own"
+                    android:textColor="@color/suoding"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginLeft="3dp"
+                    android:src="@mipmap/shouye" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_my_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_my"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dip"
+                android:textColor="@color/color_c89158"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="40dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_voice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_orange"
+                    android:drawableLeft="@mipmap/icon_talk"
+                    android:drawablePadding="3dp"
+                    android:paddingLeft="22.5dp"
+                    android:paddingRight="18.5dp"
+                    android:text="@string/voice_coin"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btn_task"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/bg_task_button"
+                    android:drawableLeft="@mipmap/icon_renwuwak"
+                    android:drawablePadding="3dp"
+                    android:paddingLeft="21dp"
+                    android:paddingRight="18.5dp"
+                    android:text="@string/task_coin"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
         </RelativeLayout>
 
-        <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="10dp"
-          android:background="@color/color_f2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <RelativeLayout
-          android:id="@+id/rl_news2"
-          android:layout_gravity="center"
-          android:layout_marginTop="14dp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_news"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="295dp"
+                android:background="@drawable/bg_white"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
 
-          <ImageView
-            android:id="@+id/iv_news1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="20dp"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/zixun_one"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="@string/news"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
-          <TextView
-            android:id="@+id/tv_info_title1"
+                <RelativeLayout
+                    android:id="@+id/rl_news1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_news"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/zixun_one" />
+
+                    <LinearLayout
+                        android:id="@+id/tv_info_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/iv_news"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="怎样最快速度挖币？"
+                            android:textColor="@color/light_black"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:singleLine="true"
+                            android:text="通过语音链奖励机制，迅速获得大量代币"
+                            android:textColor="@color/color_gray2"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/color_f2" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_news2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="14dp">
+
+                    <ImageView
+                        android:id="@+id/iv_news1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/zixun_two" />
+
+                    <LinearLayout
+                        android:id="@+id/tv_info_title1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/iv_news1"
+                        android:orientation="vertical">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="VOC语音链全球首发，抢占时代技红利"
+                            android:textColor="@color/light_black"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_info_title1"
+                            android:layout_marginTop="5dp"
+                            android:layout_toRightOf="@id/iv_news1"
+                            android:singleLine="true"
+                            android:text="我们相信，技术应当惠及多数人，但也绝不应当忘记少数人。他们是我们的同胞，同样有权利用技术让生活变得更加美好"
+                            android:textColor="@color/color_gray2"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_white"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rank"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/gift_up"
+                    android:textColor="@color/color_gray2"
+                    android:textSize="12dp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_rank"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_rank"
+                    android:layout_marginTop="10dp"
+                    android:background="#fff"
+                    android:nestedScrollingEnabled="false" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/processBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_news1"
-            android:singleLine="true"
-            android:text="VOC语音链全球首发，抢占时代技红利"
-            android:textColor="@color/light_black"
-            android:textSize="15sp"/>
-
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_info_title1"
-            android:layout_toRightOf="@id/iv_news1"
-            android:singleLine="true"
-            android:layout_marginTop="5dp"
-              android:textColor="@color/color_gray2"
-            android:text="我们相信，技术应当惠及多数人，但也绝不应当忘记少数人。他们是我们的同胞，同样有权利用技术让生活变得更加美好"
-            android:textSize="11sp"/>
-        </RelativeLayout>
-      </LinearLayout>
-
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="20dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="20dp"
-        android:background="@drawable/bg_white">
-
-        <TextView
-          android:id="@+id/tv_rank"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/rank"
-          android:textColor="@color/black"/>
-
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentRight="true"
-          android:text="@string/gift_up"
-            android:textSize="12dp"
-          android:textColor="@color/color_gray2"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:background="#fff"
-          android:id="@+id/rv_rank"
-          android:layout_width="match_parent"
-            android:nestedScrollingEnabled="false"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:layout_below="@id/tv_rank"/>
-      </RelativeLayout>
-
-    </LinearLayout>
-    <ProgressBar
-        android:id="@+id/processBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:indeterminateTint="@color/color_c89158" />
-  </RelativeLayout>
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/color_c89158"
+            android:visibility="gone" />
+    </RelativeLayout>
 </ScrollView>
 
 
