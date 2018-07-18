@@ -245,7 +245,7 @@ public class RegistActivity extends BaseActivity {
                     ToastUtil.showToast("请输入手机号");
                     return;
                 }
-               processBar.setVisibility(View.VISIBLE);
+                processBar.setVisibility(View.VISIBLE);
                 String DID = SmAntiFraud.getDeviceId();
                 Log.i("log", "~~~~~~~~~~~~`" + DID);
                 GetConfirmCodeRequest_sm request = new GetConfirmCodeRequest_sm(mobile, DID);
@@ -271,12 +271,12 @@ public class RegistActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable t) {
-processBar.setVisibility(View.GONE);
+                        processBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onComplete() {
-                       processBar.setVisibility(View.GONE);
+                        processBar.setVisibility(View.GONE);
                     }
                 });
             }
@@ -341,12 +341,12 @@ processBar.setVisibility(View.GONE);
 
             @Override
             public void onError(Throwable t) {
-processBar.setVisibility(View.GONE);
+                processBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onComplete() {
-processBar.setVisibility(View.GONE);
+                processBar.setVisibility(View.GONE);
             }
         });
     }
