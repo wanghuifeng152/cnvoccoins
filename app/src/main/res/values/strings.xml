@@ -83,7 +83,7 @@
 
     <string name="xuan_ze">请选择钱包地址</string>
     <string name="Ming_Xi">收支明细</string>
-
+    <string name="Ti_Xian">我们将赠送0.0001eth给首个提现的钱包地址中</string>
     <string name="shuo_ming">获得的VOC初始为锁定状态，自获\n得日后满一个月，变为可提现状态</string>
     <string name="login_psw">切换到密码登陆</string>
     <string name="login_code">切换到验证码登陆</string>

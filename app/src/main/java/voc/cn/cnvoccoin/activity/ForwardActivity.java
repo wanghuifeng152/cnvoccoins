@@ -150,7 +150,7 @@ public class ForwardActivity extends BaseActivity {
                 charge = msgBean.getCharge();
                 String limit = msgBean.getLimit();
                 addressSnmd.setHint(limit + "");
-                tvCharge.setText(charge + "");
+                tvCharge.setText(charge + ""+"VOC");
 
 
             }
@@ -381,7 +381,7 @@ processBasr.setVisibility(View.GONE);
 //                    {
 //                        addressSnmd.setText("");
 //                    }
-                    tvAssets.setText(moneyNum + "");
+                    tvAssets.setText(moneyNum + ""+"VOC");
                     if (addressSnmd.getText().toString().trim().matches("^0")) {//判断当前的输入第一个数是不是为0
                         addressSnmd.setText("");
                         return;
@@ -390,10 +390,10 @@ processBasr.setVisibility(View.GONE);
 //                        addressSnmd.setHint("超出可提现金额");
 //                        addressSnmd.setHintTextColor(Color.parseColor("#B2FF0000"));
                         addressSnmd.setText("");
-                        tvAssets.setText("0");
+                        tvAssets.setText("0"+"VOC");
                     }
                 } else {
-                    tvAssets.setText("0");
+                    tvAssets.setText("0"+"VOC");
                 }
 
 
@@ -405,7 +405,7 @@ processBasr.setVisibility(View.GONE);
                     return;
                 }
                 a = Double.parseDouble(moneyNum) - charge;
-                tvAssets.setText(a + "");
+                tvAssets.setText(a + ""+"VOC");
             }
         });
 
@@ -809,7 +809,7 @@ processBasr.setVisibility(View.GONE);
                             WalletClass.MsgBean msg = walletClass.getMsg();
                             use1 = msg.getUse();
                             setMaxmumFilter(use1, 8);
-                            tvTxian.setText(use1 + "");
+                            tvTxian.setText(use1 + ""+"VOC");
                         }
 //                        val wallet = gson.fromJson(t, WalletClass::class.java) ?: return
 //                        if (wallet.code == 1) {

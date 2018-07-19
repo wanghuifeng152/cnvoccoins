@@ -20,8 +20,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="锁定说明"
                 android:textColor="@color/light_black"
@@ -30,10 +30,10 @@
             <ImageView
                 android:id="@+id/guanbi"
                 android:layout_width="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right|center"
                 android:layout_marginRight="28.5dp"
+                android:layout_marginTop="10dp"
                 android:src="@mipmap/icon_down" />
         </FrameLayout>
     </LinearLayout>
@@ -55,16 +55,16 @@
         android:layout_marginTop="22dp"
         android:gravity="center"
         android:textColor="@color/light_black"
-        android:textSize="16dp" />
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/wallet2_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="22dp"
         android:layout_marginLeft="41.5dp"
         android:layout_marginRight="39.5dp"
         android:gravity="center"
         android:textColor="@color/light_black"
-        android:textSize="16dp" />
+        android:textSize="15dp" />
 </LinearLayout>
