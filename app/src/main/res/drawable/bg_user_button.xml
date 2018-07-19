@@ -9,7 +9,7 @@
     <solid android:color="@color/white"
         />
     <size
-        android:width="50dp"
+        android:width="70dp"
         android:height="25dp"
 
         />

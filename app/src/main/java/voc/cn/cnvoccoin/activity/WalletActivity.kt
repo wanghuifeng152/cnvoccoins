@@ -50,9 +50,9 @@ class WalletActivity : Activity() {
             val popupView = LayoutInflater.from(this).inflate(R.layout.pop_filter, null)
             val popup = PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT
                     , ViewGroup.LayoutParams.WRAP_CONTENT)
-            popup.setBackgroundDrawable(ColorDrawable(0xfffffff))
+           // popup.setBackgroundDrawable(ColorDrawable(0xfffffff))
             popup!!.isFocusable = true
-            popup!!.isOutsideTouchable = true   //点击外部popueWindow消失
+            //popup!!.isOutsideTouchable = true   //点击外部popueWindow消失
             popup!!.showAtLocation(popupView, Gravity.CENTER, 0, 0);
             backgroundAlpha(0.3f)
             popupView.guanbi!!.setOnClickListener({
