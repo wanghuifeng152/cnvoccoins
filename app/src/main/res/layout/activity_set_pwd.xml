@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <View
-        android:background="@color/black"
+        android:background="@color/color_zichan3"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="23dp"/>
@@ -21,6 +21,7 @@
         android:id="@+id/tv_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/chong_zhi"
         android:layout_marginTop="70dip"
         android:layout_gravity="center_horizontal"/>
 
@@ -32,6 +33,8 @@
         android:layout_marginRight="10dip"
         app:rectChooseColor="@color/pwd"
         app:rectNormalColor="@color/color_gray"
+        app:textColor="@color/chong_zhi2"
+        app:txtSize="20dp"
         app:isPwd="false"
         app:rectStroke="1dip"
         android:layout_marginTop="30dip"/>
@@ -43,7 +46,7 @@
         android:layout_marginTop="50dip"
         android:layout_marginLeft="35dip"
         android:layout_marginRight="35dip"
-        android:background="@drawable/bg_task_butt"
+        android:background="@mipmap/anniu"
         android:textSize="16dip"
         />
     </LinearLayout>
