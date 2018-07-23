@@ -70,10 +70,10 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
+        requestPermission()
         setContentView(R.layout.activity_main)
         initViewPager()
         initRadioButton()
-        requestPermission()
         checkVersion()
         /**
         *《---------------------------------------------==- 自定义极光 -==---------------------------------------------》
