@@ -278,6 +278,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun requestPermission() {
+        //6.0动态权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this,
