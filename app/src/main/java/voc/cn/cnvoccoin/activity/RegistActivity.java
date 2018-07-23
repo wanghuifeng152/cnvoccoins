@@ -308,6 +308,9 @@ public class RegistActivity extends BaseActivity {
         timer.schedule(timerTask, 0, 1000);
     }
 
+    /**
+     * zhuce
+     */
     private void setRegister() {
         String deviceId = SmAntiFraud.getDeviceId();
         String edphone = et_phone.getText().toString();
