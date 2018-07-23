@@ -490,9 +490,9 @@ public class VoiceActivityNew extends BaseActivity {
 
                     @Override
                     public void onError(Throwable t) {
-
+                        if(t != null){
                             Log.e("TAG", "onError:a+++++++++++++++++++++++++++++b "+t.getMessage() );
-
+                        }
                     }
 
                     @Override
