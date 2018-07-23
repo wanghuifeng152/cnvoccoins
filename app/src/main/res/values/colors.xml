@@ -56,5 +56,8 @@
     <color name="ti_xian">#FFEEDD</color>
     <color name="ti_xian2">#FA6C41</color>
     <color name="ti_xian3">#757067</color>
+    <color name="chong_zhi">#999999</color>
+    <color name="chong_zhi2">#D1AD79</color>
+    <color name="addres">#757067</color>
 </resources>
 

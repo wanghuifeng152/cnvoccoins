@@ -73,6 +73,8 @@
         android:layout_marginRight="10dip"
         app:rectChooseColor="@color/color_c89158"
         app:heightSpace="0dp"
+        app:textColor="@color/chong_zhi2"
+        app:txtSize="20dp"
         app:isPwd="true"
         app:widthSpace="0dp"
         app:rectStroke="0.5dp"
