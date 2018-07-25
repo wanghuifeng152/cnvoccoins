@@ -324,6 +324,7 @@ processBasr.setVisibility(View.GONE);
                     return;
                 }
                 addressSnmd.setText(use1 + "");
+                addressSnmd.setSelection(Double.toString(use1).length());
             }
 
         });
