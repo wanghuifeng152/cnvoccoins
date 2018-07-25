@@ -47,7 +47,6 @@ public class AddresActivity2 extends AppCompatActivity {
 
     private DetailedAdapter detailedAdapter;
     private List<AddresClass.MsgBean> addresClassMsg;
-    private int i;
     private Intent intent;
 
 
@@ -126,10 +125,9 @@ public class AddresActivity2 extends AppCompatActivity {
         address2Lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                i = position;
                 detailedAdapter.setChecked(position);
 //                Intent intent = new Intent(AddresActivity2.this,ForwardActivity.class);
-                intent.putExtra("addres", addresClassMsgList.get(i).getAddress());
+                intent.putExtra("addres", addresClassMsgList.get(position).getAddress());
                 intent.putExtra("position", position);
 //                startActivity(intent);
                 setResult(200, intent);

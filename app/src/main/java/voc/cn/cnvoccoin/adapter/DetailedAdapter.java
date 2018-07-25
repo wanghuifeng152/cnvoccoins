@@ -22,12 +22,12 @@ import voc.cn.cnvoccoin.entity.DetailedClass;
 public class DetailedAdapter extends BaseAdapter {
     private Context mContext;
     private List<AddresClass.MsgBean> addresClassMsg;
-    private int checked = 0;
+    private int checked = -1;
 
     public void setChecked(int checked){
         this.checked=checked;
+        notifyDataSetChanged();
     }
-
 
     public DetailedAdapter(Context mContext, List<AddresClass.MsgBean> addresClassMsg) {
         this.mContext = mContext;
@@ -68,7 +68,8 @@ public class DetailedAdapter extends BaseAdapter {
 
         viewHolder.addItem.setText(addresClassMsg.get(position).getRemarks());
 
-        if(checked==position){
+        Log.e("TAG", "getView: checked++"+checked+"position+++"+position);
+        if(checked == position){
             viewHolder.addImg.setImageResource(R.mipmap.icon_choose1);
         }else {
             viewHolder.addImg.setImageResource(R.mipmap.icon_choose);

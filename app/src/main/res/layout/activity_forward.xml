@@ -122,6 +122,7 @@
             android:layout_marginLeft="5dp"
             android:textColor="#6ea9f5"
             android:text="全部提现"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

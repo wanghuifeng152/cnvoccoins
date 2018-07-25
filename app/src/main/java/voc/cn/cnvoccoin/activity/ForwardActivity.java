@@ -92,7 +92,7 @@ public class ForwardActivity extends BaseActivity {
     TextView tvQub;
     private double use;
     private boolean isEdit = true;
-    private int position = 0;
+    private int position = -1;
     private int outNum = 0;
     private List<InputFilter> inputFilters;
     private double moeny;
