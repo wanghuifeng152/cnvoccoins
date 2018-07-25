@@ -51,7 +51,7 @@
                 android:text="添加新地址"
                 android:layout_marginRight="10dp"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </FrameLayout>
     </LinearLayout>
 

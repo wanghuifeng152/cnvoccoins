@@ -155,7 +155,7 @@ public class AddresActivity extends AppCompatActivity {
                                                         SharedPreferences.Editor editor = flag.edit();
                                                         editor.putString("flag", "1");
                                                         editor.commit();
-
+                                                        editor.clear();
                                                         Intent in = new Intent(AddresActivity.this, SuccessActivity.class);
                                                         startActivity(in);
                                                         finish();
