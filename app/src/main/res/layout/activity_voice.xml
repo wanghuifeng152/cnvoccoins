@@ -27,13 +27,13 @@
       android:visibility="invisible"/>
 
     <TextView
-      android:id="@+id/tv_info"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="30dp"
-      android:layout_gravity="center"
-      android:text="@string/have_coin"
-      android:textColor="@color/color_b3642b"/>
+        android:id="@+id/tv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="@string/have_coin"
+        android:textColor="@color/suoding" />
 
     <TextView
         android:id="@+id/tv_have_coin"
@@ -41,8 +41,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_info"
         android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="10dp"
         android:text="0.00"
-        android:textColor="@color/color_c89158"
+        android:textColor="@color/pai_huang"
         android:textSize="28sp"
         android:textStyle="bold" />
   </LinearLayout>
@@ -83,12 +85,22 @@
     android:src="@mipmap/icon_voice"/>
 
   <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="40dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="29dp"
+      android:text="@string/coin_read"
+      android:textSize="11sp"
+      android:textColor="@color/color_a8" />
+<TextView
+    android:text="@string/coin_read2"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
-    android:text="@string/coin_read"
-    android:textColor="@color/color_a8"/>
-
+    android:layout_marginBottom="26dp"
+    android:gravity="center"
+    android:textSize="11sp"
+    android:textColor="@color/color_a8"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
 </RelativeLayout>
