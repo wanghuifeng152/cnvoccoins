@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
     <View
         android:fitsSystemWindows="true"
-        android:background="@color/black"
+        android:background="@color/color_zhuce"
         android:layout_width="match_parent"
         android:layout_height="23dp"/>
     <RelativeLayout
-        android:background="@color/black"
+        android:background="@color/color_zhuce"
         android:gravity="center_vertical"
         android:id="@+id/ll_title"
         android:layout_height="50dp"
@@ -19,10 +19,10 @@
 
         <ImageView
             android:id="@+id/iv_back"
+            android:layout_width="10.5dp"
             android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:paddingLeft="10dp"
-            android:src="@mipmap/back" />
+            android:layout_marginLeft="18.5dp"
+            android:src="@mipmap/sign_out" />
 
         <TextView
             android:gravity="center"
@@ -50,16 +50,29 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="@string/basic_target"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="10.5dp"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:background="#9f7852"
+                        android:layout_gravity="center"
+                        android:layout_width="3dp"
+                        android:layout_height="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@string/basic_target"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_basic_task"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -68,20 +81,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:layout_marginBottom="80dp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="10dp">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="10.5dp"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:background="#9f7852"
+                        android:layout_gravity="center"
+                        android:layout_width="3dp"
+                        android:layout_height="14dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="6dp"
+                        android:text="@string/super_target"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="@string/super_target"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_super_task"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -96,5 +123,5 @@
         android:visibility="gone"
         android:indeterminateTint="@color/color_c89158"
         />
-</RelativeLayout>
+</LinearLayout>
 
