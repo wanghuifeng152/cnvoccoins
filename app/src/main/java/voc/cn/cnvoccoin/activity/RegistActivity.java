@@ -192,7 +192,7 @@ public class RegistActivity extends BaseActivity {
             } else {
                 iv1.setVisibility(View.GONE);
             }
-            if (phone != null) {
+            if (phone.length() > 0) {
                 delete.setVisibility(View.VISIBLE);
             } else {
                 delete.setVisibility(View.GONE);

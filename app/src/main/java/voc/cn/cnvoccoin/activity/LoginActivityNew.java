@@ -123,6 +123,19 @@ public class LoginActivityNew extends BaseActivity {
         public void afterTextChanged(Editable s) {
             String phone = mEtPhone.getText().toString();
             String pwd = mEtPwd.getText().toString();
+            if(phone.length() > 0 ){
+                loginDeleteName.setVisibility(View.VISIBLE);
+
+            }else{
+                loginDeleteName.setVisibility(View.GONE);
+
+            }
+            if(pwd.length() > 0){
+                loginPswHide.setVisibility(View.VISIBLE);
+            }else{
+                loginPswHide.setVisibility(View.GONE);
+            }
+
             if (phone.length() == 11) {
                 if (pwd.length() >= 6) {
                     //登录监听
@@ -292,7 +305,7 @@ public class LoginActivityNew extends BaseActivity {
 //                密码是否可见按钮
             case R.id.login_psw_hide:
                 if (isVisible) {
-                    loginPswHide.setBackgroundResource(R.mipmap.show);
+                    loginPswHide.setBackgroundResource(R.mipmap.eye);
                     mEtPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     if (!"".equals(mEtPwd.getText().toString().trim())) {
                         mEtPwd.setSelection(mEtPwd.getText().length());
