@@ -7,11 +7,11 @@
     android:orientation="vertical">
     <View
         android:fitsSystemWindows="true"
-        android:background="@color/black"
+        android:background="@color/color_zhuce"
         android:layout_width="match_parent"
         android:layout_height="23dp"/>
     <RelativeLayout
-        android:background="@color/black"
+        android:background="@color/color_zhuce"
         android:gravity="center_vertical"
         android:id="@+id/ll_title"
         android:layout_height="50dp"
@@ -20,10 +20,10 @@
 
         <ImageView
             android:id="@+id/iv_back"
+            android:layout_width="10.5dp"
             android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:paddingLeft="10dp"
-            android:src="@mipmap/back" />
+            android:layout_marginLeft="18.5dp"
+            android:src="@mipmap/sign_out"  />
 
         <TextView
             android:gravity="center"
@@ -39,10 +39,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="验证码已经发送到您的手机"
-    android:textSize="15sp"
+    android:textSize="14sp"
     android:gravity="center"
     android:layout_marginTop="60dp"
-    android:textColor="@color/color_gray2"
+    android:textColor="@color/chong_zhi"
 
     />
 
@@ -50,19 +50,26 @@
         android:id="@+id/tv_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:gravity="center"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/color_c89158"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/chong_zhi2"
         />
 
+    <View
+        android:background="@color/chong_zhi2"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_width="20dp"
+        android:layout_height="4dp"/>
 
 <TextView
     android:text="请输入验证码"
     android:gravity="center"
     android:id="@+id/tv_input"
-    android:textSize="15sp"
+    android:textSize="14sp"
+    android:textColor="@color/chong_zhi"
     android:layout_marginTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" />
@@ -73,8 +80,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        app:rectChooseColor="@color/color_c89158"
+        app:rectChooseColor="@color/chong_zhi2"
         app:isPwd="false"
+        app:textColor="@color/chong_zhi2"
+        app:txtSize="20dp"
         app:rectStroke="1dip"
         android:layout_marginTop="30dip"/>
 
