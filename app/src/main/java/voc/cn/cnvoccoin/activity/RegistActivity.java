@@ -154,7 +154,7 @@ public class RegistActivity extends BaseActivity {
                 } else {
                     //密码显示
                     isshow = true;
-                    iv1.setImageResource(R.mipmap.show);
+                    iv1.setImageResource(R.mipmap.eye);
                     pwd.setInputType(InputType.TYPE_CLASS_TEXT);
                 }
             }
