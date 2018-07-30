@@ -11,6 +11,8 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.NetworkInterface;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import voc.cn.cnvoccoin.R;

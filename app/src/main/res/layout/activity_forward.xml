@@ -179,14 +179,14 @@
         android:id="@+id/tv_address"
         android:textColor="@color/color_BF986F"
         android:layout_gravity="center_horizontal"
-        android:text="没有提现地址？"
+        android:text="如何获取提现地址？"
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
         <View
             android:layout_gravity="center"
             android:background="@color/color_BF986F"
-            android:layout_width="100dp"
+            android:layout_width="125dp"
             android:layout_height="1dp"/>
     </LinearLayout>
     <ProgressBar
