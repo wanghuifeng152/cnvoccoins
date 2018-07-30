@@ -519,6 +519,9 @@ processBasr.setVisibility(View.GONE);
                                         Intent in = new Intent(ForwardActivity.this, ForwardTwoActivity.class);
                                         startActivity(in);
                                     } else if (msg.equals("密码不正确")) {
+                                        //清空密码框
+                                        edt.setText("");
+                                        edt.closeText();
                                         //支付密码错误页面
                                         isDialog = false;
                                         final Dialog dialogr = new Dialog(ForwardActivity.this);
