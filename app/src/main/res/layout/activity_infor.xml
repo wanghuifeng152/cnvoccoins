@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    >
+    <View
+        android:id="@+id/xxc"
+        android:fitsSystemWindows="true"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"/>
+    <RelativeLayout
+        android:layout_below="@id/xxc"
+        android:background="@color/black"
+        android:gravity="center_vertical"
+        android:id="@+id/ll_title"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:text="@string/news"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title"
+        android:text="什么是VOC?"
+        android:textSize="19sp"
+        android:textColor="#333333"
+        android:layout_marginTop="20.5dp"
+        android:layout_marginLeft="12dp"
+        />
+
+    <TextView
+
+        android:id="@+id/text_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="12dp"
+        android:lineSpacingExtra="9dp"
+        android:text="@string/infor_one"
+        android:textSize="13sp"
+        android:textColor="#666666"
+        />
+
+    <TextView
+        android:id="@+id/text_x"
+        android:layout_below="@+id/text_a"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VOC语音链是基于区块链技术，构建最大的全球人类语音数据库，通过社群成员协作的力量共同收集标注语音数据，并根据提供的语音数量及质量奖励成员相应的VOC，为AI语音识别的发展提供全球最大、最丰富、最精准的训练数据源"
+        android:layout_marginLeft="12dp"
+        android:textSize="13sp"
+        android:textColor="#666666"
+        android:layout_marginRight="12dp"
+        android:lineSpacingExtra="9dp"
+        android:layout_marginTop="13dp"
+        />
+
+    <TextView
+        android:id="@+id/text_z"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_x"
+        android:layout_marginTop="17dp"
+        android:text="VOC的价值"
+        android:layout_marginLeft="12dp"
+        android:textColor="#333333"
+        android:textSize="19sp"
+        />
+    <TextView
+        android:id="@+id/text_b"
+        android:layout_below="@+id/text_z"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="9dp"
+       android:textSize="13sp"
+        android:text="@string/infor_two"
+        android:textColor="#666666"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        />
+    <TextView
+        android:layout_below="@+id/text_b"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#666666"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="13dp"
+        android:lineSpacingExtra="9dp"
+        android:textSize="13sp"
+        android:text="当下识别技术的革新，无不是建立在大量的语音数据收集与人工标注工作之上的。VOC既是用户提供标注语音数据的证明，也是交换标注语音资源的凭证，所以VOC的价值，就是标注语音的价值。预计到2025年，这智能语音市场规模将超过10000亿美元"
+
+        />
+
+
+
+
+
+</RelativeLayout>

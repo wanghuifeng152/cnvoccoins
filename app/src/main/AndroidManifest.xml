@@ -198,14 +198,15 @@
         <activity
             android:name=".activity.SetPayPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.ReSetPayPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".activity.Put_forwardActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.Put_forwardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <!-- 《《《《《《《《《《《《《《《《《《《极光推送》》》》》》》》》》》》》》》》》》 -->
         <!-- Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
@@ -329,6 +330,10 @@
         <!-- &lt;!&ndash; Required. AppKey copied from Portal &ndash;&gt; -->
         <!-- <meta-data android:name="JPUSH_APPKEY" android:value="5a54c4ad167be8d76ebcc25b"/> -->
 
+        <activity android:name=".activity.InforActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
     </application>
 
 </manifest>

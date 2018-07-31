@@ -93,4 +93,7 @@
     <string name="login_phone_hint">请输入正确的手机号</string>
     <string name="sq_ewm">点击上方二维码保存</string>
     <string name="str_yaoqing">2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，注册即送1350VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=</string>
+    <string name="infor_one">VOC是VOC语音链用户提供标注语音数据的证明，是VOC用户提供数据的奖励，也是换取标注语音数据的货币。
+</string>
+    <string name="infor_two">VOC基于区块链加密存储技术，帮助您管理您所产生的语音数据，使之变现，并为己所有。</string>
 </resources>

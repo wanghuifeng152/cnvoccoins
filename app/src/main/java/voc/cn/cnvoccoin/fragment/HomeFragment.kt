@@ -143,7 +143,7 @@ class HomeFragment : Fragment() {
 //点击跳转到voc语音连
         rl_news2.setOnClickListener {
             processBar.setVisibility(View.GONE)
-            val intent = Intent(activity, NewsActivity::class.java)
+            val intent = Intent(activity, InforActivity::class.java)
             intent.putExtra(TAG, 2)
             startActivity(intent)
         }
