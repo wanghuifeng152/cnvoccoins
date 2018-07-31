@@ -1,5 +1,6 @@
 package voc.cn.cnvoccoin.activity
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
@@ -7,22 +8,20 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.umeng.analytics.MobclickAgent
-import org.greenrobot.eventbus.EventBus
-import voc.cn.cnvoccoin.R
-import android.view.KeyEvent.KEYCODE_BACK
-import android.view.KeyCharacterMap.deviceHasKey
-import android.support.v4.view.ViewConfigurationCompat.hasPermanentMenuKey
 import android.view.*
+import voc.cn.cnvoccoin.util.ActivityManager
 
 
 /**
  * Created by shy on 2018/3/28.
  */
-open class BaseActivity : AppCompatActivity() {
+open class   BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        //EventBus.getDefault().register(this)
         hideStatusBar()
+        //将当前的Activity添加到ActivityManager中
+        ActivityManager.getInstance().add(this);
     }
     private fun hideStatusBar() {
 //        getWindow().getDecorView().findViewById<View>(android.R.id.content).setPadding(0, 0, 0, getNavigationBarHeight())
@@ -53,7 +52,24 @@ open class BaseActivity : AppCompatActivity() {
             return 0
         }
     }
+    //启动新的Activity
+    fun goToActivity(Activity: Class<*>, bundle: Bundle?) {
+        val intent = Intent(this, Activity)
+        if (bundle != null && bundle.size() != 0) {
+            intent.putExtra("data", bundle)
+        }
+        startActivity(intent)
+    }
 
+    //销毁当前的Activity
+    fun removeCurrentActivity() {
+        ActivityManager.getInstance().removeCurrent()
+    }
+
+    //销毁所有的Activity
+    fun removeAll() {
+        ActivityManager.getInstance().removeAll()
+    }
 
 
 

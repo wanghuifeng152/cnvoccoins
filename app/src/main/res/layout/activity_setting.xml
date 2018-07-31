@@ -53,6 +53,16 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_gray"/>
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/sign"
+        android:background="#f20707"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="#fff"
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
 
 
 </LinearLayout>
