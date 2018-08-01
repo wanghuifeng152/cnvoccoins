@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.ImageView;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +19,8 @@ public class NewActivity extends AppCompatActivity {
     ImageView img1;
     @BindView(R.id.img2)
     ImageView img2;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
     private Unbinder mUnBinder;
 
     @Override
@@ -29,6 +29,16 @@ public class NewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new);
         mUnBinder = ButterKnife.bind(this);
         loadImg();
+        initivBack();
+    }
+
+    private void initivBack() {
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void loadImg() {
