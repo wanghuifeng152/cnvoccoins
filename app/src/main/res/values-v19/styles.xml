@@ -23,11 +23,6 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
-
-   <declare-styleable name="ProgressBar">
-        <attr name="gif" format="reference" />
-        <attr name="paused" format="boolean" />
-    </declare-styleable>
     <style name="loading_dialog" parent="android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>

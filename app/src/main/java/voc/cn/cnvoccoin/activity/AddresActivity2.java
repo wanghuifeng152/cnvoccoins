@@ -48,7 +48,7 @@ public class AddresActivity2 extends AppCompatActivity {
     private DetailedAdapter detailedAdapter;
     private List<AddresClass.MsgBean> addresClassMsg;
     private Intent intent;
-
+    private Intent intent2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class AddresActivity2 extends AppCompatActivity {
         list request = new list("1");
         RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
         HttpManager.post(UrlConstantsKt.ADDRES, wrapper).subscribe(new Subscriber<String>() {
+
             private List<AddresClass.MsgBean> addresClassMsg;
 
             @Override
@@ -90,8 +91,8 @@ public class AddresActivity2 extends AppCompatActivity {
                 addresClassMsg = addresClass.getMsg();
                 detailedAdapter = new DetailedAdapter(AddresActivity2.this, addresClassMsg);
                 address2Lv.setAdapter(detailedAdapter);
-                Intent intent = getIntent();
-                int position = intent.getIntExtra("position", 0);
+                intent2 = getIntent();
+                int position = intent2.getIntExtra("position", 0);
                 detailedAdapter.setChecked(position);
                 detailedAdapter.notifyDataSetChanged();
 
@@ -117,6 +118,7 @@ public class AddresActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent.putExtra("addres", "");
+                intent.putExtra("position",-1);
 //                startActivity(intent);
                 setResult(200, intent);
                 finish();

@@ -1,12 +1,9 @@
 package voc.cn.cnvoccoin.activity
 
 import android.os.Bundle
-import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebView
 import kotlinx.android.synthetic.main.activity_news.*
 import voc.cn.cnvoccoin.R
+
 
 /**
  * Created by shy on 2018/5/14.
@@ -16,11 +13,12 @@ class NewsActivity :BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-        setWebView()
-        getparams()
+      /*  setWebView()
+        getparams()*/
+        iv_back.setOnClickListener { finish()}
     }
 
-    private fun getparams() {
+/*    private fun getparams() {
         if(intent == null)return
         val tag = intent.getIntExtra(TAG, 1)
         when(tag){
@@ -57,5 +55,5 @@ class NewsActivity :BaseActivity(){
         settings.defaultTextEncodingName = "utf-8"
         settings.loadsImagesAutomatically = true
         settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK //关闭缓存
-    }
+    }*/
 }

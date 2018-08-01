@@ -88,6 +88,7 @@ class HomeFragment : Fragment() {
             mMyCoin?.text = "登录/注册后可见"
         }
 
+
         //语言挖矿按钮点击判断是否已经登录
         mBtnVoice?.setOnClickListener {
           processBar.setVisibility(View.VISIBLE)
@@ -136,7 +137,7 @@ class HomeFragment : Fragment() {
 
         rl_news1.setOnClickListener {
             processBar.setVisibility(View.GONE)
-            val intent = Intent(activity, NewsActivity::class.java)
+            val intent = Intent(activity, NewActivity::class.java)
             intent.putExtra(TAG, 1)
             startActivity(intent)
         }

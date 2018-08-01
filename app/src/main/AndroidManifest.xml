@@ -198,12 +198,16 @@
         <activity
             android:name=".activity.SetPayPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.ReSetPayPwdActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".activity.Put_forwardActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.Put_forwardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.NewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <!-- 《《《《《《《《《《《《《《《《《《《极光推送》》》》》》》》》》》》》》》》》》 -->
@@ -328,6 +332,7 @@
         <!-- <meta-data android:name="JPUSH_CHANNEL" android:value="vocalchain-market"/> -->
         <!-- &lt;!&ndash; Required. AppKey copied from Portal &ndash;&gt; -->
         <!-- <meta-data android:name="JPUSH_APPKEY" android:value="5a54c4ad167be8d76ebcc25b"/> -->
+
 
     </application>
 
