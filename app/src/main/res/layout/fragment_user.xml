@@ -1,439 +1,457 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<voc.cn.cnvoccoin.util.MyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_f2"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:background="@mipmap/bgc_user"
-            android:fitsSystemWindows="true"
-            android:paddingTop="23dp">
-
-            <TextView
-                android:id="@+id/tv_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="@string/user_info"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/tv_setting"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="设置"
-                android:textColor="@color/white"
-                android:textSize="13sp"
-
-
-                />
-
-            <voc.cn.cnvoccoin.view.CircleImageView
-                android:id="@+id/iv_header"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_below="@id/tv_info"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/circle_header_border"
-                android:src="@mipmap/touxiang" />
-
-            <TextView
-                android:id="@+id/tv_notlogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iv_header"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/login_now"
-                android:textColor="@color/color_654c34"
-                android:textSize="20sp" />
-
-
-        </RelativeLayout>
+            android:adjustViewBounds="true"
+            android:background="@mipmap/bgc_user" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="230dp"
+            android:layout_marginTop="-260dp"
             android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/ll_news"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/bg_white"
-                android:orientation="vertical"
-                android:paddingBottom="10dp"
-                android:paddingTop="20dp">
-
-                <RelativeLayout
-                    android:id="@+id/rl_news1"
-                    android:paddingLeft="17dp"
-                    android:paddingRight="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp">
-
-                    <TextView
-                        android:id="@+id/tv_my_assets"
-                        android:paddingTop="2dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/my_assets"
-                        android:textSize="15dp"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/tv_my_coin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:textSize="18dp"
-                        android:layout_toRightOf="@id/tv_my_assets"
-                        android:textColor="@color/ge_ren" />
-
-                    <TextView
-                        android:id="@+id/tv_see"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:paddingTop="3dp"
-                        android:text="@string/login_see"
-                        android:textColor="@color/color_666666" />
-
-                    <TextView
-                        android:id="@+id/tv_se"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/bg_user_button"
-                        android:gravity="center"
-                        android:text="@string/reflect"
-                        android:textColor="@color/color_c89158"
-                        android:visibility="gone" />
-
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@color/color_f2"
-                    />
-
-                <RelativeLayout
-                    android:id="@+id/rl_reset_pwd"
-                    android:layout_width="match_parent"
-                    android:paddingLeft="17dp"
-                    android:paddingRight="20dp"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dip"
-                    android:paddingTop="10dip">
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/reset_pwd"
-                        android:textSize="15sp"
-                        android:textColor="@color/black" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/icon_next" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-
-                    android:id="@+id/rl_real_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:visibility="gone">
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/real_name"
-                        android:textColor="@color/black" />
-
-                    <ImageView
-                        android:id="@+id/iv_next"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@mipmap/icon_next" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dip"
-                        android:layout_toLeftOf="@+id/iv_next"
-                        android:text="未认证" />
-                </RelativeLayout>
-
-            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_white"
-                android:paddingBottom="20dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_basic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/basic_target"
-                    android:layout_marginLeft="2dp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-                <LinearLayout
-                    android:id="@+id/tv_more"
-                    android:gravity="right|center"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="260dp"
+                    android:paddingTop="23dp">
 
                     <TextView
+                        android:id="@+id/tv_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/more"
-                        android:layout_marginRight="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/user_info"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_setting"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="设置"
+                        android:textColor="@color/white"
                         android:textSize="13sp"
-                        android:textColor="@color/color_666666" />
+
+
+                        />
+
+                    <voc.cn.cnvoccoin.view.CircleImageView
+                        android:id="@+id/iv_header"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_below="@id/tv_info"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/circle_header_border"
+                        android:src="@mipmap/touxiang" />
+
+                    <TextView
+                        android:id="@+id/tv_notlogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/iv_header"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/login_now"
+                        android:textColor="@color/color_654c34"
+                        android:textSize="20sp" />
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="230dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ll_news"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/bg_white"
+                        android:orientation="vertical"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="20dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rl_news1"
+                            android:layout_width="match_parent"
+                            android:layout_height="25dp"
+                            android:paddingLeft="17dp"
+                            android:paddingRight="20dp">
+
+                            <TextView
+                                android:id="@+id/tv_my_assets"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="2dp"
+                                android:text="@string/my_assets"
+                                android:textColor="@color/black"
+                                android:textSize="15dp" />
+
+                            <TextView
+                                android:id="@+id/tv_my_coin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_toRightOf="@id/tv_my_assets"
+                                android:textColor="@color/ge_ren"
+                                android:textSize="18dp" />
+
+                            <TextView
+                                android:id="@+id/tv_see"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:paddingTop="3dp"
+                                android:text="@string/login_see"
+                                android:textColor="@color/color_666666" />
+
+                            <TextView
+                                android:id="@+id/tv_se"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:background="@drawable/bg_user_button"
+                                android:gravity="center"
+                                android:text="@string/reflect"
+                                android:textColor="@color/color_c89158"
+                                android:visibility="gone" />
+
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/color_f2" />
+
+                        <RelativeLayout
+                            android:id="@+id/rl_reset_pwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="10dip"
+                            android:paddingLeft="17dp"
+                            android:paddingRight="20dp"
+                            android:paddingTop="10dip">
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/reset_pwd"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/icon_next" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+
+                            android:id="@+id/rl_real_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:visibility="gone">
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/real_name"
+                                android:textColor="@color/black" />
+
+                            <ImageView
+                                android:id="@+id/iv_next"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/icon_next" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dip"
+                                android:layout_toLeftOf="@+id/iv_next"
+                                android:text="未认证" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_white"
+                        android:paddingBottom="20dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_basic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:text="@string/basic_target"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:id="@+id/tv_more"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right|center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="2dp"
+                                android:text="@string/more"
+                                android:textColor="@color/color_666666"
+                                android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/icon_next" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_basic_task"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_basic"
+                            android:layout_marginTop="20dp"
+                            android:background="@color/white"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                                android:visibility="gone"
+                                app:cardCornerRadius="10dp"
+                                app:cardElevation="5dp"
+                                tools:ignore="NewApi">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@mipmap/icon_invite" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:text="@string/invite"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:id="@+id/tv_invite"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="1 0 0 VOC"
+                                        android:textColor="@color/color_b9854f" />
+
+                                    <Button
+                                        android:layout_width="86dp"
+                                        android:layout_height="28dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@drawable/bg_task_button"
+                                        android:text="@string/to_invite"
+                                        android:textColor="@color/color_654c34" />
+                                </LinearLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginRight="16dp"
+                                android:layout_weight="1"
+                                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                                android:visibility="gone"
+                                app:cardCornerRadius="10dp"
+                                app:cardElevation="5dp"
+                                tools:ignore="NewApi">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@mipmap/icon_shequ" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:text="@string/join_home"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:id="@+id/tv_join"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="5 0 0 VOC"
+                                        android:textColor="@color/color_b9854f" />
+
+                                    <Button
+                                        android:layout_width="86dp"
+                                        android:layout_height="28dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@drawable/bg_task_button"
+                                        android:text="@string/to_join"
+                                        android:textColor="@color/color_654c34" />
+                                </LinearLayout>
+                            </android.support.v7.widget.CardView>
+
+                            <ImageView
+                                android:id="@+id/invitation"
+                                android:layout_width="0dp"
+                                android:layout_height="170dp"
+                                android:layout_weight="1"
+                                android:src="@mipmap/task_uninvite1" />
+
+                            <ImageView
+                                android:id="@+id/btn_join"
+                                android:layout_width="0dp"
+                                android:layout_height="170dp"
+                                android:layout_weight="1"
+                                android:src="@mipmap/task_unjoin1" />
+
+                            <ImageView
+                                android:id="@+id/btn_focus"
+                                android:layout_width="0dp"
+                                android:layout_height="170dp"
+                                android:layout_weight="1"
+                                android:src="@mipmap/task_unfocus1" />
+
+                            <android.support.v7.widget.CardView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                                android:visibility="gone"
+                                app:cardCornerRadius="10dp"
+                                app:cardElevation="5dp"
+                                tools:ignore="NewApi">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/white"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@mipmap/icon_weixin" />
+
+                                    <TextView
+                                        android:id="@+id/tv_focus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="10dp"
+                                        android:text="@string/focus_common_code"
+                                        android:textColor="@color/black" />
+
+                                    <TextView
+                                        android:id="@+id/tv_100"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="5 0 0 VOC"
+                                        android:textColor="@color/color_b9854f" />
+
+                                    <Button
+                                        android:layout_width="86dp"
+                                        android:layout_height="28dp"
+                                        android:layout_marginTop="10dp"
+                                        android:background="@drawable/bg_task_button"
+                                        android:text="@string/to_focus"
+                                        android:textColor="@color/color_654c34" />
+                                </LinearLayout>
+                            </android.support.v7.widget.CardView>
+                        </LinearLayout>
+                    </RelativeLayout>
 
                     <ImageView
-                        android:src="@mipmap/icon_next"
+                        android:id="@+id/jump_img"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_basic_task"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/rectangle_two" />
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ll_basic_task"
+
+                <ProgressBar
+                    android:id="@+id/processBasr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_basic"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                        android:visibility="gone"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="5dp"
-                        tools:ignore="NewApi">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_invite" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/invite"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:id="@+id/tv_invite"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="1 0 0 VOC"
-                                android:textColor="@color/color_b9854f" />
-
-                            <Button
-                                android:layout_width="86dp"
-                                android:layout_height="28dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/bg_task_button"
-                                android:text="@string/to_invite"
-                                android:textColor="@color/color_654c34" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_weight="1"
-                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                        android:visibility="gone"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="5dp"
-                        tools:ignore="NewApi">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_shequ" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/join_home"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:id="@+id/tv_join"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="5 0 0 VOC"
-                                android:textColor="@color/color_b9854f" />
-
-                            <Button
-                                android:layout_width="86dp"
-                                android:layout_height="28dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/bg_task_button"
-                                android:text="@string/to_join"
-                                android:textColor="@color/color_654c34" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <ImageView
-                        android:id="@+id/invitation"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
-                        android:layout_weight="1"
-                        android:src="@mipmap/task_uninvite1" />
-
-                    <ImageView
-                        android:id="@+id/btn_join"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
-                        android:layout_weight="1"
-                        android:src="@mipmap/task_unjoin1" />
-
-                    <ImageView
-                        android:id="@+id/btn_focus"
-                        android:layout_width="0dp"
-                        android:layout_height="170dp"
-                        android:layout_weight="1"
-                        android:src="@mipmap/task_unfocus1" />
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                        android:visibility="gone"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="5dp"
-                        tools:ignore="NewApi">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@mipmap/icon_weixin" />
-
-                            <TextView
-                                android:id="@+id/tv_focus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:text="@string/focus_common_code"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:id="@+id/tv_100"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="5 0 0 VOC"
-                                android:textColor="@color/color_b9854f" />
-
-                            <Button
-                                android:layout_width="86dp"
-                                android:layout_height="28dp"
-                                android:layout_marginTop="10dp"
-                                android:background="@drawable/bg_task_button"
-                                android:text="@string/to_focus"
-                                android:textColor="@color/color_654c34" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-                </LinearLayout>
+                    android:layout_centerInParent="true"
+                    android:indeterminateTint="@color/color_c89158"
+                    android:visibility="gone" />
             </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/jump_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ll_basic_task"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:src="@mipmap/rectangle_two" />
         </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/processBasr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminateTint="@color/color_c89158"
-            android:visibility="gone" />
-    </RelativeLayout>
-</ScrollView>
+    </LinearLayout>
+</voc.cn.cnvoccoin.util.MyScrollView>
