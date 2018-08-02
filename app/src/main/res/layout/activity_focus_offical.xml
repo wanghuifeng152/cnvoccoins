@@ -100,6 +100,7 @@
             android:hint="请输入6位验证码"
             android:maxLength="6"
             android:singleLine="true"
+            android:numeric="integer"
             android:textColor="#757066"
             android:textColorHint="#D1C9BA"
             android:textSize="20sp" />
