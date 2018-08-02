@@ -49,8 +49,8 @@
     <string name="coin_rule">挖币规则</string>
     <string name="have_coin">已挖矿</string>
     <string name="join_community">加入社区</string>
-    <string name="community_text">加入 VOC 社区\n\n即可领取 435 V币</string>
-    <string name="focus_text">关注 VOC 微信公众号\n\n即可领取 435 V币</string>
+    <string name="community_text">加入 VOC 社区\n\n即可领取 287 V币</string>
+    <string name="focus_text">关注 VOC 微信公众号\n\n即可领取 287 V币</string>
     <string name="dang_ri">(当日获得的币从第二日零点开始平均解锁)</string>
     <string name="join_step">1.在微信中扫描下面二维码，进入VOC微信群\n\n2.进入微信群的群公告中，获得6位数字验证码\n\n3.在下方输入验证码，提交成功后即可领取VOC</string>
     <string name="focus_step">1.在微信中扫描下面二维码，关注Vocal Chain公众号\n2.依次选择“领取”-“APP任务”即可获得验证码\n3.在下方输入验证码，提交成功后即可领取VOC</string>
