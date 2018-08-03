@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         initView(view)
         val token = PreferenceUtil.instance?.getString(TOKEN)
         if (token == null || token.isEmpty()){
-
+//是hi试试hi
         }else{
             /**
              * 排行榜定时器，30分钟刷新一次
