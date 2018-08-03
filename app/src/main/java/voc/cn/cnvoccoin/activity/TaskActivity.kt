@@ -66,7 +66,7 @@ class TaskActivity:BaseActivity() {
                             for (datum in data) {
                                 if (datum.task == "加入群组") {
                                     if (datum.taskStatus == 1) {
-                                        basicImagmgList.set(1, R.mipmap.task_unjoin2)
+                                        basicImagmgList.set(1, R.mipmap.task_unjoin2_true)
 //                                    设置索引为1的ImageViw不可点击
                                         if (position == 1) {
                                             val img: ImageView = v as ImageView
@@ -88,7 +88,7 @@ class TaskActivity:BaseActivity() {
                                             val img: ImageView = v as ImageView
                                             img.isEnabled = false
                                         }
-                                        basicImagmgList.set(2, R.mipmap.task_unfocus2)
+                                        basicImagmgList.set(2, R.mipmap.task_unfocus2_true)
                                     } else {
                                         if (position == 2) {
                                             val img: ImageView = v as ImageView

@@ -26,9 +26,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 import com.google.gson.Gson;
 import com.ishumei.smantifraud.SmAntiFraud;
 import com.lqr.audio.AudioRecordManager;
@@ -38,36 +35,23 @@ import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.orhanobut.logger.Logger;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import voc.cn.cnvoccoin.R;
-import voc.cn.cnvoccoin.entity.UploadVoiceBean;
 import voc.cn.cnvoccoin.entity.UploadVoiceBeans;
 import voc.cn.cnvoccoin.network.HttpManager;
 import voc.cn.cnvoccoin.network.RequestBodyWrapper;
-import voc.cn.cnvoccoin.network.ResBaseModel;
 import voc.cn.cnvoccoin.network.Subscriber;
-import voc.cn.cnvoccoin.service.PageService;
 import voc.cn.cnvoccoin.util.AppUtils;
-import voc.cn.cnvoccoin.util.RetrofitUtils;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.UploadCoinRequestVoc;
 import voc.cn.cnvoccoin.util.UrlConstantsKt;
@@ -110,6 +94,8 @@ public class VoiceActivityNew extends BaseActivity {
     WaveLineView viewWave;
     @BindView(R.id.iv_voice)
     ImageView ivVoice;
+    @BindView(R.id.voice_back)
+    ImageView voiceBack;
     private File mAudioDir;
     private int voice_id = 0;
     private double voiceCoin = 0.00;
@@ -157,6 +143,12 @@ public class VoiceActivityNew extends BaseActivity {
         String t = Long.toString(time).substring(0, 10);
         sign = Utils.md5(t) + "#" + t;
         getReadCoin();
+        voiceBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     /**
@@ -206,7 +198,7 @@ public class VoiceActivityNew extends BaseActivity {
                             isreodering = true;
                             hasVoice = false;
                             //开始录制时间
-                            oldTime = java.lang.System.currentTimeMillis();
+                            oldTime = System.currentTimeMillis();
                             intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
                             registerReceiver(broadcastReceiver, intentFilter);
                             break;
@@ -234,7 +226,7 @@ public class VoiceActivityNew extends BaseActivity {
                             viewWave.clearDraw();
 
                             //录制完毕时间
-                            newTime = java.lang.System.currentTimeMillis();
+                            newTime = System.currentTimeMillis();
                             ivVoice.setEnabled(false);
                             handler.postDelayed(new Runnable() {
                                 @Override
@@ -457,7 +449,7 @@ public class VoiceActivityNew extends BaseActivity {
 //                });
         UploadCoinRequestVoc android = new UploadCoinRequestVoc(String.valueOf(voice_id), StrVersion, "Android", SmAntiFraud.getDeviceId());
         RequestBodyWrapper wrapper = new RequestBodyWrapper(android);
-        HttpManager.post(UrlConstantsKt.UPLOAD_COIN,wrapper)
+        HttpManager.post(UrlConstantsKt.UPLOAD_COIN, wrapper)
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onNext(String s) {
@@ -483,15 +475,15 @@ public class VoiceActivityNew extends BaseActivity {
 //                        LovelyToast.makeText(VoiceActivityNew.this,decimalFormat.format(voiceCoin)+"",LovelyToast.LENGTH_SHORT,LovelyToast.SUCCESS);
                         if (decimalFormat == null)
 
-                        tvHaveCoin.setText(new DecimalFormat("0.00").format(voiceCoin) + "");
+                            tvHaveCoin.setText(new DecimalFormat("0.00").format(voiceCoin) + "");
                         sign = uploadVoiceBeanResBaseModel.getData().getSign();
                         hasVoice = false;
                     }
 
                     @Override
                     public void onError(Throwable t) {
-                        if(t != null){
-                            Log.e("TAG", "onError:a+++++++++++++++++++++++++++++b "+t.getMessage() );
+                        if (t != null) {
+                            Log.e("TAG", "onError:a+++++++++++++++++++++++++++++b " + t.getMessage());
                         }
                     }
 
