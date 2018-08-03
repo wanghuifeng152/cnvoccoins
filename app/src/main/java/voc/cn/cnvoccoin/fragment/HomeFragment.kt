@@ -88,6 +88,10 @@ class HomeFragment : Fragment() {
             mMyCoin?.text = "登录/注册后可见"
         }
 
+        mMyCoin?.setOnClickListener {
+            //没有登录跳转到登录页面
+            startActivity(Intent(activity, LoginActivityNew::class.java))
+        }
 
         //语言挖矿按钮点击判断是否已经登录
         mBtnVoice?.setOnClickListener {

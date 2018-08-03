@@ -3,6 +3,8 @@ package voc.cn.cnvoccoin.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -62,8 +64,49 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
         et_code = findViewById(R.id.et_code);
         et_phone.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
         et_code.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
-    }
 
+        TextChange textChange = new TextChange();
+        et_phone.addTextChangedListener(textChange);
+        et_code.addTextChangedListener(textChange);
+
+    }
+    //设置edittext的输入监听
+    class TextChange implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (et_phone.getText().toString().trim().length() == 11) {
+
+                if(et_code.getText().toString().trim().length() == 6){
+                    btn_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                                postMessage();
+                               // ToastUtil.showToast("请输入正确的手机号和验证码");
+                        }
+                    });
+                    btn_ok.setSelected(true);
+                }else{
+                    btn_ok.setSelected(false);
+                    btn_ok.setOnClickListener(null);
+                }
+            } else {
+//                    Toast.makeText(this,"请输入正确的手机号和验证码",Toast.LENGTH_LONG).show();
+                btn_ok.setSelected(false);
+                btn_ok.setOnClickListener(null);
+            }
+
+        }
+    }
     public void postMessage() {
       processBasr.setVisibility(View.VISIBLE);
         String code = et_code.getText().toString().trim();
@@ -114,17 +157,6 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_ok:
-                if (et_phone.getText().toString().trim().length() == 11 && et_code.getText().toString().length() == 6) {
-                    postMessage();
-                    ;
-                } else {
-//                    Toast.makeText(this,"请输入正确的手机号和验证码",Toast.LENGTH_LONG).show();
-                    ToastUtil.showToast("请输入正确的手机号和验证码");
-
-                }
-
-                break;
             case R.id.ll_send:
                 if (et_phone.getText().toString().trim().length() == 11) {
                     String token = PreferenceUtil.Companion.getInstance().getString("USER_MOBILE");

@@ -135,8 +135,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="31dp"
-            android:src="@mipmap/chart"
-            android:layout_height="283dp" />
+            android:src="@mipmap/picture"
+            android:layout_height="280dp" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_marginBottom="12.25dp"
@@ -224,8 +224,8 @@
             android:layout_marginBottom="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:src="@mipmap/chart2"
+            android:src="@mipmap/picture2"
             android:layout_width="match_parent"
-            android:layout_height="283dp" />
+            android:layout_height="280dp" />
     </LinearLayout>
 </ScrollView>

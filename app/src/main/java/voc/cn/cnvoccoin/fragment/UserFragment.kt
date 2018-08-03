@@ -109,7 +109,10 @@ class UserFragment : Fragment() {
         )
             //点击登录按钮
         tv_notlogin.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
-
+        //未登陆，点击登陆后可见，跳转登陆
+        tv_see.setOnClickListener {
+            startActivity(Intent(activity, LoginActivityNew::class.java))
+        }
         //点击头像
         iv_header.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
@@ -195,7 +198,7 @@ class UserFragment : Fragment() {
                     for (datum in data) {
                         if (datum.task == "加入群组"){
                             if (datum.taskStatus == 1) {
-                                btn_join.setImageResource(R.mipmap.task_unjoin2)
+                                btn_join.setImageResource(R.mipmap.task_unjoin2_true)
                                 btn_join.isEnabled = false
                             }else{
                                 btn_join.setImageResource(R.mipmap.task_unjoin2)
@@ -205,7 +208,7 @@ class UserFragment : Fragment() {
                         }
                         if (datum.task == "关注公众号"){
                             if (datum.taskStatus == 1) {
-                                btn_focus.setImageResource(R.mipmap.task_unfocus2)
+                                btn_focus.setImageResource(R.mipmap.task_unfocus2_true)
                                 btn_focus.isEnabled = false
                             }else{
                                 btn_focus.setImageResource(R.mipmap.task_unfocus2)
