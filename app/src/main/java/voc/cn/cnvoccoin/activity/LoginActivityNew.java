@@ -131,26 +131,28 @@ public class LoginActivityNew extends BaseActivity {
 
             }
             if(pwd.length() > 0){
-                loginPswHide.setVisibility(View.VISIBLE);
+                if(isLoginType){
+                    loginPswHide.setVisibility(View.VISIBLE);
+                }else{
+                    loginPswHide.setVisibility(View.GONE); 
+                }
             }else{
                 loginPswHide.setVisibility(View.GONE);
             }
 
             if (phone.length() == 11) {
                 if (pwd.length() >= 6) {
-                    //登录监听
+                            //登录监听
                     mBtnLogin.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                判断当前登陆类型
-                            if (isLoginType)
-
+                            //判断当前登陆类型
+                            if (isLoginType){
                             /**
-                             * 密码登陆
-                             */ {
-//                    验证手机号码是否正确
+                             * 密码登陆 //验证手机号码是否正确
+                             */
                                 if (isMobileNO(mEtPhone.getText().toString().trim())) {
-//                        是否输入验证码
+                                    //是否输入验证码
                                     if ("".equals(mEtPwd.getText().toString().trim())) {
                                         ToastUtil.showToast("请输入密码");
                                     } else {
@@ -159,14 +161,12 @@ public class LoginActivityNew extends BaseActivity {
                                 } else {
                                     ToastUtil.showToast("请输入正确手机号码");
                                 }
-                            } else
-
+                            } else {
                             /**
-                             * 验证码登陆
-                             */ {
-                                //  验证手机号码是否正确
+                             * 验证码登陆  //  验证手机号码是否正确
+                             */
                                 if (isMobileNO(mEtPhone.getText().toString().trim())) {
-//                        是否输入密码
+                                //是否输入密码
                                     if ("".equals(mEtPwd.getText().toString().trim())) {
                                         ToastUtil.showToast("请输入验证码");
                                     } else {
@@ -340,7 +340,7 @@ public class LoginActivityNew extends BaseActivity {
                     mEtPwd.setText("");
                     mEtPwd.setInputType(EditorInfo.IME_ACTION_NONE);
                     mEtPwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(18)});
-                    loginPswHide.setVisibility(View.VISIBLE);
+                   // loginPswHide.setVisibility(View.VISIBLE);
                     codeTime.setVisibility(View.GONE);
                     codeTime.setText("");
                     verificationCodeLogin.setText(R.string.login_code);
