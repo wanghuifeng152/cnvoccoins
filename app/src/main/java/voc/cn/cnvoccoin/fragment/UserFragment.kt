@@ -109,7 +109,10 @@ class UserFragment : Fragment() {
         )
             //点击登录按钮
         tv_notlogin.setOnClickListener { startActivity(Intent(activity, LoginActivityNew::class.java)) }
-
+        //未登陆，点击登陆后可见，跳转登陆
+        tv_see.setOnClickListener {
+            startActivity(Intent(activity, LoginActivityNew::class.java))
+        }
         //点击头像
         iv_header.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
