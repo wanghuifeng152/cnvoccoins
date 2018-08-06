@@ -171,25 +171,14 @@ class UserFragment : Fragment() {
             }
         }
         //点击关注公众号
-        btn_real.setOnClickListener {
+        btn_focus.setOnClickListener {
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 activity.startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
-                ToastUtil.showToast("跳转去认证~")
-//                startActivity(Intent(activity, FocusOfficalActivity::class.java))
+                startActivity(Intent(activity, FocusOfficalActivity::class.java))
             }
         }
-
-//        //点击关注公众号
-//        btn_focus.setOnClickListener {
-//            val token = PreferenceUtil.instance?.getString(TOKEN)
-//            if (token == null || token.isEmpty()) {
-//                activity.startActivity(Intent(activity, LoginActivityNew::class.java))
-//            }else{
-//                startActivity(Intent(activity, FocusOfficalActivity::class.java))
-//            }
-//        }
 /**
 *《---------------------------------------------==- 基础任务 -==---------------------------------------------》
 */
@@ -217,13 +206,13 @@ class UserFragment : Fragment() {
                             }
                             jqString = datum.string
                         }
-                        if (datum.task == "实名认证"){
+                        if (datum.task == "关注公众号"){
                             if (datum.taskStatus == 1) {
-                                btn_real.setImageResource(R.mipmap.task_authentication_ok)
-                                btn_real.isEnabled = false
+                                btn_focus.setImageResource(R.mipmap.task_unfocus2_true)
+                                btn_focus.isEnabled = false
                             }else{
-                                btn_real.setImageResource(R.mipmap.task_authentication)
-                                btn_real.isEnabled = true
+                                btn_focus.setImageResource(R.mipmap.task_unfocus2)
+                                btn_focus.isEnabled = true
                             }
                             jqString = datum.string
                         }

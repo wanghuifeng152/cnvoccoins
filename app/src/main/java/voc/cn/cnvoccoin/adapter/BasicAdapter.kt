@@ -76,17 +76,14 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
                             cm.primaryClip = mClipData
                             ToastUtil.showToast("邀请链接已复制到剪贴板\n快去分享给你的朋友吧~")
                         }
+
                         1 -> {
-                            //实名认证
-                            ToastUtil.showToast("跳转去认证~")
-                        }
-                        2 -> {
                             mContext.startActivity(Intent(mContext, CommnutityActivity::class.java))
                         }
-                        3 -> {
+                        2 -> {
                             mContext.startActivity(Intent(mContext, FocusOfficalActivity::class.java))
                         }
-                        4 -> {
+                        3 -> {
                             val token = PreferenceUtil.instance?.getString(TOKEN)
                             if (token == null || token.isEmpty()) {
                                 mContext.startActivity(Intent(mContext, LoginActivityNew::class.java))
