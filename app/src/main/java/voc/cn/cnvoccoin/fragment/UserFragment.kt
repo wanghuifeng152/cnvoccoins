@@ -176,7 +176,8 @@ class UserFragment : Fragment() {
             if (token == null || token.isEmpty()) {
                 activity.startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
-                startActivity(Intent(activity, FocusOfficalActivity::class.java))
+                ToastUtil.showToast("正在开发中......")
+//                startActivity(Intent(activity, FocusOfficalActivity::class.java))
             }
         }
 /**

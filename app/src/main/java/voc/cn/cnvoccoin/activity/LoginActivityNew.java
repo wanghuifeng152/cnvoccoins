@@ -134,7 +134,7 @@ public class LoginActivityNew extends BaseActivity {
                 if(isLoginType){
                     loginPswHide.setVisibility(View.VISIBLE);
                 }else{
-                    loginPswHide.setVisibility(View.GONE); 
+                    loginPswHide.setVisibility(View.GONE);
                 }
             }else{
                 loginPswHide.setVisibility(View.GONE);

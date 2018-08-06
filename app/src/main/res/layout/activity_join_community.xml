@@ -107,8 +107,8 @@
                     android:gravity="center"
                     android:hint="@string/please_input"
                     android:maxLength="6"
-                    android:singleLine="true"
                     android:numeric="integer"
+                    android:singleLine="true"
                     android:textColor="#FF757066"
                     android:textColorHint="#FFD1C9BA" />
 
