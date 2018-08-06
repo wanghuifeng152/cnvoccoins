@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="voc.cn.cnvoccoin.activity.Put_forwardActivity">
+    <View
+        android:background="@color/color_zhuce"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_zhuce"
+        android:orientation="horizontal">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/identity_back"
+                android:layout_width="10.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="18.5dp"
+                android:src="@mipmap/sign_out" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="提币规则"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </FrameLayout>
+    </LinearLayout>
     <WebView
         android:id="@+id/web_put"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></WebView>
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

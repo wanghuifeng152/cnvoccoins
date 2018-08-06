@@ -1,24 +1,22 @@
 package voc.cn.cnvoccoin.activity;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.webkit.WebResourceRequest;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import voc.cn.cnvoccoin.R;
 
-public class Put_forwardActivity extends AppCompatActivity {
+public class Put_forwardActivity extends BaseActivity {
 
     @BindView(R.id.web_put)
     WebView webPut;
+    @BindView(R.id.identity_back)
+    ImageView identityBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +24,12 @@ public class Put_forwardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_put_forward);
         ButterKnife.bind(this);
         initData();
+        identityBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initData() {

@@ -122,6 +122,7 @@ open class CommnutityActivity:BaseActivity() {
                         val model = gson.fromJson(t, ResBaseModel::class.java) ?: return
                         if(model.code == 1){
                     ToastUtil.showToast(model.msg)
+
                 }
 
             }
@@ -134,6 +135,7 @@ open class CommnutityActivity:BaseActivity() {
             }
 
         })
+
     }
 
     private fun copyImage() {
