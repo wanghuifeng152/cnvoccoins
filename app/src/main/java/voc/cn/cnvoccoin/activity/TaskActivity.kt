@@ -3,6 +3,7 @@ package voc.cn.cnvoccoin.activity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.google.gson.Gson
@@ -56,6 +57,7 @@ class TaskActivity:BaseActivity() {
         //        更新任务完成度
         HttpManager.get(GET_TASK).subscribe(object : Subscriber<String>{
             override fun onNext(t: String?) {
+                Log.i("log",t)
                 val gson : TaskEntity? = Gson().fromJson(t,TaskEntity::class.java)
                 if (gson!!.code == 1){
                     processBasr.setVisibility(View.GONE)
@@ -64,6 +66,23 @@ class TaskActivity:BaseActivity() {
                     basicAdapter!!.setOnClick(object : BasicAdapter.OnClicks{
                         override fun OnClickItem(v: View, position: Int) {
                             for (datum in data) {
+                                if(datum.task == "实名认证"){
+                                    if (datum.taskStatus == 1){
+                                        basicImagmgList.set(1, R.mipmap.task_authentication_ok)
+//                                        设置索引为1的ImageViw不可点击
+                                        if (position == 1) {
+                                            val img: ImageView = v as ImageView
+                                            img.isEnabled = false
+                                        }
+                                    }else {
+                                        if (position ==1) {
+                                            val img: ImageView = v as ImageView
+                                            img.isEnabled = true
+                                        }
+                                        basicImagmgList.set(1, R.mipmap.task_authentication)
+                                    }
+                                    jqString = datum.string
+                                }
                                 if (datum.task == "加入群组") {
                                     if (datum.taskStatus == 1) {
                                         basicImagmgList.set(2, R.mipmap.task_unjoin2_true)

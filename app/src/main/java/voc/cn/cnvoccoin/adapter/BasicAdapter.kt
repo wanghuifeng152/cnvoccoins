@@ -78,6 +78,7 @@ class BasicAdapter(var mContext: Context, var data: ArrayList<Int>, var tag: Int
                         }
                         1 -> {
                             //实名认证
+                            ToastUtil.showToast("跳转去认证~")
                         }
                         2 -> {
                             mContext.startActivity(Intent(mContext, CommnutityActivity::class.java))
