@@ -13,7 +13,7 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_height="wrap_content">
+        android:layout_height="60dp">
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -24,13 +24,13 @@
                 android:textSize="20dp"
                 android:textColor="@color/color_454545"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="60dp" />
             <ImageView
                 android:id="@+id/img_delete"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="right"
-               android:layout_margin="18dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="40dp"
                 android:src="@mipmap/delete_two"
                 />
         </FrameLayout>
@@ -39,7 +39,7 @@
     android:id="@+id/view_t"
     android:layout_centerHorizontal="true"
     android:layout_width="300dp"
-    android:layout_height="1dp"
+    android:layout_height="0.5dp"
     android:layout_marginLeft="30dp"
     android:layout_below="@+id/linear"
     android:background="@color/color_8c"
@@ -58,6 +58,7 @@
         android:layout_gravity="center"
         android:textColor="@color/color_c89158"
         android:text="*********"
+        android:textSize="27sp"
         android:layout_below="@+id/text_tv"
         android:layout_width="wrap_content"
         android:layout_centerHorizontal="true"

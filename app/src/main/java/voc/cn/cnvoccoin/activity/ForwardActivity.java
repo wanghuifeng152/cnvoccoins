@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -430,6 +431,7 @@ processBasr.setVisibility(View.GONE);
                     if (remarks.startsWith("0x")) {
                         if (Pattern.matches(qbUrl, remarks)) {
                             addressConfirm.setEnabled(true);
+                            addressConfirm.setTextColor(Color.parseColor("#99714d"));
                         }
                     } else {
 //                        Toast.makeText(ForwardActivity.this, "地址错误", Toast.LENGTH_SHORT).show();

@@ -1,6 +1,7 @@
 package voc.cn.cnvoccoin.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
@@ -95,6 +96,7 @@ public class GetMessageCodeActivity extends BaseActivity implements View.OnClick
                         }
                     });
                     btn_ok.setSelected(true);
+                    btn_ok.setTextColor(Color.parseColor("#99714d"));
                 }else{
                     btn_ok.setSelected(false);
                     btn_ok.setOnClickListener(null);
