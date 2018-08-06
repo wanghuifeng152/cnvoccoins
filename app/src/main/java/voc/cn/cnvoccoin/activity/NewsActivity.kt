@@ -1,6 +1,9 @@
 package voc.cn.cnvoccoin.activity
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.TypedValue
 import kotlinx.android.synthetic.main.activity_news.*
 import voc.cn.cnvoccoin.R
 
@@ -13,47 +16,39 @@ class NewsActivity :BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
-      /*  setWebView()
-        getparams()*/
         iv_back.setOnClickListener { finish()}
+        loadImg()
     }
 
-/*    private fun getparams() {
-        if(intent == null)return
-        val tag = intent.getIntExtra(TAG, 1)
-        when(tag){
-            1 ->{ wv.loadUrl("http://www.vochain.world/portal/article/index/id/2.html") }
-            2 ->{ wv.loadUrl("http://www.vochain.world/portal/article/index/id/3.html") }
-        }
-
-        wv.webChromeClient = object :WebChromeClient(){
-            override fun onProgressChanged(view: WebView?, newProgress: Int) {
-                if(newProgress == 100){
-                    pb.visibility = View.GONE
-                }else{
-                    pb.progress = newProgress
-                }
-                super.onProgressChanged(view, newProgress)
-            }
-        }
-        iv_back.setOnClickListener { finish()}
+    private fun loadImg() {
+        val dm = resources.displayMetrics
+        val screenWidth = dm.widthPixels
+        val imageWidth = px2dp(screenWidth - 40)
+        val imageHeight = px2dp(283)
+        img1.setImageBitmap(compressBitmap(R.mipmap.chart, imageWidth, imageHeight))
+        img2.setImageBitmap(compressBitmap(R.mipmap.chart2, imageWidth, imageHeight))
     }
 
-    private fun setWebView() {
-        val settings = wv.settings
-        settings.javaScriptEnabled = true
+    private fun px2dp(pxValue: Int): Int {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pxValue.toFloat(), resources
+                .displayMetrics).toInt()
+    }
 
-        //设置屏幕自适应
-        settings.useWideViewPort = true
-        settings.loadWithOverviewMode = true
+    private fun compressBitmap(bitmapId: Int, imageWidth: Int, imageHeight: Int): Bitmap {
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        var bitmap = BitmapFactory.decodeResource(resources, bitmapId, options)
 
-        //缩放设置
-        settings.setSupportZoom(true)
-        settings.builtInZoomControls = true
-        settings.displayZoomControls = false
+        val outWidth = options.outWidth
+        val outHeight = options.outHeight
 
-        settings.defaultTextEncodingName = "utf-8"
-        settings.loadsImagesAutomatically = true
-        settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK //关闭缓存
-    }*/
+        var sampleSize = 1
+        while (outWidth / sampleSize > imageWidth || outHeight / sampleSize > imageHeight) {
+            sampleSize *= 3
+        }
+        options.inSampleSize = sampleSize
+        options.inJustDecodeBounds = false
+        bitmap = BitmapFactory.decodeResource(resources, bitmapId, options)
+        return bitmap
+    }
 }

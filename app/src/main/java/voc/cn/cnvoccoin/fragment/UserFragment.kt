@@ -126,8 +126,12 @@ class UserFragment : Fragment() {
       })
         //点击重置密码
         rl_reset_pwd.setOnClickListener({
-            rl_reset_pwd.isEnabled = false
-            postIsHavePwd()
+            val token = PreferenceUtil!!.instance?.getString(TOKEN)
+            if (token == null || token.isEmpty()) {
+                startActivity(Intent(context,LoginActivityNew::class.java))
+            }else{
+                postIsHavePwd()
+            }
 
         })
 

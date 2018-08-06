@@ -141,7 +141,7 @@ class HomeFragment : Fragment() {
 
         rl_news1.setOnClickListener {
             processBar.setVisibility(View.GONE)
-            val intent = Intent(activity, NewActivity::class.java)
+            val intent = Intent(activity, NewsActivity::class.java)
             intent.putExtra(TAG, 1)
             startActivity(intent)
         }

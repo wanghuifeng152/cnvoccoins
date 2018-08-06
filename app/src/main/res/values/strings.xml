@@ -93,18 +93,12 @@
     <string name="login_phone_hint">请输入正确的手机号</string>
     <string name="sq_ewm">点击上方二维码保存</string>
     <string name="newest_A">怎么快速获取VOC币教程</string>
-    <string name="newest_A1">进入APP主页，点击语音挖矿，进入语音</string>
-    <string name="newest_A2">挖矿界面</string>
+    <string name="newest_A1">进入APP主页，点击语音挖矿，进入语音挖矿界面</string>
     <string name="newest_A3">第1步：</string>
     <string name="newest_A4">第2步：</string>
-    <string name="newest_A5">按住麦克风，</string>
-    <string name="newest_A6">用普通话以匀语速念出口令，</string>
-    <string name="newest_A7">即可获得VOC币</string>
-    <string name="newest_A8">进入APP主页，点击任务挖币按钮，进入任务</string>
-    <string name="newest_A9">挖矿界面</string>
-    <string name="newest_A10">完成基本任务和超级任务</string>
-    <string name="newest_A11">下的各个模块任务，</string>
-    <string name="newest_A12">即可获得VOC币</string>
+    <string name="newest_A5">按住麦克风，用普通话以匀语速念出口令，即可获得VOC币</string>
+    <string name="newest_A8">进入APP主页，点击任务挖币按钮，进入任务挖矿界面</string>
+    <string name="newest_A10">完成基本任务和超级任务下的各个模块任务，即可获得VOC币</string>
     <string name="str_yaoqing">2018最落地，区块链+智能语音大数据场景应用。比特币挖矿模式，拒绝传销，拒绝虚拟矿机，社区成员多劳多得。个人语音就能挖矿，打造去中心全球公有语音大数据库。已和国内知名语音识别公司展开合作，市场千亿市值，注册即送1350VOC，一枚价值0.1元，每天朗读15分钟，轻松获得2000币，价值200元。立刻下载：http://www.vochain.world/user/index/htmlregist.html?invite_code=</string>
     <string name="infor_one">VOC是VOC语音链用户提供标注语音数据的证明，是VOC用户提供数据的奖励，也是换取标注语音数据的货币。
 </string>
