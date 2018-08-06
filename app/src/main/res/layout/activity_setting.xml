@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white">
@@ -33,6 +33,8 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/text_b"
+        android:layout_below="@+id/ll_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -41,6 +43,7 @@
         android:text="版本号"/>
 
     <TextView
+        android:layout_below="@+id/text_b"
         android:id="@+id/tv_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,9 +53,39 @@
         android:textColor="@color/black"
         android:textSize="16sp"/>
     <View
+        android:id="@+id/view_tv"
+        android:layout_below="@+id/tv_version"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/color_gray"/>
+    <RelativeLayout
+        android:layout_below="@id/view_tv"
+        android:id="@+id/rl_reset_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dip"
+        android:paddingLeft="10dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dip">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset_pwd"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_next" />
+
+    </RelativeLayout>
+
+
     <TextView
         android:visibility="gone"
         android:id="@+id/sign"
@@ -65,4 +98,4 @@
         android:layout_height="40dp" />
 
 
-</LinearLayout>
+</RelativeLayout>
