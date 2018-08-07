@@ -202,7 +202,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:singleLine="true"
-                            android:text="VOC语音链全球首发，抢占时代技红利"
+                            android:text="VOC价值"
                             android:textColor="@color/light_black"
                             android:textSize="15sp" />
 
@@ -213,7 +213,7 @@
                             android:layout_marginTop="5dp"
                             android:layout_toRightOf="@id/iv_news1"
                             android:singleLine="true"
-                            android:text="我们相信，技术应当惠及多数人，但也绝不应当忘记少数人。他们是我们的同胞，同样有权利用技术让生活变得更加美好"
+                            android:text="价值共享者获取价值收益"
                             android:textColor="@color/color_gray2"
                             android:textSize="11sp" />
                     </LinearLayout>
