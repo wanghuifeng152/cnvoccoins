@@ -126,13 +126,12 @@ class UserFragment : Fragment() {
       })
         //点击重置密码
         rl_reset_pwd.setOnClickListener({
-            val token = PreferenceUtil!!.instance?.getString(TOKEN)
+            val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
-                startActivity(Intent(context,LoginActivityNew::class.java))
+                startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
                 postIsHavePwd()
             }
-
         })
 
         //点击实名认证
@@ -180,8 +179,8 @@ class UserFragment : Fragment() {
             if (token == null || token.isEmpty()) {
                 activity.startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
-
-                startActivity(Intent(activity, FocusOfficalActivity::class.java))
+                ToastUtil.showToast("正在开发中......")
+//                startActivity(Intent(activity, FocusOfficalActivity::class.java))
             }
         }
 /**

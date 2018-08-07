@@ -57,7 +57,7 @@
             android:id="@+id/address_remarks"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@null"
             android:hint="提现钱包地址"
             android:textSize="14sp" />
@@ -92,7 +92,7 @@
         <EditText
             android:id="@+id/address_snmd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@null"
             android:textSize="12dp"
             android:inputType="number"/>

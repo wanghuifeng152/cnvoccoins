@@ -71,7 +71,6 @@ class WalletActivity : Activity() {
                     if (t == null) return
                     val gson = Gson()
                     val wallet = gson.fromJson(t, PopuWindowClass::class.java) ?: return
-
                     if (wallet.code == 1) {
                         val msg = wallet.msg
                         val code = msg.code
