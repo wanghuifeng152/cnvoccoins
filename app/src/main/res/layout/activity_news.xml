@@ -63,7 +63,7 @@
                 android:layout_marginBottom="12.25dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp">
+                android:layout_height="wrap_content">
                 <ImageView
                     android:src="@mipmap/voice"
                     android:layout_marginLeft="20dp"
@@ -73,7 +73,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="@string/voice_coin"
                     android:textColor="@color/color_9f7852" />
@@ -132,7 +132,7 @@
                 android:layout_marginBottom="12.25dp"
                 android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp">
+                android:layout_height="wrap_content">
                 <ImageView
                     android:src="@mipmap/voc"
                     android:layout_marginLeft="20dp"
@@ -142,7 +142,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:text="@string/task_coin"
                     android:textColor="@color/color_9f7852" />
