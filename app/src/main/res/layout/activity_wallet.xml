@@ -217,14 +217,12 @@
                 android:textColor="@color/color_99714d"
                 android:textSize="18sp" />
         </LinearLayout>
-
-
-        <ProgressBar
-            android:id="@+id/processBasr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminateTint="@color/color_c89158"
-            android:visibility="gone" />
     </LinearLayout>
+    <ProgressBar
+        android:id="@+id/processBasr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/color_c89158"
+        android:visibility="gone" />
 </RelativeLayout>

@@ -31,5 +31,8 @@ const val POST_NUMBER = "/api/user/Verification_code/standardes"//提币下限
 const val GET_TASK =  "/api/user/public/taskstatus"//任务完成状态
 const val POST_CHARGE =  "/api/user/Verification_code/charge"//任务完成状态
 const val SUO_DING = "/api/user/Verification_code/locak_wen"//锁定PopupWindow
+const val POST_REALNAME = "/api/user/rpauth/token"//实名认证，身份证，姓名
+const val POST_REALNAME_one = "/api/user/rpauth/rpauthSuccess"//实名认证绑定接口
+const val POST_REALNAME_two = "/api/user/rpauth/rpstatus"//判断是否已经实名认证
 
 

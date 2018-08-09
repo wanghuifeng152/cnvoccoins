@@ -89,3 +89,6 @@ data class isHaveAddress(var token:String)
 //提币下限
 @Keep
 data class isNumber(var money : String)
+//实名认证
+@Keep
+data class isName(var name : String,var idnumber : String)

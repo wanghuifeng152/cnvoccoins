@@ -10,9 +10,12 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 9
-        versionName "2.5.8"
+        versionName "2.6.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi", "arm64-v8a", "x86"
+        }
     }
 
     lintOptions {
@@ -30,13 +33,20 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release //签名
-            zipAlignEnabled true
-            shrinkResources true
+//            zipAlignEnabled true
+//            shrinkResources true
         }
     }
+    repositories {
+        flatDir {
+            dirs 'src/libs'
+        }
+    }
+
+
 }
 
 dependencies {
@@ -85,10 +95,17 @@ dependencies {
     implementation 'im.ll:floatlayout:1.0.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-
     implementation 'io.reactivex.rxjava2:rxjava:2.+'
     implementation 'io.reactivex.rxjava2:rxandroid:2.+'
     implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    //实人认证
+    implementation files('src/libs/aliyun-oss-sdk-android-2.2.0.jar')
+    implementation files('src/libs/windvane-min-8.0.3.2.3.jar')
+    implementation (name:'FaceLivenessOpen-2.1.6.10',ext:'aar')
+    implementation (name: 'rpsdk-release_2.4.0.3', ext: 'aar')
+    implementation (name:'SecurityGuardSDK-external-release-5.4.94',ext:'aar')
+    implementation (name:'SecurityBodySDK-external-release-5.4.66',ext:'aar')
+    implementation (name:'NoCaptchaSDK-external-release-5.4.26',ext:'aar')
 }
 repositories {
     mavenCentral()

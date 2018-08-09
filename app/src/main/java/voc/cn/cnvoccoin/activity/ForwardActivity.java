@@ -218,6 +218,8 @@ public class ForwardActivity extends BaseActivity {
             @Override
             public void onError(Throwable t) {
                 processBasr.setVisibility(View.GONE);
+
+
             }
 
             @Override

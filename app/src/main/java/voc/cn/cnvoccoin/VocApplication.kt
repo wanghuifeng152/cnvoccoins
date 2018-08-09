@@ -32,6 +32,9 @@ import com.ishumei.smantifraud.SmAntiFraud.option
 import voc.cn.cnvoccoin.activity.MainActivity
 import cn.jpush.android.api.CustomPushNotificationBuilder
 import cn.jpush.android.data.JPushLocalNotification
+import com.alibaba.security.rp.RPSDK
+
+
 import org.json.JSONObject
 
 
@@ -75,6 +78,7 @@ class VocApplication : Application {
 
     override fun onCreate() {
         super.onCreate()
+        RPSDK.initialize(this)
 //        CrashReport.initCrashReport(applicationContext, "注册时申请的APPID", false)
         UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, "")
 
@@ -140,7 +144,7 @@ class VocApplication : Application {
         MobclickAgent.setDebugMode(false)
         Logger.addLogAdapter(AndroidLogAdapter())
         OkGo.getInstance().init(this)
-        try {
+        val any = try {
             //以下都不是必须的，根据需要自行选择,一般来说只需要 debug,缓存相关,cookie相关的 就可以了
             OkGo.getInstance()
 

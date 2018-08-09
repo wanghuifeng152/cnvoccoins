@@ -12,8 +12,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
+import com.alibaba.security.rp.RPSDK
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
+import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
 import org.json.JSONObject
 import voc.cn.cnvoccoin.R
@@ -29,12 +32,16 @@ import voc.cn.cnvoccoin.network.Subscriber
 import voc.cn.cnvoccoin.util.*
 
 import kotlinx.android.synthetic.main.fragment_user.*
+import voc.cn.cnvoccoin.entity.Realname
+import voc.cn.cnvoccoin.entity.Realname_one
+import java.net.URLConnection
 
 
 /**
  * Created by shy on 2018/3/24.
  */
 class UserFragment : Fragment() {
+//    internal var isTask = false //false为 实名认证，  true为任务里面的实名认证
     private var jqString : String? = null
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_user, null)
@@ -47,17 +54,14 @@ class UserFragment : Fragment() {
 
         //点击更多按钮跳转到更多页面
         tv_more.setOnClickListener {
-
             processBasr.setVisibility(View.VISIBLE)
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 Logger.t("token").e(token + "")
-
                 processBasr.setVisibility(View.GONE)
                 //如果没有登录跳转到登录页面
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             } else {
-
                 processBasr.setVisibility(View.GONE)
                 //已经登录跳转到更多页面
                 startActivity(Intent(activity, TaskActivity::class.java))
@@ -122,22 +126,23 @@ class UserFragment : Fragment() {
         }
         //点击设置
       tv_setting.setOnClickListener({
-          startActivity(Intent(activity, SettingActivity::class.java))
+      startActivity(Intent(activity, SettingActivity::class.java))
+
       })
-        //点击重置密码
-        rl_reset_pwd.setOnClickListener({
+
+
+        //点击实名认证
+        rl_real_name.setOnClickListener({
+//            isTask = false
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
-                postIsHavePwd()
+                rl_real_name.setClickable(false)
+                postrealnam()
             }
-        })
 
-        //点击实名认证
-        rl_real_name.setOnClickListener({
-            //startActivity(Intent(activity, IdentityActivity::class.java))
-            ToastUtil.showToast("正在开发中......")
+
         })
 
         //点击邀请好友图片
@@ -173,13 +178,14 @@ class UserFragment : Fragment() {
                 startActivity(Intent(activity, CommnutityActivity::class.java))
             }
         }
-        //点击关注公众号
+        //点击任务实名认证
         btn_focus.setOnClickListener {
+//            isTask  = true
             val token = PreferenceUtil.instance?.getString(TOKEN)
             if (token == null || token.isEmpty()) {
                 activity.startActivity(Intent(activity, LoginActivityNew::class.java))
             }else{
-                ToastUtil.showToast("正在开发中......")
+                postrealnam()
 //                startActivity(Intent(activity, FocusOfficalActivity::class.java))
             }
         }
@@ -196,6 +202,7 @@ class UserFragment : Fragment() {
             override fun onComplete() {
             }
             override fun onNext(t: String?) {
+                PreferenceUtil.instance?.set("strTask", t)
                 val gson : TaskEntity? = Gson().fromJson(t, TaskEntity::class.java)
                 if (gson!!.code == 1) {
                     val data = gson.data
@@ -210,12 +217,12 @@ class UserFragment : Fragment() {
                             }
                             jqString = datum.string
                         }
-                        if (datum.task == "关注公众号"){
+                        if (datum.task == "实名认证"){
                             if (datum.taskStatus == 1) {
-                                btn_focus.setImageResource(R.mipmap.task_unfocus2_true)
+                                btn_focus.setImageResource(R.mipmap.task_authentication_ok)
                                 btn_focus.isEnabled = false
                             }else{
-                                btn_focus.setImageResource(R.mipmap.task_unfocus2)
+                                btn_focus.setImageResource(R.mipmap.task_authentication)
                                 btn_focus.isEnabled = true
                             }
                             jqString = datum.string
@@ -281,52 +288,135 @@ class UserFragment : Fragment() {
     }
 
 
-    private fun postIsHavePwd(){
-
-        processBasr.setVisibility(View.VISIBLE)
-        val request = postId("11")
-        val wrapper = RequestBodyWrapper(request)
-        HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
-
-            override fun onNext(s: String) {
-
+//和账户进行身份证绑定
+    private fun postrealname(){
+    processBasr.setVisibility(View.VISIBLE)
+        val list = list("1")
+        val wrapper = RequestBodyWrapper(list)
+        HttpManager.post(POST_REALNAME_one,wrapper).subscribe(object :Subscriber<String>{
+            override fun onNext(t: String?) {
                 processBasr.setVisibility(View.GONE)
-                if (s == null || s.isEmpty()) return
+                if (t == null || t.isEmpty()) return
                 var jsonObject: JSONObject? = null
-                try {
-                    jsonObject = JSONObject(s)
-                    val code = jsonObject.getInt("code")
-                    if (code == 1) {
-                        //没有支付密码跳转到设置密码
-                        if (jsonObject.getString("msg").equals("还没有支付密码")){
-                            ToastUtil.showToast("您还没有设置支付密码, 请先设置支付密码")
-                            VocApplication.getInstance().message_flag = true;
-                            startActivity(Intent(activity, MessageCodeActivity::class.java))
-                            rl_reset_pwd.isEnabled = true
-                        }else{
-                            //有设置密码去重置
-                            VocApplication.getInstance().isResetPwd = true
-                            PreferenceUtil.instance?.set("pwdFlag", "1");//首页重置密码跳转
-                            val intent = Intent(activity, GetMessageCodeActivity::class.java)
-                            intent.putExtra("isTitle",0);
-                            startActivity(intent)
-                            rl_reset_pwd.isEnabled = true
-                        }
-                    }
-                } catch (e: JSONException) {
-                    e.printStackTrace()
-                }
+
+                jsonObject = JSONObject(t)
+                val code = jsonObject!!.getInt("code")
+                val msg = jsonObject.getString("msg")
+                Toast.makeText(activity, "实名认证任务已完成，获得287voc", Toast.LENGTH_SHORT).show()
+
+                getTask()
+//                if (code == 1) {
+//                    var intents = Intent(activity, ForwardActivity::class.java)
+//                    startActivity(intents)
+//                }else{
+                    Toast.makeText(activity,msg, Toast.LENGTH_SHORT).show()
+//                }
+
             }
 
-            override fun onError(t: Throwable) {
-
+            override fun onError(t: Throwable?) {
                 processBasr.setVisibility(View.GONE)
             }
 
             override fun onComplete() {
-
                 processBasr.setVisibility(View.GONE)
             }
         })
+
     }
+
+//获取实名认证Token
+    private fun postrealnam(){
+    processBasr.setVisibility(View.VISIBLE)
+    btn_focus.setClickable(false)
+        val list = list("1")
+        val wrapper = RequestBodyWrapper(list)
+        HttpManager.post(POST_REALNAME, wrapper).subscribe(object : Subscriber<String> {
+            override fun onNext(t: String?) {
+                processBasr.setVisibility(View.GONE)
+                btn_focus.setClickable(true)
+                rl_real_name.setClickable(true)
+                Log.e("Tag","onNext----------------->"+t.toString())
+//                Toast.makeText(activity, "成功", Toast.LENGTH_SHORT).show()
+                val realname = Gson().fromJson<Realname>(t, Realname::class.java!!)
+                val token = realname.getData().getToken()
+                //实人认证代码
+                RPSDK.start(token, activity,
+                        object : RPSDK.RPCompletedListener {
+                            override fun onAuditResult(audit: RPSDK.AUDIT) {
+
+                                if (audit == RPSDK.AUDIT.AUDIT_PASS) {
+                                    //认证通过
+                                    //进行绑定账号和身份接口
+                                    postrealname()
+                                }
+                                else if (audit == RPSDK.AUDIT.AUDIT_FAIL) {
+
+                                    //认证不通过
+                                    CacheActivity.finishActivity()
+
+                                } else if (audit == RPSDK.AUDIT.AUDIT_IN_AUDIT) { //认证中，通常不会出现，只有在认证审核系统内部出现超时，未在限定时间内返回认证结果时出现。此时提示用户系统处理中，稍后查看认证结果即可。
+
+                                } else if (audit == RPSDK.AUDIT.AUDIT_NOT) { //未认证，用户取消
+                                    CacheActivity.finishActivity()
+                                } else if (audit == RPSDK.AUDIT.AUDIT_EXCEPTION) { //系统异常
+                                    CacheActivity.finishActivity()
+                                }
+                            }
+                        })
+            }
+
+            override fun onError(t: Throwable?) {
+                processBasr.setVisibility(View.GONE)
+            }
+
+            override fun onComplete() {
+                processBasr.setVisibility(View.GONE)
+            }
+
+        })
+    }
+
+//    /**
+//     * 是否设置过密码
+//     */
+//    private fun postIsHavePwd() {
+//        val request = postId("11")
+//        val wrapper = RequestBodyWrapper(request)
+//        HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
+//
+//
+//            override fun onNext(s: String?) {
+//                if (s == null || s.isEmpty()) return
+//                var jsonObject: JSONObject? = null
+//                try {
+//                    jsonObject = JSONObject(s)
+//                    val code = jsonObject.getInt("code")
+//                    if (code == 1) {
+//                        if (jsonObject.getString("msg") == "还没有支付密码") {
+//                            ToastUtil.showToast("您还没有设置支付密码, 请先设置支付密码")
+//                            VocApplication.getInstance().message_flag = true
+//                            PreferenceUtil.instance!!.set("istitle", "1")
+//                            val intent = Intent(activity, MessageCodeActivity::class.java)
+//                            startActivity(intent)
+//                        } else {
+//                            var intents = Intent(activity, ForwardActivity::class.java)
+//                            startActivity(intents)
+//                        }
+//                    }
+//                } catch (e: JSONException) {
+//                    e.printStackTrace()
+//                }
+//
+//            }
+//
+//            override fun onError(t: Throwable) {
+//
+//            }
+//
+//            override fun onComplete() {
+//
+//            }
+//        })
+//    }
 }

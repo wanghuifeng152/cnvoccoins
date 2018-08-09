@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,7 +22,6 @@ import voc.cn.cnvoccoin.network.RequestBodyWrapper;
 import voc.cn.cnvoccoin.network.Subscriber;
 import voc.cn.cnvoccoin.util.AppUtils;
 import voc.cn.cnvoccoin.util.PreferenceUtil;
-import voc.cn.cnvoccoin.util.ResetPwd2;
 import voc.cn.cnvoccoin.util.ToastUtil;
 import voc.cn.cnvoccoin.util.postId;
 
@@ -39,6 +39,11 @@ public class SettingActivity extends BaseActivity {
     TextView tvVersion;
     @BindView(R.id.rl_reset_pwd)
     RelativeLayout rl_reset_pwd;
+    @BindView(R.id.sign)
+    TextView sign;
+    @BindView(R.id.processBasr)
+    ProgressBar processBasr;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,7 @@ public class SettingActivity extends BaseActivity {
         ButterKnife.bind(this);
         // 版本号改为动态获取,不需要手动改
         TextView version = findViewById(R.id.tv_version);
+        initData();
         version.setText(AppUtils.getVerName(SettingActivity.this));
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,12 +63,12 @@ public class SettingActivity extends BaseActivity {
         JSONObject json = new JSONObject();
         JSONObject json2 = new JSONObject();
         try {
-            json.put("accesskey","key");
-            json.put("id","id");
-            json2.put("name","zhangsan");
-            json2.put("add","beijing");
-            json.put("data",json2.toString());
-            Log.i("log",json.toString());
+            json.put("accesskey", "key");
+            json.put("id", "id");
+            json2.put("name", "zhangsan");
+            json2.put("add", "beijing");
+            json.put("data", json2.toString());
+            Log.i("log", json.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -75,49 +81,56 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
-
-            private void postIsHavePwd(){
-                postId request = new postId("11");
-                RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
-                HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(new Subscriber<String>(){
+    private void initData() {
 
 
-                    @Override
-                    public void onNext(String s) {
-                        if (s == null || s.isEmpty()) return;
-                        JSONObject jsonObject = null;
-                        try {
-                            jsonObject = new JSONObject(s);
-                            int code = jsonObject.getInt("code");
-                            if (code == 1) {
-                                if (jsonObject.getString("msg").equals("还没有支付密码")){
-                                    ToastUtil.showToast("您还没有设置支付密码, 请先设置支付密码");
-                                    VocApplication.Companion.getInstance().setMessage_flag(true);
-                                    Intent intent = new Intent(SettingActivity.this,MessageCodeActivity.class);
-                                    startActivity(intent);
-                                }else{
-                                    //有设置密码去重置
-                                    VocApplication.Companion.getInstance().setResetPwd(true);
-                                    PreferenceUtil.Companion.getInstance().set("pwdFlag", "1");//首页重置密码跳转
-                                    Intent intent = new Intent(SettingActivity.this,GetMessageCodeActivity.class);
-                                    intent.putExtra("isTitle",0);
-                                    startActivity(intent);
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+    }
+
+
+    private void postIsHavePwd() {
+        processBasr.setVisibility(View.VISIBLE);
+        postId request = new postId("11");
+        RequestBodyWrapper wrapper = new RequestBodyWrapper(request);
+        HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(new Subscriber<String>() {
+
+            @Override
+            public void onNext(String s) {
+                processBasr.setVisibility(View.GONE);
+                if (s == null || s.isEmpty()) return;
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(s);
+                    int code = jsonObject.getInt("code");
+                    if (code == 1) {
+                        if (jsonObject.getString("msg").equals("还没有支付密码")) {
+                            ToastUtil.showToast("您还没有设置支付密码, 请先设置支付密码");
+                            VocApplication.Companion.getInstance().setMessage_flag(true);
+                            PreferenceUtil.Companion.getInstance().set("istitle", "1");
+                            Intent intent = new Intent(SettingActivity.this, SetPayPwdActivity.class);
+                            startActivity(intent);
+                        } else {
+                            //有设置密码去重置
+                            VocApplication.Companion.getInstance().setResetPwd(true);
+                            PreferenceUtil.Companion.getInstance().set("pwdFlag", "1");//首页重置密码跳转
+                            Intent intent = new Intent(SettingActivity.this, GetMessageCodeActivity.class);
+                            intent.putExtra("isTitle", 0);
+                            startActivity(intent);
                         }
                     }
-
-                    @Override
-                    public void onError(Throwable t) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
+
+            @Override
+            public void onError(Throwable t) {
+                processBasr.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onComplete() {
+                processBasr.setVisibility(View.GONE);
+            }
+        });
+    }
 }

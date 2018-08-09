@@ -34,7 +34,6 @@ public class SetPayPwdActivity extends BaseActivity implements View.OnClickListe
     PasswordInputEdt edt;
     String pwd ;
     ImageView iv_back;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

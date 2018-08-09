@@ -239,7 +239,11 @@ public abstract class HttpCreate<T> implements Publisher {
             }
             intercepter = true ;
         }
-
+        if (code == 10002 ) {
+            if (isShowTaost && !TextUtils.isEmpty(tip)) {
+                ToastUtil.showToast(tip);
+            }
+        }
         String message = TextUtils.isEmpty(tip) ? DEFAULT_ERR_MSG : tip;
         if (needIntercepter(code) || intercepter) {
             sub.onError(new ErrorCodeThrowable(code, message));

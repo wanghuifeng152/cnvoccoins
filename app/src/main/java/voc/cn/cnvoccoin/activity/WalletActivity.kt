@@ -10,14 +10,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.PopupWindow
+import android.widget.Toast
+import com.alibaba.security.rp.RPSDK
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_wallet.*
 import kotlinx.android.synthetic.main.pop_filter.view.*
+
 import org.json.JSONException
 import org.json.JSONObject
 import voc.cn.cnvoccoin.R
 import voc.cn.cnvoccoin.VocApplication
 import voc.cn.cnvoccoin.entity.PopuWindowClass
+import voc.cn.cnvoccoin.entity.Realname
 import voc.cn.cnvoccoin.entity.WalletClass
 import voc.cn.cnvoccoin.network.HttpManager
 import voc.cn.cnvoccoin.network.RequestBodyWrapper
@@ -86,8 +90,10 @@ class WalletActivity : Activity() {
             })
         })
 
+        //提现按钮
         tv_forward!!.setOnClickListener {
-            //            tv_forward.isClickable = false
+
+            //获取是否有支付密码
             postIsHavePwd()
         }
     }
@@ -127,15 +133,19 @@ class WalletActivity : Activity() {
         super.onResume()
     }
 
+    /**
+     * 是否有支付密码
+     */
     private fun postIsHavePwd() {
-
         processBasr.setVisibility(View.VISIBLE)
+        tv_forward.setClickable(false)
         val request = postId("11")
         val wrapper = RequestBodyWrapper(request)
         HttpManager.post(POST_IS_HAVE_PWD, wrapper).subscribe(object : Subscriber<String> {
 
             override fun onNext(s: String) {
                 processBasr.setVisibility(View.GONE);
+
                 if (s == null || s.isEmpty()) return
                 var jsonObject: JSONObject? = null
                 try {
@@ -143,14 +153,14 @@ class WalletActivity : Activity() {
                     val code = jsonObject.getInt("code")
                     if (code == 1) {
                         if (jsonObject.getString("msg").equals("还没有支付密码")) {
+                            tv_forward.setClickable(true)
+                            PreferenceUtil.instance!!.set("istitle", "1")
                             VocApplication.getInstance().message_flag = true;
-                            startActivity(Intent(this@WalletActivity, MessageCodeActivity::class.java))
+                            startActivity(Intent(this@WalletActivity, SetPayPwdActivity::class.java))
                         } else {
-//                            跳转到提现
-                            var intents = Intent(this@WalletActivity, ForwardActivity::class.java)
-                            intents.putExtra("moeny", use);
-                            startActivity(intents)
-//                            tv_forward.isClickable = true
+                            Log.e("Tag","onNext---------jljjoijoinio-------->")
+                            //获取是否实名认证
+                            postrealnamtwo()
                         }
                     }
                 } catch (e: JSONException) {
@@ -199,5 +209,137 @@ class WalletActivity : Activity() {
             override fun onError(t: Throwable?) {
             }
         })
+    }
+
+    /**
+     * 判断是否已经实名认证
+     */
+    private fun postrealnamtwo(){
+        processBasr.setVisibility(View.VISIBLE);
+        val list = list("1")
+        val wrapper = RequestBodyWrapper(list)
+        HttpManager.post(POST_REALNAME_two,wrapper).subscribe(object :Subscriber<String>{
+            override fun onNext(t: String?) {
+                processBasr.setVisibility(View.GONE);
+                if (t == null || t.isEmpty()) return
+                var jsonObject: JSONObject? = null
+
+                jsonObject = JSONObject(t)
+                val code = jsonObject!!.getInt("code")
+                val msg = jsonObject.getString("msg")
+                try {
+                    if (code ==1){
+                        if ("未认证" == msg) {
+                            //获取实名认证token
+                            postrealnam()
+                        } else if ("已认证"==msg){
+                            tv_forward.setClickable(true)
+                            val intents = Intent(this@WalletActivity, ForwardActivity::class.java)
+                            startActivity(intents)
+                        }
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+
+            }
+
+            override fun onError(t: Throwable?) {
+                processBasr.setVisibility(View.GONE);
+            }
+
+            override fun onComplete() {
+                processBasr.setVisibility(View.GONE);
+            }
+        })
+
+    }
+
+
+    //获取实名认证Token
+    private fun postrealnam(){
+        processBasr.setVisibility(View.VISIBLE);
+        val list = list("1")
+        val wrapper = RequestBodyWrapper(list)
+        HttpManager.post(POST_REALNAME, wrapper).subscribe(object : Subscriber<String> {
+            override fun onNext(t: String?) {
+                processBasr.setVisibility(View.GONE);
+                Log.e("Tag","onNext----------------->"+t.toString())
+                val realname = Gson().fromJson<Realname>(t, Realname::class.java!!)
+                val token = realname.getData().getToken()
+                tv_forward.setClickable(true)
+                //实人认证代码
+                RPSDK.start(token, this@WalletActivity,
+                        object : RPSDK.RPCompletedListener {
+                            override fun onAuditResult(audit: RPSDK.AUDIT) {
+
+                                if (audit == RPSDK.AUDIT.AUDIT_PASS) { //认证通过
+
+                                    //进行绑定账号和身份接口
+                                    postrealname()
+                                }
+                                else if (audit == RPSDK.AUDIT.AUDIT_FAIL) {
+                                    //认证不通过
+                                    CacheActivity.finishActivity()
+
+                                } else if (audit == RPSDK.AUDIT.AUDIT_IN_AUDIT) { //认证中，通常不会出现，只有在认证审核系统内部出现超时，未在限定时间内返回认证结果时出现。此时提示用户系统处理中，稍后查看认证结果即可。
+
+                                } else if (audit == RPSDK.AUDIT.AUDIT_NOT) { //未认证，用户取消
+                                    CacheActivity.finishActivity()
+                                } else if (audit == RPSDK.AUDIT.AUDIT_EXCEPTION) { //系统异常
+                                    CacheActivity.finishActivity()
+                                }
+                            }
+                        })
+            }
+
+            override fun onError(t: Throwable?) {
+                processBasr.setVisibility(View.GONE);
+            }
+
+            override fun onComplete() {
+                processBasr.setVisibility(View.GONE);
+            }
+
+        })
+    }
+
+    /**
+     * 与数据库进行绑定用户信息
+     */
+    private fun postrealname(){
+        processBasr.setVisibility(View.VISIBLE);
+        val list = list("1")
+        val wrapper = RequestBodyWrapper(list)
+        HttpManager.post(POST_REALNAME_one,wrapper).subscribe(object :Subscriber<String>{
+            override fun onNext(t: String?) {
+                processBasr.setVisibility(View.GONE);
+                if (t == null || t.isEmpty()) return
+                var jsonObject: JSONObject? = null
+
+                jsonObject = JSONObject(t)
+                val code = jsonObject!!.getInt("code")
+                val msg = jsonObject.getString("msg")
+                if (code == 1) {
+                    Toast.makeText(this@WalletActivity, "实名认证任务已完成，获得287voc", Toast.LENGTH_SHORT).show()
+                    var intents = Intent(this@WalletActivity, ForwardActivity::class.java)
+                    startActivity(intents)
+                }else{
+                    Toast.makeText(this@WalletActivity,msg, Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
+            override fun onError(t: Throwable?) {
+                processBasr.setVisibility(View.GONE);
+            }
+
+            override fun onComplete() {
+                processBasr.setVisibility(View.GONE);
+            }
+        })
+
     }
 }

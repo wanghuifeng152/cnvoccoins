@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    >
+    <RelativeLayout
+        android:id="@+id/relate"
+        android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/address_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:src="@mipmap/back" />
+        <TextView
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:text="提现"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_below="@+id/relate"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:id="@+id/linear"
+        android:layout_height="50dp">
+        <TextView
+            android:textColor="#757067"
+            android:layout_marginLeft="12dp"
+            android:text="姓名"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="10dp"
+            android:layout_height="0.1dp" />
+
+        <EditText
+
+            android:id="@+id/address_remarks"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:background="@null"
+            android:hint="请输入姓名"
+            android:textSize="14sp"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+    <View
+        android:layout_below="@+id/linear"
+        android:background="#cbcbcb"
+        android:id="@+id/view_f"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+    <LinearLayout
+        android:layout_below="@+id/view_f"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:id="@+id/lineard"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:textColor="#757067"
+            android:layout_marginLeft="14dp"
+            android:text="身份证号"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="10dp"
+            android:layout_height="0.1dp" />
+        <EditText
+            android:id="@+id/address_snmd"
+            android:maxLength="18"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:background="@null"
+            android:hint="请输入身份证号"
+            android:singleLine="true"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <View
+        android:layout_below="@id/lineard"
+        android:id="@+id/view_h"
+        android:background="#cbcbcb"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <TextView
+        android:id="@+id/text_f"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_h"
+        android:layout_marginTop="16dp"
+        android:text="不会将您的身份证信息用于除身份证以外的任何用途"
+        android:textColor="#999999"
+        android:textSize="12sp"
+        android:layout_marginLeft="14dp"
+        />
+
+    <Button
+        android:layout_below="@+id/text_f"
+        android:layout_width="match_parent"
+        android:id="@+id/real_butt"
+        android:text="确认"
+        android:enabled="false"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_tach"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginRight="44dp"
+        />
+
+</RelativeLayout>
